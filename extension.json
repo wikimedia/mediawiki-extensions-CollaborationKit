@@ -1,0 +1,18 @@
+{
+	"name": "Collaboration Kit",
+	"version": "0.1",
+	"author": "Calimonius the Estrange",
+	"url": "https://www.mediawiki.org/wiki/Extension:CollaborationKit",
+	"descriptionmsg": "colaborationkit-desc",
+	"type": "other",
+	"license-name": "GPL-2.0+",
+	"MessagesDirs": {
+		"CollaborationKit": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"CollaborationKitJunk": "CollaborationKit.php"
+	},
+	"manifest_version": 1
+}
