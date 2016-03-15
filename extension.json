@@ -12,7 +12,14 @@
 		]
 	},
 	"AutoloadClasses": {
-		"CollaborationKitJunk": "CollaborationKit.php"
+		"CollaborationKitJunk": "includes/CollaborationKit.php",
+		"CollaborationKit": "includes/CollaborationKit.php",
+		"CollaborationHooks": "includes/CollaborationKit.php",
+		"CollaborationHubContent": "content/CollaborationHubContent.php",
+		"CollaborationHubContentHandler": "content/CollaborationHubContentHandler.php"
+	},
+	"ContentHandlers": {
+		"CollaborationHubContent": "CollaborationHubContentHandler"
 	},
 	"manifest_version": 1
 }
