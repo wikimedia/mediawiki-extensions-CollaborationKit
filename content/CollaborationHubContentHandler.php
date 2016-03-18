@@ -25,13 +25,11 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @return CollaborationHubContent
 	 */
 	public function makeEmptyContent() {
-		return new CollaborationHubContent( '{"hub_id": "", "hub_hub": true, "hub_type": "",
-			"hub_name": "", "hub_scope": [], "description": "", "content": "" }' );
+		return new CollaborationHubContent( '{ "page_type": 1, "hub_name": "", "description": "", "content": "" }' );
 	}
 	// Nothing calls this as yet, but for future reference or something...
 	public function makeEmptyContentPage() {
-		return new CollaborationHubContent( '{ "hub_id": "", "description": "", "page_name": "",
-			"content": ""}' );
+		return new CollaborationHubContent( '{ "description": "", "page_name": "", "content": ""}' );
 	}
 
 	/**
