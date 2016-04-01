@@ -2,5 +2,26 @@
 	"@metadata": {
 		"authors": [ "Isarra" ]
 	},
-	"colaborationkit-desc": "Extension for making hub things with automated workflows and stuff. More on this later when it exists."
+	"colaborationkit-desc": "Extension for making form-based json hub things with automated workflows and stuff. More on this later when it exists.",
+	"collaborationkit-edit-invalidtitle": "Please specify a page that is part of a Collaboration Hub. An inputbox to facilitate this may be added later, but in the meantime, why are you even here?",
+	"editcollaborationhub": "Edit Collaboration Hub page",
+	"editcollaborationhub-legend": "Edit Collaboration Hub",
+	"createcollaborationhub": "Create new Collaboration Hub",
+	"collaborationkit-edit-nopermission": "You do not have permission to edit this page.",
+	"collaborationkit-edit-header": "You are editing a Collaboration Hub. Magic.",
+	"collaborationkit-edit-pagetitle": "Editing $1",
+	"collaborationkit-edit-hub-name": "Collaboration Hub display name",
+	"collaborationkit-edit-page-name": "Page display name",
+	"collaborationkit-edit-page-type": "Page type",
+	"collaborationkit-edit-description": "Description",
+	"collaborationkit-edit-content": "Content",
+	"collaborationkit-edit-summary": "Edit summary",
+	"collaborationhub-display-wikitext": "Generic wikitext page",
+	"collaborationhub-display-subpage-list": "Index of pages",
+	"collaborationhub-display-icon-list": "Block list with icons",
+	"collaborationhub-display-block-list": "Block list",
+	"collaborationhub-display-list": "Simple list",
+	"collaborationkit-edit-missingsummary": "Missing edit summary",
+	"collaborationhub-edit-apierror": "Editing the Collaboration Hub through the API failed with error code $1.",
+	"collaborationhub-edit-tojsonerror": "Error creating json out of provided junk"
 }

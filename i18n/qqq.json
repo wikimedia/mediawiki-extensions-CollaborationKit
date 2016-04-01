@@ -2,5 +2,26 @@
 	"@metadata": {
 		"authors": [ "Isarra" ]
 	},
-	"colaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}"
+	"colaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
+	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
+	"collaborationkit-edit-invalidtitle": "Error message shown instead of the form on Special:CreateCollaborationHub when an invalid title is provided",
+	"editcollaborationhub": "Header for Special:EditCollaborationHub",
+	"editcollaborationhub-legend": "Form legend for Special:EditCollaborationHub",
+	"collaborationkit-edit-nopermission": "Error message shown on Special:EditCollaborationHub when the user cannot edit the list",
+	"collaborationkit-edit-header": "Introduction shown on Special:EditCollaborationHub",
+	"collaborationkit-edit-pagetitle": "Replaces the page title on Special:EditCollaborationHub to mimic the title of action=edit",
+	"collaborationkit-edit-hub-name": "Label for hub display name input on Special:EditCollaborationHub for collaboration hub mainpages, which in their case is also the page display name",
+	"collaborationkit-edit-page-name": "Label for page display name input on Special:EditCollaborationHub",
+	"collaborationkit-edit-page-type": "Label for the page type dropdown on Special:EditCollaborationHub",
+	"collaborationkit-edit-description": "Label for the description textarea on Special:EditCollaborationHub",
+	"collaborationkit-edit-content": "Label for the content textarea on Special:EditCollaborationHub",
+	"collaborationkit-edit-summary": "Label for the edit summary input on Special:EditCollaborationHub",
+	"collaborationhub-display-wikitext": "Select option for wikitext",
+	"collaborationhub-display-subpage-list": "Select option for page-list",
+	"collaborationhub-display-icon-list": "Select option for icon-list",
+	"collaborationhub-display-block-list": "Select option for block-list",
+	"collaborationhub-display-list": "Select option for a plain list",
+	"collaborationkit-edit-missingsummary": "Warning that the edit summary is missing on Special:EditCollaborationHub (maybe should be worded more/less harshly depending on how/when it actually shows up)\n\nApparently refers to {{msg-mw|Htmlform-submit}}",
+	"collaborationhub-edit-apierror": "Error message shown when a request to the edit API to update a collaboration hub failed.\n\nParameters:\n* $1 - error code string",
+	"collaborationhub-edit-tojsonerror": "Error message shown when the input could not be successfully encoded back into the collaboration hub json"
 }

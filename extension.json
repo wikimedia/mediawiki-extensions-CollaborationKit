@@ -11,15 +11,39 @@
 			"i18n"
 		]
 	},
+	"ExtensionMessagesFiles": {
+		"CollaborationKitAlias": "CollaborationKit.alias.php"
+	},
 	"AutoloadClasses": {
-		"CollaborationKitJunk": "includes/CollaborationKit.php",
+		"ApiEditCollaborationHub": "includes/ApiEditCollaborationHub.php",
 		"CollaborationKit": "includes/CollaborationKit.php",
-		"CollaborationHooks": "includes/CollaborationKit.php",
-		"CollaborationHubContent": "content/CollaborationHubContent.php",
-		"CollaborationHubContentHandler": "content/CollaborationHubContentHandler.php"
+		"CollaborationKitHooks": "includes/CollaborationKit.php",
+		"CollaborationHubContent": "includes/content/CollaborationHubContent.php",
+		"CollaborationHubContentHandler": "includes/content/CollaborationHubContentHandler.php",
+		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",
+		"SpecialEditCollaborationHub": "includes/SpecialEditCollaborationHub.php"
 	},
 	"ContentHandlers": {
 		"CollaborationHubContent": "CollaborationHubContentHandler"
+	},
+	"SpecialPages": {
+		"EditCollaborationHub": "SpecialEditCollaborationHub",
+		"CreateCollaborationHub": "SpecialCreateCollaborationHub"
+	},
+	"Hooks": {
+		"SkinTemplateNavigation": [
+			"CollaborationKitHooks::onSkinTemplateNavigation"
+		]
+	},
+	"ResourceModules": {
+		"ext.CollaborationKit.edit": {
+			"scripts": "ext.CollaborationKit.edit.js",
+			"styles": "ext.CollaborationKit.edit.css"
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "CollaborationKit/modules"
 	},
 	"manifest_version": 1
 }

@@ -7,24 +7,27 @@
 class CollaborationHubContent extends JsonContent {
 
 	/**
-	 * Hub displayname, used inline and for related projects and the like
-	 * @var string|null
-	 */
-	protected $hubName;
-
-	/**
-	 * Page type id; used for special handling for defined types
-	 *    0: no special type defined
-	 *    1: hubhub (main page)
-	 *    2: members
-	 *    others: scope, announcements, related projects, etc
-	 * This may all get chucked later in favour of more generic handlers.
-	 * @var int
+	 * Page type; used for special handling for defined types
+	 * Must be one of $availablePageTypes
+	 * @var string
 	 */
 	protected $pageType;
 
 	/**
-	 * Page displayname, used for headers in the hubhub and stuff
+	 * default: no special type defined
+	 * main: hub main page; sometimes called a hubhub
+	 * userlist: list of members
+	 * others may later include scope, announcements, related projects, etc
+	 * @var array
+	 */
+	protected $availablePageTypes = array(
+		'default',
+		'main',
+		'userlist'
+	);
+
+	/**
+	 * Page displayname, used for headers in the hub main page and stuff; doubles as project name on pagetype main
 	 * @var string|null
 	 */
 	protected $pageName;
@@ -42,10 +45,21 @@ class CollaborationHubContent extends JsonContent {
 	protected $content;
 
 	/**
-	 * Type of content: wikitext, various kinds of pre-structured lists, etc
+	 * Type of content: most be one of $availableContentTypes
 	 * @var string
 	 */
 	protected $contentType;
+
+	/**
+	 * @var array
+	 */
+	protected $availableContentTypes = array(
+		'wikitext',
+		'subpage-list',
+		'icon-list',
+		'block-list',
+		'list'
+	);
 
 	/**
 	 * Whether contents have been populated
@@ -63,27 +77,24 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public function isValid() {
 		$this->decode();
-
 		// Required fields
 		if (
 			!is_string( $this->description ) ||
-			!is_int( $this->pageType )
+			!is_string( $this->pageType ) ||
+			!is_string( $this->pageName )
 		) {
 			return false;
 		}
-		// HubHub fields
-		if ( $this->getPageType() == 1 ) {
-			if ( !is_string( $this->hubName ) ) {
-				return false;
-			}
-		} else {
-			// HubPage fields
-			if ( !is_string( $this->pageName ) ) {
-				return false;
-			}
+
+		// Check page type and content type for being available
+		if (
+			!in_array( $this->pageType, $this->availablePageTypes ) ||
+			!in_array( $this->contentType, $this->availableContentTypes )
+		) {
+			return false;
 		}
 
-		// Content needs to either be wikitext or a sensible array.
+		// 'content' needs to either be wikitext or a sensible array for formatting.
 		if ( !is_string( $this->content ) && !is_array( $this->content ) ) {
 			return false;
 		}
@@ -113,17 +124,14 @@ class CollaborationHubContent extends JsonContent {
 		$jsonParse = $this->getData();
 		$data = $jsonParse->isGood() ? $jsonParse->getValue() : null;
 		if ( $data ) {
-			$this->hubName = isset( $data->hub_name ) ? $data->hub_name : null;
 			$this->pageName = isset( $data->page_name ) ? $data->page_name : null;
 			$this->description = isset( $data->description ) ? $data->description : '';
-			$this->pageType = isset( $data->page_type ) ? $data->page_type : 0;
+			$this->pageType = isset( $data->page_type ) ? $data->page_type : 'default';
 
 			if ( isset( $data->content ) && is_object( $data->content ) ) {
-
-				$validTypes = array( 'subpage-list', 'icon-list', 'block-list', 'list', 'list-list' );
 				if (
 					isset( $data->content->type ) &&
-					in_array( $data->content->type, $validTypes ) &&
+					in_array( $data->content->type, $this->availableContentTypes ) &&
 					isset( $data->content->items ) &&
 					is_array( $data->content->items )
 				) {
@@ -160,14 +168,6 @@ class CollaborationHubContent extends JsonContent {
 	// Some placeholder getters; add the rest if there's ever any reason to
 
 	/**
-	 * @return string|null
-	 */
-	public function getHubName() {
-		$this->decode();
-		return $this->hubName;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function getDescription() {
@@ -184,7 +184,7 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * @return boolean
+	 * @return string
 	 */
 	public function getPageType() {
 		$this->decode();
@@ -207,6 +207,15 @@ class CollaborationHubContent extends JsonContent {
 		return $this->contentType;
 	}
 
+	/**
+	 * @return array
+	 */
+	public function getPossibleTypes() {
+		$this->decode();
+		return $this->availableContentTypes;
+
+		// Will include some generic canned stuff later, but doesn't currently.
+	}
 
 	/**
 	 * Fill $output with information derived from the content.
@@ -221,8 +230,8 @@ class CollaborationHubContent extends JsonContent {
 	) {
 		$output->setText( $this->getParsedDescription( $title, $options ) );
 
-		if ( $this->getPageType() == 1 ) {
-			// TODO generate special hubhub intro layout
+		if ( $this->getPageType() == 'main' ) {
+			// TODO generate special hub mainpage intro layout
 		} else {
 			// generate hub subpage header stuff
 			$output->setText( '((subpage links/header etc))' . $output->getText() );
@@ -279,7 +288,7 @@ class CollaborationHubContent extends JsonContent {
 		$html = '';
 
 		if ( $this->getContentType() == 'subpage-list' ) {
-			$ToC = Html::element( 'p', array(), 'TOC magically appears here later' );
+			$ToC = Html::element( 'p', array(), '((TOC magically appears here later))' );
 			$list = '';
 
 			foreach ( $this->getContent() as $item ) {
@@ -289,26 +298,28 @@ class CollaborationHubContent extends JsonContent {
 				// get collaborationhubcontent object for the subpage and stuff
 				$spTitle = Title::newFromText( $item['item'] );
 				$spRev = Revision::newFromTitle( $spTitle );
-				$spContent = $spRev->getContent();
-
-				// add content block to listContent
 				$list .= Html::openElement( 'div' );
-				// TODO sanitise, add anchor for toc
-				$list .= Html::element( 'h2', array(), $spContent->getPageName() );
-				// TODO wrap in stuff, use short version?
-				$list .= $spContent->getParsedDescription( $title, $options );
-				// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
-				$list .= $spContent->getParsedContent( $title, $options );
+				if ( isset( $spRev ) ) {
+					$spContent = $spRev->getContent();
 
+					// add content block to listContent
+					// TODO sanitise, add anchor for toc
+					$list .= Html::element( 'h2', array(), $spContent->getPageName() );
+					// TODO wrap in stuff, use short version?
+					$list .= $spContent->getParsedDescription( $title, $options );
+					// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
+					$list .= $spContent->getParsedContent( $title, $options );
+
+				} else {
+					// TODO Replace this with a button to special:createcollaborationhub/title
+					$list .= '<h2>' . Linker::link( $spTitle ) . '</h2>';
+				}
 				$list .= Html::closeElement( 'div' );
 
 				// Register page as dependency
 				// $parserOutput->addTemplate( $title, $title->getArticleId(), $rev->getId() );
 			}
 			$html .= $ToC . $list;
-		} elseif ( $this->getContentType() == 'list-list' ) {
-			// meta list of lists, will recall generateList etc with different... types? What?
-			// will need to change how generateList checks/gets list types
 		} else {
 			// TODO redo this entire thing
 			$html .= Html::openElement( 'ul' );
@@ -319,7 +330,7 @@ class CollaborationHubContent extends JsonContent {
 				// I DON'T CARE. $item['icon'];
 				$printIcon = null;
 				// Special handling for members, otherwise just parse as wikitext
-				if ( $this->getPageType() == 2 ) {
+				if ( $this->getPageType() == 'userlist' ) {
 					$userID = (int) $item['item'];
 					// Check if the user id is even possibly valid
 					if ( !is_int( $userID ) || $userID == 0 ) {
