@@ -25,7 +25,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @return CollaborationHubContent
 	 */
 	public function makeEmptyContent() {
-		return new CollaborationHubContent( '{ "page_name": "", "description": "", "content": "", "page_type": 0 }' );
+		return new CollaborationHubContent( '{ "page_name": "", "description": "", "content": "" }' );
 	}
 
 	/**
