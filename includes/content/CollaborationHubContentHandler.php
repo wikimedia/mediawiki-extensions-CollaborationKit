@@ -60,9 +60,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @param IContextSource $context The calling context
 	 * @return Status
 	 */
-	public static function edit( Title $title, $pageName, $pageType, $contentType, $description, $content, $summary,
-		IContextSource $context
-	) {
+	public static function edit( Title $title, $pageName, $pageType, $contentType, $description, $content, $summary, IContextSource $context ) {
 		$contentBlock = array(
 			'page_name' => $pageName,
 			'description' => $description
