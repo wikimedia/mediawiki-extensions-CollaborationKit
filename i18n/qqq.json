@@ -36,5 +36,7 @@
 	"collaborationhub-display-list": "Select option for a plain list",
 	"collaborationkit-edit-missingsummary": "Warning that the edit summary is missing on Special:EditCollaborationHub (maybe should be worded more/less harshly depending on how/when it actually shows up)\n\nApparently refers to {{msg-mw|Htmlform-submit}}",
 	"collaborationhub-edit-apierror": "Error message shown when a request to the edit API to update a collaboration hub failed.\n\nParameters:\n* $1 - error code string",
-	"collaborationhub-edit-tojsonerror": "Error message shown when the input could not be successfully encoded back into the collaboration hub json"
+	"collaborationhub-edit-tojsonerror": "Error message shown when the input could not be successfully encoded back into the collaboration hub json",
+	"collaborationkit-taglist": "Box for showing tags a specific item has on a list. $1 = comma separated list of tags. $2 = number of tags",
+	"collaborationkit-listempty": "Shown on lists that are empty immediately after the description"
 }
