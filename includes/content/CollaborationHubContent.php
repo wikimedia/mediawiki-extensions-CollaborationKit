@@ -33,6 +33,13 @@ class CollaborationHubContent extends JsonContent {
 	protected $pageName;
 
 	/**
+	 * Page icon, used for toc and other stuff
+	 * Need to refer to a canned icon in the set or a file on-wiki; no icon results in a random one
+	 * @var string|null
+	 */
+	protected $icon;
+
+	/**
 	 * Page description/intro wikitext
 	 * @var string
 	 */
@@ -86,6 +93,11 @@ class CollaborationHubContent extends JsonContent {
 			return false;
 		}
 
+		// Optional icon
+		if ( isset( $this->icon ) && !is_string( $this->icon ) ) {
+			return false;
+		}
+
 		// Check page type and content type for being available
 		if (
 			!in_array( $this->pageType, $this->availablePageTypes ) ||
@@ -126,6 +138,7 @@ class CollaborationHubContent extends JsonContent {
 		if ( $data ) {
 			$this->pageName = isset( $data->page_name ) ? $data->page_name : null;
 			$this->description = isset( $data->description ) ? $data->description : '';
+			$this->icon = isset( $data->icon ) ? $data->icon : null;
 			$this->pageType = isset( $data->page_type ) ? $data->page_type : 'default';
 
 			if ( isset( $data->content ) && is_object( $data->content ) ) {
@@ -173,6 +186,14 @@ class CollaborationHubContent extends JsonContent {
 	public function getDescription() {
 		$this->decode();
 		return $this->description;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIcon() {
+		$this->decode();
+		return $this->icon;
 	}
 
 	/**
@@ -234,12 +255,15 @@ class CollaborationHubContent extends JsonContent {
 			// TODO generate special hub mainpage intro layout
 		} else {
 			// generate hub subpage header stuff
-			$output->setText( '((subpage links/header etc))' . $output->getText() );
+			$toc = $this->generateToC( $this->getParentHub( $title ), 'secondary' );
+
+			$output->setText( $toc . $output->getText() );
 
 			// specific types
 
 		}
 
+		$output->addModules( 'ext.CollaborationKit.main' );
 		$output->setText( $output->getText() . $this->getParsedContent( $title, $options ) );
 		// TODO other bits
 	}
@@ -288,7 +312,7 @@ class CollaborationHubContent extends JsonContent {
 		$html = '';
 
 		if ( $this->getContentType() == 'subpage-list' ) {
-			$ToC = Html::element( 'p', array(), '((TOC magically appears here later))' );
+			$ToC = $this->generateToC( $title );
 			$list = '';
 
 			foreach ( $this->getContent() as $item ) {
@@ -299,12 +323,30 @@ class CollaborationHubContent extends JsonContent {
 				$spTitle = Title::newFromText( $item['item'] );
 				$spRev = Revision::newFromTitle( $spTitle );
 				$list .= Html::openElement( 'div' );
+
+				$tocLinks = array();
 				if ( isset( $spRev ) ) {
 					$spContent = $spRev->getContent();
+					// TODO Check if it's even a hub?
+					$spPage = $spContent->getPageName();
+				} else {
+					$spPage =  $spTitle->getSubpageText();
+				}
+				$spPageLink = Sanitizer::escapeId( htmlspecialchars( $spPage ) );
 
+				while ( in_array( $spPageLink, $tocLinks ) ) {
+					$spPageLink .= '1';
+				}
+				$tocLinks[] = $spPageLink;
+
+				if ( isset( $spRev ) ) {
 					// add content block to listContent
 					// TODO sanitise, add anchor for toc
-					$list .= Html::element( 'h2', array(), $spContent->getPageName() );
+					$list .= Html::element(
+						'h2',
+						array( 'id' => $spPageLink ),
+						$spPage
+					);
 					// TODO wrap in stuff, use short version?
 					$list .= $spContent->getParsedDescription( $title, $options );
 					// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
@@ -312,7 +354,11 @@ class CollaborationHubContent extends JsonContent {
 
 				} else {
 					// TODO Replace this with a button to special:createcollaborationhub/title
-					$list .= '<h2>' . Linker::link( $spTitle ) . '</h2>';
+					$list .= Html::rawElement(
+						'h2',
+						array( 'id' => $spPageLink ),
+						Linker::link( $spTitle )
+					);
 				}
 				$list .= Html::closeElement( 'div' );
 
@@ -355,5 +401,153 @@ class CollaborationHubContent extends JsonContent {
 		}
 
 		return $html;
+	}
+
+	/**
+	 * Helper function for fillParserOutput; return HTML for a ToC.
+	 * @param Title $title for target
+	 * @param string $type: main or flat or stuff (used as css class)
+	 * @return string|null
+	 */
+	protected function generateToC( Title $title, $type = 'main' ) {
+		$rev = Revision::newFromTitle( $title );
+		$sourceContent = $rev->getContent();
+		$html = '';
+
+		if ( isset( $rev ) && $rev->getContentModel() == 'CollaborationHubContent' ) {
+			$ToCItems = array();
+			foreach ( $sourceContent->getContent() as $item ) {
+				$spTitle = Title::newFromText( $item['item'] );
+				$spRev = Revision::newFromTitle( $spTitle );
+
+				if ( isset( $spRev ) ) {
+					$spContent = $spRev->getContent();
+					$spContentModel = $spRev->getContentModel();
+				} else {
+					$spContentModel = 'none';
+				}
+
+				// Display name and #id
+				$item = $spContentModel == 'CollaborationHubContent' ?
+					$spContent->getPageName() : $spTitle->getSubpageText();
+				$display = Html::element( 'span', [], $item );
+				while ( isset( $ToCItems[$item] ) ) {
+					// Already exists, add a 1 to the end to avoid duplicates
+					$item = $item . '1';
+				}
+
+				$display = $this->makeIcon( $spContent->getIcon(), $item ) . $display;
+
+				// Icon
+				if ( $spContentModel == 'CollaborationHubContent' /* && icon is set in $spContent */ ) {
+					$icon = ''; // if set, use from set/file; else random
+				} else {
+					$icon = ''; // random
+				}
+
+				// Link
+				if ( $type != 'main' ) {
+					// TODO add 'selected' class if already on it
+					$link = $spTitle;
+				} else {
+					$link = Title::newFromText( '#' . htmlspecialchars( $item ) );
+				}
+
+				$ToCItems[$item] = Linker::Link( $link, $display );
+			}
+			$html .= Html::openElement( 'div' );
+			if ( $type != 'main' ) {
+				// TODO Make this proper
+				$html .= Html::rawElement(
+					'h3',
+					[],
+					Linker::Link( $title, $sourceContent->getPageName() )
+				);
+			}
+			$html .= Html::openElement( 'ul' );
+
+			foreach ( $ToCItems as $item => $linkTitle ) {
+				$html .= Html::rawElement(
+					'li',
+					[],
+					$linkTitle
+				);
+			}
+			$html .= Html::closeElement( 'ul' );
+			$html .= Html::closeElement( 'div' );
+		} else {
+			$html = 'Page not found, ToC not possible';
+		}
+
+		return $html;
+	}
+
+	/**
+	 * Helper function for generateToC and crap
+	 * @param icon $string from json
+	 * @param icon $string link info; used for generation of random icon
+	 * @return string html
+	 */
+	protected function makeIcon( $icon, $seed ) {
+		// Keep this synced with icons.svg and the less file(s)
+		$iconsPreset = array(
+			// Randomly selectable items
+			'sections',
+			'list',
+			'newspaper',
+			'checked',
+			'eye',
+			'page',
+			'goodpage',
+			'circlestar',
+			'rocket',
+			'die',
+			'puzzlepiece',
+			'star',
+			'sun',
+			'ribbon',
+
+			// Less generic items
+			'gear',
+			'search',
+			'book',
+			'pencil',
+			'mapmarker',
+			'link',
+			'flag',
+			'bookmark',
+			'translate',
+			'play',
+			'quote',
+			'clock',
+			'bell',
+			'user',
+			'heart',
+			'discussion',
+			'gallery',
+			'lock',
+			'nowikitext',
+		);
+		// TODO if it's an uploaded file (begins with 'file:' and/or ends with '.filextension'); use that as source and set class to 'user-upload' (wfFindFile( $icon ))
+		// if preset or other logical class name, just set class; we allow non-preset ones for on-wiki flexibility?
+		if ( $icon !== null && $icon !== '' && $icon !== '-' ) {
+			$class = Sanitizer::escapeClass( $icon );
+		} else {
+			// Choose random class name
+			$class = $iconsPreset[ hexdec( sha1( $seed )[0] ) % 14 ];
+		}
+
+		return Html::element( 'div', array( 'class' => 'toc-icon ' . $class ) );
+	}
+
+	/**
+	 * Helper function for fillParserOutput for tocs on subpages
+	 * @param Title $title for target
+	 * @return Title|null of first found mainpage pagelist hub; null if none
+	 */
+	protected function getParentHub( Title $title ) {
+		return $title->getBaseTitle();
+
+		// TODO check if is a hub at all, check if is a hub mainpage
 	}
 }

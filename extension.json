@@ -45,6 +45,9 @@
 		"ext.CollaborationKit.edit": {
 			"scripts": "ext.CollaborationKit.edit.js",
 			"styles": "ext.CollaborationKit.edit.css"
+		},
+		"ext.CollaborationKit.main": {
+			"styles": "ext.CollaborationKitMainHubViewFile.less"
 		}
 	},
 	"ResourceFileModulePaths": {

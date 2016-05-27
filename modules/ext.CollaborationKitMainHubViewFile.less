@@ -1,0 +1,121 @@
+// I dunno what to name things.
+
+@import "mediawiki.mixins";
+
+.toc-icon {
+	width: 40px;
+	height: 40px;
+	display: block;
+	content: '';
+}
+
+
+.toc-icon( @offset: 0 ) {
+	@x-position: 0px - floor( @offset / 10 ) * 50;
+	@y-position: 0px - mod( @offset, 10 ) * 50;
+
+	.background-image-svg('icons.svg', 'icons.png');
+	background-repeat: no-repeat;
+	background-position: @x-position @y-position;
+}
+.toc-icon.sections {
+	.toc-icon( 0 );
+}
+.toc-icon.list {
+	.toc-icon( 1 );
+}
+.toc-icon.newspaper {
+	.toc-icon( 2 );
+}
+.toc-icon.checked {
+	.toc-icon( 3 );
+}
+.toc-icon.eye {
+	.toc-icon( 4 );
+}
+.toc-icon.page {
+	.toc-icon( 5 );
+}
+.toc-icon.goodpage {
+	.toc-icon( 6 );
+}
+.toc-icon.circlestar {
+	.toc-icon( 7 );
+}
+.toc-icon.rocket {
+	.toc-icon( 8 );
+}
+.toc-icon.die {
+	.toc-icon( 9 );
+}
+.toc-icon.puzzlepiece {
+	.toc-icon( 10 );
+}
+.toc-icon.star {
+	.toc-icon( 11 );
+}
+.toc-icon.sun {
+	.toc-icon( 12 );
+}
+.toc-icon.ribbon{
+	.toc-icon( 13 );
+}
+.toc-icon.gear {
+	.toc-icon( 20 );
+}
+.toc-icon.search {
+	.toc-icon( 21 );
+}
+.toc-icon.book {
+	.toc-icon( 22 );
+}
+.toc-icon.pencil {
+	.toc-icon( 23 );
+}
+.toc-icon.mapmarker {
+	.toc-icon( 24 );
+}
+.toc-icon.link {
+	.toc-icon( 25 );
+}
+.toc-icon.flag {
+	.toc-icon( 26 );
+}
+.toc-icon.bookmark {
+	.toc-icon( 27 );
+}
+.toc-icon.translate {
+	.toc-icon( 28 );
+}
+.toc-icon.play {
+	.toc-icon( 29 );
+}
+.toc-icon.quote {
+	.toc-icon( 30 );
+}
+.toc-icon.clock {
+	.toc-icon( 31 );
+}
+.toc-icon.bell {
+	.toc-icon( 32 );
+}
+.toc-icon.user {
+	.toc-icon( 33 );
+}
+.toc-icon.heart {
+	.toc-icon( 34 );
+}
+.toc-icon.discussion {
+	.toc-icon( 35 );
+}
+.toc-icon.gallery {
+	.toc-icon( 36 );
+}
+.toc-icon.lock {
+	.toc-icon( 37 );
+}
+.toc-icon.nowikitext {
+	.toc-icon( 38 );
+}
+
+// WTF THERE HAS TO BE A BETTER WAY TO DO THIS
