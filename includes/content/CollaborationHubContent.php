@@ -168,7 +168,7 @@ class CollaborationHubContent extends JsonContent {
 				} else {
 					// Not a valid type, content is malformed
 					$this->content = null;
-					echo 'hook';
+					echo 'content type weird';
 				}
 			} else {
 				$this->contentType = 'wikitext';
@@ -273,7 +273,6 @@ class CollaborationHubContent extends JsonContent {
 		// TODO other bits
 	}
 
-
 	/**
 	 * Helper function for fillParserOutput
 	 * @param Title $title
@@ -285,7 +284,6 @@ class CollaborationHubContent extends JsonContent {
 		$placeHolderOutput = $wgParser->parse( $this->getDescription(), $title, $options );
 		return $placeHolderOutput->getText();
 	}
-
 
 	/**
 	 * Helper function for fillParserOutput; return chunks of parsed output based on $content
@@ -585,12 +583,18 @@ class CollaborationHubContent extends JsonContent {
 		while ( !$title->equals( $baseTitle ) ) {
 			$title = $baseTitle;
 			$baseTitle = $title->getBaseTitle();
+			$baseRev = Revision::newFromTitle( $baseTitle );
+
+			if (
+				$baseTitle->getContentModel() == 'CollaborationHubContent' &&
+				isset( $baseRev ) &&
+				$baseRev->getContent()->getPageType() == 'main' &&
+				$baseRev->getContent()->getContentType() == 'subpage-list'
+			) {
+				return $baseTitle;
+			}
 		}
 
-		if ( $baseTitle->getContentModel() == 'CollaborationHubContent' ) {
-			return $baseTitle;
-		} else {
-			return null;
-		}
+		return null;
 	}
 }
