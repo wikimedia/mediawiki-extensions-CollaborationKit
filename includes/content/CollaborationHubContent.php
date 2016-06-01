@@ -255,7 +255,12 @@ class CollaborationHubContent extends JsonContent {
 			// TODO generate special hub mainpage intro layout
 		} else {
 			// generate hub subpage header stuff
-			$toc = $this->generateToC( $this->getParentHub( $title ), 'secondary' );
+			$parent = $this->getParentHub( $title );
+			if ( $parent !== null ) {
+				$toc = $this->generateToC( $parent, 'secondary' );
+			} else {
+				$toc = '';
+			}
 
 			$output->setText( $toc . $output->getText() );
 
@@ -410,73 +415,78 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string|null
 	 */
 	protected function generateToC( Title $title, $type = 'main' ) {
+		// TODO use correct version of text; support PREVIEWS as well as just pulling the content revision
 		$rev = Revision::newFromTitle( $title );
-		$sourceContent = $rev->getContent();
-		$html = '';
+		if ( isset( $rev ) ) {
+			$sourceContent = $rev->getContent();
+			$html = '';
 
-		if ( isset( $rev ) && $rev->getContentModel() == 'CollaborationHubContent' ) {
-			$ToCItems = array();
-			foreach ( $sourceContent->getContent() as $item ) {
-				$spTitle = Title::newFromText( $item['item'] );
-				$spRev = Revision::newFromTitle( $spTitle );
+			if ( $rev->getContentModel() == 'CollaborationHubContent' ) {
+				$ToCItems = array();
+				foreach ( $sourceContent->getContent() as $item ) {
+					$spTitle = Title::newFromText( $item['item'] );
+					$spRev = Revision::newFromTitle( $spTitle );
 
-				if ( isset( $spRev ) ) {
-					$spContent = $spRev->getContent();
-					$spContentModel = $spRev->getContentModel();
-				} else {
-					$spContentModel = 'none';
+					if ( isset( $spRev ) ) {
+						$spContent = $spRev->getContent();
+						$spContentModel = $spRev->getContentModel();
+					} else {
+						$spContentModel = 'none';
+					}
+
+					// Display name and #id
+					$item = $spContentModel == 'CollaborationHubContent' ?
+						$spContent->getPageName() : $spTitle->getSubpageText();
+					$display = Html::element( 'span', [], $item );
+					while ( isset( $ToCItems[$item] ) ) {
+						// Already exists, add a 1 to the end to avoid duplicates
+						$item = $item . '1';
+					}
+
+					$display = $this->makeIcon( $spContent->getIcon(), $item ) . $display;
+
+					// Icon
+					if ( $spContentModel == 'CollaborationHubContent' /* && icon is set in $spContent */ ) {
+						$icon = ''; // if set, use from set/file; else random
+					} else {
+						$icon = ''; // random
+					}
+
+					// Link
+					if ( $type != 'main' ) {
+						// TODO add 'selected' class if already on it
+						$link = $spTitle;
+					} else {
+						$link = Title::newFromText( '#' . htmlspecialchars( $item ) );
+					}
+
+					$ToCItems[$item] = Linker::Link( $link, $display );
 				}
-
-				// Display name and #id
-				$item = $spContentModel == 'CollaborationHubContent' ?
-					$spContent->getPageName() : $spTitle->getSubpageText();
-				$display = Html::element( 'span', [], $item );
-				while ( isset( $ToCItems[$item] ) ) {
-					// Already exists, add a 1 to the end to avoid duplicates
-					$item = $item . '1';
-				}
-
-				$display = $this->makeIcon( $spContent->getIcon(), $item ) . $display;
-
-				// Icon
-				if ( $spContentModel == 'CollaborationHubContent' /* && icon is set in $spContent */ ) {
-					$icon = ''; // if set, use from set/file; else random
-				} else {
-					$icon = ''; // random
-				}
-
-				// Link
+				$html .= Html::openElement( 'div' );
 				if ( $type != 'main' ) {
-					// TODO add 'selected' class if already on it
-					$link = $spTitle;
-				} else {
-					$link = Title::newFromText( '#' . htmlspecialchars( $item ) );
+					// TODO Make this proper
+					$html .= Html::rawElement(
+						'h3',
+						[],
+						Linker::Link( $title, $sourceContent->getPageName() )
+					);
 				}
+				$html .= Html::openElement( 'ul' );
 
-				$ToCItems[$item] = Linker::Link( $link, $display );
+				foreach ( $ToCItems as $item => $linkTitle ) {
+					$html .= Html::rawElement(
+						'li',
+						[],
+						$linkTitle
+					);
+				}
+				$html .= Html::closeElement( 'ul' );
+				$html .= Html::closeElement( 'div' );
+			} else {
+				$html = 'Page not found, ToC not possible';
 			}
-			$html .= Html::openElement( 'div' );
-			if ( $type != 'main' ) {
-				// TODO Make this proper
-				$html .= Html::rawElement(
-					'h3',
-					[],
-					Linker::Link( $title, $sourceContent->getPageName() )
-				);
-			}
-			$html .= Html::openElement( 'ul' );
-
-			foreach ( $ToCItems as $item => $linkTitle ) {
-				$html .= Html::rawElement(
-					'li',
-					[],
-					$linkTitle
-				);
-			}
-			$html .= Html::closeElement( 'ul' );
-			$html .= Html::closeElement( 'div' );
 		} else {
-			$html = 'Page not found, ToC not possible';
+			$html = '';
 		}
 
 		return $html;
@@ -546,8 +556,22 @@ class CollaborationHubContent extends JsonContent {
 	 * @return Title|null of first found mainpage pagelist hub; null if none
 	 */
 	protected function getParentHub( Title $title ) {
-		return $title->getBaseTitle();
+		$baseTitle = $title->getBaseTitle();
 
-		// TODO check if is a hub at all, check if is a hub mainpage
+		if ( $title->equals( $baseTitle ) ) {
+			return null;
+		}
+
+		// Keep looking
+		while ( !$title->equals( $baseTitle ) ) {
+			$title = $baseTitle;
+			$baseTitle = $title->getBaseTitle();
+		}
+
+		if ( $baseTitle->getContentModel() == 'CollaborationHubContent' ) {
+			return $baseTitle;
+		} else {
+			return null;
+		}
 	}
 }
