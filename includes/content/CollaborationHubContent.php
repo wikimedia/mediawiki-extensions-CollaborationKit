@@ -329,16 +329,25 @@ class CollaborationHubContent extends JsonContent {
 				$spRev = Revision::newFromTitle( $spTitle );
 				$list .= Html::openElement( 'div' );
 
+				// So the ToC has something to link to
 				$tocLinks = array();
+
 				if ( isset( $spRev ) ) {
 					$spContent = $spRev->getContent();
+					$spContentModel = $spRev->getContentModel();
 					// TODO Check if it's even a hub?
-					$spPage = $spContent->getPageName();
+
+					if ( $spContentModel == 'CollaborationHubContent' ) {
+						$spPage = $spContent->getPageName();
+					} else {
+						$spPage = $spTitle->getSubpageText();
+					}
 				} else {
-					$spPage =  $spTitle->getSubpageText();
+					$spPage = $spTitle->getSubpageText();
 				}
 				$spPageLink = Sanitizer::escapeId( htmlspecialchars( $spPage ) );
 
+				// Replicate generateToC's handling of duplicates
 				while ( in_array( $spPageLink, $tocLinks ) ) {
 					$spPageLink .= '1';
 				}
@@ -352,11 +361,22 @@ class CollaborationHubContent extends JsonContent {
 						array( 'id' => $spPageLink ),
 						$spPage
 					);
-					// TODO wrap in stuff, use short version?
-					$list .= $spContent->getParsedDescription( $title, $options );
-					// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
-					$list .= $spContent->getParsedContent( $title, $options );
 
+					// TODO wrap in stuff
+					// TODO REPLACE ALL THIS WITH PROPER AGNOSTIC HANDLING SOMEHOW
+					if ( $spContentModel == 'CollaborationHubContent' ) {
+						// TODO wrap in stuff
+						$list .= $spContent->getParsedDescription( $title, $options );
+						// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
+						$list .= $spContent->getParsedContent( $title, $options );
+					} else {
+						// Oh shit it's not a hubpage
+						if ( $spContentModel == 'wikitext' ) {
+							$list .= $spContent->getParserOutput( $spTitle )->getText();
+						} else {
+							// Oh shit, what?
+						}
+					}
 				} else {
 					// TODO Replace this with a button to special:createcollaborationhub/title
 					$list .= Html::rawElement(
@@ -443,14 +463,13 @@ class CollaborationHubContent extends JsonContent {
 						$item = $item . '1';
 					}
 
-					$display = $this->makeIcon( $spContent->getIcon(), $item ) . $display;
-
 					// Icon
 					if ( $spContentModel == 'CollaborationHubContent' /* && icon is set in $spContent */ ) {
-						$icon = ''; // if set, use from set/file; else random
+						$icon = $spContent->getIcon(); // if set, use from set/file; else random
 					} else {
 						$icon = ''; // random
 					}
+					$display = $this->makeIcon( $icon, $item ) . $display;
 
 					// Link
 					if ( $type != 'main' ) {
