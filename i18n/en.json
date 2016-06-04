@@ -38,5 +38,7 @@
 	"collaborationhub-edit-apierror": "Editing the Collaboration Hub through the API failed with error code $1.",
 	"collaborationhub-edit-tojsonerror": "Error creating json out of provided junk",
 	"collaborationkit-taglist": "'''{{PLURAL:$2|Tagged:|Tags:}}''' $1 ",
-	"collaborationkit-listempty": "This list has no items in it."
+	"collaborationkit-listempty": "This list has no items in it.",
+	"collaborationkit-listcontent-toomanytags": "You are not allowed to specify more than {{PLURAL:$1|one tag|$1 tags}}",
+	"collaborationkit-listcontent-notlist": "[[$1]] is not a CollaborationKit list page"
 }

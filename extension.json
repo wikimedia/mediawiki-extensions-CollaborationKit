@@ -12,7 +12,8 @@
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"CollaborationKitAlias": "CollaborationKit.alias.php"
+		"CollaborationKitAlias": "CollaborationKit.alias.php",
+		"CollaborationKitMagic": "CollaborationKit.i18n.magic.php"
 	},
 	"AutoloadClasses": {
 		"ApiEditCollaborationHub": "includes/ApiEditCollaborationHub.php",
@@ -39,6 +40,9 @@
 		],
 		"UnitTestsList": [
 			"CollaborationKitHooks::onUnitTestsList"
+		],
+		"ParserFirstCallInit": [
+			"CollaborationKitHooks::onParserFirstCallInit"
 		]
 	},
 	"ResourceModules": {

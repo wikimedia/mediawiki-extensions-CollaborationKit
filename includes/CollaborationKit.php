@@ -76,4 +76,8 @@ class CollaborationKitHooks {
 
 		$files = array_merge( $files, $ourFiles );
 	}
+
+	public static function onParserFirstCallInit( $parser ) {
+		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
+	}
 }

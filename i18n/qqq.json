@@ -38,5 +38,7 @@
 	"collaborationhub-edit-apierror": "Error message shown when a request to the edit API to update a collaboration hub failed.\n\nParameters:\n* $1 - error code string",
 	"collaborationhub-edit-tojsonerror": "Error message shown when the input could not be successfully encoded back into the collaboration hub json",
 	"collaborationkit-taglist": "Box for showing tags a specific item has on a list. $1 = comma separated list of tags. $2 = number of tags",
-	"collaborationkit-listempty": "Shown on lists that are empty immediately after the description"
+	"collaborationkit-listempty": "Shown on lists that are empty immediately after the description",
+	"collaborationkit-listcontent-toomanytags": "Error if <nowiki>{{#transcludelist:...}}</nowiki> is given more than the allowed number of tag arguments. $1 - number of tags allowed. $2 - number of tags given.",
+	"collaborationkit-listcontent-notlist": "Error when <nowiki>{{#transcludelist:page}}</nowiki> is given a page that is not a CollaborationKit list page. $1 Name of page given."
 }
