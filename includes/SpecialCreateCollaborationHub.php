@@ -60,6 +60,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$fields['source'] = array(
 			'type' => 'text',
 			'label-message' => 'collaborationkit-create-source',
+			'hide-if' => [ '===', 'wpcontent_source', 'new' ]
 		);
 
 		$fields['description'] = array(
