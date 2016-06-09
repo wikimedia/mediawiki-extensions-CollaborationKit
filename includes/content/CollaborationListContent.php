@@ -291,7 +291,6 @@ class CollaborationListContent extends JsonContent {
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
 
-		$text = "__NOEDITSECTION__\n__NOTOC__";
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
 		}
@@ -325,12 +324,7 @@ class CollaborationListContent extends JsonContent {
 			} elseif ( $item->link !== false ) {
 				$titleForItem = Title::newFromText( $item->link );
 			}
-			if ( $titleForItem ) {
-				$text .= "==[[" . $titleForItem->getPrefixedDBkey() . "|"
-					. wfEscapeWikiText( $item->title ) . "]]==\n";
-			} else {
-				$text .= "==" . wfEscapeWikiText( $item->title ) . "==\n";
-			}
+			$text .= '<div style="margin-bottom:0.5em;">';
 
 			$image = null;
 			if ( !isset( $item->image ) && $titleForItem ) {
@@ -345,9 +339,22 @@ class CollaborationListContent extends JsonContent {
 			}
 
 			if ( $image ) {
-				$text .= '[[File:' . $image->getName() . "|left|100x100px|alt=]]\n";
+				$text .= '<div style="float:left; width:64px; height:64px; overflow:hidden;">';
+				$text .= '[[File:' . $image->getName() . "|left|64x64px|alt=]]\n";
+				$text .= '</div>';
 			}
 
+			$text .= '<div style="height:64px; padding-left:10px; display:table-cell; vertical-align:middle; line-height:1.2;">';
+			$text .= '<div style="font-size:110%;font-style:italic">';
+			if ( $titleForItem ) {
+				// FIXME kill inline css somehow.
+				$text .= "[[" . $titleForItem->getPrefixedDBkey() . "|"
+					. wfEscapeWikiText( $item->title ) . "]]";
+			} else {
+				$text .=  wfEscapeWikiText( $item->title );
+			}
+			$text .= "</div>\n";
+			$text .= '<div style="font-size:90%;">' . "\n";
 			if ( is_string( $item->notes ) ) {
 				$text .= $item->notes . "\n";
 			}
@@ -364,9 +371,7 @@ class CollaborationListContent extends JsonContent {
 						->text() .
 					"</div>\n";
 			}
-			if ( $image ) {
-				$text .= "<br style='clear:both'>\n";
-			}
+			$text .= '</div></div></div>' . "\n";
 		}
 		return $text;
 	}
