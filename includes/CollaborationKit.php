@@ -80,4 +80,21 @@ class CollaborationKitHooks {
 	public static function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
 	}
+
+	/**
+	 * Declares JSON as the code editor language for CollaborationKit pages.
+	 *
+	 * This hook only runs if the CodeEditor extension is enabled.
+	 * @param Title $title
+	 * @param string &$lang Page language.
+	 * @return bool
+	 */
+	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
+		$contentModel = $title->getContentModel();
+		$ckitModels = [ 'CollaborationHubContent', 'CollaborationListContent' ];
+		if ( in_array( $contentModel, $ckitModels ) ) {
+			$lang = 'json';
+			return true;
+		}
+	}
 }

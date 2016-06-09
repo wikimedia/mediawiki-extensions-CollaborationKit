@@ -43,6 +43,9 @@
 		],
 		"ParserFirstCallInit": [
 			"CollaborationKitHooks::onParserFirstCallInit"
+		],
+		"CodeEditorGetPageLanguage": [
+			"CollaborationKitHooks::onCodeEditorGetPageLanguage"
 		]
 	},
 	"ResourceModules": {
