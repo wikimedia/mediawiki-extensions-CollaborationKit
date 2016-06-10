@@ -1,8 +1,8 @@
 {
 	"@metadata": {
-		"authors": [ "Isarra" ]
+		"authors": [ "Isarra", "Harej" ]
 	},
-	"colaborationkit-desc": "Extension for making form-based json hub things with automated workflows and stuff. More on this later when it exists.",
+	"colaborationkit-desc": "Next-generation WikiProjects and collaborative workspaces for wikis",
 	"collaborationkit-edit-invalidtitle": "Invalid title or incorrect content model of target",
 	"editcollaborationhub": "Edit Collaboration Hub page",
 	"editcollaborationhub-legend": "Edit Collaboration Hub",

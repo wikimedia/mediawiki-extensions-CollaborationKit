@@ -1,7 +1,7 @@
 {
-	"name": "Collaboration Kit",
+	"name": "CollaborationKit",
 	"version": "0.1",
-	"author": "Calimonius the Estrange",
+	"author": [ "Kim Schoonover", "Brian Wolff" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:CollaborationKit",
 	"descriptionmsg": "colaborationkit-desc",
 	"type": "other",
