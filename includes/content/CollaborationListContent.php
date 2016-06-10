@@ -340,12 +340,12 @@ class CollaborationListContent extends JsonContent {
 
 			if ( $image ) {
 				$text .= '<div style="float:left; width:64px; height:64px; overflow:hidden;">';
-				$text .= '[[File:' . $image->getName() . "|left|64x64px|alt=]]\n";
+				$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 				$text .= '</div>';
 			}
 
 			$text .= '<div style="height:64px; padding-left:10px; display:table-cell; vertical-align:middle; line-height:1.2;">';
-			$text .= '<div style="font-size:110%;font-style:italic">';
+			$text .= '<div style="font-size:110%;font-weight:bold;">';
 			if ( $titleForItem ) {
 				// FIXME kill inline css somehow.
 				$text .= "[[" . $titleForItem->getPrefixedDBkey() . "|"
