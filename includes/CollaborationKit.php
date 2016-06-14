@@ -79,6 +79,8 @@ class CollaborationKitHooks {
 
 	public static function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
+		// Hack for transclusion.
+		$parser->setHook( 'collaborationkitloadliststyles', 'CollaborationListContent::loadStyles' );
 	}
 
 	/**

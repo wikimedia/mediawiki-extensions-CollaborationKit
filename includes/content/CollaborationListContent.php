@@ -291,6 +291,9 @@ class CollaborationListContent extends JsonContent {
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
 
+		// Hack to force style loading even when we don't have a Parser reference.
+		$text = "<collaborationkitloadliststyles/>\n";
+
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
 		}
@@ -324,7 +327,7 @@ class CollaborationListContent extends JsonContent {
 			} elseif ( $item->link !== false ) {
 				$titleForItem = Title::newFromText( $item->link );
 			}
-			$text .= '<div style="margin-bottom:0.5em;">';
+			$text .= '<div class="mw-collabkit-list-item">';
 
 			$image = null;
 			if ( !isset( $item->image ) && $titleForItem ) {
@@ -339,13 +342,17 @@ class CollaborationListContent extends JsonContent {
 			}
 
 			if ( $image ) {
-				$text .= '<div style="float:left; width:64px; height:64px; overflow:hidden;">';
+				$text .= '<div class="mw-collabkit-list-img">';
+				// Important: If you change the width of the image
+				// you also need to change it in the stylesheet.
 				$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 				$text .= '</div>';
 			}
 
-			$text .= '<div style="height:64px; padding-left:10px; display:table-cell; vertical-align:middle; line-height:1.2;">';
-			$text .= '<div style="font-size:110%;font-weight:bold;">';
+			$text .= '<div class="mw-collabkit-list-container">';
+			// Question: Arguably it would be more semantically correct to use
+			// an <Hn> element for this. Would that be better? Unclear.
+			$text .= '<div class="mw-collabkit-list-title">';
 			if ( $titleForItem ) {
 				// FIXME kill inline css somehow.
 				$text .= "[[" . $titleForItem->getPrefixedDBkey() . "|"
@@ -354,13 +361,13 @@ class CollaborationListContent extends JsonContent {
 				$text .=  wfEscapeWikiText( $item->title );
 			}
 			$text .= "</div>\n";
-			$text .= '<div style="font-size:90%;">' . "\n";
+			$text .= '<div class="mw-collabkit-list-notes">' . "\n";
 			if ( is_string( $item->notes ) ) {
 				$text .= $item->notes . "\n";
 			}
 
 			if ( is_array( $item->tags ) && count( $item->tags ) ) {
-				$text .= "\n<div class='toccolours' style='display:inline-block'>" .
+				$text .= "\n<div class='toccolours mw-collabkit-list-tags'>" .
 					wfMessage( 'collaborationkit-taglist' )
 						->inLanguage( $lang )
 						->params(
@@ -550,5 +557,21 @@ class CollaborationListContent extends JsonContent {
 		}
 		$parser->getOutput()->addTemplate( $title, $wikipage->getId(), $wikipage->getLatest() );
 		return $content->convertToWikitext( $lang, $options );
+	}
+
+	/**
+	 * Hack to allow styles to be loaded from plain transclusion.
+	 *
+	 * We don't have access to a parser object in getWikitextForTransclusion().
+	 * So instead we put <collaborationkitloadliststyles/> on the page, which
+	 * calls this.
+	 *
+	 * @param $content String Input to parser hook
+	 * @param $attribs Array
+	 * @param $parser Parser
+	 */
+	public static function loadStyles( $content, array $attributes, Parser $parser ) {
+		$parser->getOutput()->addModuleStyles( 'ext.CollaborationKit.list.styles' );
+		return '';
 	}
 }

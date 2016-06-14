@@ -55,6 +55,9 @@
 		},
 		"ext.CollaborationKit.main": {
 			"styles": "ext.CollaborationKitMainHubViewFile.less"
+		},
+		"ext.CollaborationKit.list.styles": {
+			"styles": "ext.CollaborationKit.list.styles.css"
 		}
 	},
 	"ResourceFileModulePaths": {
