@@ -91,7 +91,7 @@ class CollaborationKitHooks {
 	 * @param string &$lang Page language.
 	 * @return bool
 	 */
-	static function onCodeEditorGetPageLanguage( $title, &$lang ) {
+	public static function onCodeEditorGetPageLanguage( $title, &$lang ) {
 		$contentModel = $title->getContentModel();
 		$ckitModels = [ 'CollaborationHubContent', 'CollaborationListContent' ];
 		if ( in_array( $contentModel, $ckitModels ) ) {
@@ -99,4 +99,5 @@ class CollaborationKitHooks {
 			return true;
 		}
 	}
+
 }
