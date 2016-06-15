@@ -40,5 +40,8 @@
 	"collaborationkit-taglist": "'''{{PLURAL:$2|Tagged:|Tags:}}''' $1 ",
 	"collaborationkit-listempty": "This list has no items in it.",
 	"collaborationkit-listcontent-toomanytags": "You are not allowed to specify more than {{PLURAL:$1|one tag|$1 tags}}",
-	"collaborationkit-listcontent-notlist": "[[$1]] is not a CollaborationKit list page"
+	"collaborationkit-listcontent-notlist": "[[$1]] is not a CollaborationKit list page",
+	"collabkit-list-delete-summary": "/* $1 */ Deleting from list.",
+	"collabkit-list-add-summary": "/* $1 */ Adding to list.",
+	"collaborationkit-list-add-button": "Add new item to list"
 }

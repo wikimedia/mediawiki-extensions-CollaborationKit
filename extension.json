@@ -46,8 +46,12 @@
 		],
 		"CodeEditorGetPageLanguage": [
 			"CollaborationKitHooks::onCodeEditorGetPageLanguage"
+		],
+		"ArticleViewHeader": [
+			"CollaborationListContent::onArticleViewHeader"
 		]
 	},
+	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",
 	"ResourceModules": {
 		"ext.CollaborationKit.edit": {
 			"scripts": "ext.CollaborationKit.edit.js",
@@ -58,6 +62,21 @@
 		},
 		"ext.CollaborationKit.list.styles": {
 			"styles": "ext.CollaborationKit.list.styles.css"
+		},
+		"ext.CollaborationKit.list.edit": {
+			"scripts": "ext.CollaborationKit.list.edit.js",
+			"dependencies": [
+				"ext.CollaborationKit.list.styles",
+				"mediawiki.api",
+				"jquery.spinner",
+				"mediawiki.api.edit",
+				"oojs-ui-core"
+			],
+			"messages": [
+				"collabkit-list-delete-summary",
+				"collabkit-list-add-summary",
+				"collaborationkit-list-add-button"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

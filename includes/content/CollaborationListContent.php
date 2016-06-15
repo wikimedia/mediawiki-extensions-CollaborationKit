@@ -299,12 +299,14 @@ class CollaborationListContent extends JsonContent {
 		}
 		if ( count( $this->items ) === 0 ) {
 			$text .= "<hr>\n{{mediawiki:collaborationkit-listempty}}\n";
+			return $text;
 		}
 		$curItem = 0;
 		$offset = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
 
 		$sortedItems = $this->items;
 		$this->sortList( $sortedItems, $options['defaultSort'] );
+		$text .= '<div class="mw-collabkit-list">' . "\n";
 
 		foreach ( $sortedItems as $item ) {
 			if ( $offset !== 0 ) {
@@ -327,7 +329,10 @@ class CollaborationListContent extends JsonContent {
 			} elseif ( $item->link !== false ) {
 				$titleForItem = Title::newFromText( $item->link );
 			}
-			$text .= '<div class="mw-collabkit-list-item">';
+			$text .= Html::openElement( 'div', [
+				"class" => "mw-collabkit-list-item",
+				"data-collabkit-item-title" => $item->title
+			] );
 
 			$image = null;
 			if ( !isset( $item->image ) && $titleForItem ) {
@@ -380,6 +385,7 @@ class CollaborationListContent extends JsonContent {
 			}
 			$text .= '</div></div></div>' . "\n";
 		}
+		$text .= "\n</div>";
 		return $text;
 	}
 
@@ -573,5 +579,35 @@ class CollaborationListContent extends JsonContent {
 	public static function loadStyles( $content, array $attributes, Parser $parser ) {
 		$parser->getOutput()->addModuleStyles( 'ext.CollaborationKit.list.styles' );
 		return '';
+	}
+
+	/**
+	 * Hook used to determine if current user should be given the edit interface
+	 * for a page.
+	 *
+	 * @todo Not clear if this is the best hook to use. onBeforePageDisplay
+	 *  doesn't have easy access to oldid
+	 *
+	 * @param $output OutputPage
+	 */
+	public static function onArticleViewHeader( Article $article ) {
+		$title = $article->getTitle();
+		$context = $article->getContext();
+		$user = $context->getUser();
+		$output = $context->getOutput();
+		$action = $context->getRequest()->getVal( 'action', 'view' );
+
+		// @todo Does not trigger on perma-link to current revision
+		//  not sure if that's a desired behaviour or not.
+		if ( $title->getContentModel() === __CLASS__
+			&& $action === 'view'
+			&& $title->getArticleId() !== 0
+			&& $article->getOldID() === 0 /* current rev */
+			&& $title->userCan( 'edit', $user, 'quick' )
+		) {
+			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
+			$output->addModules( 'ext.CollaborationKit.list.edit' );
+			$output->preventClickjacking();
+		}
 	}
 }

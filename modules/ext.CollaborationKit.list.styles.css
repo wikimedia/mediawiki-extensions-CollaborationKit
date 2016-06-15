@@ -34,3 +34,29 @@
 	display:inline-block;
 }
 
+/* Stuff below here could potentially be in a separate module since
+ * its only used on direct page and not when transcluding */
+
+a.mw-collabkit-list-delete {
+	background-color: black;
+	color: #ec2;
+}
+
+/* Separate so spinner can replace properly */
+.mw-collabkit-list-deletebutton {
+	margin-left: 1em;
+	border-radius: 0.5em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+}
+
+.mw-collabkit-list-delete:hover,
+.mw-collabkit-list-delete:active,
+.mw-collabkit-list-delete:focus {
+	color: #ccf;
+}
+
+.mw-collabkit-list-additem {
+	margin-top: 2em;
+	text-align: center;
+}
