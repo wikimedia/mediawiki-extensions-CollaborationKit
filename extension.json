@@ -52,6 +52,7 @@
 		]
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",
+	"@todo FIXME": "Should this actually load oojs-ui-core, or something else",
 	"ResourceModules": {
 		"ext.CollaborationKit.edit": {
 			"scripts": "ext.CollaborationKit.edit.js",
@@ -70,7 +71,7 @@
 				"mediawiki.api",
 				"jquery.spinner",
 				"mediawiki.api.edit",
-				"oojs-ui-core"
+				"oojs"
 			],
 			"messages": [
 				"collabkit-list-delete-summary",
