@@ -71,7 +71,7 @@
 				"mediawiki.api",
 				"jquery.spinner",
 				"mediawiki.api.edit",
-				"oojs"
+				"oojs-ui"
 			],
 			"messages": [
 				"collabkit-list-delete-summary",
