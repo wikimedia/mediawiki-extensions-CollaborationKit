@@ -43,5 +43,6 @@
 	"collaborationkit-listcontent-notlist": "[[$1]] is not a CollaborationKit list page",
 	"collabkit-list-delete-summary": "/* $1 */ Deleting from list.",
 	"collabkit-list-add-summary": "/* $1 */ Adding to list.",
-	"collaborationkit-list-add-button": "Add new item to list"
+	"collaborationkit-list-add-button": "Add new item to list",
+	"collaborationkit-members-header": "Members"
 }

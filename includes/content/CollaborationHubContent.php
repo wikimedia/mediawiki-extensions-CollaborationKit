@@ -138,7 +138,7 @@ class CollaborationHubContent extends JsonContent {
 		if ( $data ) {
 			$this->pageName = isset( $data->page_name ) ? $data->page_name : null;
 			$this->description = isset( $data->description ) ? $data->description : '';
-			$this->icon = isset( $data->icon ) ? $data->icon : null;
+			$this->icon = isset( $data->icon ) ? $data->icon : '';
 			$this->pageType = isset( $data->page_type ) ? $data->page_type : 'default';
 
 			if ( isset( $data->content ) && is_object( $data->content ) ) {
@@ -249,10 +249,47 @@ class CollaborationHubContent extends JsonContent {
 	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
 		$generateHtml, ParserOutput &$output
 	) {
-		$output->setText( $this->getParsedDescription( $title, $options ) );
+		$output->setText( Html::rawElement(
+			'div',
+			array( 'class' => 'wp-intro' ),
+			$this->getParsedDescription( $title, $options )
+		) );
 
 		if ( $this->getPageType() == 'main' ) {
-			// TODO generate special hub mainpage intro layout
+
+			// Image
+			$prependiture = Html::rawElement(
+				'div',
+				array( 'id' => 'wp-header-icon', 'class' => 'wp-junk' ),
+				$this->getImage( 'none', 120 )
+			);
+
+			// Members
+			$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfmessage( 'collaborationkit-members-header' ) );
+			if ( isset( $membersTitle ) ) {
+				$prependiture .= Html::openElement(
+					'div',
+					array( 'id' => 'wp-header-members', 'class' => 'toc wp-junk' )
+				);
+				$prependiture .= Html::element(
+					'h2',
+					[],
+					wfmessage( 'collaborationkit-members-header' )
+				);
+				$prependiture .= Html::rawElement(
+					'div',
+					[],
+					Revision::newFromTitle( $membersTitle )->getContent()->generateList( $title, $options )
+				);
+				$prependiture .= Html::closeElement( 'div' );
+			}
+
+			$output->setText(
+				Html::openElement(
+					'div',
+					array( 'class' => 'wp-mainpage wp-collaborationhub' )
+				) . $prependiture . $output->getText()
+			);
 		} else {
 			// generate hub subpage header stuff
 			$parent = $this->getParentHub( $title );
@@ -262,7 +299,12 @@ class CollaborationHubContent extends JsonContent {
 				$toc = '';
 			}
 
-			$output->setText( $toc . $output->getText() );
+			$output->setText(
+				Html::openElement(
+					'div',
+					array( 'class' => 'wp-subpage wp-collaborationhub' )
+				) . $toc . $output->getText()
+			);
 
 			// specific types
 
@@ -271,6 +313,8 @@ class CollaborationHubContent extends JsonContent {
 		$output->addModules( 'ext.CollaborationKit.main' );
 		$output->setText( $output->getText() . $this->getParsedContent( $title, $options ) );
 		// TODO other bits
+
+		$output->setText( $output->getText() . Html::closeElement( 'div' ) );
 	}
 
 	/**
@@ -319,13 +363,13 @@ class CollaborationHubContent extends JsonContent {
 			$list = '';
 
 			foreach ( $this->getContent() as $item ) {
-				// TODO add link to ToC
 
-				// TODO check if subpage exists, use /notation for subpages
+				// TODO check if subpage exists
+
 				// get collaborationhubcontent object for the subpage and stuff
 				$spTitle = Title::newFromText( $item['item'] );
 				$spRev = Revision::newFromTitle( $spTitle );
-				$list .= Html::openElement( 'div' );
+				$list .= Html::openElement( 'div', array( 'class' => 'wp-pagelist-section' ) );
 
 				// So the ToC has something to link to
 				$tocLinks = array();
@@ -461,14 +505,6 @@ class CollaborationHubContent extends JsonContent {
 						$item = $item . '1';
 					}
 
-					// Icon
-					if ( $spContentModel == 'CollaborationHubContent' /* && icon is set in $spContent */ ) {
-						$icon = $spContent->getIcon(); // if set, use from set/file; else random
-					} else {
-						$icon = ''; // random
-					}
-					$display = $this->makeIcon( $icon, $item ) . $display;
-
 					// Link
 					if ( $type != 'main' ) {
 						// TODO add 'selected' class if already on it
@@ -477,14 +513,22 @@ class CollaborationHubContent extends JsonContent {
 						$link = Title::newFromText( '#' . htmlspecialchars( $item ) );
 					}
 
+					// Icon
+					if ( $spContentModel == 'CollaborationHubContent' /* && icon is set in $spContent */ ) {
+						$display = $spContent->getImage( 'random', 50 ) . $display;
+					} else {
+						// Use this one as a surrogate because it's not a real hub page; $link can act as seed
+						$display = $this->getImage( 'random', 50, $item ) . $display;
+					}
+
 					$ToCItems[$item] = Linker::Link( $link, $display );
 				}
-				$html .= Html::openElement( 'div' );
+				$html .= Html::openElement( 'div', array( 'class' => 'wp-toc' ) );
 				if ( $type != 'main' ) {
 					// TODO Make this proper
 					$html .= Html::rawElement(
 						'h3',
-						[],
+						array(),
 						Linker::Link( $title, $sourceContent->getPageName() )
 					);
 				}
@@ -493,7 +537,7 @@ class CollaborationHubContent extends JsonContent {
 				foreach ( $ToCItems as $item => $linkTitle ) {
 					$html .= Html::rawElement(
 						'li',
-						[],
+						array( 'class' => 'wp-toc-item' ),
 						$linkTitle
 					);
 				}
@@ -510,12 +554,44 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
+	 * Helper function for fillParserOutput for tocs on subpages
+	 * @param Title $title for target
+	 * @return Title|null of first found mainpage pagelist hub; null if none
+	 */
+	protected function getParentHub( Title $title ) {
+		$baseTitle = $title->getBaseTitle();
+
+		if ( $title->equals( $baseTitle ) ) {
+			return null;
+		}
+
+		// Keep looking
+		while ( !$title->equals( $baseTitle ) ) {
+			$title = $baseTitle;
+			$baseTitle = $title->getBaseTitle();
+			$baseRev = Revision::newFromTitle( $baseTitle );
+
+			if (
+				$baseTitle->getContentModel() == 'CollaborationHubContent' &&
+				isset( $baseRev ) &&
+				$baseRev->getContent()->getPageType() == 'main' &&
+				$baseRev->getContent()->getContentType() == 'subpage-list'
+			) {
+				return $baseTitle;
+			}
+		}
+
+		return null;
+	}
+
+	/**
 	 * Helper function for generateToC and crap
-	 * @param icon $string from json
-	 * @param icon $string link info; used for generation of random icon
+	 * @param string $icon data from json; either an icon id or anything to use as a seed
+	 * @param int $size TODO USE THIS SOMEHOW
 	 * @return string html
 	 */
-	protected function makeIcon( $icon, $seed ) {
+	protected function makeIcon( $icon, $size ) {
+
 		// Keep this synced with icons.svg and the less file(s)
 		$iconsPreset = array(
 			// Randomly selectable items
@@ -557,44 +633,44 @@ class CollaborationHubContent extends JsonContent {
 		);
 		// TODO if it's an uploaded file (begins with 'file:' and/or ends with '.filextension'); use that as source and set class to 'user-upload' (wfFindFile( $icon ))
 		// if preset or other logical class name, just set class; we allow non-preset ones for on-wiki flexibility?
-		if ( $icon !== null && $icon !== '' && $icon !== '-' ) {
+		if ( $icon !== null && in_array( $icon, $iconsPreset ) ) {
 			$class = Sanitizer::escapeClass( $icon );
 		} else {
-			// Choose random class name
-			$class = $iconsPreset[ hexdec( sha1( $seed )[0] ) % 14 ];
+			// Choose random class name using $icon value as seed
+			$class = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 14 ];
 		}
 
 		return Html::element( 'div', array( 'class' => 'toc-icon ' . $class ) );
 	}
 
 	/**
-	 * Helper function for fillParserOutput for tocs on subpages
-	 * @param Title $title for target
-	 * @return Title|null of first found mainpage pagelist hub; null if none
+	 * Helper function for fillParserOutput to actually generate an image out of the icon value
+	 * @param string $fallback for what to do for no icons
+	 * @param int $size image size in px
+	 * @param string $seed fallback seed for non-chc pages called from another ch
+	 * @return string html|HORRIBLE GAPING VOID
 	 */
-	protected function getParentHub( Title $title ) {
-		$baseTitle = $title->getBaseTitle();
+	public function getImage( $fallback = 'none', $size = 50, $seed = null ) {
+		if ( $seed === null ) {
+			$icon = $this->getIcon();
 
-		if ( $title->equals( $baseTitle ) ) {
-			return null;
-		}
-
-		// Keep looking
-		while ( !$title->equals( $baseTitle ) ) {
-			$title = $baseTitle;
-			$baseTitle = $title->getBaseTitle();
-			$baseRev = Revision::newFromTitle( $baseTitle );
-
-			if (
-				$baseTitle->getContentModel() == 'CollaborationHubContent' &&
-				isset( $baseRev ) &&
-				$baseRev->getContent()->getPageType() == 'main' &&
-				$baseRev->getContent()->getContentType() == 'subpage-list'
-			) {
-				return $baseTitle;
+			if ( $icon == '' || $icon == '-' ) {
+				if ( $fallback == 'none' ) {
+					return '';
+				} else {
+					return $this->makeIcon( $this->getPageName(), $size );
+				}
 			}
+			if ( wfFindFile( $icon ) ) {
+				return wfFindFile( $icon )->transform( array( 'width' => $size ) )->toHtml();
+			} else {
+				return $this->makeIcon( $icon, $size );
+			}
+		} else {
+			// No icon data etc; use seed
+			return $this->makeIcon( $seed, $size );
 		}
 
-		return null;
+		// TODO make it handle/return error/do something besides just selecting a random one when file doesn't exist/icon key not found
 	}
 }

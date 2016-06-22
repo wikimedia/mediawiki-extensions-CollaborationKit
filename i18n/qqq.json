@@ -43,5 +43,6 @@
 	"collaborationkit-listcontent-notlist": "Error when <nowiki>{{#transcludelist:page}}</nowiki> is given a page that is not a CollaborationKit list page. $1 Name of page given.",
 	"collabkit-list-delete-summary": "Edit summary for removing an item from a CollaborationKit list. $1 = Item that is being removed.",
 	"collabkit-list-add-summary": "Edit summary when adding a new item to CollaborationKit list page",
-	"collaborationkit-list-add-button": "Text of button to add a new item to a CollaborationKit list page."
+	"collaborationkit-list-add-button": "Text of button to add a new item to a CollaborationKit list page.",
+	"collaborationkit-members-header": "Members header for CH mainpages; also used for subpage name"
 }
