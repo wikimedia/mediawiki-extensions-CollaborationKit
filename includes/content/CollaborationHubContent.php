@@ -265,8 +265,9 @@ class CollaborationHubContent extends JsonContent {
 			);
 
 			// Members
-			$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfmessage( 'collaborationkit-members-header' ) );
-			if ( isset( $membersTitle ) ) {
+			$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfMessage( 'collaborationkit-members-header' )->inContentLanguage()->text() );
+			$membersTitleRev = $title ? Revision::newFromTitle( $membersTitle ) : null;
+			if ( $membersTitleRev ) {
 				$prependiture .= Html::openElement(
 					'div',
 					array( 'id' => 'wp-header-members', 'class' => 'toc wp-junk' )
