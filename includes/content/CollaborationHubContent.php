@@ -286,6 +286,7 @@ class CollaborationHubContent extends JsonContent {
 			}
 
 			$output->setText(
+				// Add page class
 				Html::openElement(
 					'div',
 					array( 'class' => 'wp-mainpage wp-collaborationhub' )
@@ -301,6 +302,7 @@ class CollaborationHubContent extends JsonContent {
 			}
 
 			$output->setText(
+				// Add page class
 				Html::openElement(
 					'div',
 					array( 'class' => 'wp-subpage wp-collaborationhub' )
@@ -345,7 +347,6 @@ class CollaborationHubContent extends JsonContent {
 			return $this->generateList( $title, $options );
 		}
 	}
-
 
 	/**
 	 * Helper function for fillParserOutput; return HTML for displaying lists.
@@ -543,6 +544,7 @@ class CollaborationHubContent extends JsonContent {
 					);
 				}
 				$html .= Html::closeElement( 'ul' );
+				$html .= '<div class="visualClear"></div>';
 				$html .= Html::closeElement( 'div' );
 			} else {
 				$html = 'Page not found, ToC not possible';
