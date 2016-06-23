@@ -13,6 +13,8 @@
 	"collaborationkit-edit-pagetitle": "Replaces the page title on Special:EditCollaborationHub to mimic the title of action=edit",
 	"collaborationkit-edit-hub-name": "Label for hub display name input on Special:EditCollaborationHub for collaboration hub mainpages, which in their case is also the page display name",
 	"collaborationkit-edit-page-name": "Label for page display name input on Special:EditCollaborationHub",
+	"collaborationjit-edit-hub-icon": "Label for the image input on Special:EditCollaborationHub on hubs",
+	"collaborationjit-edit-page-icon": "Label for the image input on Special:EditCollaborationHub on subpages",
 	"collaborationkit-edit-page-type": "Label for the page type dropdown on Special:EditCollaborationHub",
 	"collaborationkit-edit-description": "Label for the description textarea on Special:EditCollaborationHub",
 	"collaborationkit-edit-content": "Label for the content textarea on Special:EditCollaborationHub",

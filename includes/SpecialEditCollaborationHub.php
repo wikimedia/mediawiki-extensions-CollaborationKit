@@ -147,6 +147,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 		$pageType = $pageContent->getPageType();
 		$contentType = $pageContent->getContentType();
 		$content = $pageContent->getContent();
+		$icon = $pageContent->getIcon();
 
 		// Get the more complicated bits
 		if ( $contentType !== 'wikitext' ) {
@@ -158,16 +159,18 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 
 		// Check which label to use for page_name
 		if ( $pageType == 'main' ) {
-			$label = 'collaborationkit-edit-hub-name';
+			$nameLabel = 'collaborationkit-edit-hub-name';
+			$iconLabel = 'collaborationjit-edit-hub-icon';
 		} else {
-			$label = 'collaborationkit-edit-page-name';
+			$nameLabel = 'collaborationkit-edit-page-name';
+			$iconLabel = 'collaborationjit-edit-page-icon';
 		}
 		$formJunk['page_name'] = array(
 			'type' => 'text',
 			'maxlength' => 255,
 			'size' => 40,
 			'default' => ( $pageName !== null ) ? $pageName : '',
-			'label-message' => $label,
+			'label-message' => $nameLabel,
 			'cssclass' => 'ext-ck-edit-pagename',
 		);
 
@@ -194,6 +197,14 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			);
 		}
 
+		$formJunk['icon'] = array(
+			'type' => 'text',
+			'default' => $icon,
+			'maxlength' => 255,
+			'size' => 50,
+			'label-message' => $iconLabel,
+			'cssclass' => 'ext-ck-edit-icon',
+		);
 		$formJunk['description'] = array(
 			'type' => 'textarea',
 			'rows' => 4,
@@ -326,6 +337,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 		$editResult = CollaborationHubContentHandler::edit(
 			$this->title,
 			$data['page_name'],
+			$data['icon'],
 			$pageType,
 			$contentType,
 			$data['description'],
