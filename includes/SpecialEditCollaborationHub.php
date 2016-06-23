@@ -98,6 +98,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			$out->setPageTitle(
 				$this->msg( 'collaborationkit-edit-pagetitle', $this->title->getPrefixedText() )
 			);
+			$this->getSkin()->setRelevantTitle( $this->title );
 
 			// Backlink
 			if ( $this->rev ) {
