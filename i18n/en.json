@@ -44,5 +44,6 @@
 	"collabkit-list-delete-summary": "/* $1 */ Deleting from list.",
 	"collabkit-list-add-summary": "/* $1 */ Adding to list.",
 	"collaborationkit-list-add-button": "Add new item to list",
-	"collaborationkit-members-header": "Members"
+	"collaborationkit-members-header": "Members",
+	"collabkit-list-delete": "Remove item"
 }

@@ -67,15 +67,16 @@
 		"ext.CollaborationKit.list.edit": {
 			"scripts": "ext.CollaborationKit.list.edit.js",
 			"dependencies": [
-				"ext.CollaborationKit.list.styles",
 				"mediawiki.api",
 				"jquery.spinner",
 				"mediawiki.api.edit",
-				"oojs-ui"
+				"oojs-ui",
+				"mediawiki.widgets"
 			],
 			"messages": [
 				"collabkit-list-delete-summary",
 				"collabkit-list-add-summary",
+				"collabkit-list-delete",
 				"collaborationkit-list-add-button"
 			]
 		}
