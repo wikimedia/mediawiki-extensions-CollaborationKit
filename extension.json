@@ -71,7 +71,10 @@
 				"jquery.spinner",
 				"mediawiki.api.edit",
 				"oojs-ui",
-				"mediawiki.widgets"
+				"oojs-ui.styles.icons-movement",
+				"mediawiki.widgets",
+				"jquery.ui.sortable",
+				"mediawiki.notify"
 			],
 			"messages": [
 				"collabkit-list-delete-summary",
