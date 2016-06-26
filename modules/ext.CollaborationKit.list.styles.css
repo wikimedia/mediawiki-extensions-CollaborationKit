@@ -41,11 +41,28 @@
 /* Separate so spinner can replace properly */
 .mw-collabkit-list-deletebutton {
 	margin-left: 2em;
+}
+
+.mw-collabkit-list:not(.mw-collabkit-dragging) .mw-collabkit-list-movebutton {
+	cursor: ns-resize;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
+
+.mw-collabkit-dragging {
+	cursor: ns-resize;
+	cursor: -moz-grabbing;
+	cursor: -webkit-grabbing;
+	cursor: grabbing;
+}
+
+.mw-collabkit-list-button {
 	display: inline-block;
 }
 
 /* Unclear if this is a really bad idea, but 24px makes the icon too big */
-.mw-collabkit-list-deletebutton .oo-ui-buttonElement-button .oo-ui-iconElement-icon {
+.mw-collabkit-list-button .oo-ui-iconElement-icon.oo-ui-iconElement-icon {
 	min-height: 22px;
 	height: 1em;
 }
@@ -53,4 +70,9 @@
 .mw-collabkit-list-additem {
 	margin-top: 2em;
 	text-align: center;
+}
+
+.mw-collabkit-list-dragplaceholder {
+	border: black thin dashed;
+	width: 25%;
 }

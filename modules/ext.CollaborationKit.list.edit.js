@@ -1,5 +1,5 @@
 ( function ( $, mw, OO ) {
-	var deleteItem, getCurrentJson, saveJson, addItem;
+	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles;
 
 	addItem = function () {
 		var dialog,
@@ -40,6 +40,135 @@
 			res.summary = mw.msg( 'collabkit-list-delete-summary', title );
 			saveJson( res, function () {
 				$item.remove();
+				mw.notify(
+					'List was saved with "' + title + '" deleted.',
+					{
+						tag: 'collabkit',
+						title: 'Item Deleted', // fixme i18n
+						type: 'info'
+					}
+				);
+
+			} );
+		} );
+	};
+
+	/**
+	 * Helper function to get ordered list of all items in list
+	 *
+	 * @param {jQuery} $elm The list of items - $( '.mw-collabkit-list' )
+	 * @return {Array}
+	 */
+	getListOfTitles = function ( $elm ) {
+		var list = [];
+		$elm.children( '.mw-collabkit-list-item' ).each( function () {
+			list[ list.length ] = $( this ).data( 'collabkit-item-title' );
+		} );
+		return list;
+	};
+
+	/**
+	 * If the order of the list changes, save back to page
+	 */
+	reorderList = function ( $item, newOrder, originalOrder ) {
+		var $spinner = $.createSpinner( {
+			size: 'small',
+			type: 'inline'
+		} );
+		$item.find( '.mw-collabkit-list-title' ).append( $spinner );
+
+		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
+			var i,
+				reorderedItem,
+				findItemsInResArray,
+				resArray = [],
+				isEditConflict = false;
+
+			reorderedItem = $item.data( 'collabkit-item-title' );
+
+			if ( res.content.items.length !== originalOrder.length ) {
+				isEditConflict = true;
+			} else {
+				for ( i = 0; i < originalOrder.length; i++ ) {
+					if ( res.content.items[ i ].title !== originalOrder[ i ] ) {
+						isEditConflict = true;
+						break;
+					}
+				}
+			}
+
+			if ( isEditConflict ) {
+				// FIXME sane error handling.
+				alert( 'Edit conflict detected. Rearrangement not saved.' );
+				location.reload();
+				throw new Error( 'Edit conflict' );
+			}
+
+			if ( newOrder.length !== originalOrder.length ) {
+				// Should never happen
+				mw.log( 'New order:' );
+				mw.log( newOrder );
+				mw.log( 'Old order:' );
+				mw.log( originalOrder );
+				throw new Error( 'Lost an item in the list?!' );
+			}
+
+			/**
+			 * Find an item in the result array.
+			 *
+			 * Optimized to first look in the most likely spots
+			 */
+			findItemInResArray = function ( title, indexGuess ) {
+				var oneLess,
+					oneMore,
+					i,
+					resItems = res.content.items;
+
+				if ( resItems[ indexGuess ].title === title ) {
+					return resItems[ indexGuess ];
+				}
+
+				oneMore = ( indexGuess + 1 ) % resItems.length;
+				oneLess = indexGuess - 1 < 0 ? resItems.length - 1 : indexGuess - 1;
+				if ( resItems[ oneMore ].title === title ) {
+					return resItems[ oneMore ];
+				}
+
+				if ( resItems[ oneLess ].title === title ) {
+					return resItems[ oneLess ];
+				}
+
+				// Still here, check entire array.
+				for ( i = 0; i < resItems.length; i++ ) {
+					if ( resItems[ i ].title === title ) {
+						return resItems[ i ];
+					}
+				}
+
+				// Must be missing.
+				// FIXME sane error handling.
+				alert( 'Edit conflict detected' );
+				location.reload();
+				throw new Error( 'Item ' + title + ' is missing' );
+			};
+			for ( i = 0; i < newOrder.length; i++ ) {
+				resArray[ resArray.length ] = findItemInResArray( newOrder[ i ], i );
+			}
+
+			res.content.items = resArray;
+			// FIXME i18n
+			res.summary = '/* ' + reorderedItem + ' */ Reording item [[' + reorderedItem + ']]';
+			saveJson( res, function () {
+				$spinner.remove();
+				// fixme i18n
+				mw.notify(
+					'List was saved with new order for "' + reorderedItem + '"',
+					{
+						tag: 'collabkit',
+						title: 'Page Saved', // fixme i18n
+						type: 'info'
+					}
+				);
 			} );
 		} );
 	};
@@ -197,7 +326,9 @@
 
 		$list.find( '.mw-collabkit-list-item' ).each( function () {
 			var deleteButton,
-				$wrapper,
+				moveButton,
+				$delWrapper,
+				$moveWrapper,
 				$item = $( this );
 
 			deleteButton = new OO.ui.ButtonWidget( {
@@ -208,11 +339,65 @@
 				deleteItem( $item );
 			} );
 
-			$wrapper = $( '<div></div>' )
+			// Icon instead of button to avoid conflict with jquery.ui
+			moveButton = new OO.ui.IconWidget( {
+				framed: false,
+				icon: 'move',
+				iconTitle: 'Re-order this item' // fixme i18n
+			} );
+
+			$delWrapper = $( '<div></div>' )
 				.addClass( 'mw-collabkit-list-deletebutton' )
+				.addClass( 'mw-collabkit-list-button' )
 				.append( deleteButton.$element );
 
-			$item.find( '.mw-collabkit-list-title' ).append( $wrapper );
+			$moveWrapper = $( '<div></div>' )
+				.addClass( 'mw-collabkit-list-movebutton' )
+				.addClass( 'mw-collabkit-list-button' )
+				.append( moveButton.$element );
+
+			$item.find( '.mw-collabkit-list-title' )
+				.append( $delWrapper )
+				.append( $moveWrapper );
+		} );
+
+		$list.sortable( {
+			placeholder: 'mw-collabkit-list-dragplaceholder',
+			axis: 'y',
+			forcePlaceholderSize: true,
+			handle: '.mw-collabkit-list-movebutton',
+			opacity: 0.6,
+			scroll: true,
+			cursor: 'grabbing', // Also overriden in CSS
+			start: function ( e ) {
+				$( e.target )
+					.addClass( 'mw-collabkit-dragging' )
+					.data( 'startTitleList', getListOfTitles( $list ) );
+			},
+			stop: function ( e, ui ) {
+				var oldListTitles, newListTitles, $target, i, changed;
+
+				$target = $( e.target );
+				$target.removeClass( 'mw-collabkit-dragging' );
+				oldListTitles = $target.data( 'startTitleList' );
+				newListTitles = getListOfTitles( $list );
+				$target.data( 'startTitleList', null );
+
+				if ( oldListTitles.length !== newListTitles.length ) {
+					throw new Error( 'We somehow lost an item?!' );
+				}
+
+				changed = false;
+				for ( i = 0; i < oldListTitles.length; i++ ) {
+					if ( oldListTitles[ i ] !== newListTitles[ i ] ) {
+						changed = true;
+						break;
+					}
+				}
+				if ( changed ) {
+					reorderList( ui.item, newListTitles, oldListTitles );
+				}
+			}
 		} );
 
 		$list.after(
