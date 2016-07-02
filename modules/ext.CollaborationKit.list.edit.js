@@ -21,7 +21,7 @@
 			size: 'small',
 			type: 'inline'
 		} );
-		$item.find( '.mw-collabkit-list-deletebutton' )
+		$item.find( '.jquery-confirmable-wrapper' )
 			.empty()
 			.append( $spinner );
 
@@ -290,17 +290,19 @@
 	};
 
 	NewItemDialog.prototype.saveItem = function () {
-		var title = this.titleWidget.getValue(),
-			file = this.fileToUse.getValue(),
+		var title = this.titleWidget.getValue().trim(),
+			file = this.fileToUse.getValue().trim(),
 			notes = this.description.getValue(),
 			dialog = this;
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			res.content.items[ res.content.items.length ] = {
 				title: title,
-				notes: notes,
-				image: file
+				notes: notes
 			};
+			if ( file !== '' ) {
+				res.content.items[ res.content.items.length ].image = file;
+			}
 			res.summary = mw.msg( 'collabkit-list-add-summary', title );
 			saveJson( res, function () {
 				dialog.close(); // FIXME should we just leave open?
@@ -335,8 +337,6 @@
 				framed: false,
 				icon: 'remove',
 				iconTitle: mw.msg( 'collabkit-list-delete' )
-			} ).on( 'click', function ( e ) {
-				deleteItem( $item );
 			} );
 
 			// Icon instead of button to avoid conflict with jquery.ui
@@ -346,10 +346,20 @@
 				iconTitle: 'Re-order this item' // fixme i18n
 			} );
 
-			$delWrapper = $( '<div></div>' )
+			// FIXME, the <a> might make an extra target when tabbing
+			// through the document (Maybe also messing up screen readers).
+			// not sure. Its used so that jquery.confirmable makes a link.
+			$delWrapper = $( '<a></a>' )
+				.attr( 'href', '#' )
+				.click( function ( e ) { e.preventDefault(); } )
 				.addClass( 'mw-collabkit-list-deletebutton' )
 				.addClass( 'mw-collabkit-list-button' )
-				.append( deleteButton.$element );
+				.append( deleteButton.$element )
+				.confirmable( {
+					handler: function () {
+						deleteItem( $item );
+					}
+				} );
 
 			$moveWrapper = $( '<div></div>' )
 				.addClass( 'mw-collabkit-list-movebutton' )

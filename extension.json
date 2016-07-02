@@ -74,7 +74,8 @@
 				"oojs-ui.styles.icons-movement",
 				"mediawiki.widgets",
 				"jquery.ui.sortable",
-				"mediawiki.notify"
+				"mediawiki.notify",
+				"jquery.confirmable"
 			],
 			"messages": [
 				"collabkit-list-delete-summary",

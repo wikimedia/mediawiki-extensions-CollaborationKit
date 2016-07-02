@@ -76,3 +76,8 @@
 	border: black thin dashed;
 	width: 25%;
 }
+
+.mw-collabkit-list-title .jquery-confirmable-text,
+.mw-collabkit-list-title .mw-spinner {
+	padding-left: .5em;
+}
