@@ -360,8 +360,7 @@ class CollaborationListContent extends JsonContent {
 			// an <Hn> element for this. Would that be better? Unclear.
 			$text .= '<div class="mw-collabkit-list-title">';
 			if ( $titleForItem ) {
-				// FIXME kill inline css somehow.
-				$text .= "[[" . $titleForItem->getPrefixedDBkey() . "|"
+				$text .= "[[:" . $titleForItem->getPrefixedDBkey() . "|"
 					. wfEscapeWikiText( $item->title ) . "]]";
 			} else {
 				$text .=  wfEscapeWikiText( $item->title );
