@@ -19,37 +19,48 @@ class CollaborationKitHooks {
 	 */
 	public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
 		$title = $sktemplate->getTitle();
-		if ( $title->hasContentModel( 'CollaborationHubContent' )
-			&& array_key_exists( 'edit', $links['views'] )
-		) {
-			// Get the revision being viewed, if applicable
-			$request = $sktemplate->getRequest();
-			$direction = $request->getVal( 'direction' );
-			$diff = $request->getVal( 'diff' );
-			$oldid = $request->getInt( 'oldid' ); // Guaranteed to be an integer, 0 if invalid
-			if ( $direction === 'next' && $oldid > 0 ) {
-				$next = $title->getNextRevisionId( $oldid );
-				$revId = ( $next ) ? $next : $oldid;
-			} elseif ( $direction === 'prev' && $oldid > 0 ) {
-				$prev = $title->getPreviousRevisionId( $oldid );
-				$revId = ( $prev ) ? $prev : $oldid;
-			} elseif ( $diff !== null ) {
-				if ( ctype_digit( $diff ) ) {
-					$revId = (int)$diff;
-				} elseif ( $diff === 'next' && $oldid > 0 ) {
+		if ( isset( $links['views']['edit'] ) ) {
+			if ( $title->hasContentModel( 'CollaborationHubContent' ) ) {
+				// Get the revision being viewed, if applicable
+				$request = $sktemplate->getRequest();
+				$direction = $request->getVal( 'direction' );
+				$diff = $request->getVal( 'diff' );
+				$oldid = $request->getInt( 'oldid' ); // Guaranteed to be an integer, 0 if invalid
+				if ( $direction === 'next' && $oldid > 0 ) {
 					$next = $title->getNextRevisionId( $oldid );
 					$revId = ( $next ) ? $next : $oldid;
-				} else { // diff is 'prev' or gibberish
+				} elseif ( $direction === 'prev' && $oldid > 0 ) {
+					$prev = $title->getPreviousRevisionId( $oldid );
+					$revId = ( $prev ) ? $prev : $oldid;
+				} elseif ( $diff !== null ) {
+					if ( ctype_digit( $diff ) ) {
+						$revId = (int)$diff;
+					} elseif ( $diff === 'next' && $oldid > 0 ) {
+						$next = $title->getNextRevisionId( $oldid );
+						$revId = ( $next ) ? $next : $oldid;
+					} else { // diff is 'prev' or gibberish
+						$revId = $oldid;
+					}
+				} else {
 					$revId = $oldid;
 				}
-			} else {
-				$revId = $oldid;
-			}
 
-			$query = ( $revId > 0 ) ? 'oldid=' . $revId : '';
-			$links['views']['edit']['href'] = SpecialPage::getTitleFor(
-				'EditCollaborationHub', $title
-			)->getFullUrl( $query );
+				$query = ( $revId > 0 ) ? 'oldid=' . $revId : '';
+				$links['views']['edit']['href'] = SpecialPage::getTitleFor(
+					'EditCollaborationHub', $title
+				)->getFullUrl( $query );
+			} elseif ( $title->hasContentModel( 'CollaborationListContent' ) ) {
+				$links['actions']['editasjson'] = [
+					'class' => false,
+					'href' => $links['views']['edit']['href'],
+					'text' => wfMessage( 'collaborationkit-editjsontab' )->text()
+				];
+
+				$links['views']['edit']['href'] = wfAppendQuery(
+					$links['views']['edit']['href'],
+					[ 'format' => CollaborationListContentHandler::FORMAT_WIKI ]
+				);
+			}
 		}
 		return true;
 	}

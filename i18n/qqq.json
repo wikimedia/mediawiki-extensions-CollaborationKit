@@ -47,5 +47,6 @@
 	"collabkit-list-add-summary": "Edit summary when adding a new item to CollaborationKit list page",
 	"collaborationkit-list-add-button": "Text of button to add a new item to a CollaborationKit list page.",
 	"collaborationkit-members-header": "Members header for CH mainpages; also used for subpage name",
-	"collabkit-list-delete": "Tooltip for trash can icon on list editor"
+	"collabkit-list-delete": "Tooltip for trash can icon on list editor",
+	"collaborationkit-editjsontab": "Text of the tab used to edit the page as JSON."
 }

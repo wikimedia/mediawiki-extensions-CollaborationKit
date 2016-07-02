@@ -37,6 +37,7 @@ class CollaborationListContent extends JsonContent {
 	const MAX_LIST_SIZE = 2000; // Maybe should be a config option.
 	const RANDOM_CACHE_EXPIRY = 28800; // 8 hours
 	const MAX_TAGS = 50;
+	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
 
 	/** @var $decoded boolean Have we decoded the data yet */
 	private $decoded = false;
@@ -494,6 +495,153 @@ class CollaborationListContent extends JsonContent {
 			}
 		}
 		return $matchesAllGroups;
+	}
+
+	/**
+	 * Convert JSON to markup that's easier for humans.
+	 */
+	public function convertToHumanEditable() {
+		$this->decode();
+
+		$output = $this->description;
+		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->getHumanEditableList();
+		return $output;
+	}
+
+	/**
+	 * Get the list of items in human editable form.
+	 *
+	 * @todo Should this be i18n-ized?
+	 */
+	public function getHumanEditableList() {
+		$this->decode();
+
+		$out = '';
+		foreach ( $this->items as $item ) {
+			$out .= $this->escapeForHumanEditable( $item->title );
+			$out .= "|" . $this->escapeForHumanEditable( $item->notes );
+			if ( isset( $item->link ) ) {
+				if ( $item->link === false ) {
+					$out .= "|nolink";
+				} else {
+					$out .= "|link=" . $this->escapeForHumanEditable( $item->link );
+				}
+			}
+			if ( isset( $item->image ) ) {
+				if ( $item->image === false ) {
+					$out .= "|noimage";
+				} else {
+					$out .= "|image=" . $this->escapeForHumanEditable( $item->image );
+				}
+			}
+			if ( isset( $item->tags ) ) {
+				foreach ( (array)$item->tags as $tag ) {
+					$out .= "|tag=" . $this->escapeForHumanEditable( $tag );
+				}
+			}
+			// Not doing sortkey as that's not really implemented.
+			$out .= "\n";
+		}
+		return $out;
+	}
+
+	/**
+	 * Escape characters used as separators in human editable mode.
+	 *
+	 * @todo Unclear if this is best approach. Alternative might be
+	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
+	 */
+	private function escapeForHumanEditable( $text ) {
+		if ( strpos( $text, '{{!}}' ) !== false ) {
+			// Maybe we should use \| too, but that's not MW like.
+			throw new MWContentSerializationException( "{{!}} in content" );
+		}
+		if ( strpos( $text, "\\\n" ) !== false ) {
+			// @todo We don't currently handle this properly.
+			throw new MWContentSerializationException( "Line ending with a \\" );
+		}
+		$text = strtr( $text, [
+			"\n" => '\n',
+			'\n'=> '\\\\n',
+			'|' => '{{!}}'
+		] );
+		return $text;
+	}
+
+	private static function unescapeForHumanEditable( $text ) {
+		$text = strtr( $text, [
+			'\\\\n'=> "\x1A",
+			'\n' => "\n",
+			"\x1A" => '\n',
+			'{{!}}' => '|'
+		] );
+		return $text;
+	}
+
+	/**
+	 * Convert from human editable form into a (php) array
+	 *
+	 * @param $text String text to convert
+	 * @return Array Result of converting it to native form
+	 */
+	public static function convertFromHumanEditable( $text ) {
+		$res = [ 'options' => new StdClass, 'items' => [] ];
+
+		$split = strrpos( $text, self::HUMAN_DESC_SPLIT );
+		if ( $split === false ) {
+			throw new MWContentSerializationException( "Missing list description" );
+		}
+		$dividerLength = strlen( self::HUMAN_DESC_SPLIT );
+		$res['description'] = substr( $text, 0, $split );
+
+		$list = substr( $text, $split + $dividerLength );
+		$listLines = explode( "\n", $list );
+		foreach ( $listLines as $line ) {
+			$res['items'][] = self::convertFromHumanEditableItemLine( $line );
+		}
+		return $res;
+	}
+
+	private static function convertFromHumanEditableItemLine( $line ) {
+		$parts = explode( "|", $line );
+		array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
+		$itemRes = [ 'title' => $parts[0] ];
+		if ( count( $parts ) > 1 ) {
+			$itemRes['notes'] = $parts[1];
+			$parts = array_slice( $parts, 2 );
+			foreach ( $parts as $part ) {
+				list( $key, $value ) = explode( '=', $part );
+				switch ( $key ) {
+				case 'nolink':
+					$itemRes['link'] = false;
+					break;
+				case 'noimage':
+					$itemRes['image'] = false;
+					break;
+				case 'tag':
+					if ( !isset( $itemRes['tags'] ) ) {
+						$itemRes['tags'] = [];
+					}
+					$itemRes['tags'][] = $value;
+					break;
+				case 'image':
+				case 'link':
+					$itemRes[$key] = $value;
+					break;
+				default:
+					$context = wfEscapeWikiText( substr( $part, 30 ) );
+					if ( strlen( $context ) === 30 ) {
+						$context .= '...';
+					}
+					throw new MWContentSerializationException(
+						"Unrecognized option for list item:" .
+						wfEscapeWikiText( $key )
+					);
+				}
+			}
+		}
+		return $itemRes;
 	}
 
 	/**
