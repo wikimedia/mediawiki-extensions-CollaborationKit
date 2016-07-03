@@ -255,6 +255,11 @@ class CollaborationHubContent extends JsonContent {
 			$this->getParsedDescription( $title, $options )
 		) );
 
+		// Set up OOUI for buttons and stuff
+		// TODO figure out where this is actually used and only use it there
+		$output->setEnableOOUI( true );
+		OutputPage::setupOOUI();
+
 		if ( $this->getPageType() == 'main' ) {
 
 			// Image
@@ -268,6 +273,7 @@ class CollaborationHubContent extends JsonContent {
 			$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfMessage( 'collaborationkit-members-header' )->inContentLanguage()->text() );
 			$membersTitleRev = $title ? Revision::newFromTitle( $membersTitle ) : null;
 			if ( $membersTitleRev ) {
+
 				$prependiture .= Html::openElement(
 					'div',
 					array( 'id' => 'wp-header-members', 'class' => 'toc wp-junk' )
@@ -282,6 +288,30 @@ class CollaborationHubContent extends JsonContent {
 					[],
 					Revision::newFromTitle( $membersTitle )->getContent()->generateList( $title, $options )
 				);
+
+				// BUTTONS
+				$membersSignupUrl = SpecialPage::getTitleFor(
+					'EditCollaborationHub',
+					$membersTitle->getPrefixedUrl()
+				)->getLinkUrl();
+
+				$signupButton = new OOUI\ButtonWidget( [
+					'label' => wfMessage( 'collaborationkit-members-signup' )->inContentLanguage()->text(),
+					'href' => $membersSignupUrl,
+					'id' => 'wp-signup',
+					'flags' => [ 'progressive' ]
+				] );
+				$seeAllButton = new OOUI\ButtonWidget( [
+					'label' => wfMessage( 'collaborationkit-members-view' )->inContentLanguage()->text(),
+					'href' => $membersTitle->getLinkUrl(),
+					'id' => 'wp-seeall'
+				] );
+				$prependiture .= Html::rawElement(
+					'div',
+					[ 'id' => 'wp-members-buttons' ],
+					$signupButton . ' ' . $seeAllButton
+				);
+
 				$prependiture .= Html::closeElement( 'div' );
 			}
 
@@ -399,11 +429,69 @@ class CollaborationHubContent extends JsonContent {
 
 				if ( isset( $spRev ) ) {
 					// add content block to listContent
-					// TODO sanitise, add anchor for toc
-					$list .= Html::element(
-						'h2',
-						array( 'id' => $spPageLink ),
+					// TODO sanitise?
+
+					// TODO Shouldn't this be using Linker::makeHeadline?
+					$headline = Html::rawElement(
+						'span',
+						[ 'class' => 'mw-headline', 'id' => $spPageLink ],
 						$spPage
+					);
+
+					$sectionLinks = [
+						'viewLink' => Linker::Link(
+							$spTitle,
+							wfMessage( 'view' )
+						)
+					];
+					if ( $spTitle->userCan( 'edit' ) ) {
+						$sectionLinks['edit'] = Linker::Link(
+							SpecialPage::getTitleFor(
+								'EditCollaborationHub',
+								$spTitle->getPrefixedUrl()
+							),
+							wfMessage( 'edit' )
+						);
+					}
+					// TODO figure out why this one isn't showing up
+					if ( $title->userCan( 'edit' ) ) {
+						$sectionLinks['edit'] = Linker::Link(
+							SpecialPage::getTitleFor(
+								'EditCollaborationHub',
+								$title->getPrefixedUrl()
+							),
+							wfMessage( 'delete' )
+						);
+					}
+					$sectionLinksHtml = '';
+					foreach ( $sectionLinks as $link => $linkString ) {
+						$sectionLinksHtml .= Html::element(
+							'span',
+							[ 'class' => 'mw-editsection-bracket' ],
+							'['
+						);
+						$sectionLinksHtml .= Html::rawElement(
+							'span',
+							[ 'class' => 'mw-editsection' ],
+							$linkString
+						);
+						$sectionLinksHtml .= Html::element(
+							'span',
+							[ 'class' => 'mw-editsection-bracket' ],
+							']'
+						);
+					}
+
+					Html::rawElement(
+						'span',
+						[ 'class' => 'mw-editsection' ],
+						$sectionLinksHtml
+					);
+
+					$list .= Html::rawElement(
+						'h2',
+						[],
+						$headline . $sectionLinksHtml
 					);
 
 					// TODO wrap in stuff
