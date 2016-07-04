@@ -50,5 +50,7 @@
 	"collaborationkit-members-signup": "Label for the 'join' button in the members block",
 	"collaborationkit-members-view": "Label for the 'view all' button in the members block",
 	"collabkit-list-delete": "Tooltip for trash can icon on list editor",
-	"collaborationkit-editjsontab": "Text of the tab used to edit the page as JSON."
+	"collaborationkit-editjsontab": "Text of the tab used to edit the page as JSON.",
+	"collaborationkit-missing-note": "Note and helpt text for missing section subpages on a collaboration hub mainpage",
+	"collaborationkit-create-subpage": "Button label for creating a new subpage"
 }

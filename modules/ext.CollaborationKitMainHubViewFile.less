@@ -2,6 +2,30 @@
 
 @import "mediawiki.mixins";
 
+// Members block, random actiony blocks, etc
+.grey-box() {
+	border: solid 1px #ddd;
+	background: #f9f9f9;
+	border-radius: 3px;
+	padding: 1.5em;
+
+	h2 {
+		margin: 0 0 .5em;
+		padding: 0;
+		border: none;
+		font-size: 1.5em;
+	}
+
+	.oo-ui-buttonWidget {
+		display: block;
+		margin-right: 0;
+		margin-top: .5em;
+	}
+	.oo-ui-buttonElement-framed > .oo-ui-buttonElement-button {
+		display: block;
+	}
+}
+
 .toc-icon {
 	width: 40px;
 	height: 40px;
@@ -9,12 +33,12 @@
 	content: '';
 }
 
-
+// Helper function to convert icon offsets into meaningful coordinates
 .toc-icon( @offset: 0 ) {
 	@x-position: 0px - floor( @offset / 10 ) * 50;
 	@y-position: 0px - mod( @offset, 10 ) * 50;
 
-	.background-image-svg('icons.svg', 'icons.png');
+	.background-image-svg( 'images/icons.svg', 'images/icons.png' );
 	background-repeat: no-repeat;
 	background-position: @x-position @y-position;
 }
@@ -120,34 +144,128 @@
 
 // WTF THERE HAS TO BE A BETTER WAY TO DO THIS
 
-// Mainpage hub layout
-.wp-mainpage {
+.wp-toc {
+	clear: both;
+	margin: 1em 0;
+
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	li {
+		float: left;
+		margin: .5em 1.25em .5em 0;
+		word-wrap: break-word;
+	}
+	div,
+	img {
+		display: block;
+		margin: auto;
+	}
+
+	.file-image {
+		height: 40px;
+		overflow: hidden;
+
+		img {
+			vertical-align: middle;
+		}
+	}
+}
+
+// Mainpage hub layout (.mw-body included because vector has excessively specific rules)
+.mw-body .wp-mainpage {
+	border-top: solid 10px #7af;
+	padding-top: 1em;
+
 	#wp-header-icon {
 		float: left;
 		padding: 0 2em 2em 0;
 	}
 	#wp-header-members {
+		.grey-box();
+
 		float: right;
 		margin: 0 0 2em 2em;
+		max-width: 20em;
+		min-width: 12em;
+		width: 25%;
 	}
-	.wp-toc {
-		clear: both;
-		margin: 1em 0;
-
-		ul {
-			padding: 0;
-			margin: 0;
-			list-style: none;
-		}
-		li {
-			float: left;
-			margin: .5em 1.25em .5em 0;
-		}
-		div {
-			margin: auto;
-		}
-	}
-	.wp-intro{
+	.wp-intro {
 		font-size: 115%;
 	}
+
+	.wp-toc li {
+		max-width: 10em;
+		text-align: center;
+	}
+	#wp-members-buttons {
+		margin-top: 1em;
+	}
+	h2 {
+		border: solid 5px #7af;
+		border-style: solid none none;
+		padding: .5em 0 .25em;
+		margin: 2em 0 .5em;
+	}
+}
+// Override some other dumb skins, which have random other rules (SELF FIX THESE YOU IDIOT)
+#mw-content .wp-mainpage h2,
+#mw-content-text .wp-mainpage h2 {
+	border-bottom: none;
+}
+
+// Subpage hub stuff
+.wp-subpage {
+	border-top: solid 10px #7af;
+
+	.wp-toc-container {
+		float: right;
+		padding: 0 0 1em 1em;
+		background: #fff;
+	}
+	.wp-toc {
+		.grey-box();
+
+		padding: 0 1em;
+		margin: 1em 0 1.5em 1em;
+		max-width: 20em;
+
+		ul {
+			margin: 0;
+		}
+		li {
+			float: none;
+			margin: 1.5em 0;
+		}
+		.file-image,
+		.toc-icon {
+			float: left;
+			margin: 0 1em 0 0;
+		}
+		.toc-mainpage {
+			font-weight: bold;
+			padding: 0 1em 1.5em 0;
+			border-bottom: solid 3px #7af;
+		}
+	}
+	#wp-header-icon {
+		float: left;
+		margin-top: .5em;
+	}
+	#wp-pagename-display {
+		margin: .5em 0 1em;
+	}
+	.wp-intro {
+		margin: 1em 0 2.5em;
+		padding: .5em 0;
+		border-bottom: solid 3px #7af;
+		font-size: 105%;
+	}
+}
+
+// Unnecessary as the ToC will link back anyway
+div span.subpages {
+	display: none;
 }

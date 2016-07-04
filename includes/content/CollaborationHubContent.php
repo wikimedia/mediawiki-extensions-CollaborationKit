@@ -276,17 +276,17 @@ class CollaborationHubContent extends JsonContent {
 
 				$prependiture .= Html::openElement(
 					'div',
-					array( 'id' => 'wp-header-members', 'class' => 'toc wp-junk' )
+					array( 'id' => 'wp-header-members', 'class' => 'wp-junk' )
 				);
 				$prependiture .= Html::element(
 					'h2',
 					[],
-					wfmessage( 'collaborationkit-members-header' )
+					wfmessage( 'collaborationkit-members-header' )->inContentLanguage()->text()
 				);
 				$prependiture .= Html::rawElement(
 					'div',
 					[],
-					Revision::newFromTitle( $membersTitle )->getContent()->generateList( $title, $options )
+					Revision::newFromTitle( $membersTitle )->getContent()->generateList( $title, $options, $output )
 				);
 
 				// BUTTONS
@@ -324,27 +324,40 @@ class CollaborationHubContent extends JsonContent {
 			);
 		} else {
 			// generate hub subpage header stuff
+			$prependiture = '';
+
 			$parent = $this->getParentHub( $title );
 			if ( $parent !== null ) {
-				$toc = $this->generateToC( $parent, 'secondary' );
-			} else {
-				$toc = '';
+				$prependiture .= $this->generateToC( $parent, $output, 'secondary' );
 			}
+
+			if ( $this->getIcon() !== '' ) {
+				$prependiture .= Html::rawElement(
+					'div',
+					array( 'id' => 'wp-header-icon', 'class' => 'wp-junk' ),
+					$this->getImage( 'none', 40 )
+				);
+			}
+			$prependiture .= Html::element(
+				'h3',
+				[ 'id' => 'wp-pagename-display' ],
+				$this->getPageName()
+			);
 
 			$output->setText(
 				// Add page class
 				Html::openElement(
 					'div',
 					array( 'class' => 'wp-subpage wp-collaborationhub' )
-				) . $toc . $output->getText()
+				) . $prependiture . $output->getText()
 			);
 
 			// specific types
 
 		}
 
-		$output->addModules( 'ext.CollaborationKit.main' );
-		$output->setText( $output->getText() . $this->getParsedContent( $title, $options ) );
+		$output->addModuleStyles( 'ext.CollaborationKit.main' );
+		$output->setText( $output->getText() . $this->getParsedContent( $title, $options, $output ) );
 		// TODO other bits
 
 		$output->setText( $output->getText() . Html::closeElement( 'div' ) );
@@ -368,14 +381,21 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOptions $options
 	 * @return string
 	 */
-	protected function getParsedContent( Title $title, ParserOptions $options ) {
+	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput &$output ) {
 		global $wgParser;
+
 		if ( $this->getContentType() == 'wikitext' ) {
 			$placeHolderOutput = $wgParser->parse( $this->getContent(), $title, $options );
-			return $placeHolderOutput->getText();
+			$content = $placeHolderOutput->getText();
 		} else { // it's some kind of list
-			return $this->generateList( $title, $options );
+			$content = $this->generateList( $title, $options, $output );
 		}
+
+		return Html::rawElement(
+			'div',
+			[ 'class' => 'wp-content' ],
+			$content
+		);
 	}
 
 	/**
@@ -386,12 +406,12 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $type EXCEPT IT'S NOT HERE EVEN THOUGH IT SHOULD BE HERE YOU MORON TODO STOP BEING A MORON
 	 * @return string
 	 */
-	protected function generateList( Title $title, ParserOptions $options ) {
+	protected function generateList( Title $title, ParserOptions $options, ParserOutput &$output ) {
 		global $wgParser;
 		$html = '';
 
 		if ( $this->getContentType() == 'subpage-list' ) {
-			$ToC = $this->generateToC( $title );
+			$ToC = $this->generateToC( $title, $output );
 			$list = '';
 
 			foreach ( $this->getContent() as $item ) {
@@ -441,7 +461,7 @@ class CollaborationHubContent extends JsonContent {
 					$sectionLinks = [
 						'viewLink' => Linker::Link(
 							$spTitle,
-							wfMessage( 'view' )
+							wfMessage( 'view' )->inContentLanguage()->text()
 						)
 					];
 					if ( $spTitle->userCan( 'edit' ) ) {
@@ -450,36 +470,22 @@ class CollaborationHubContent extends JsonContent {
 								'EditCollaborationHub',
 								$spTitle->getPrefixedUrl()
 							),
-							wfMessage( 'edit' )
+							wfMessage( 'edit' )->inContentLanguage()->text()
 						);
 					}
 					// TODO figure out why this one isn't showing up
 					if ( $title->userCan( 'edit' ) ) {
-						$sectionLinks['edit'] = Linker::Link(
+						$sectionLinks['delete'] = Linker::Link(
 							SpecialPage::getTitleFor(
 								'EditCollaborationHub',
 								$title->getPrefixedUrl()
 							),
-							wfMessage( 'delete' )
+							wfMessage( 'collabkit-list-delete' )->inContentLanguage()->text()
 						);
 					}
 					$sectionLinksHtml = '';
 					foreach ( $sectionLinks as $link => $linkString ) {
-						$sectionLinksHtml .= Html::element(
-							'span',
-							[ 'class' => 'mw-editsection-bracket' ],
-							'['
-						);
-						$sectionLinksHtml .= Html::rawElement(
-							'span',
-							[ 'class' => 'mw-editsection' ],
-							$linkString
-						);
-						$sectionLinksHtml .= Html::element(
-							'span',
-							[ 'class' => 'mw-editsection-bracket' ],
-							']'
-						);
+						$sectionLinksHtml .= $this->editSectionLink( $linkString );
 					}
 
 					Html::rawElement(
@@ -500,7 +506,7 @@ class CollaborationHubContent extends JsonContent {
 						// TODO wrap in stuff
 						$list .= $spContent->getParsedDescription( $title, $options );
 						// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
-						$list .= $spContent->getParsedContent( $title, $options );
+						$list .= $spContent->getParsedContent( $title, $options, $output );
 					} else {
 						// Oh shit it's not a hubpage
 						if ( $spContentModel == 'wikitext' ) {
@@ -511,16 +517,47 @@ class CollaborationHubContent extends JsonContent {
 					}
 				} else {
 					// TODO Replace this with a button to special:createcollaborationhub/title
-					$list .= Html::rawElement(
+					$list .= Html::openElement(
 						'h2',
-						array( 'id' => $spPageLink ),
-						Linker::link( $spTitle )
+						array( 'class' => 'wp-header-missing' )
 					);
+					$list .= Html::element(
+						'span',
+						[ 'id' => $spPageLink, 'class' => 'mw-headline' ],
+						$spTitle->getSubpageText()
+					);
+
+					$list .= $this->editSectionLink( Linker::Link(
+						SpecialPage::getTitleFor(
+							'EditCollaborationHub',
+							$title->getPrefixedUrl()
+						),
+						wfMessage( 'collabkit-list-delete' )->inContentLanguage()->text()
+					) );
+					$list .= Html::closeElement( 'h2' );
+
+					$list .= Html::rawElement(
+						'p',
+						[ 'class' => 'wp-missing-note' ],
+						wfMessage( 'collaborationkit-missing-note' )->inContentLanguage()->parse()
+					);
+
+					$list .= new OOUI\ButtonWidget( [
+						'label' => wfMessage( 'collaborationkit-create-subpage' )->inContentLanguage()->text(),
+						'href' => SpecialPage::getTitleFor(
+								'EditCollaborationHub',
+								$spTitle->getPrefixedUrl()
+							)->getLinkUrl()
+					] );
 				}
 				$list .= Html::closeElement( 'div' );
 
 				// Register page as dependency
-				// $parserOutput->addTemplate( $title, $title->getArticleId(), $rev->getId() );
+				if ( isset( $spRev ) ) {
+					$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );
+				} else {
+					$output->addTemplate( $spTitle, $spTitle->getArticleId(), null );
+				}
 			}
 			$html .= $ToC . $list;
 		} else {
@@ -561,12 +598,42 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
+	 * Helper function for fillParserOutput for making editsection links in headers
+	 * @param $link html string of the link itself
+	 * @return string html
+	 */
+	protected function editSectionLink( $link ) {
+		$html = Html::openElement(
+			'span',
+			[ 'class' => 'mw-editsection' ]
+		);
+		$html .= Html::element(
+			'span',
+			[ 'class' => 'mw-editsection-bracket' ],
+			'['
+		);
+		$html .= Html::rawElement(
+			'span',
+			[],
+			$link
+		);
+		$html .= Html::element(
+			'span',
+			[ 'class' => 'mw-editsection-bracket' ],
+			']'
+		);
+		$html .= Html::closeElement( 'span' );
+
+		return $html;
+	}
+
+	/**
 	 * Helper function for fillParserOutput; return HTML for a ToC.
 	 * @param Title $title for target
 	 * @param string $type: main or flat or stuff (used as css class)
 	 * @return string|null
 	 */
-	protected function generateToC( Title $title, $type = 'main' ) {
+	protected function generateToC( Title $title, ParserOutput &$output, $type = 'main' ) {
 		// TODO use correct version of text; support PREVIEWS as well as just pulling the content revision
 		$rev = Revision::newFromTitle( $title );
 		if ( isset( $rev ) ) {
@@ -575,6 +642,20 @@ class CollaborationHubContent extends JsonContent {
 
 			if ( $rev->getContentModel() == 'CollaborationHubContent' ) {
 				$ToCItems = array();
+
+				// Add project mainpage to toc for subpages
+				if ( $type != 'main' ) {
+
+					$display = Html::element(
+						'span',
+						[],
+						$sourceContent->getPageName()
+					);
+					$display = $sourceContent->getImage( 'puzzlepiece', 40 ) . $display;
+
+					$ToCItems[$sourceContent->getPageName()] = [ Linker::Link( $title, $display ), 'toc-mainpage' ];
+				}
+
 				foreach ( $sourceContent->getContent() as $item ) {
 					$spTitle = Title::newFromText( $item['item'] );
 					$spRev = Revision::newFromTitle( $spTitle );
@@ -582,8 +663,12 @@ class CollaborationHubContent extends JsonContent {
 					if ( isset( $spRev ) ) {
 						$spContent = $spRev->getContent();
 						$spContentModel = $spRev->getContentModel();
+
+						$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );
 					} else {
 						$spContentModel = 'none';
+
+						$output->addTemplate( $spTitle, $spTitle->getArticleId(), null );
 					}
 
 					// Display name and #id
@@ -611,29 +696,30 @@ class CollaborationHubContent extends JsonContent {
 						$display = $this->getImage( 'random', 50, $item ) . $display;
 					}
 
-					$ToCItems[$item] = Linker::Link( $link, $display );
+					$ToCItems[$item] = [ Linker::Link( $link, $display ), Sanitizer::escapeId( 'toc-' . $spTitle->getSubpageText() ) ];
 				}
 				$html .= Html::openElement( 'div', array( 'class' => 'wp-toc' ) );
-				if ( $type != 'main' ) {
-					// TODO Make this proper
-					$html .= Html::rawElement(
-						'h3',
-						array(),
-						Linker::Link( $title, $sourceContent->getPageName() )
-					);
-				}
+
 				$html .= Html::openElement( 'ul' );
 
-				foreach ( $ToCItems as $item => $linkTitle ) {
+				foreach ( $ToCItems as $item => $linkJunk ) {
 					$html .= Html::rawElement(
 						'li',
-						array( 'class' => 'wp-toc-item' ),
-						$linkTitle
+						array(
+							'class' => 'wp-toc-item ' . $linkJunk[1] // id info
+						),
+						$linkJunk[0] // link html string
 					);
 				}
 				$html .= Html::closeElement( 'ul' );
 				$html .= '<div class="visualClear"></div>';
 				$html .= Html::closeElement( 'div' );
+
+				$html = Html::rawElement(
+					'div',
+					[ 'class' => 'wp-toc-container' ],
+					$html
+				);
 			} else {
 				$html = 'Page not found, ToC not possible';
 			}
@@ -736,7 +822,7 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput to actually generate an image out of the icon value
-	 * @param string $fallback for what to do for no icons
+	 * @param string $fallback for what to do for no icons - nothing, random, specific icon...
 	 * @param int $size image size in px
 	 * @param string $seed fallback seed for non-chc pages called from another ch
 	 * @return string html|HORRIBLE GAPING VOID
@@ -748,12 +834,19 @@ class CollaborationHubContent extends JsonContent {
 			if ( $icon == '' || $icon == '-' ) {
 				if ( $fallback == 'none' ) {
 					return '';
-				} else {
+				} elseif ( $fallback == 'random' ) {
 					return $this->makeIcon( $this->getPageName(), $size );
+				} else {
+					// Maybe they want a specific one?
+					return $this->makeIcon( $fallback, $size );
 				}
 			}
 			if ( wfFindFile( $icon ) ) {
-				return wfFindFile( $icon )->transform( array( 'width' => $size ) )->toHtml();
+				return Html::rawElement(
+					'div',
+					[ 'class' => 'file-image' ],
+					wfFindFile( $icon )->transform( array( 'width' => $size ) )->toHtml()
+				);
 			} else {
 				return $this->makeIcon( $icon, $size );
 			}

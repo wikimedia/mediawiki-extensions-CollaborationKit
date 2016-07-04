@@ -48,7 +48,9 @@
 	"collaborationkit-list-add-button": "Add new item to list",
 	"collaborationkit-members-header": "Members",
 	"collaborationkit-members-signup": "Join WikiProject",
-	"collaborationkit-members-view": "View members",
+	"collaborationkit-members-view": "View full list",
 	"collabkit-list-delete": "Remove item",
-	"collaborationkit-editjsontab": "Edit as JSON"
+	"collaborationkit-editjsontab": "Edit as JSON",
+	"collaborationkit-missing-note": "This page does not exist. You can create a new project subpage using the button below.",
+	"collaborationkit-create-subpage": "Create subpage"
 }
