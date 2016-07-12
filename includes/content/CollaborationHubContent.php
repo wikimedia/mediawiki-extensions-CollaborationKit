@@ -410,6 +410,7 @@ class CollaborationHubContent extends JsonContent {
 		global $wgParser;
 		$html = '';
 
+		$linkRenderer = $wgParser->getLinkRenderer();
 		if ( $this->getContentType() == 'subpage-list' ) {
 			$ToC = $this->generateToC( $title, $output );
 			$list = '';
@@ -459,26 +460,26 @@ class CollaborationHubContent extends JsonContent {
 					);
 
 					$sectionLinks = [
-						'viewLink' => Linker::Link(
+						'viewLink' => $linkRenderer->makeLink(
 							$spTitle,
 							wfMessage( 'view' )->inContentLanguage()->text()
 						)
 					];
 					if ( $spTitle->userCan( 'edit' ) ) {
-						$sectionLinks['edit'] = Linker::Link(
+						$sectionLinks['edit'] = $linkRenderer->makeLink(
 							SpecialPage::getTitleFor(
 								'EditCollaborationHub',
-								$spTitle->getPrefixedUrl()
+								$spTitle->getPrefixedURL()
 							),
 							wfMessage( 'edit' )->inContentLanguage()->text()
 						);
 					}
 					// TODO figure out why this one isn't showing up
 					if ( $title->userCan( 'edit' ) ) {
-						$sectionLinks['delete'] = Linker::Link(
+						$sectionLinks['delete'] = $linkRenderer->makeLink(
 							SpecialPage::getTitleFor(
 								'EditCollaborationHub',
-								$title->getPrefixedUrl()
+								$title->getPrefixedURL()
 							),
 							wfMessage( 'collabkit-list-delete' )->inContentLanguage()->text()
 						);
@@ -527,10 +528,10 @@ class CollaborationHubContent extends JsonContent {
 						$spTitle->getSubpageText()
 					);
 
-					$list .= $this->editSectionLink( Linker::Link(
+					$list .= $this->editSectionLink( $linkRenderer->makeLink(
 						SpecialPage::getTitleFor(
 							'EditCollaborationHub',
-							$title->getPrefixedUrl()
+							$title->getPrefixedURL()
 						),
 						wfMessage( 'collabkit-list-delete' )->inContentLanguage()->text()
 					) );
@@ -546,8 +547,8 @@ class CollaborationHubContent extends JsonContent {
 						'label' => wfMessage( 'collaborationkit-create-subpage' )->inContentLanguage()->text(),
 						'href' => SpecialPage::getTitleFor(
 								'EditCollaborationHub',
-								$spTitle->getPrefixedUrl()
-							)->getLinkUrl()
+								$spTitle->getPrefixedURL()
+							)->getLinkURL()
 					] );
 				}
 				$list .= Html::closeElement( 'div' );
@@ -582,7 +583,7 @@ class CollaborationHubContent extends JsonContent {
 						// Nonexistent user
 						continue;
 					}
-					$printItem = Linker::link( $user->getUserPage(), $user->getName() );
+					$printItem = $linkRenderer->makeLink( $user->getUserPage(), $user->getName() );
 				} else {
 					$printItem = $wgParser->parse( $item['item'], $title, $options )->getText();
 				}
@@ -599,7 +600,7 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput for making editsection links in headers
-	 * @param $link html string of the link itself
+	 * @param $link string html of the link itself
 	 * @return string html
 	 */
 	protected function editSectionLink( $link ) {
