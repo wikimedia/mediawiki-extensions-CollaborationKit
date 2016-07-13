@@ -415,7 +415,6 @@ class CollaborationListContent extends JsonContent {
 		];
 	}
 
-
 	/**
 	 * Sort a list
 	 *
@@ -462,7 +461,6 @@ class CollaborationListContent extends JsonContent {
 		return $items;
 	}
 
-
 	/**
 	 * Determine if an item matches a set of tags
 	 *
@@ -474,7 +472,7 @@ class CollaborationListContent extends JsonContent {
 	 * @param $itemTags Array What tags is this item tagged with
 	 * @return boolean If the item matches
 	 */
-	private function matchesTag( Array $tagSpecifier, Array $itemTags ) {
+	private function matchesTag( array $tagSpecifier, array $itemTags ) {
 		if ( !$tagSpecifier ) {
 			return true;
 		}

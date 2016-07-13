@@ -104,9 +104,9 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			if ( $this->rev ) {
 				$revId = $this->rev->getId();
 				$query = ( $revId !== $this->title->getLatestRevId() ) ?
-					array( 'oldid' => $revId ) : array();
+					[ 'oldid' => $revId ] : [];
 			} else {
-				$query = array();
+				$query = [];
 			}
 			$out->addBacklinkSubtitle( $this->title, $query );
 
@@ -119,7 +119,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 
 			// Protection warnings; modified from EditPage::showHeader()
 			if ( $this->title->isProtected( 'edit' )
-				&& MWNamespace::getRestrictionLevels( $this->title->getNamespace() ) !== array( '' )
+				&& MWNamespace::getRestrictionLevels( $this->title->getNamespace() ) !== [ '' ]
 			) {
 				if ( $this->title->isSemiProtected() ) {
 					$noticeMsg = 'semiprotectedpagewarning';
@@ -127,7 +127,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 					$noticeMsg = 'protectedpagewarning';
 				}
 				LogEventsList::showLogExtract( $out, 'protect', $this->title, '',
-					array( 'lim' => 1, 'msgKey' => array( $noticeMsg ) ) );
+					[ 'lim' => 1, 'msgKey' => [ $noticeMsg ] ] );
 			}
 		}
 	}
@@ -138,7 +138,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 	protected function getFormFields() {
 		// Return an empty form if the title is invalid or if the user can't edit the list.
 		if ( !$this->rev ) {
-			return array();
+			return [];
 		}
 
 		$pageContent = $this->rev->getContent( Revision::FOR_THIS_USER, $this->getUser() );
@@ -155,7 +155,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			$content = $this->makeListReadable( $content, $contentType );
 		}
 
-		$formJunk = array();
+		$formJunk = [];
 
 		// Check which label to use for page_name
 		if ( $pageType == 'main' ) {
@@ -165,68 +165,68 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			$nameLabel = 'collaborationkit-edit-page-name';
 			$iconLabel = 'collaborationjit-edit-page-icon';
 		}
-		$formJunk['page_name'] = array(
+		$formJunk['page_name'] = [
 			'type' => 'text',
 			'maxlength' => 255,
 			'size' => 40,
 			'default' => ( $pageName !== null ) ? $pageName : '',
 			'label-message' => $nameLabel,
 			'cssclass' => 'ext-ck-edit-pagename',
-		);
+		];
 
 		// Skip implicit type on main
 		if ( $pageType != 'main' && $pageType != 'userlist' ) {
-			$typesList = array();
+			$typesList = [];
 			foreach ( $pageContent->getPossibleTypes() as $type ) {
 				$typeString = $this->msg( 'collaborationhub-display-' . $type )->parse();
 				$typesList[$typeString] = $type;
 			}
-			$formJunk['page_display_type'] = array(
+			$formJunk['page_display_type'] = [
 				'type' => 'select',
 				'options' => $typesList,
 				'default' => $contentType,
 				'label-message' => 'collaborationkit-edit-page-type',
 				'cssclass' => 'ext-ck-edit-pagetype',
-			);
+			];
 		} else {
-			$formJunk['page_display_type'] = array(
+			$formJunk['page_display_type'] = [
 				'type' => 'text',
 				'default' => $pageType,
 				'label-message' => 'collaborationkit-edit-page-type',
 				'cssclass' => 'ext-ck-edit-pagetype hidden',
-			);
+			];
 		}
 
-		$formJunk['icon'] = array(
+		$formJunk['icon'] = [
 			'type' => 'text',
 			'default' => $icon,
 			'maxlength' => 255,
 			'size' => 50,
 			'label-message' => $iconLabel,
 			'cssclass' => 'ext-ck-edit-icon',
-		);
-		$formJunk['description'] = array(
+		];
+		$formJunk['description'] = [
 			'type' => 'textarea',
 			'rows' => 4,
 			'default' => ( $description !== null ) ? $description : '',
 			'label-message' => 'collaborationkit-edit-description',
 			'cssclass' => 'ext-ck-edit-description',
-		);
+		];
 		// This is stupid. They all get handled in a textarea.
 		// Also need some type for multiple lists on the page.
-		$formJunk['content'] = array(
+		$formJunk['content'] = [
 			'type' => 'textarea',
 			'default' => $content,
 			'label-message' => 'collaborationkit-edit-content',
 			'cssclass' => 'ext-ck-edit-content',
-		);
-		$formJunk['summary'] = array(
+		];
+		$formJunk['summary'] = [
 			'type' => 'text',
 			'maxlength' => 255,
 			'size' => 50,
 			'label-message' => 'collaborationkit-edit-summary',
 			'cssclass' => 'ext-ck-edit-summary',
-		);
+		];
 
 		return $formJunk;
 	}
@@ -251,23 +251,23 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 		if ( $this->rev ) {
 			// Instructions
 			$headerKey = 'collaborationkit-edit-header';
-			$html = Html::rawElement( 'p', array(), $this->msg( $headerKey )->parse() );
+			$html = Html::rawElement( 'p', [], $this->msg( $headerKey )->parse() );
 
 			// Deleted revision warning
 			if ( $this->rev->isDeleted( Revision::DELETED_TEXT ) ) {
-				$html .= Html::openElement( 'div', array( 'class' => 'mw-warning plainlinks' ) );
-				$html .= Html::rawElement( 'p', array(),
+				$html .= Html::openElement( 'div', [ 'class' => 'mw-warning plainlinks' ] );
+				$html .= Html::rawElement( 'p', [],
 					$this->msg( 'rev-deleted-text-view' )->parse() );
 				$html .= Html::closeElement( 'div' );
 			}
 
 			// Old revision warning
 			if ( $this->rev->getId() !== $this->title->getLatestRevID() ) {
-				$html .= Html::rawElement( 'p', array(), $this->msg( 'editingold' )->parse() );
+				$html .= Html::rawElement( 'p', [], $this->msg( 'editingold' )->parse() );
 			}
 		} else {
 			// Error determined in setParameter()
-			$html = Html::rawElement( 'p', array(), $this->msg( $this->errorMsgKey )->parse() );
+			$html = Html::rawElement( 'p', [], $this->msg( $this->errorMsgKey )->parse() );
 		}
 		return $html;
 	}
@@ -397,15 +397,15 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 	 * @return array $content
 	 */
 	protected static function makeListSensible( $content, $contentType ) {
-		$output = array();
+		$output = [];
 		if ( $contentType == 'list' || $contentType == 'subpage-list' ) {
 			$lines = array_filter( explode( "\n", $content ), 'trim' ); // Array of non-empty lines
 			foreach ( $lines as $line ) {
-				$output[] = array(
+				$output[] = [
 					'item' => $line,
 					'icon' => null, // TODO remove nulls out of things that don't actually need them (make output cleaner)
 					'notes' => null
-				);
+				];
 			}
 		} elseif ( $contentType == 'icon-list' || $contentType == 'block-list' ) {
 			array_filter( $unhandledList = explode( "\n\n", $content ), 'trim' );
@@ -413,11 +413,11 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 				$pattern = "/^\\*\s*(.*)(?:\n\\*::\s*(.*)\n)?(?:\s*(.*))?$/m";
 				preg_match_all( $pattern, $item, $out );
 
-				$output[] = array(
+				$output[] = [
 					'item' => is_array( $out[1] ) ? $out[1][0] : null,
 					'icon' => is_array( $out[2] ) ? $out[2][0] : null,
 					'notes' => is_array( $out[3] ) ? $out[3][0] : null,
-				);
+				];
 			}
 		}
 		return $output;

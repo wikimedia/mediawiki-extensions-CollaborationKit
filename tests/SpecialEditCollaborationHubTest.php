@@ -11,7 +11,6 @@ class SpecialEditcollaborationHubTest extends MediaWikiTestCase {
 		$this->page = TestingAccessWrapper::newFromObject( $page );
 	}
 
-
 	/**
 	 * @dataProvider provideMakeListReadable
 	 */
@@ -44,7 +43,7 @@ class SpecialEditcollaborationHubTest extends MediaWikiTestCase {
 				"* foo\n\n* baz\n\n* fred\n\n",
 			],
 			[
-				[ [ 'item' => 'foo', 'notes' => 'A really foo-like item', 'icon' => 'bar'  ] ],
+				[ [ 'item' => 'foo', 'notes' => 'A really foo-like item', 'icon' => 'bar' ] ],
 				'icon-list',
 				"* foo\n*:: bar\nA really foo-like item\n\n",
 			],

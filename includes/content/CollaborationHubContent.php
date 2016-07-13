@@ -20,11 +20,11 @@ class CollaborationHubContent extends JsonContent {
 	 * others may later include scope, announcements, related projects, etc
 	 * @var array
 	 */
-	protected $availablePageTypes = array(
+	protected $availablePageTypes = [
 		'default',
 		'main',
 		'userlist'
-	);
+	];
 
 	/**
 	 * Page displayname, used for headers in the hub main page and stuff; doubles as project name on pagetype main
@@ -60,13 +60,13 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * @var array
 	 */
-	protected $availableContentTypes = array(
+	protected $availableContentTypes = [
 		'wikitext',
 		'subpage-list',
 		'icon-list',
 		'block-list',
 		'list'
-	);
+	];
 
 	/**
 	 * Whether contents have been populated
@@ -148,17 +148,17 @@ class CollaborationHubContent extends JsonContent {
 					isset( $data->content->items ) &&
 					is_array( $data->content->items )
 				) {
-					$this->content = array();
+					$this->content = [];
 					$this->contentType = $data->content->type;
 
 					// parse them all the same way; we don't care about missing/extra stuff
-					$this->content = array();
+					$this->content = [];
 					foreach ( $data->content->items as $itemObject ) {
 						if ( !is_object( $itemObject ) ) { // Malformed item
 							$this->content = null;
 							break;
 						}
-						$item = array();
+						$item = [];
 						$item['item'] = isset( $itemObject->item ) ? $itemObject->item : null;
 						$item['icon'] = isset( $itemObject->icon ) ? $itemObject->icon : null;
 						$item['notes'] = isset( $itemObject->notes ) ? $itemObject->notes : null;
@@ -251,7 +251,7 @@ class CollaborationHubContent extends JsonContent {
 	) {
 		$output->setText( Html::rawElement(
 			'div',
-			array( 'class' => 'wp-intro' ),
+			[ 'class' => 'wp-intro' ],
 			$this->getParsedDescription( $title, $options )
 		) );
 
@@ -265,7 +265,7 @@ class CollaborationHubContent extends JsonContent {
 			// Image
 			$prependiture = Html::rawElement(
 				'div',
-				array( 'id' => 'wp-header-icon', 'class' => 'wp-junk' ),
+				[ 'id' => 'wp-header-icon', 'class' => 'wp-junk' ],
 				$this->getImage( 'none', 120 )
 			);
 
@@ -276,7 +276,7 @@ class CollaborationHubContent extends JsonContent {
 
 				$prependiture .= Html::openElement(
 					'div',
-					array( 'id' => 'wp-header-members', 'class' => 'wp-junk' )
+					[ 'id' => 'wp-header-members', 'class' => 'wp-junk' ]
 				);
 				$prependiture .= Html::element(
 					'h2',
@@ -319,7 +319,7 @@ class CollaborationHubContent extends JsonContent {
 				// Add page class
 				Html::openElement(
 					'div',
-					array( 'class' => 'wp-mainpage wp-collaborationhub' )
+					[ 'class' => 'wp-mainpage wp-collaborationhub' ]
 				) . $prependiture . $output->getText()
 			);
 		} else {
@@ -334,7 +334,7 @@ class CollaborationHubContent extends JsonContent {
 			if ( $this->getIcon() !== '' ) {
 				$prependiture .= Html::rawElement(
 					'div',
-					array( 'id' => 'wp-header-icon', 'class' => 'wp-junk' ),
+					[ 'id' => 'wp-header-icon', 'class' => 'wp-junk' ],
 					$this->getImage( 'none', 40 )
 				);
 			}
@@ -348,7 +348,7 @@ class CollaborationHubContent extends JsonContent {
 				// Add page class
 				Html::openElement(
 					'div',
-					array( 'class' => 'wp-subpage wp-collaborationhub' )
+					[ 'class' => 'wp-subpage wp-collaborationhub' ]
 				) . $prependiture . $output->getText()
 			);
 
@@ -422,10 +422,10 @@ class CollaborationHubContent extends JsonContent {
 				// get collaborationhubcontent object for the subpage and stuff
 				$spTitle = Title::newFromText( $item['item'] );
 				$spRev = Revision::newFromTitle( $spTitle );
-				$list .= Html::openElement( 'div', array( 'class' => 'wp-pagelist-section' ) );
+				$list .= Html::openElement( 'div', [ 'class' => 'wp-pagelist-section' ] );
 
 				// So the ToC has something to link to
-				$tocLinks = array();
+				$tocLinks = [];
 
 				if ( isset( $spRev ) ) {
 					$spContent = $spRev->getContent();
@@ -520,7 +520,7 @@ class CollaborationHubContent extends JsonContent {
 					// TODO Replace this with a button to special:createcollaborationhub/title
 					$list .= Html::openElement(
 						'h2',
-						array( 'class' => 'wp-header-missing' )
+						[ 'class' => 'wp-header-missing' ]
 					);
 					$list .= Html::element(
 						'span',
@@ -589,7 +589,7 @@ class CollaborationHubContent extends JsonContent {
 				}
 
 				$html .= Html::openElement( 'li' );
-				$html .= Html::rawElement( 'span', array( 'class' => 'doink' ), $printItem );
+				$html .= Html::rawElement( 'span', [ 'class' => 'doink' ], $printItem );
 				$html .= Html::closeElement( 'li' );
 			}
 			$html .= Html::closeElement( 'ul' );
@@ -642,7 +642,7 @@ class CollaborationHubContent extends JsonContent {
 			$html = '';
 
 			if ( $rev->getContentModel() == 'CollaborationHubContent' ) {
-				$ToCItems = array();
+				$ToCItems = [];
 
 				// Add project mainpage to toc for subpages
 				if ( $type != 'main' ) {
@@ -699,16 +699,16 @@ class CollaborationHubContent extends JsonContent {
 
 					$ToCItems[$item] = [ Linker::Link( $link, $display ), Sanitizer::escapeId( 'toc-' . $spTitle->getSubpageText() ) ];
 				}
-				$html .= Html::openElement( 'div', array( 'class' => 'wp-toc' ) );
+				$html .= Html::openElement( 'div', [ 'class' => 'wp-toc' ] );
 
 				$html .= Html::openElement( 'ul' );
 
 				foreach ( $ToCItems as $item => $linkJunk ) {
 					$html .= Html::rawElement(
 						'li',
-						array(
+						[
 							'class' => 'wp-toc-item ' . $linkJunk[1] // id info
-						),
+						],
 						$linkJunk[0] // link html string
 					);
 				}
@@ -771,7 +771,7 @@ class CollaborationHubContent extends JsonContent {
 	protected function makeIcon( $icon, $size ) {
 
 		// Keep this synced with icons.svg and the less file(s)
-		$iconsPreset = array(
+		$iconsPreset = [
 			// Randomly selectable items
 			'sections',
 			'list',
@@ -808,7 +808,7 @@ class CollaborationHubContent extends JsonContent {
 			'gallery',
 			'lock',
 			'nowikitext',
-		);
+		];
 		// TODO if it's an uploaded file (begins with 'file:' and/or ends with '.filextension'); use that as source and set class to 'user-upload' (wfFindFile( $icon ))
 		// if preset or other logical class name, just set class; we allow non-preset ones for on-wiki flexibility?
 		if ( $icon !== null && in_array( $icon, $iconsPreset ) ) {
@@ -818,7 +818,7 @@ class CollaborationHubContent extends JsonContent {
 			$class = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 14 ];
 		}
 
-		return Html::element( 'div', array( 'class' => 'toc-icon ' . $class ) );
+		return Html::element( 'div', [ 'class' => 'toc-icon ' . $class ] );
 	}
 
 	/**
@@ -846,7 +846,7 @@ class CollaborationHubContent extends JsonContent {
 				return Html::rawElement(
 					'div',
 					[ 'class' => 'file-image' ],
-					wfFindFile( $icon )->transform( array( 'width' => $size ) )->toHtml()
+					wfFindFile( $icon )->transform( [ 'width' => $size ] )->toHtml()
 				);
 			} else {
 				return $this->makeIcon( $icon, $size );

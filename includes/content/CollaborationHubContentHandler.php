@@ -61,18 +61,18 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @return Status
 	 */
 	public static function edit( Title $title, $pageName, $icon, $pageType, $contentType, $description, $content, $summary, IContextSource $context ) {
-		$contentBlock = array(
+		$contentBlock = [
 			'page_name' => $pageName,
 			'description' => $description,
 			'icon' => $icon
-		);
+		];
 		if ( $contentType == 'wikitext' ) {
 			$contentBlock['content'] = $content;
 		} else {
-			$contentBlock['content'] = array(
+			$contentBlock['content'] = [
 				'type' => $contentType,
 				'items' => $content
-			);
+			];
 			$contentBlock['page_type'] = $pageType;
 		}
 		$jsonText = FormatJson::encode( $contentBlock );
@@ -84,14 +84,14 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		$der = new DerivativeContext( $context );
 		$request = new DerivativeRequest(
 			$context->getRequest(),
-			array(
+			[
 				'action' => 'edit',
 				'title' => $title->getFullText(),
 				'contentmodel' => 'CollaborationHubContent',
 				'text' => $jsonText,
 				'summary' => $summary,
 				'token' => $context->getUser()->getEditToken(),
-			),
+			],
 			true // Treat data as POSTed
 		);
 		$der->setRequest( $request );

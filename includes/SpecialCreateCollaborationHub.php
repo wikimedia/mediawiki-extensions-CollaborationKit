@@ -33,41 +33,41 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		// We know it's a mainpage, so ignore subpage options
 		$isMainpage = true;
 
-		$fields = array(
+		$fields = [
 			// autofilled from how they got here, hopefully
-			'title' => array(
+			'title' => [
 				'type' => 'text',
 				'label-message' => 'collaborationkit-create-title',
-			),
+			],
 			// Display name can be different from page title
-			'display_name' => array(
+			'display_name' => [
 				'type' => 'text',
 				'label-message' => 'collaborationkit-create-page-name',
-			)
-		);
+			]
+		];
 
 		// Content source options
-		$fields['content_source'] = array(
+		$fields['content_source'] = [
 			'type' => 'select',
-			'options' => $this->getOptions( array(
+			'options' => $this->getOptions( [
 				'collaborationhub-create-new' => 'new',
 				'collaborationhub-create-import' => 'import',
 				'collaborationhub-create-clone' => 'clone',
-			) ),
+			] ),
 			'default' => 'new', // might want to change to clone from the default (TODO add a canned default as example and stuff)
 			'label-message' => 'collaborationkit-create-content',
-		);
-		$fields['source'] = array(
+		];
+		$fields['source'] = [
 			'type' => 'text',
 			'label-message' => 'collaborationkit-create-source',
 			'hide-if' => [ '===', 'wpcontent_source', 'new' ]
-		);
+		];
 
-		$fields['description'] = array(
+		$fields['description'] = [
 			'type' => 'textarea',
 			'rows' => 5,
 			'label-message' => 'collaborationkit-edit-description',
-		);
+		];
 
 		return $fields;
 	}
@@ -77,7 +77,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @return array
 	 */
 	protected function getOptions( $mapping ) {
-		$options = array();
+		$options = [];
 		foreach ( $mapping as $msgKey => $option ) {
 			$options[$this->msg( $msgKey )->escaped()] = $option;
 		}
@@ -103,7 +103,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationhub-create-nopermission' );
 		}
 
-		$content = array();
+		$content = [];
 
 		// ACTUAL STUFF HERE
 		if ( $data['content_source'] !== 'new' ) { // Importing from wikitext
