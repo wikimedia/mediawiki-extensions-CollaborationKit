@@ -54,5 +54,6 @@
 	"collaborationkit-missing-note": "Note and helpt text for missing section subpages on a collaboration hub mainpage",
 	"collaborationkit-create-subpage": "Button label for creating a new subpage",
 	"collaborationkit-listedit-desc": "Header on edit page for the list description text box",
-	"collaborationkit-listedit-list": "Header on edit page for the main body of the list"
+	"collaborationkit-listedit-list": "Header on edit page for the main body of the list",
+	"collaborationhub-toc-partof": "Label for the Collaboration Hub that the feature (subpage) is a part of"
 }

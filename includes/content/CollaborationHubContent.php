@@ -654,7 +654,14 @@ class CollaborationHubContent extends JsonContent {
 					);
 					$display = $sourceContent->getImage( 'puzzlepiece', 40 ) . $display;
 
-					$ToCItems[$sourceContent->getPageName()] = [ Linker::Link( $title, $display ), 'toc-mainpage' ];
+					$ToCItems[$sourceContent->getPageName()] = [
+						Html::rawElement(
+							'span',
+							[ 'class' => 'wp-toc-projectlabel' ],
+							wfMessage( 'collaborationhub-toc-partof' )->inContentLanguage()->text()
+						) . Linker::Link( $title, $display ),
+						'toc-mainpage'
+					];
 				}
 
 				foreach ( $sourceContent->getContent() as $item ) {
@@ -675,7 +682,7 @@ class CollaborationHubContent extends JsonContent {
 					// Display name and #id
 					$item = $spContentModel == 'CollaborationHubContent' ?
 						$spContent->getPageName() : $spTitle->getSubpageText();
-					$display = Html::element( 'span', [], $item );
+					$display = Html::element( 'span', [ 'class' => 'item-label' ], $item );
 					while ( isset( $ToCItems[$item] ) ) {
 						// Already exists, add a 1 to the end to avoid duplicates
 						$item = $item . '1';
@@ -773,41 +780,64 @@ class CollaborationHubContent extends JsonContent {
 		// Keep this synced with icons.svg and the less file(s)
 		$iconsPreset = [
 			// Randomly selectable items
-			'sections',
-			'list',
-			'newspaper',
-			'checked',
-			'eye',
-			'page',
-			'goodpage',
+			'book',
 			'circlestar',
-			'rocket',
+			'clock',
+			'community',
+			'contents',
 			'die',
+			'edit',
+			'eye',
+			'flag',
+			'funnel',
+			'gear',
+			'heart',
+			'journal',
+			'key',
+			'link',
+			'map',
+			'menu',
+			'newspaper',
+			'ol',
+			'page',
+			'paperclip',
 			'puzzlepiece',
+			'ribbon',
+			'rocket',
 			'star',
 			'sun',
-			'ribbon',
+			'ul',
 
-			// Less generic items
-			'gear',
-			'search',
-			'book',
-			'pencil',
-			'mapmarker',
-			'link',
-			'flag',
-			'bookmark',
-			'translate',
-			'play',
-			'quote',
-			'clock',
+			'addimage',
+			'addmapmarker',
+			'addquote',
 			'bell',
-			'user',
-			'heart',
+			'circleline',
+			'circletriangle',
+			'circlex',
 			'discussion',
+			'download',
+			'editprotected',
 			'gallery',
+			'image',
 			'lock',
-			'nowikitext',
+			'mail',
+			'mapmarker',
+			'message',
+			'messagenew',
+			'messagescary',
+			'move',
+			'nowiki',
+			'pagechecked',
+			'pageribbon',
+			'pagesearch',
+			'print',
+			'quotes',
+			'search',
+			'starmenu',
+			'translate',
+			'trash',
+			'user'
 		];
 		// TODO if it's an uploaded file (begins with 'file:' and/or ends with '.filextension'); use that as source and set class to 'user-upload' (wfFindFile( $icon ))
 		// if preset or other logical class name, just set class; we allow non-preset ones for on-wiki flexibility?
@@ -815,10 +845,10 @@ class CollaborationHubContent extends JsonContent {
 			$class = Sanitizer::escapeClass( $icon );
 		} else {
 			// Choose random class name using $icon value as seed
-			$class = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 14 ];
+			$class = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 27];
 		}
 
-		return Html::element( 'div', [ 'class' => 'toc-icon ' . $class ] );
+		return Html::element( 'div', [ 'class' => 'wp-icon ' . $class ] );
 	}
 
 	/**

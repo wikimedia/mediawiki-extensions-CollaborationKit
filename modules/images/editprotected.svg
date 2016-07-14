@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg4651"
+   viewBox="0 0 199.99999 199.99999"
+   height="56.444443mm"
+   width="56.444443mm">
+  <defs
+     id="defs4653" />
+  <metadata
+     id="metadata4656">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-445.71429,-355.21936)"
+     id="layer1">
+    <g
+       transform="matrix(9.9999982,0,0,9.9999976,425.71421,335.21911)"
+       id="g4629"
+       style="display:inline">
+      <g
+         style="display:none"
+         id="Layer_1_1_"
+         display="none">
+        <g
+           style="display:inline"
+           transform="matrix(1,0,0,-1,0,1638)"
+           display="inline"
+           id="g4612">
+          <path
+             d="m 17.2,1634.1 c -0.7,0 -1,-0.4 -1,-1.2 l 0,-1 2.1,0 0,1 c -0.1,0.8 -0.4,1.2 -1.1,1.2 z m 0,1.3 c 0.6,0 1.2,-0.2 1.6,-0.7 0.4,-0.5 0.7,-1.1 0.7,-1.8 l 0,-1.1 1,0 0,-4.6 -6.6,0 0,4.6 1,0 0,1.1 c 0,0.7 0.2,1.3 0.7,1.8 0.4,0.5 1,0.7 1.6,0.7 z m -4.4,-9.3 1.6,0 -7.5,-6.8 -4.8,-0.5 1,4.7 9.7,8.7 0,-1.6 -8.5,-7.6 c 0.2,-0.1 0.5,-0.4 0.9,-0.8 l 7.5,6.8 0.1,-2.9 0,0 z"
+             id="path4614" />
+        </g>
+      </g>
+      <g
+         id="Layer_2-4">
+        <g
+           id="g4617">
+          <path
+             d="m 20.125,5.625 0,-0.875 c 0,0 0,-2.625 -2.625,-2.625 -2.625,0 -2.625,2.625 -2.625,2.625 l 0,0.875 -0.875,0 0,4.375 7,0 0,-4.375 z m -1.3125,0 -2.625,0 0,-0.875 c 0,0 0,-1.3125 1.3125,-1.3125 1.3125,0 1.3125,1.3125 1.3125,1.3125 z"
+             id="path4619" />
+          <path
+             d="m 13,9.6 -6.8,6.9 c -0.3,-0.3 -0.7,-0.6 -1,-0.8 1.4,-1.4 5,-5 7.8,-7.9 l 0,-1.8 -9,9 -1,5 5,-1 8,-8 -3,0 0,-1.4 z"
+             id="path4621" />
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

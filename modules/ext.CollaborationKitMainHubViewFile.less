@@ -26,153 +26,6 @@
 	}
 }
 
-.toc-icon {
-	width: 40px;
-	height: 40px;
-	display: block;
-	content: '';
-}
-
-// Helper function to convert icon offsets into meaningful coordinates
-.toc-icon( @offset: 0 ) {
-	@x-position: 0px - floor( @offset / 10 ) * 50;
-	@y-position: 0px - mod( @offset, 10 ) * 50;
-
-	.background-image-svg( 'images/icons.svg', 'images/icons.png' );
-	background-repeat: no-repeat;
-	background-position: @x-position @y-position;
-}
-.toc-icon.sections {
-	.toc-icon( 0 );
-}
-.toc-icon.list {
-	.toc-icon( 1 );
-}
-.toc-icon.newspaper {
-	.toc-icon( 2 );
-}
-.toc-icon.checked {
-	.toc-icon( 3 );
-}
-.toc-icon.eye {
-	.toc-icon( 4 );
-}
-.toc-icon.page {
-	.toc-icon( 5 );
-}
-.toc-icon.goodpage {
-	.toc-icon( 6 );
-}
-.toc-icon.circlestar {
-	.toc-icon( 7 );
-}
-.toc-icon.rocket {
-	.toc-icon( 8 );
-}
-.toc-icon.die {
-	.toc-icon( 9 );
-}
-.toc-icon.puzzlepiece {
-	.toc-icon( 10 );
-}
-.toc-icon.star {
-	.toc-icon( 11 );
-}
-.toc-icon.sun {
-	.toc-icon( 12 );
-}
-.toc-icon.ribbon{
-	.toc-icon( 13 );
-}
-.toc-icon.gear {
-	.toc-icon( 20 );
-}
-.toc-icon.search {
-	.toc-icon( 21 );
-}
-.toc-icon.book {
-	.toc-icon( 22 );
-}
-.toc-icon.pencil {
-	.toc-icon( 23 );
-}
-.toc-icon.mapmarker {
-	.toc-icon( 24 );
-}
-.toc-icon.link {
-	.toc-icon( 25 );
-}
-.toc-icon.flag {
-	.toc-icon( 26 );
-}
-.toc-icon.bookmark {
-	.toc-icon( 27 );
-}
-.toc-icon.translate {
-	.toc-icon( 28 );
-}
-.toc-icon.play {
-	.toc-icon( 29 );
-}
-.toc-icon.quote {
-	.toc-icon( 30 );
-}
-.toc-icon.clock {
-	.toc-icon( 31 );
-}
-.toc-icon.bell {
-	.toc-icon( 32 );
-}
-.toc-icon.user {
-	.toc-icon( 33 );
-}
-.toc-icon.heart {
-	.toc-icon( 34 );
-}
-.toc-icon.discussion {
-	.toc-icon( 35 );
-}
-.toc-icon.gallery {
-	.toc-icon( 36 );
-}
-.toc-icon.lock {
-	.toc-icon( 37 );
-}
-.toc-icon.nowikitext {
-	.toc-icon( 38 );
-}
-
-// WTF THERE HAS TO BE A BETTER WAY TO DO THIS
-
-.wp-toc {
-	clear: both;
-	margin: 1em 0;
-
-	ul {
-		padding: 0;
-		margin: 0;
-		list-style: none;
-	}
-	li {
-		float: left;
-		margin: .5em 1.25em .5em 0;
-		word-wrap: break-word;
-	}
-	div,
-	img {
-		display: block;
-		margin: auto;
-	}
-
-	.file-image {
-		height: 40px;
-		overflow: hidden;
-
-		img {
-			vertical-align: middle;
-		}
-	}
-}
 
 // Mainpage hub layout (.mw-body included because vector has excessively specific rules)
 .mw-body .wp-mainpage {
@@ -237,17 +90,37 @@
 		}
 		li {
 			float: none;
-			margin: 1.5em 0;
+			margin: .75em 0;
 		}
 		.file-image,
-		.toc-icon {
+		.wp-icon {
 			float: left;
-			margin: 0 1em 0 0;
+			margin: 0 -4em 0 1em;
+			width: 20px;
+			height: 20px;
 		}
+		.toc-mainpage span,
+		.wp-toc-item .item-label {
+			display: block;
+			margin-left: 4em;
+		}
+
 		.toc-mainpage {
 			font-weight: bold;
-			padding: 0 1em 1.5em 0;
+			padding: .5em 1em .75em 0;
 			border-bottom: solid 3px #7af;
+
+			.wp-toc-projectlabel {
+				font-weight: normal;
+			}
+
+			.file-image,
+			.wp-icon {
+				width: 40px;
+				height: 40px;
+				margin-left: 0;
+				margin-top: -1.25em;
+			}
 		}
 	}
 	#wp-header-icon {
@@ -268,4 +141,221 @@
 // Unnecessary as the ToC will link back anyway
 div span.subpages {
 	display: none;
+}
+
+// ARGH
+.wp-toc {
+	clear: both;
+	margin: 1em 0;
+
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	li {
+		float: left;
+		margin: .5em 1.25em .5em 0;
+		word-wrap: break-word;
+	}
+	div,
+	img {
+		display: block;
+		margin: auto;
+	}
+
+	.file-image {
+		height: 40px;
+		overflow: hidden;
+
+		img {
+			vertical-align: middle;
+		}
+	}
+}
+
+// Default?
+.wp-icon {
+	width: 50px;
+	height: 50px;
+	display: block;
+	content: '';
+	background-size: contain;
+}
+
+.ch-icon( @icon ) {
+	.background-image-svg( "images/@{icon}.svg", "images/@{icon}.png" );
+	background-repeat: no-repeat;
+
+}
+.wp-icon.addimage {
+	.ch-icon( 'addimage' );
+}
+.wp-icon.addmapmarker {
+	.ch-icon( 'addmapmarker' );
+}
+.wp-icon.addquote {
+	.ch-icon( 'addquote' );
+}
+.wp-icon.bell {
+	.ch-icon( 'bell' );
+}
+.wp-icon.book {
+	.ch-icon( 'book' );
+}
+.wp-icon.circleline {
+	.ch-icon( 'circleline' );
+}
+.wp-icon.circlestar {
+	.ch-icon( 'circlestar' );
+}
+.wp-icon.circletriangle {
+	.ch-icon( 'circletriangle' );
+}
+.wp-icon.circlex {
+	.ch-icon( 'circlex' );
+}
+.wp-icon.clock {
+	.ch-icon( 'clock' );
+}
+.wp-icon.community {
+	.ch-icon( 'community' );
+}
+.wp-icon.contents {
+	.ch-icon( 'contents' );
+}
+.wp-icon.die {
+	.ch-icon( 'die' );
+}
+.wp-icon.discussion {
+	.ch-icon( 'discussion' );
+}
+.wp-icon.download {
+	.ch-icon( 'download' );
+}
+.wp-icon.edit {
+	.ch-icon( 'edit' );
+}
+.wp-icon.editprotected {
+	.ch-icon( 'editprotected' );
+}
+.wp-icon.eye {
+	.ch-icon( 'eye' );
+}
+.wp-icon.flag {
+	.ch-icon( 'flag' );
+}
+.wp-icon.funnel {
+	.ch-icon( 'funnel' );
+}
+.wp-icon.gallery {
+	.ch-icon( 'gallery' );
+}
+.wp-icon.gear {
+	.ch-icon( 'gear' );
+}
+.wp-icon.heart {
+	.ch-icon( 'heart' );
+}
+.wp-icon.image {
+	.ch-icon( 'image' );
+}
+.wp-icon.journal {
+	.ch-icon( 'journal' );
+}
+.wp-icon.key {
+	.ch-icon( 'key' );
+}
+.wp-icon.link {
+	.ch-icon( 'link' );
+}
+.wp-icon.lock {
+	.ch-icon( 'lock' );
+}
+.wp-icon.mail {
+	.ch-icon( 'mail' );
+}
+.wp-icon.map {
+	.ch-icon( 'map' );
+}
+.wp-icon.mapmarker {
+	.ch-icon( 'mapmarker' );
+}
+.wp-icon.menu {
+	.ch-icon( 'menu' );
+}
+.wp-icon.message {
+	.ch-icon( 'message' );
+}
+.wp-icon.messagenew {
+	.ch-icon( 'messagenew' );
+}
+.wp-icon.messagescary {
+	.ch-icon( 'messagescary' );
+}
+.wp-icon.move {
+	.ch-icon( 'move' );
+}
+.wp-icon.newspaper {
+	.ch-icon( 'newspaper' );
+}
+.wp-icon.nowiki {
+	.ch-icon( 'nowiki' );
+}
+.wp-icon.ol {
+	.ch-icon( 'ol' );
+}
+.wp-icon.page {
+	.ch-icon( 'page' );
+}
+.wp-icon.pagechecked {
+	.ch-icon( 'pagechecked' );
+}
+.wp-icon.pageribbon {
+	.ch-icon( 'pageribbon' );
+}
+.wp-icon.pagesearch {
+	.ch-icon( 'pagesearch' );
+}
+.wp-icon.paperclip {
+	.ch-icon( 'paperclip' );
+}
+.wp-icon.print {
+	.ch-icon( 'print' );
+}
+.wp-icon.puzzlepiece {
+	.ch-icon( 'puzzlepiece' );
+}
+.wp-icon.quotes {
+	.ch-icon( 'quotes' );
+}
+.wp-icon.ribbon {
+	.ch-icon( 'ribbon' );
+}
+.wp-icon.rocket {
+	.ch-icon( 'rocket' );
+}
+.wp-icon.search {
+	.ch-icon( 'search' );
+}
+.wp-icon.star {
+	.ch-icon( 'star' );
+}
+.wp-icon.starmenu {
+	.ch-icon( 'starmenu' );
+}
+.wp-icon.sun {
+	.ch-icon( 'sun' );
+}
+.wp-icon.translate {
+	.ch-icon( 'translate' );
+}
+.wp-icon.trash {
+	.ch-icon( 'trash' );
+}
+.wp-icon.ul {
+	.ch-icon( 'ul' );
+}
+.wp-icon.user {
+	.ch-icon( 'user' );
 }

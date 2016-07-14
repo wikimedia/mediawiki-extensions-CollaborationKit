@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg4349"
+   viewBox="0 0 199.99998 199.99998"
+   height="56.444443mm"
+   width="56.444443mm">
+  <defs
+     id="defs4351" />
+  <metadata
+     id="metadata4354">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-474.45477,-350.86179)"
+     id="layer1">
+    <g
+       transform="matrix(8.181817,0,0,8.181817,476.27293,336.31662)"
+       id="g3"
+       style="display:inline">
+      <path
+         d="M 12,8 C 7,8 1,14 1,14 c 0,0 6,6 11,6 5,0 11,-6 11,-6 0,0 -6,-6 -11,-6 z m 0,10 c -2.2,0 -4,-1.8 -4,-4 0,-2.2 1.8,-4 4,-4 2.2,0 4,1.8 4,4 0,2.2 -1.8,4 -4,4 z"
+         id="path5" />
+      <circle
+         cx="12"
+         cy="14"
+         r="2"
+         id="circle7" />
+    </g>
+  </g>
+</svg>
