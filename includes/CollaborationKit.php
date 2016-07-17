@@ -19,10 +19,10 @@ class CollaborationKitHooks {
 	 */
 	public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
 		$title = $sktemplate->getTitle();
+		$request = $sktemplate->getRequest();
 		if ( isset( $links['views']['edit'] ) ) {
 			if ( $title->hasContentModel( 'CollaborationHubContent' ) ) {
 				// Get the revision being viewed, if applicable
-				$request = $sktemplate->getRequest();
 				$direction = $request->getVal( 'direction' );
 				$diff = $request->getVal( 'diff' );
 				$oldid = $request->getInt( 'oldid' ); // Guaranteed to be an integer, 0 if invalid
@@ -50,16 +50,20 @@ class CollaborationKitHooks {
 					'EditCollaborationHub', $title
 				)->getFullUrl( $query );
 			} elseif ( $title->hasContentModel( 'CollaborationListContent' ) ) {
+				$active = in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] )
+					&& $request->getVal( 'format' ) === 'application/json';
 				$links['actions']['editasjson'] = [
-					'class' => false,
-					'href' => $links['views']['edit']['href'],
+					'class' => $active ? 'selected' : false,
+					'href' => wfAppendQuery(
+						$links['views']['edit']['href'],
+						[ 'format' => 'application/json' ]
+					),
 					'text' => wfMessage( 'collaborationkit-editjsontab' )->text()
 				];
-
-				$links['views']['edit']['href'] = wfAppendQuery(
-					$links['views']['edit']['href'],
-					[ 'format' => CollaborationListContentHandler::FORMAT_WIKI ]
-				);
+				if ( $active ) {
+					// Make it not be selected when editing json.
+					$links['views']['edit']['class'] = false;
+				}
 			}
 		}
 		return true;

@@ -12,6 +12,9 @@ class CollaborationListContentEditor extends EditPage {
 	}
 
 	protected function showContentForm() {
+		if ( $this->contentFormat !== CollaborationListContentHandler::FORMAT_WIKI ) {
+			return parent::showContentForm();
+		}
 		$parts = explode( CollaborationListContent::HUMAN_DESC_SPLIT, $this->textbox1, 2 );
 		if ( count( $parts ) !== 2 ) {
 			return;
@@ -36,6 +39,9 @@ class CollaborationListContentEditor extends EditPage {
 	}
 
 	protected function importContentFormData( &$request ) {
+		if ( $this->contentFormat !== CollaborationListContentHandler::FORMAT_WIKI ) {
+			return parent::importContentFormData( $request );
+		}
 		$desc = trim( $request->getText( 'wpCollabDescTextbox' ) );
 		if ( $desc === null ) {
 			// Only 1 textbox?
