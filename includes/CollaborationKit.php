@@ -105,7 +105,21 @@ class CollaborationKitHooks {
 	public static function onCodeEditorGetPageLanguage( $title, &$lang ) {
 		$contentModel = $title->getContentModel();
 		$ckitModels = [ 'CollaborationHubContent', 'CollaborationListContent' ];
-		if ( in_array( $contentModel, $ckitModels ) ) {
+		$req = RequestContext::getMain()->getRequest();
+		// Kind of hacky use of globals.
+		if ( $contentModel === CollaborationListContent ) {
+			if ( $req->getVal( 'format' ) === 'application/json' ) {
+				$lang = 'json';
+				return true;
+			} else {
+				// JsonConfig incorrectly triggers on anything with the default
+				// format of application/json, which includes us. false is kind
+				// of hacky but only way to stop it.
+				$lang = null;
+				return false;
+			}
+		}
+		if ( $contentModel === CollaborationHubContent ) {
 			$lang = 'json';
 			return true;
 		}
