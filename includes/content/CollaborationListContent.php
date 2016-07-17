@@ -755,4 +755,18 @@ class CollaborationListContent extends JsonContent {
 			$output->preventClickjacking();
 		}
 	}
+
+	/**
+	 * Hook to use custom edit page for lists
+	 *
+	 * @param $page Page
+	 * @param $user User
+	 */
+	public static function onCustomEditor( Page $page, User $user ) {
+		if ( $page->getContentModel() === __CLASS__ ) {
+			$editor = new CollaborationListContentEditor( $page );
+			$editor->edit();
+			return false;
+		}
+	}
 }

@@ -52,5 +52,7 @@
 	"collabkit-list-delete": "Remove item",
 	"collaborationkit-editjsontab": "Edit as JSON",
 	"collaborationkit-missing-note": "This page does not exist. You can create a new project subpage using the button below.",
-	"collaborationkit-create-subpage": "Create subpage"
+	"collaborationkit-create-subpage": "Create subpage",
+	"collaborationkit-listedit-desc": "Description",
+	"collaborationkit-listedit-list": "List items"
 }

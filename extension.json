@@ -24,7 +24,8 @@
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
 		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",
-		"SpecialEditCollaborationHub": "includes/SpecialEditCollaborationHub.php"
+		"SpecialEditCollaborationHub": "includes/SpecialEditCollaborationHub.php",
+		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php"
 	},
 	"ContentHandlers": {
 		"CollaborationHubContent": "CollaborationHubContentHandler",
@@ -49,6 +50,9 @@
 		],
 		"ArticleViewHeader": [
 			"CollaborationListContent::onArticleViewHeader"
+		],
+		"CustomEditor": [
+			"CollaborationListContent::onCustomEditor"
 		]
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",
