@@ -319,7 +319,7 @@ class CollaborationListContent extends JsonContent {
 				break;
 			}
 
-			$itemTags = $item->tags ? $item->tags : [];
+			$itemTags = isset( $item->tags ) ? $item->tags : [];
 			if ( !$this->matchesTag( $options['tags'], $itemTags ) ) {
 				continue;
 			}
@@ -371,7 +371,7 @@ class CollaborationListContent extends JsonContent {
 				$text .= $item->notes . "\n";
 			}
 
-			if ( is_array( $item->tags ) && count( $item->tags ) ) {
+			if ( isset( $item->tags ) && is_array( $item->tags ) && count( $item->tags ) ) {
 				$text .= "\n<div class='toccolours mw-collabkit-list-tags'>" .
 					wfMessage( 'collaborationkit-taglist' )
 						->inLanguage( $lang )
