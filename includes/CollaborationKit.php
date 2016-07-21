@@ -111,7 +111,7 @@ class CollaborationKitHooks {
 		$ckitModels = [ 'CollaborationHubContent', 'CollaborationListContent' ];
 		$req = RequestContext::getMain()->getRequest();
 		// Kind of hacky use of globals.
-		if ( $contentModel === CollaborationListContent ) {
+		if ( $contentModel === 'CollaborationListContent' ) {
 			if ( $req->getVal( 'format' ) === 'application/json' ) {
 				$lang = 'json';
 				return true;
@@ -123,7 +123,7 @@ class CollaborationKitHooks {
 				return false;
 			}
 		}
-		if ( $contentModel === CollaborationHubContent ) {
+		if ( $contentModel === 'CollaborationHubContent' ) {
 			$lang = 'json';
 			return true;
 		}
