@@ -9,7 +9,7 @@
 	"createcollaborationhub": "Create new Collaboration Hub",
 	"createcollaborationhub-legend": "Create Collaboration Hub",
 	"collaborationkit-edit-nopermission": "You do not have permission to edit this page.",
-	"collaborationkit-edit-header": "You are editing a Collaboration Hub. Magic.",
+	"collaborationkit-edit-header": "",
 	"collaborationkit-edit-pagetitle": "Editing $1",
 	"collaborationkit-edit-hub-name": "Collaboration Hub display name",
 	"collaborationkit-edit-page-name": "Page display name",

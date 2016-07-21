@@ -164,6 +164,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 */
 	protected function alterForm( HTMLForm $form ) {
 		$form->setDisplayFormat( 'div' );
+		$form->setWrapperLegend( false );
 	}
 
 	// Hide source input unless actually providing a source (not 'new')

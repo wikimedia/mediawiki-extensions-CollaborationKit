@@ -241,6 +241,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			$form->suppressDefaultSubmit( true );
 		}
 		$form->setDisplayFormat( 'div' );
+		$form->setWrapperLegend( false );
 	}
 
 	/**
