@@ -708,7 +708,8 @@ class CollaborationListContent extends JsonContent {
 			$parser->getOutput()->updateCacheExpiry( self::RANDOM_CACHE_EXPIRY );
 		}
 		$parser->getOutput()->addTemplate( $title, $wikipage->getId(), $wikipage->getLatest() );
-		return $content->convertToWikitext( $lang, $options );
+		$res = $content->convertToWikitext( $lang, $options );
+		return [ $res, 'noparse' => false ];
 	}
 
 	/**
