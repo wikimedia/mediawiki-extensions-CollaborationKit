@@ -645,7 +645,8 @@ class CollaborationListContent extends JsonContent {
 	 * Function to handle {{#trancludelist:Page name|options...}} calls
 	 */
 	public static function transcludeHook( $parser, $pageName = '' ) {
-		$args = array_splice( func_get_args(), 2 );
+		$args = func_get_args();
+		$args = array_splice( $args, 2 );
 		$options = [];
 		$title = Title::newFromText( $pageName );
 		$lang = $parser->getFunctionLang();
