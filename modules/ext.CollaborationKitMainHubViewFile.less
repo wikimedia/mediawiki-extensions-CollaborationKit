@@ -29,7 +29,7 @@
 
 // Mainpage hub layout (.mw-body included because vector has excessively specific rules)
 .mw-body .wp-mainpage {
-	border-top: solid 10px #7af;
+	border-top: solid 7px #7af;
 	padding-top: 1em;
 
 	#wp-header-icon {
@@ -41,17 +41,26 @@
 
 		float: right;
 		margin: 0 0 2em 2em;
-		max-width: 20em;
-		min-width: 12em;
+		max-width: 15em;
+		min-width: 10em;
 		width: 25%;
 	}
 	.wp-intro {
 		font-size: 115%;
 	}
 
-	.wp-toc li {
-		max-width: 10em;
-		text-align: center;
+	.wp-toc {
+		li {
+			max-width: 6em;
+			text-align: center;
+			list-style: none;
+		}
+		.toc-label {
+			font-weight: bold;
+			margin: 0 0 1em;
+			border-bottom: 3px solid #77AAFF;
+			width: 33%;
+		}
 	}
 	#wp-members-buttons {
 		margin-top: 1em;
@@ -63,6 +72,11 @@
 		margin: 2em 0 .5em;
 	}
 }
+.mw-content-ltr .wp-toc ul {
+	margin: 0;
+	padding: 0;
+}
+
 // Override some other dumb skins, which have random other rules (SELF FIX THESE YOU IDIOT)
 #mw-content .wp-mainpage h2,
 #mw-content-text .wp-mainpage h2 {
@@ -71,7 +85,7 @@
 
 // Subpage hub stuff
 .wp-subpage {
-	border-top: solid 10px #7af;
+	border-top: solid 6px #7af;
 
 	.wp-toc-container {
 		float: right;
@@ -142,6 +156,7 @@
 div span.subpages {
 	display: none;
 }
+
 
 // ARGH
 .wp-toc {

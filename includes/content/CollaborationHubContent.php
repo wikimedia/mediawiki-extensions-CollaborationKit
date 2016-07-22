@@ -265,7 +265,7 @@ class CollaborationHubContent extends JsonContent {
 			// Image
 			$prependiture = Html::rawElement(
 				'div',
-				[ 'id' => 'wp-header-icon', 'class' => 'wp-junk' ],
+				[ 'id' => 'wp-header-icon' ],
 				$this->getImage( 'none', 120 )
 			);
 
@@ -276,7 +276,7 @@ class CollaborationHubContent extends JsonContent {
 
 				$prependiture .= Html::openElement(
 					'div',
-					[ 'id' => 'wp-header-members', 'class' => 'wp-junk' ]
+					[ 'id' => 'wp-header-members' ]
 				);
 				$prependiture .= Html::element(
 					'h2',
@@ -334,7 +334,7 @@ class CollaborationHubContent extends JsonContent {
 			if ( $this->getIcon() !== '' ) {
 				$prependiture .= Html::rawElement(
 					'div',
-					[ 'id' => 'wp-header-icon', 'class' => 'wp-junk' ],
+					[ 'id' => 'wp-header-icon' ],
 					$this->getImage( 'none', 40 )
 				);
 			}
@@ -707,6 +707,14 @@ class CollaborationHubContent extends JsonContent {
 					$ToCItems[$item] = [ Linker::Link( $link, $display ), Sanitizer::escapeId( 'toc-' . $spTitle->getSubpageText() ) ];
 				}
 				$html .= Html::openElement( 'div', [ 'class' => 'wp-toc' ] );
+
+				if ( $type == 'main' ) {
+					$html .= Html::rawElement(
+						'div',
+						[ 'class' => 'toc-label' ],
+						wfMessage( 'collaborationkit-toc-label' )->inContentLanguage()->text()
+					);
+				}
 
 				$html .= Html::openElement( 'ul' );
 

@@ -55,5 +55,6 @@
 	"collaborationkit-create-subpage": "Create subpage",
 	"collaborationkit-listedit-desc": "Description",
 	"collaborationkit-listedit-list": "List items",
-	"collaborationhub-toc-partof": "A part of: "
+	"collaborationhub-toc-partof": "A part of: ",
+	"collaborationkit-toc-label": "Project contents: "
 }
