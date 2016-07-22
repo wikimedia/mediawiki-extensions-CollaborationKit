@@ -106,6 +106,40 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * Format json
+	 *
+	 * Do not escape < and > its unnecessary and ugly
+	 * @return string
+	 */
+	public function beautifyJSON() {
+		return FormatJson::encode( $this->getData()->getValue(), true, FormatJson::ALL_OK );
+	}
+
+	/**
+	* Beautifies JSON and does subst: prior to save.
+	*
+	* @param Title $title Title
+	* @param User $user User
+	* @param ParserOptions $popts
+	* @return CollaborationListContent
+	*/
+	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
+		global $wgParser;
+		// WikiPage::doEditContent invokes PST before validation. As such, native data
+		// may be invalid (though PST result is discarded later in that case).
+		$text = $this->getNativeData();
+		// pst will hopefully not make json invalid. Def should not.
+		$pst = $wgParser->preSaveTransform( $text, $title, $user, $popts );
+		$pstContent = new static( $pst );
+
+		if ( !$pstContent->isValid() ) {
+			return $this;
+		}
+
+		return new static( $pstContent->beautifyJSON() );
+	}
+
+	/**
 	 * Validate the item structure.
 	 *
 	 * Format is a list of:
