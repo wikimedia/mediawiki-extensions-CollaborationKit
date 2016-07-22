@@ -5,10 +5,10 @@
  */
 // @codingStandardsIgnoreFile
 
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English (English) */
-$specialPageAliases['en'] = array(
-	'CreateCollaborationHub' => array( 'CreateCollaborationHub' ),
-	'EditCollaborationHub' => array( 'EditCollaborationHub' ),
-);
+$specialPageAliases['en'] = [
+	'CreateCollaborationHub' => [ 'CreateCollaborationHub' ],
+	'EditCollaborationHub' => [ 'EditCollaborationHub' ],
+];
