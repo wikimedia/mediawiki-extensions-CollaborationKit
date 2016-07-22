@@ -1,6 +1,6 @@
 // I dunno what to name things.
 
-@import "mediawiki.mixins";
+@import "ext.CollaborationKit.mixins.less";
 
 // Members block, random actiony blocks, etc
 .grey-box() {
@@ -26,6 +26,36 @@
 	}
 }
 
+// ARGH
+.wp-toc {
+	clear: both;
+	margin: 1em 0;
+
+	ul {
+		padding: 0;
+		margin: 0;
+		list-style: none;
+	}
+	li {
+		float: left;
+		margin: .5em 1.25em .5em 0;
+		word-wrap: break-word;
+	}
+	div,
+	img {
+		display: block;
+		margin: auto;
+	}
+
+	.file-image {
+		height: 40px;
+		overflow: hidden;
+
+		img {
+			vertical-align: middle;
+		}
+	}
+}
 
 // Mainpage hub layout (.mw-body included because vector has excessively specific rules)
 .mw-body .wp-mainpage {
@@ -157,220 +187,178 @@ div span.subpages {
 	display: none;
 }
 
-
-// ARGH
-.wp-toc {
-	clear: both;
-	margin: 1em 0;
-
-	ul {
-		padding: 0;
-		margin: 0;
-		list-style: none;
-	}
-	li {
-		float: left;
-		margin: .5em 1.25em .5em 0;
-		word-wrap: break-word;
-	}
-	div,
-	img {
-		display: block;
-		margin: auto;
-	}
-
-	.file-image {
-		height: 40px;
-		overflow: hidden;
-
-		img {
-			vertical-align: middle;
-		}
-	}
-}
-
-// Default?
 .wp-icon {
 	width: 50px;
 	height: 50px;
-	display: block;
-	content: '';
-	background-size: contain;
-}
-
-.ch-icon( @icon ) {
-	.background-image-svg( "images/@{icon}.svg", "images/@{icon}.png" );
-	background-repeat: no-repeat;
-
 }
 .wp-icon.addimage {
-	.ch-icon( 'addimage' );
+	.ck-icon( 'addimage' );
 }
 .wp-icon.addmapmarker {
-	.ch-icon( 'addmapmarker' );
+	.ck-icon( 'addmapmarker' );
 }
 .wp-icon.addquote {
-	.ch-icon( 'addquote' );
+	.ck-icon( 'addquote' );
 }
 .wp-icon.bell {
-	.ch-icon( 'bell' );
+	.ck-icon( 'bell' );
 }
 .wp-icon.book {
-	.ch-icon( 'book' );
+	.ck-icon( 'book' );
 }
 .wp-icon.circleline {
-	.ch-icon( 'circleline' );
+	.ck-icon( 'circleline' );
 }
 .wp-icon.circlestar {
-	.ch-icon( 'circlestar' );
+	.ck-icon( 'circlestar' );
 }
 .wp-icon.circletriangle {
-	.ch-icon( 'circletriangle' );
+	.ck-icon( 'circletriangle' );
 }
 .wp-icon.circlex {
-	.ch-icon( 'circlex' );
+	.ck-icon( 'circlex' );
 }
 .wp-icon.clock {
-	.ch-icon( 'clock' );
+	.ck-icon( 'clock' );
 }
 .wp-icon.community {
-	.ch-icon( 'community' );
+	.ck-icon( 'community' );
 }
 .wp-icon.contents {
-	.ch-icon( 'contents' );
+	.ck-icon( 'contents' );
 }
 .wp-icon.die {
-	.ch-icon( 'die' );
+	.ck-icon( 'die' );
 }
 .wp-icon.discussion {
-	.ch-icon( 'discussion' );
+	.ck-icon( 'discussion' );
 }
 .wp-icon.download {
-	.ch-icon( 'download' );
+	.ck-icon( 'download' );
 }
 .wp-icon.edit {
-	.ch-icon( 'edit' );
+	.ck-icon( 'edit' );
 }
 .wp-icon.editprotected {
-	.ch-icon( 'editprotected' );
+	.ck-icon( 'editprotected' );
 }
 .wp-icon.eye {
-	.ch-icon( 'eye' );
+	.ck-icon( 'eye' );
 }
 .wp-icon.flag {
-	.ch-icon( 'flag' );
+	.ck-icon( 'flag' );
 }
 .wp-icon.funnel {
-	.ch-icon( 'funnel' );
+	.ck-icon( 'funnel' );
 }
 .wp-icon.gallery {
-	.ch-icon( 'gallery' );
+	.ck-icon( 'gallery' );
 }
 .wp-icon.gear {
-	.ch-icon( 'gear' );
+	.ck-icon( 'gear' );
 }
 .wp-icon.heart {
-	.ch-icon( 'heart' );
+	.ck-icon( 'heart' );
 }
 .wp-icon.image {
-	.ch-icon( 'image' );
+	.ck-icon( 'image' );
 }
 .wp-icon.journal {
-	.ch-icon( 'journal' );
+	.ck-icon( 'journal' );
 }
 .wp-icon.key {
-	.ch-icon( 'key' );
+	.ck-icon( 'key' );
 }
 .wp-icon.link {
-	.ch-icon( 'link' );
+	.ck-icon( 'link' );
 }
 .wp-icon.lock {
-	.ch-icon( 'lock' );
+	.ck-icon( 'lock' );
 }
 .wp-icon.mail {
-	.ch-icon( 'mail' );
+	.ck-icon( 'mail' );
 }
 .wp-icon.map {
-	.ch-icon( 'map' );
+	.ck-icon( 'map' );
 }
 .wp-icon.mapmarker {
-	.ch-icon( 'mapmarker' );
+	.ck-icon( 'mapmarker' );
 }
 .wp-icon.menu {
-	.ch-icon( 'menu' );
+	.ck-icon( 'menu' );
 }
 .wp-icon.message {
-	.ch-icon( 'message' );
+	.ck-icon( 'message' );
 }
 .wp-icon.messagenew {
-	.ch-icon( 'messagenew' );
+	.ck-icon( 'messagenew' );
 }
 .wp-icon.messagescary {
-	.ch-icon( 'messagescary' );
+	.ck-icon( 'messagescary' );
 }
 .wp-icon.move {
-	.ch-icon( 'move' );
+	.ck-icon( 'move' );
 }
 .wp-icon.newspaper {
-	.ch-icon( 'newspaper' );
+	.ck-icon( 'newspaper' );
 }
 .wp-icon.nowiki {
-	.ch-icon( 'nowiki' );
+	.ck-icon( 'nowiki' );
 }
 .wp-icon.ol {
-	.ch-icon( 'ol' );
+	.ck-icon( 'ol' );
 }
 .wp-icon.page {
-	.ch-icon( 'page' );
+	.ck-icon( 'page' );
 }
 .wp-icon.pagechecked {
-	.ch-icon( 'pagechecked' );
+	.ck-icon( 'pagechecked' );
 }
 .wp-icon.pageribbon {
-	.ch-icon( 'pageribbon' );
+	.ck-icon( 'pageribbon' );
 }
 .wp-icon.pagesearch {
-	.ch-icon( 'pagesearch' );
+	.ck-icon( 'pagesearch' );
 }
 .wp-icon.paperclip {
-	.ch-icon( 'paperclip' );
+	.ck-icon( 'paperclip' );
 }
 .wp-icon.print {
-	.ch-icon( 'print' );
+	.ck-icon( 'print' );
 }
 .wp-icon.puzzlepiece {
-	.ch-icon( 'puzzlepiece' );
+	.ck-icon( 'puzzlepiece' );
 }
 .wp-icon.quotes {
-	.ch-icon( 'quotes' );
+	.ck-icon( 'quotes' );
 }
 .wp-icon.ribbon {
-	.ch-icon( 'ribbon' );
+	.ck-icon( 'ribbon' );
 }
 .wp-icon.rocket {
-	.ch-icon( 'rocket' );
+	.ck-icon( 'rocket' );
 }
 .wp-icon.search {
-	.ch-icon( 'search' );
+	.ck-icon( 'search' );
 }
 .wp-icon.star {
-	.ch-icon( 'star' );
+	.ck-icon( 'star' );
 }
 .wp-icon.starmenu {
-	.ch-icon( 'starmenu' );
+	.ck-icon( 'starmenu' );
 }
 .wp-icon.sun {
-	.ch-icon( 'sun' );
+	.ck-icon( 'sun' );
 }
 .wp-icon.translate {
-	.ch-icon( 'translate' );
+	.ck-icon( 'translate' );
 }
 .wp-icon.trash {
-	.ch-icon( 'trash' );
+	.ck-icon( 'trash' );
 }
 .wp-icon.ul {
-	.ch-icon( 'ul' );
+	.ck-icon( 'ul' );
 }
 .wp-icon.user {
-	.ch-icon( 'user' );
+	.ck-icon( 'user' );
 }

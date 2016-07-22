@@ -1,0 +1,12 @@
+@import "mediawiki.mixins";
+
+
+.ck-icon( @icon, @size: 50px, @color: grey ) {
+	.background-image-svg( "images/@{icon}.svg", "images/@{icon}.png" );
+	background-repeat: no-repeat;
+	display: block;
+	content: '';
+	background-size: contain;
+	width: @size;
+	height: @size;
+}

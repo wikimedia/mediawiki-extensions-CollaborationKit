@@ -66,7 +66,7 @@
 			"styles": "ext.CollaborationKitMainHubViewFile.less"
 		},
 		"ext.CollaborationKit.list.styles": {
-			"styles": "ext.CollaborationKit.list.styles.css"
+			"styles": "ext.CollaborationKit.list.styles.less"
 		},
 		"ext.CollaborationKit.list.edit": {
 			"scripts": "ext.CollaborationKit.list.edit.js",

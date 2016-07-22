@@ -1,37 +1,45 @@
+@import "ext.CollaborationKit.mixins.less";
+
 /* Styles needed when transcluding list content */
 
-.mw-collabkit-list-item { margin-bottom: 0.5em }
+.mw-collabkit-list-item {
+	margin-bottom: 0.5em;
+}
 
 .mw-collabkit-list-img {
-	float:left;
+	float: left;
 	/* If you change width/height, also change in
 	 * CollaborationListContent::convertToWikitext()
 	 */
-	width:64px;
-	height:64px;
-	overflow:hidden;
+	width: 64px;
+	height: 64px;
+	overflow: hidden;
+}
+.mw-collabkit-list-noimageplaceholder {
+	.ck-icon( 'page', 64px, 'lightgrey' );
+	margin: auto;
 }
 
 .mw-collabkit-list-container {
-	height:64px;
-	padding-left:10px;
-	display:table-cell;
-	vertical-align:middle;
-	line-height:1.2;
+	height: 64px;
+	padding-left: 10px;
+	display: table-cell;
+	vertical-align: middle;
+	line-height: 1.2;
 }
 
 .mw-collabkit-list-title {
-	font-size:110%;
-	font-weight:bold;
+	font-size: 110%;
+	font-weight: bold;
 }
 
 .mw-collabkit-list-notes {
-	font-size:90%
+	font-size: 90%;
 }
 
 /* @todo, should maybe replace styling from toccolours with this class */
 .mw-collabkit-list-tags {
-	display:inline-block;
+	display: inline-block;
 }
 
 /* Stuff below here could potentially be in a separate module since

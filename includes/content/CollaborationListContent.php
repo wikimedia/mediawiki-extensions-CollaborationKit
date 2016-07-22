@@ -347,13 +347,15 @@ class CollaborationListContent extends JsonContent {
 				}
 			}
 
+			$text .= '<div class="mw-collabkit-list-img">';
 			if ( $image ) {
-				$text .= '<div class="mw-collabkit-list-img">';
 				// Important: If you change the width of the image
 				// you also need to change it in the stylesheet.
 				$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
-				$text .= '</div>';
+			} else {
+				$text .= '<div class="mw-collabkit-list-noimageplaceholder"></div>';
 			}
+			$text .= '</div>';
 
 			$text .= '<div class="mw-collabkit-list-container">';
 			// Question: Arguably it would be more semantically correct to use
