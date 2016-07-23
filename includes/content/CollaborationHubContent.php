@@ -58,6 +58,42 @@ class CollaborationHubContent extends JsonContent {
 	protected $contentType;
 
 	/**
+	 * Colour: one of the 22 preset colours
+	 * @var string
+	 */
+	protected $themeColour;
+
+	/**
+	 * 22 preset colours
+	 * @var array
+	 */
+	protected $themeColours = [
+		'red1',
+		'red2',
+		'grey1',
+		'grey2',
+		'blue1',
+		'blue2',
+		'blue3',
+		'blue4',
+		'blue5',
+		'blue6',
+		'purple1',
+		'purple2',
+		'purple3',
+		'purple4',
+		'purple5',
+		'yellow1',
+		'yellow2',
+		'yellow3',
+		'yellow4',
+		'green1',
+		'green2',
+		'green3',
+		'black'
+	];
+
+	/**
 	 * @var array
 	 */
 	protected $availableContentTypes = [
@@ -90,6 +126,11 @@ class CollaborationHubContent extends JsonContent {
 			!is_string( $this->pageType ) ||
 			!is_string( $this->pageName )
 		) {
+			return false;
+		}
+
+		// Check if colour is one of the presets
+		if ( !in_array( $this->themeColour, $this->themeColours ) ) {
 			return false;
 		}
 
@@ -140,6 +181,7 @@ class CollaborationHubContent extends JsonContent {
 			$this->description = isset( $data->description ) ? $data->description : '';
 			$this->icon = isset( $data->icon ) ? $data->icon : '';
 			$this->pageType = isset( $data->page_type ) ? $data->page_type : 'default';
+			$this->themeColour = isset( $data->colour ) ? $data->colour : 'blue5';
 
 			if ( isset( $data->content ) && is_object( $data->content ) ) {
 				if (
@@ -229,6 +271,14 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getThemeColour() {
+		$this->decode();
+		return $this->themeColour;
+	}
+
+	/**
 	 * @return array
 	 */
 	public function getPossibleTypes() {
@@ -315,11 +365,18 @@ class CollaborationHubContent extends JsonContent {
 				$prependiture .= Html::closeElement( 'div' );
 			}
 
+			$colour = $this->getThemeColour();
+			if ( $colour == 'black' ) {
+				$classes = 'mw-cklist-square mw-cktheme';
+			} else {
+				$classes = 'mw-cklist-square-' . $colour . ' mw-cktheme-' . $colour;
+			}
+
 			$output->setText(
 				// Add page class
 				Html::openElement(
 					'div',
-					[ 'class' => 'wp-mainpage wp-collaborationhub' ]
+					[ 'class' => 'wp-mainpage wp-collaborationhub ' . $classes ]
 				) . $prependiture . $output->getText()
 			);
 		} else {
@@ -357,6 +414,8 @@ class CollaborationHubContent extends JsonContent {
 		}
 
 		$output->addModuleStyles( 'ext.CollaborationKit.main' );
+		$output->addModules( 'ext.CollaborationKit.icons' );
+		$output->addModules( 'ext.CollaborationKit.blots' );
 		$output->setText( $output->getText() . $this->getParsedContent( $title, $options, $output ) );
 		// TODO other bits
 
@@ -856,7 +915,14 @@ class CollaborationHubContent extends JsonContent {
 			$class = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 27];
 		}
 
-		return Html::element( 'div', [ 'class' => 'wp-icon ' . $class ] );
+		$colour = $this->getThemeColour();
+		if ( $colour == 'black' ) {
+			$colorSuffix = '';
+		} else {
+			$colorSuffix = '-' . $colour;
+		}
+
+		return Html::element( 'div', [ 'class' => 'mw-ckicon mw-ckicon-' . $class .  $colorSuffix ] );
 	}
 
 	/**

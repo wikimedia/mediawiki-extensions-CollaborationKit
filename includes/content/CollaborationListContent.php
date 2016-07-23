@@ -353,7 +353,7 @@ class CollaborationListContent extends JsonContent {
 				// you also need to change it in the stylesheet.
 				$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 			} else {
-				$text .= '<div class="mw-collabkit-list-noimageplaceholder"></div>';
+				$text .= '<div class="mw-ckicon-page-grey2 mw-collabkit-list-noimageplaceholder"></div>';
 			}
 			$text .= '</div>';
 
@@ -727,6 +727,7 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public static function loadStyles( $content, array $attributes, Parser $parser ) {
 		$parser->getOutput()->addModuleStyles( 'ext.CollaborationKit.list.styles' );
+		$parser->getOutput()->addModules( 'ext.CollaborationKit.icons' );
 		return '';
 	}
 
