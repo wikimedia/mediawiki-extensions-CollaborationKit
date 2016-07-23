@@ -403,7 +403,7 @@ class CollaborationListContent extends JsonContent {
 			}
 			$text .= "</div>\n";
 			$text .= '<div class="mw-collabkit-list-notes">' . "\n";
-			if ( is_string( $item->notes ) ) {
+			if ( isset( $item->notes ) && is_string( $item->notes ) ) {
 				$text .= $item->notes . "\n";
 			}
 
@@ -572,6 +572,9 @@ class CollaborationListContent extends JsonContent {
 				foreach ( (array)$item->tags as $tag ) {
 					$out .= "|tag=" . $this->escapeForHumanEditable( $tag );
 				}
+			}
+			if ( substr( $out, -1 ) === '|' ) {
+				$out = substr( $out, 0, strlen( $out ) - 1 );
 			}
 			// Not doing sortkey as that's not really implemented.
 			$out .= "\n";
