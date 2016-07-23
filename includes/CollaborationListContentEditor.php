@@ -39,7 +39,8 @@ class CollaborationListContentEditor extends EditPage {
 	}
 
 	protected function importContentFormData( &$request ) {
-		if ( $this->contentFormat !== CollaborationListContentHandler::FORMAT_WIKI ) {
+		$format = $request->getVal( 'format', CollaborationListContentHandler::FORMAT_WIKI );
+		if ( $format !== CollaborationListContentHandler::FORMAT_WIKI ) {
 			return parent::importContentFormData( $request );
 		}
 		$desc = trim( $request->getText( 'wpCollabDescTextbox' ) );
