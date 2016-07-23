@@ -148,6 +148,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 		$contentType = $pageContent->getContentType();
 		$content = $pageContent->getContent();
 		$icon = $pageContent->getIcon();
+		$colour = $pageContent->getThemeColour();
 
 		// Get the more complicated bits
 		if ( $contentType !== 'wikitext' ) {
@@ -204,6 +205,14 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			'size' => 50,
 			'label-message' => $iconLabel,
 			'cssclass' => 'ext-ck-edit-icon',
+		];
+		$formJunk['colour'] = [
+			'type' => 'text',
+			'default' => $colour,
+			'maxlength' => 255,
+			'size' => 50,
+			'label-message' => $colourLabel,
+			'cssclass' => 'ext-ck-edit-colour',
 		];
 		$formJunk['description'] = [
 			'type' => 'textarea',
@@ -339,6 +348,7 @@ class SpecialEditCollaborationHub extends FormSpecialPage {
 			$this->title,
 			$data['page_name'],
 			$data['icon'],
+			$data['colour'],
 			$pageType,
 			$contentType,
 			$data['description'],

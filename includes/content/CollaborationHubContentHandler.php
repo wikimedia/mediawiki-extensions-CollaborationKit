@@ -60,11 +60,12 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @param IContextSource $context The calling context
 	 * @return Status
 	 */
-	public static function edit( Title $title, $pageName, $icon, $pageType, $contentType, $description, $content, $summary, IContextSource $context ) {
+	public static function edit( Title $title, $pageName, $icon, $colour, $pageType, $contentType, $description, $content, $summary, IContextSource $context ) {
 		$contentBlock = [
 			'page_name' => $pageName,
 			'description' => $description,
-			'icon' => $icon
+			'icon' => $icon,
+			'colour' => $colour
 		];
 		if ( $contentType == 'wikitext' ) {
 			$contentBlock['content'] = $content;

@@ -1,12 +1,38 @@
 @import "mediawiki.mixins";
 
-
-.ck-icon( @icon, @size: 50px, @color: grey ) {
-	.background-image-svg( "images/@{icon}.svg", "images/@{icon}.png" );
-	background-repeat: no-repeat;
-	display: block;
+.mw-ckicon {
 	content: '';
 	background-size: contain;
-	width: @size;
-	height: @size;
 }
+
+.chtheme( @colour ) {
+	border-color: @colour;
+
+	h2,
+	.wp-toc .toc-label {
+		border-color: @colour;
+	}
+}
+
+@red1: #700;
+@red2: #d00;
+@grey1: #444;
+@grey2: #ccc;
+@blue1: #4dc;
+@blue2: #07d;
+@blue3: #abcdef;
+@blue4: #00f;
+@blue5: #036;
+@blue6: #008;
+@purple1: #908;
+@purple2: #b79;
+@purple3: #60a;
+@purple4: #c3f;
+@purple5: #f99;
+@yellow1: #ff3;
+@yellow2: #fc0;
+@yellow3: #e61;
+@yellow4: #860;
+@green1: #0b3;
+@green2: #7f0;
+@green3: #462;
