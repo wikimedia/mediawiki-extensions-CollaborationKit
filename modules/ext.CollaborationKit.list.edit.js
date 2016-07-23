@@ -1,15 +1,44 @@
 ( function ( $, mw, OO ) {
-	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles;
+	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem;
 
 	addItem = function () {
+		modifyItem( {} );
+	};
+
+	/**
+	 * @param {Object} itemToEdit The name of the title to modify, or false to add new.
+	 */
+	modifyItem = function ( itemToEdit ) {
 		var dialog,
 			windowManager = new OO.ui.WindowManager();
 		$( 'body' ).append( windowManager.$element );
-		dialog = new NewItemDialog( {
-			size: 'medium'
-		} );
+		itemToEdit.size = 'medium';
+		dialog = new NewItemDialog( itemToEdit );
 		windowManager.addWindows( [ dialog ] );
 		windowManager.openWindow( dialog );
+	};
+
+	modifyExistingItem = function ( itemName ) {
+		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
+			var done = false;
+			$.each( res.content.items, function ( index ) {
+				if ( this.title === itemName ) {
+					done = true;
+					modifyItem( {
+						itemTitle: this.title,
+						itemImage: this.image,
+						itemDescription: this.notes,
+						itemIndex: index
+					} );
+					return false;
+				}
+			} );
+			if ( !done ) {
+				// FIXME error handling
+				alert( 'Edit conflict!' );
+				location.reload();
+			}
+		} );
 	};
 
 	deleteItem = function ( $item ) {
@@ -230,6 +259,12 @@
 
 	// There's probably an easier way to do this.
 	function NewItemDialog( config ) {
+		if ( config.itemTitle ) {
+			this.itemTitle = config.itemTitle;
+			this.itemDescription = config.itemDescription;
+			this.itemImage = config.itemImage;
+			this.itemIndex = config.itemIndex;
+		}
 		NewItemDialog.parent.call( this, config );
 	}
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
@@ -244,7 +279,10 @@
 		{ modes: 'edit', label: mw.msg( 'cancel' ), flags: 'safe' }
 	];
 
-	NewItemDialog.prototype.initialize = function () {
+	/**
+	 * @param {Object} itemInfo info from json
+	 */
+	NewItemDialog.prototype.initialize = function ( itemInfo ) {
 		var titleWidget, fileToUse, description;
 
 		NewItemDialog.parent.prototype.initialize.apply( this, arguments );
@@ -266,6 +304,16 @@
 			multiline: true,
 			label: mw.msg( 'collaborationkit-list-newitem-description' )
 		} );
+
+		if ( this.itemTitle ) {
+			this.titleWidget.setValue( this.itemTitle );
+			if ( this.itemDescription ) {
+				this.description.setValue( this.itemDescription );
+			}
+			if ( this.itemImage ) {
+				this.fileToUse.setValue( this.itemImage );
+			}
+		}
 		this.panel1.$element.append( this.titleWidget.$element );
 		this.panel1.$element.append( $( '<br>' ) );
 		this.panel1.$element.append( this.fileToUse.$element );
@@ -294,16 +342,34 @@
 	NewItemDialog.prototype.saveItem = function () {
 		var title = this.titleWidget.getValue().trim(),
 			file = this.fileToUse.getValue().trim(),
-			notes = this.description.getValue(),
+			notes = this.description.getValue().trim(),
 			dialog = this;
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
-			res.content.items[ res.content.items.length ] = {
+			var itemToAdd = {
+				title: title,
+				notes: notes
+			},
+				index;
+			if ( dialog.itemIndex ) {
+				if (	res.content.items <= dialog.itemIndex ||
+					res.content.items[ dialog.itemIndex ].title !== dialog.itemTitle
+				) {
+					alert( 'Edit conflict' );
+					location.reload();
+					// fixme proper handling.
+					throw new Error( 'edit conflict' );
+				}
+				index = dialog.itemIndex;
+			} else {
+				index = res.content.items.length;
+			}
+			res.content.items[ index ] = {
 				title: title,
 				notes: notes
 			};
 			if ( file !== '' ) {
-				res.content.items[ res.content.items.length ].image = file;
+				itemToAdd.image = file;
 			}
 			res.summary = mw.msg( 'collaborationkit-list-add-summary', title );
 			saveJson( res, function () {
@@ -331,8 +397,10 @@
 		$list.find( '.mw-collabkit-list-item' ).each( function () {
 			var deleteButton,
 				moveButton,
+				editButton,
 				$delWrapper,
 				$moveWrapper,
+				$editWrapper,
 				$item = $( this );
 
 			deleteButton = new OO.ui.ButtonWidget( {
@@ -346,6 +414,13 @@
 				framed: false,
 				icon: 'move',
 				iconTitle: mw.msg( 'collaborationkit-list-move' )
+			} );
+
+			editButton = new OO.ui.ButtonWidget( {
+				label: 'edit',
+				framed: false
+			} ).on( 'click', function () {
+				modifyExistingItem( $item.data( 'collabkit-item-title' ) );
 			} );
 
 			// FIXME, the <a> might make an extra target when tabbing
@@ -368,9 +443,15 @@
 				.addClass( 'mw-collabkit-list-button' )
 				.append( moveButton.$element );
 
+			$editWrapper = $( '<div></div>' )
+				.addClass( 'mw-collabkit-list-editbutton' )
+				.addClass( 'mw-collabkit-list-button' )
+				.append( editButton.$element );
+
 			$item.find( '.mw-collabkit-list-title' )
 				.append( $delWrapper )
-				.append( $moveWrapper );
+				.append( $moveWrapper )
+				.append( $editWrapper );
 		} );
 
 		$list.sortable( {
