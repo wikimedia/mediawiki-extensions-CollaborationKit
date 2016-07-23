@@ -607,9 +607,8 @@ class CollaborationListContent extends JsonContent {
 
 	private static function unescapeForHumanEditable( $text ) {
 		$text = strtr( $text, [
-			'\\\\n'=> "\x1A",
+			'\\\\n'=> "\\n",
 			'\n' => "\n",
-			"\x1A" => '\n',
 			'{{!}}' => '|'
 		] );
 		return $text;
@@ -641,7 +640,7 @@ class CollaborationListContent extends JsonContent {
 
 	private static function convertFromHumanEditableItemLine( $line ) {
 		$parts = explode( "|", $line );
-		array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
+		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
 		$itemRes = [ 'title' => $parts[0] ];
 		if ( count( $parts ) > 1 ) {
 			$itemRes['notes'] = $parts[1];
