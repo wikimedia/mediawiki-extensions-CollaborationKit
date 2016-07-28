@@ -60,22 +60,18 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @param IContextSource $context The calling context
 	 * @return Status
 	 */
-	public static function edit( Title $title, $pageName, $icon, $colour, $pageType, $contentType, $description, $content, $summary, IContextSource $context ) {
+	public static function edit( Title $title, $pageName, $icon, $colour, $description, $content, $summary, IContextSource $context ) {
 		$contentBlock = [
 			'page_name' => $pageName,
 			'description' => $description,
 			'icon' => $icon,
-			'colour' => $colour
+			'colour' => $colour,
+			'page_type' => 'main',
+			'content' => $content
 		];
-		if ( $contentType == 'wikitext' ) {
-			$contentBlock['content'] = $content;
-		} else {
-			$contentBlock['content'] = [
-				'type' => $contentType,
-				'items' => $content
-			];
-			$contentBlock['page_type'] = $pageType;
-		}
+
+		// TODO Do content
+
 		$jsonText = FormatJson::encode( $contentBlock );
 		if ( $jsonText === null ) {
 			return Status::newFatal( 'collaborationhub-edit-tojsonerror' );
@@ -107,5 +103,3 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		return Status::newGood();
 	}
 }
-
-

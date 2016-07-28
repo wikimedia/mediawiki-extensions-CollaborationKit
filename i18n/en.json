@@ -16,11 +16,11 @@
 	"collaborationjit-edit-hub-icon": "Project image",
 	"collaborationjit-edit-page-icon": "Page icon",
 	"collaborationkit-edit-page-type": "Page type",
-	"collaborationkit-edit-description": "Description",
+	"collaborationkit-edit-description": "Project introduction",
 	"collaborationkit-edit-content": "Content",
 	"collaborationkit-edit-summary": "Edit summary",
-	"collaborationkit-create-title": "Title",
-	"collaborationkit-create-page-name": "Display name",
+	"collaborationkit-create-title": "Page title",
+	"collaborationkit-create-page-name": "Project display name",
 	"collaborationhub-create-new": "None",
 	"collaborationhub-create-import": "Wikitext",
 	"collaborationhub-create-clone": "Clone existing Collaboration Hub",
@@ -56,5 +56,7 @@
 	"collaborationkit-listedit-desc": "Description",
 	"collaborationkit-listedit-list": "List items",
 	"collaborationhub-toc-partof": "A part of: ",
-	"collaborationkit-toc-label": "Project contents: "
+	"collaborationkit-toc-label": "Project contents: ",
+	"collaborationkit-create-page-icon": "Project image",
+	"collaborationkit-create-page-colour": "Theme color"
 }
