@@ -25,24 +25,31 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @return array
 	 */
 	protected function getFormFields() {
-		// TODO: Do an actual check based on stuff (page type not already set to 'main' with autofill, is an actual subpage)
-		// If this isn't possible, move this logic to js (but it should be?)
-
-		// We know it's a subpage, so ignore mainpage options
-		$isSubpage = false;
-		// We know it's a mainpage, so ignore subpage options
-		$isMainpage = true;
 
 		$fields = [
 			// autofilled from how they got here, hopefully
 			'title' => [
 				'type' => 'text',
+				'cssclass' => 'mw-ck-titleinput',
 				'label-message' => 'collaborationkit-create-title',
 			],
 			// Display name can be different from page title
 			'display_name' => [
 				'type' => 'text',
+				'cssclass' => 'mw-ck-displayinput',
 				'label-message' => 'collaborationkit-create-page-name',
+			],
+			// Hub image/icon thing
+			'icon' => [
+				'type' => 'text',
+				'cssclass' => 'mw-ck-iconinput',
+				'label-message' => 'collaborationkit-create-page-icon',
+			],
+			// Colours for the hub styles
+			'colour' => [
+				'type' => 'text',
+				'cssclass' => 'mw-ck-colourinput',
+				'label-message' => 'collaborationkit-create-page-colour',
 			]
 		];
 
@@ -54,19 +61,22 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				'collaborationhub-create-import' => 'import',
 				'collaborationhub-create-clone' => 'clone',
 			] ),
-			'default' => 'new', // might want to change to clone from the default (TODO add a canned default as example and stuff)
+			'default' => 'new', // might want to change default to clone from the default? (TODO add a canned default as example and stuff: T136470)
 			'label-message' => 'collaborationkit-create-content',
+			'cssclass' => 'mw-ck-sourceoptionsinput'
 		];
 		$fields['source'] = [
 			'type' => 'text',
 			'label-message' => 'collaborationkit-create-source',
-			'hide-if' => [ '===', 'wpcontent_source', 'new' ]
+			'hide-if' => [ '===', 'wpcontent_source', 'new' ],
+			'cssclass' => 'mw-ck-sourceinput'
 		];
 
 		$fields['description'] = [
 			'type' => 'textarea',
 			'rows' => 5,
 			'label-message' => 'collaborationkit-edit-description',
+			'cssclass' => 'mw-ck-descriptioninput'
 		];
 
 		return $fields;
@@ -93,7 +103,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		if ( !$title ) {
 			return Status::newFatal( 'collaborationhub-create-invalidtitle' );
 		} elseif ( $title->exists() ) {
-			// TODO: Option to import it to itself as target
+			// TODO: Add an option to import it to itself as target if the page already exists, archiving the existing page to a subpage (T136475)
 			return Status::newFatal( 'collaborationhub-create-exists' );
 		} elseif (
 			!$title->userCan( 'edit' ) ||
@@ -103,7 +113,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationhub-create-nopermission' );
 		}
 
-		$content = [];
+		$content = [
+			'type' => 'subpage-list',
+			'items' => []
+		];
 
 		// ACTUAL STUFF HERE
 		if ( $data['content_source'] !== 'new' ) { // Importing from wikitext
@@ -124,7 +137,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 				// TODO prefill the actual content
 			}
-			// Render preview
+			// Render preview?
 		} else {
 
 			// ...?
@@ -138,8 +151,8 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$result = CollaborationHubContentHandler::edit(
 			$title,
 			$data['display_name'],
-			'main',
-			'subpage-list',
+			$data['icon'],
+			$data['colour'],
 			$data['description'],
 			$content,
 			$this->msg( 'collaborationhub-create-editsummary' )->inContentLanguage()->plain(),
@@ -159,16 +172,11 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * Set the form format to div instead of table
+	 * Set the form format to div instead of table for consistency with normal edit forms
 	 * @param HTMLForm $form
 	 */
 	protected function alterForm( HTMLForm $form ) {
 		$form->setDisplayFormat( 'div' );
 		$form->setWrapperLegend( false );
 	}
-
-	// Hide source input unless actually providing a source (not 'new')
-	// Autofill displayname based on title (same as title minus namespace by default)
-	// ...?
-
 }

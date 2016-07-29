@@ -181,7 +181,12 @@ class CollaborationHubContent extends JsonContent {
 			$this->description = isset( $data->description ) ? $data->description : '';
 			$this->icon = isset( $data->icon ) ? $data->icon : '';
 			$this->pageType = isset( $data->page_type ) ? $data->page_type : 'default';
-			$this->themeColour = isset( $data->colour ) ? $data->colour : 'blue5';
+
+			if ( !isset( $data->colour ) || $data->colour == '' ) {
+				$this->themeColour = 'blue5';
+			} else {
+				$this->themeColour = $data->colour;
+			}
 
 			if ( isset( $data->content ) && is_object( $data->content ) ) {
 				if (
