@@ -1,26 +1,13 @@
 {
 	"@metadata": {
-		"authors": [ "Isarra" ]
+		"authors": [ "Isarra", "bawolff" ]
 	},
 	"colaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
-	"collaborationkit-edit-invalidtitle": "Error message shown instead of the form on Special:CreateCollaborationHub when an invalid title is provided",
-	"editcollaborationhub": "Header for Special:EditCollaborationHub",
-	"editcollaborationhub-legend": "Form legend for Special:EditCollaborationHub",
 	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
-	"createcollaborationhub-legend": "Form legend for Special:CreateCollaborationHub",
-	"collaborationkit-edit-nopermission": "Error message shown on Special:EditCollaborationHub when the user cannot edit the list",
-	"collaborationkit-edit-header": "Introduction shown on Special:EditCollaborationHub",
-	"collaborationkit-edit-pagetitle": "Replaces the page title on Special:EditCollaborationHub to mimic the title of action=edit",
-	"collaborationkit-edit-hub-name": "Label for hub display name input on Special:EditCollaborationHub for collaboration hub mainpages, which in their case is also the page display name",
-	"collaborationkit-edit-page-name": "Label for page display name input on Special:EditCollaborationHub",
-	"collaborationjit-edit-hub-icon": "Label for the image input on Special:EditCollaborationHub on hubs",
-	"collaborationjit-edit-page-icon": "Label for the image input on Special:EditCollaborationHub on subpages",
-	"collaborationkit-edit-page-type": "Label for the page type dropdown on Special:EditCollaborationHub",
-	"collaborationkit-edit-description": "Label for the description textarea on Special:EditCollaborationHub",
-	"collaborationkit-edit-content": "Label for the content textarea on Special:EditCollaborationHub",
-	"collaborationkit-edit-summary": "Label for the edit summary input on Special:EditCollaborationHub",
 	"collaborationkit-create-title": "Label for target page title input on Special:CreateCollaborationHub",
 	"collaborationkit-create-page-name": "Label for page display name input on Special:CreateCollaborationHub",
+	"collaborationkit-create-page-icon": "Label for the page icon field on specialcreatecollaborationhub",
+	"collaborationkit-create-page-colour": "Label for the colour customisation field on specialcreatecollaborationhub",
 	"collaborationhub-create-new": "Select option for no import",
 	"collaborationhub-create-import": "Select option for importing from wikitext",
 	"collaborationhub-create-clone": "Select option for cloning an existing hub",
@@ -31,14 +18,6 @@
 	"collaborationhub-create-nopermission": "Error message for no permission to edit/create/whatever",
 	"collaborationhub-create-invalidsource": "Error message for an invalid title for the source import",
 	"collaborationhub-create-editsummary": "Edit summary for creating a new Collaboration Hub via Special:CreateCollaborationHub",
-	"collaborationhub-display-wikitext": "Select option for wikitext",
-	"collaborationhub-display-subpage-list": "Select option for page-list",
-	"collaborationhub-display-icon-list": "Select option for icon-list",
-	"collaborationhub-display-block-list": "Select option for block-list",
-	"collaborationhub-display-list": "Select option for a plain list",
-	"collaborationkit-edit-missingsummary": "Warning that the edit summary is missing on Special:EditCollaborationHub (maybe should be worded more/less harshly depending on how/when it actually shows up)\n\nApparently refers to {{msg-mw|Htmlform-submit}}",
-	"collaborationhub-edit-apierror": "Error message shown when a request to the edit API to update a collaboration hub failed.\n\nParameters:\n* $1 - error code string",
-	"collaborationhub-edit-tojsonerror": "Error message shown when the input could not be successfully encoded back into the collaboration hub json",
 	"collaborationkit-taglist": "Box for showing tags a specific item has on a list. $1 = comma separated list of tags. $2 = number of tags",
 	"collaborationkit-listempty": "Shown on lists that are empty immediately after the description",
 	"collaborationkit-listcontent-toomanytags": "Error if <nowiki>{{#transcludelist:...}}</nowiki> is given more than the allowed number of tag arguments. $1 - number of tags allowed. $2 - number of tags given.",
@@ -56,7 +35,5 @@
 	"collaborationkit-listedit-desc": "Header on edit page for the list description text box",
 	"collaborationkit-listedit-list": "Header on edit page for the main body of the list",
 	"collaborationhub-toc-partof": "Label for the Collaboration Hub that the feature (subpage) is a part of",
-	"collaborationkit-toc-label": "Label for the Collaboration Hub table of contents",
-	"collaborationkit-create-page-icon": "Label for the page icon field on specialcreatecollaborationhub",
-	"collaborationkit-create-page-colour": "Label for the colour customisation field on specialcreatecollaborationhub"
+	"collaborationkit-toc-label": "Label for the Collaboration Hub table of contents"
 }

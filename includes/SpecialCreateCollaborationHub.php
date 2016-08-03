@@ -17,7 +17,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @param string $par
 	 */
 	public function execute( $par ) {
-		$this->getOutput()->addModules( 'ext.CollaborationKit.edit' );
 		parent::execute( $par );
 	}
 
@@ -172,11 +171,11 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * Set the form format to div instead of table for consistency with normal edit forms
+	 * Set the form format to ooui for consistency with the rest of the ck stuff
 	 * @param HTMLForm $form
+	 *
 	 */
-	protected function alterForm( HTMLForm $form ) {
-		$form->setDisplayFormat( 'div' );
-		$form->setWrapperLegend( false );
+	protected function getDisplayFormat() {
+		return 'ooui';
 	}
 }

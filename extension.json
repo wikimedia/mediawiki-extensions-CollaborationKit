@@ -17,14 +17,12 @@
 	},
 	"AutoloadClasses": {
 		"ApiEditCollaborationHub": "includes/ApiEditCollaborationHub.php",
-		"CollaborationKit": "includes/CollaborationKit.php",
 		"CollaborationKitHooks": "includes/CollaborationKit.php",
 		"CollaborationHubContent": "includes/content/CollaborationHubContent.php",
 		"CollaborationHubContentHandler": "includes/content/CollaborationHubContentHandler.php",
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
 		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",
-		"SpecialEditCollaborationHub": "includes/SpecialEditCollaborationHub.php",
 		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",
 		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php"
 	},
@@ -33,13 +31,9 @@
 		"CollaborationListContent": "CollaborationListContentHandler"
 	},
 	"SpecialPages": {
-		"EditCollaborationHub": "SpecialEditCollaborationHub",
 		"CreateCollaborationHub": "SpecialCreateCollaborationHub"
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": [
-			"CollaborationKitHooks::onSkinTemplateNavigation"
-		],
 		"UnitTestsList": [
 			"CollaborationKitHooks::onUnitTestsList"
 		],
@@ -59,10 +53,6 @@
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",
 	"@todo FIXME": "Should this actually load oojs-ui-core, or something else",
 	"ResourceModules": {
-		"ext.CollaborationKit.edit": {
-			"scripts": "ext.CollaborationKit.edit.js",
-			"styles": "ext.CollaborationKit.edit.css"
-		},
 		"ext.CollaborationKit.main": {
 			"styles": "ext.CollaborationKit.hub.styles.less"
 		},

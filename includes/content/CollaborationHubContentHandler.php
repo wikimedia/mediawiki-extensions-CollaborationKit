@@ -25,7 +25,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @return CollaborationHubContent
 	 */
 	public function makeEmptyContent() {
-		return new CollaborationHubContent( '{ "page_name": "", "description": "", "content": "" }' );
+		return new CollaborationHubContent( '{ "display_name": "", "introduction": "", "content": [] }' );
 	}
 
 	/**
@@ -52,21 +52,23 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	/**
 	 * Edit a Collaboration Hub via the edit API
 	 * @param Title $title
-	 * @param string pageName
-	 * @param string pageType
-	 * @param string $description
+	 * @param string $displayName
+	 * @param string $icon
+	 * @param string $colour
+	 * @param string $introduction
+	 * @param string $footer
 	 * @param array|string $content
 	 * @param string $summary Message key for edit summary
 	 * @param IContextSource $context The calling context
 	 * @return Status
 	 */
-	public static function edit( Title $title, $pageName, $icon, $colour, $description, $content, $summary, IContextSource $context ) {
+	public static function edit( Title $title, $displayName, $image, $colour, $introduction, $footer, $content, $summary, IContextSource $context ) {
 		$contentBlock = [
-			'page_name' => $pageName,
-			'description' => $description,
-			'icon' => $icon,
+			'display_name' => $displayName,
+			'introduction' => $introduction,
+			'footer' => $footer,
+			'image' => $image,
 			'colour' => $colour,
-			'page_type' => 'main',
 			'content' => $content
 		];
 

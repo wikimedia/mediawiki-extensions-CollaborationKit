@@ -2,30 +2,6 @@
 
 @import "ext.CollaborationKit.mixins.less";
 
-// Members block, random actiony blocks, etc
-.grey-box() {
-	border: solid 1px #ddd;
-	background: #f9f9f9;
-	border-radius: 3px;
-	padding: 1.5em;
-
-	h2 {
-		margin: 0 0 .5em;
-		padding: 0;
-		border: none;
-		font-size: 1.5em;
-	}
-
-	.oo-ui-buttonWidget {
-		display: block;
-		margin-right: 0;
-		margin-top: .5em;
-	}
-	.oo-ui-buttonElement-framed > .oo-ui-buttonElement-button {
-		display: block;
-	}
-}
-
 // ARGH
 .wp-toc {
 	clear: both;
@@ -61,46 +37,6 @@
 .mw-body .wp-mainpage {
 	border-top: solid 7px;
 	padding-top: 1em;
-
-	#wp-header-icon {
-		float: left;
-		padding: 0 2em 2em 0;
-	}
-	#wp-header-members {
-		.grey-box();
-
-		float: right;
-		margin: 0 0 2em 2em;
-		max-width: 15em;
-		min-width: 10em;
-		width: 25%;
-	}
-	.wp-intro {
-		font-size: 115%;
-	}
-
-	.wp-toc {
-		ul {
-			list-style: none;
-		}
-		li {
-			max-width: 6em;
-			text-align: center;
-		}
-		.toc-label {
-			font-weight: bold;
-			margin: 0 0 1em;
-			border-bottom: 3px solid;
-			width: 33%;
-		}
-		.mw-ckicon {
-			height: 50px;
-			width: 50px;
-		}
-	}
-	#wp-members-buttons {
-		margin-top: 1em;
-	}
 	h2 {
 		border: solid 5px;
 		border-style: solid none none;
@@ -108,89 +44,60 @@
 		margin: 2em 0 .5em;
 	}
 }
+
+.wp-header-image {
+	float: left;
+	padding: 0 2em 2em 0;
+
+	.mw-ckicon {
+		.grey();
+		width: 150px;
+		height: 150px;
+		background-size: contain;
+	}
+	.file-image img {
+		border-radius: 3px;
+	}
+}
+.wp-members {
+	.grey-box();
+
+	float: right;
+	margin: 0 0 2em 2em;
+	max-width: 15em;
+	min-width: 10em;
+	width: 25%;
+}
+.wp-members-buttons {
+	margin-top: 1em;
+}
+.wp-intro {
+	font-size: 115%;
+}
+
+.wp-toc {
+	ul {
+		list-style: none;
+	}
+	li {
+		max-width: 6em;
+		text-align: center;
+	}
+	.toc-label {
+		font-weight: bold;
+		margin: 0 0 1em;
+		border-bottom: 3px solid;
+		width: 33%;
+	}
+	.mw-ckicon {
+		height: 50px;
+		width: 50px;
+	}
+}
+.mw-content-rtl .wp-toc ul,
 .mw-content-ltr .wp-toc ul {
 	margin: 0;
 	padding: 0;
-}
-
-// Override some other dumb skins, which have random other rules (SELF FIX THESE YOU IDIOT)
-#mw-content .wp-mainpage h2,
-#mw-content-text .wp-mainpage h2 {
-	border-bottom: none;
-}
-
-// Subpage hub stuff
-.wp-subpage {
-	border-top: solid 6px #7af;
-
-	.wp-toc-container {
-		float: right;
-		padding: 0 0 1em 1em;
-		background: #fff;
-	}
-	.wp-toc {
-		.grey-box();
-
-		padding: 0 1em;
-		margin: 1em 0 1.5em 1em;
-		max-width: 20em;
-
-		ul {
-			margin: 0;
-		}
-		li {
-			float: none;
-			margin: .75em 0;
-		}
-		.file-image,
-		.mw-ckicon {
-			float: left;
-			margin: 0 -4em 0 1em;
-			width: 20px;
-			height: 20px;
-		}
-		.toc-mainpage span,
-		.wp-toc-item .item-label {
-			display: block;
-			margin-left: 4em;
-		}
-
-		.toc-mainpage {
-			font-weight: bold;
-			padding: .5em 1em .75em 0;
-			border-bottom: solid 3px #7af;
-
-			.wp-toc-projectlabel {
-				font-weight: normal;
-			}
-
-			.file-image,
-			.mw-ckicon {
-				width: 40px;
-				height: 40px;
-				margin-left: 0;
-				margin-top: -1.25em;
-			}
-		}
-	}
-	#wp-header-icon {
-		float: left;
-		margin-top: .5em;
-	}
-	#wp-pagename-display {
-		margin: .5em 0 1em;
-	}
-	.wp-intro {
-		margin: 1em 0 2.5em;
-		padding: .5em 0;
-		border-bottom: solid 3px #7af;
-		font-size: 105%;
-	}
-}
-
-// Unnecessary as the ToC will link back anyway
-div span.subpages {
-	display: none;
 }
 
 // Themes
