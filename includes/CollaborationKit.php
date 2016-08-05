@@ -3,29 +3,6 @@
 // Hooks and crap
 class CollaborationKitHooks {
 
-	/**
-	 * Register our tests with PHPUnit
-	 *
-	 * Shamelessly stolen from MassMessage
-	 *
-	 * @param &$files Array List of files for PHPUnit
-	 */
-	public static function onUnitTestsList( &$files ) {
-		$directoryIterator = new RecursiveDirectoryIterator( __DIR__ . '/../tests/' );
-
-		/**
-		 * @var SplFileInfo $fileInfo
-		 */
-		$ourFiles = [];
-		foreach ( new RecursiveIteratorIterator( $directoryIterator ) as $fileInfo ) {
-			if ( substr( $fileInfo->getFilename(), -8 ) === 'Test.php' ) {
-				$ourFiles[] = $fileInfo->getPathname();
-			}
-		}
-
-		$files = array_merge( $files, $ourFiles );
-	}
-
 	public static function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
 		// Hack for transclusion.

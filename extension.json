@@ -34,9 +34,6 @@
 		"CreateCollaborationHub": "SpecialCreateCollaborationHub"
 	},
 	"Hooks": {
-		"UnitTestsList": [
-			"CollaborationKitHooks::onUnitTestsList"
-		],
 		"ParserFirstCallInit": [
 			"CollaborationKitHooks::onParserFirstCallInit"
 		],
