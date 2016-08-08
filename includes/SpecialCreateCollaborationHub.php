@@ -30,25 +30,25 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'title' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-titleinput',
-				'label-message' => 'collaborationkit-create-title',
+				'label-message' => 'collaborationkit-createhub-title',
 			],
 			// Display name can be different from page title
 			'display_name' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-displayinput',
-				'label-message' => 'collaborationkit-create-page-name',
+				'label-message' => 'collaborationkit-createhub-displayname',
 			],
 			// Hub image/icon thing
 			'icon' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-iconinput',
-				'label-message' => 'collaborationkit-create-page-icon',
+				'label-message' => 'collaborationkit-createhub-image',
 			],
 			// Colours for the hub styles
 			'colour' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-colourinput',
-				'label-message' => 'collaborationkit-create-page-colour',
+				'label-message' => 'collaborationkit-createhub-colour',
 			]
 		];
 
@@ -56,17 +56,17 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$fields['content_source'] = [
 			'type' => 'select',
 			'options' => $this->getOptions( [
-				'collaborationhub-create-new' => 'new',
-				'collaborationhub-create-import' => 'import',
-				'collaborationhub-create-clone' => 'clone',
+				'collaborationkit-createhub-new' => 'new',
+				'collaborationkit-createhub-import' => 'import',
+				'collaborationkit-createhub-clone' => 'clone',
 			] ),
 			'default' => 'new', // might want to change default to clone from the default? (TODO add a canned default as example and stuff: T136470)
-			'label-message' => 'collaborationkit-create-content',
+			'label-message' => 'collaborationkit-createhub-content',
 			'cssclass' => 'mw-ck-sourceoptionsinput'
 		];
 		$fields['source'] = [
 			'type' => 'text',
-			'label-message' => 'collaborationkit-create-source',
+			'label-message' => 'collaborationkit-createhub-source',
 			'hide-if' => [ '===', 'wpcontent_source', 'new' ],
 			'cssclass' => 'mw-ck-sourceinput'
 		];
@@ -74,7 +74,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$fields['description'] = [
 			'type' => 'textarea',
 			'rows' => 5,
-			'label-message' => 'collaborationkit-edit-description',
+			'label-message' => 'collaborationkit-createhub-introduction',
 			'cssclass' => 'mw-ck-descriptioninput'
 		];
 
@@ -100,16 +100,16 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	public function onSubmit( array $data ) {
 		$title = Title::newFromText( $data['title'] );
 		if ( !$title ) {
-			return Status::newFatal( 'collaborationhub-create-invalidtitle' );
+			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		} elseif ( $title->exists() ) {
 			// TODO: Add an option to import it to itself as target if the page already exists, archiving the existing page to a subpage (T136475)
-			return Status::newFatal( 'collaborationhub-create-exists' );
+			return Status::newFatal( 'collaborationkit-createhub-exists' );
 		} elseif (
 			!$title->userCan( 'edit' ) ||
 			!$title->userCan( 'create' ) ||
 			!$title->userCan( 'editcontentmodel' )
 		) {
-			return Status::newFatal( 'collaborationhub-create-nopermission' );
+			return Status::newFatal( 'collaborationhkit-createhub-nopermission' );
 		}
 
 		$content = [
@@ -121,7 +121,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		if ( $data['content_source'] !== 'new' ) { // Importing from wikitext
 			$source = Title::newFromText( $data['source'] );
 			if ( !$source ) {
-				return Status::newFatal( 'collaborationhub-create-invalidsource' );
+				return Status::newFatal( 'collaborationkit-createhub-invalidsource' );
 			}
 
 			if ( $data['content_source'] === 'clone' ) {
@@ -144,7 +144,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 		$title = Title::newFromText( $data['title'] );
 		if ( !$title ) {
-			return Status::newFatal( 'collaborationhub-create-invalidtitle' );
+			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
 
 		$result = CollaborationHubContentHandler::edit(
@@ -154,7 +154,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			$data['colour'],
 			$data['description'],
 			$content,
-			$this->msg( 'collaborationhub-create-editsummary' )->inContentLanguage()->plain(),
+			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
 			$this->getContext()
 		);
 

@@ -36,15 +36,16 @@
 			res.content.items = newItems;
 			// Interface for extension defined tags lacking...
 			// res.tags = 'collabkit-list-delete';
-			// fixme inContentLanguage???
-			res.summary = mw.msg( 'collabkit-list-delete-summary', title );
+			// FIXME inContentLanguage???
+			res.summary = mw.msg( 'collaborationkit-list-delete-summary', title );
 			saveJson( res, function () {
 				$item.remove();
 				mw.notify(
+					// FIXME i18n
 					'List was saved with "' + title + '" deleted.',
 					{
 						tag: 'collabkit',
-						title: 'Item Deleted', // fixme i18n
+						title: 'Item Deleted', // FIXME i18n
 						type: 'info'
 					}
 				);
@@ -156,16 +157,15 @@
 			}
 
 			res.content.items = resArray;
-			// FIXME i18n
-			res.summary = '/* ' + reorderedItem + ' */ Reording item [[' + reorderedItem + ']]';
+			res.summary = mw.msg( 'collaborationkit-list-move-summary', title );
 			saveJson( res, function () {
 				$spinner.remove();
-				// fixme i18n
 				mw.notify(
+					// FIXME i18n
 					'List was saved with new order for "' + reorderedItem + '"',
 					{
 						tag: 'collabkit',
-						title: 'Page Saved', // fixme i18n
+						title: 'Page Saved', // FIXME i18n
 						type: 'info'
 					}
 				);
@@ -235,11 +235,15 @@
 		NewItemDialog.parent.call( this, config );
 	}
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
-	NewItemDialog.static.title = 'Add item to list';
+	NewItemDialog.static.title = mw.msg( 'collaborationkit-list-newitem-title' );
 	NewItemDialog.static.actions = [
-		// FIXME i18n
-		{ action: 'continue', modes: 'edit', label: 'Add to list', flags: [ 'primary', 'constructive' ] },
-		{ modes: 'edit', label: 'Cancel', flags: 'safe' }
+		{
+			action: 'continue',
+			modes: 'edit',
+			label: mw.msg( 'collaborationkit-list-newitem-label' ),
+			flags: [ 'primary', 'constructive' ]
+		},
+		{ modes: 'edit', label: mw.msg( 'cancel' ), flags: 'safe' }
 	];
 
 	NewItemDialog.prototype.initialize = function () {
@@ -249,20 +253,20 @@
 		this.panel1 = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
 		this.titleWidget = new mw.widgets.TitleInputWidget( {
-			label: 'Page to add', // fixme i18n
+			label: mw.msg( 'collaborationkit-list-newitem-page' ),
 			validateTitle: false, // we want people to be able to put anything.
 			showRedlink: true
 			// Maybe should also showDescriptions and showImages
 		} );
 		this.fileToUse = new mw.widgets.TitleInputWidget( {
-			label: 'Image to use (optional)', // fixme i18n
+			label: mw.msg( 'collaborationkit-list-newitem-image' ),
 			namespace: 6,
 			showImages: true,
 			validateTitle: false // want empty titles allowed.
 		} );
 		this.description = new OO.ui.TextInputWidget( {
 			multiline: true,
-			label: 'Description (optional)' // fixme i18n
+			label: mw.msg( 'collaborationkit-list-newitem-description' )
 		} );
 		this.panel1.$element.append( this.titleWidget.$element );
 		this.panel1.$element.append( $( '<br>' ) );
@@ -303,7 +307,7 @@
 			if ( file !== '' ) {
 				res.content.items[ res.content.items.length ].image = file;
 			}
-			res.summary = mw.msg( 'collabkit-list-add-summary', title );
+			res.summary = mw.msg( 'collaborationkit-list-add-summary', title );
 			saveJson( res, function () {
 				dialog.close(); // FIXME should we just leave open?
 				location.reload();
@@ -336,14 +340,14 @@
 			deleteButton = new OO.ui.ButtonWidget( {
 				framed: false,
 				icon: 'remove',
-				iconTitle: mw.msg( 'collabkit-list-delete' )
+				iconTitle: mw.msg( 'collaborationkit-list-delete' )
 			} );
 
 			// Icon instead of button to avoid conflict with jquery.ui
 			moveButton = new OO.ui.IconWidget( {
 				framed: false,
 				icon: 'move',
-				iconTitle: 'Re-order this item' // fixme i18n
+				iconTitle: mw.msg( 'collaborationkit-list-move' )
 			} );
 
 			// FIXME, the <a> might make an extra target when tabbing
@@ -392,7 +396,7 @@
 				oldListTitles = $target.data( 'startTitleList' );
 				newListTitles = getListOfTitles( $list );
 				$target.data( 'startTitleList', null );
-
+				// FIXME better error handling
 				if ( oldListTitles.length !== newListTitles.length ) {
 					throw new Error( 'We somehow lost an item?!' );
 				}
@@ -417,7 +421,7 @@
 				.addClass( 'mw-collabkit-list-additem' )
 				.append(
 					new OO.ui.ButtonWidget( {
-						label: mw.msg( 'collaborationkit-list-add-button' ),
+						label: mw.msg( 'collaborationkit-list-add' ),
 						icon: 'add',
 						flags: 'constructive'
 					} ).on( 'click', addItem )

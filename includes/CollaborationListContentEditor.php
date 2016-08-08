@@ -27,7 +27,7 @@ class CollaborationListContentEditor extends EditPage {
 			'dir' => $pageLang->getDir()
 		];
 
-		$descTitle = wfMessage( 'collaborationkit-listedit-desc' )->text();
+		$descTitle = wfMessage( 'collaborationkit-listedit-description' )->text();
 		$listTitle = wfMessage( 'collaborationkit-listedit-list' )->text();
 		RequestContext::getMain()->getOutput()->addHtml(
 			Html::element( 'h2', [ "id" => 'mw-collabkit-desc' ], $descTitle )

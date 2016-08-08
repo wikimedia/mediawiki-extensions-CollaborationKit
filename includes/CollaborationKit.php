@@ -3,6 +3,36 @@
 // Hooks and crap
 class CollaborationKitHooks {
 
+	/**
+	 * Override the Edit tab for for CollaborationHub pages; stolen from massmessage
+	 * @param SkinTemplate &$sktemplate
+	 * @param array &$links
+	 * @return bool
+	 */
+	public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
+		$title = $sktemplate->getTitle();
+		$request = $sktemplate->getRequest();
+		if ( isset( $links['views']['edit'] ) ) {
+			if ( $title->hasContentModel( 'CollaborationListContent' ) ) {
+				$active = in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] )
+					&& $request->getVal( 'format' ) === 'application/json';
+				$links['actions']['editasjson'] = [
+					'class' => $active ? 'selected' : false,
+					'href' => wfAppendQuery(
+						$links['views']['edit']['href'],
+						[ 'format' => 'application/json' ]
+					),
+					'text' => wfMessage( 'collaborationkit-editjsontab' )->text()
+				];
+				if ( $active ) {
+					// Make it not be selected when editing json.
+					$links['views']['edit']['class'] = false;
+				}
+			}
+		}
+		return true;
+	}
+
 	public static function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
 		// Hack for transclusion.

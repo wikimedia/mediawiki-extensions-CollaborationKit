@@ -333,7 +333,7 @@ class CollaborationListContent extends JsonContent {
 			$text .= $this->getDescription() . "\n";
 		}
 		if ( count( $this->items ) === 0 ) {
-			$text .= "<hr>\n{{mediawiki:collaborationkit-listempty}}\n";
+			$text .= "<hr>\n{{mediawiki:collaborationkit-list-isempty}}\n";
 			return $text;
 		}
 		$curItem = 0;
@@ -409,7 +409,7 @@ class CollaborationListContent extends JsonContent {
 
 			if ( isset( $item->tags ) && is_array( $item->tags ) && count( $item->tags ) ) {
 				$text .= "\n<div class='toccolours mw-collabkit-list-tags'>" .
-					wfMessage( 'collaborationkit-taglist' )
+					wfMessage( 'collaborationkit-list-taglist' )
 						->inLanguage( $lang )
 						->params(
 							$lang->commaList(
@@ -692,7 +692,7 @@ class CollaborationListContent extends JsonContent {
 		if ( !$title || $title->getContentModel() !== __CLASS__ ) {
 			// This is interpreted as wikitext, so is safe.
 			return Html::rawElement( 'div', [ 'class' => 'error' ],
-				wfMessage( 'collaborationkit-listcontent-notlist' )
+				wfMessage( 'collaborationkit-list-notlist' )
 					->params( $title->getPrefixedText() )
 					->inLanguage( $lang )
 					->text()
@@ -720,7 +720,7 @@ class CollaborationListContent extends JsonContent {
 
 		if ( $tagCount > self::MAX_TAGS ) {
 			return Html::rawElement( 'div', [ 'class' => 'error' ],
-				wfMessage( 'collaborationkit-listcontent-toomanytags' )
+				wfMessage( 'collaborationkit-list-toomanytags' )
 					->numParams( self::MAX_TAGS, $tagCount )
 					->inLanguage( $lang )
 					->text()
@@ -732,7 +732,7 @@ class CollaborationListContent extends JsonContent {
 		if ( !$content instanceof CollaborationListContent ) {
 			// We already checked this, so this should not happen...
 			return Html::rawElement( 'div', [ 'class' => 'error' ],
-				wfMessage( 'collaborationkit-listcontent-notlist' )
+				wfMessage( 'collaborationkit-list-notlist' )
 					->params( $title->getPrefixedText() )
 					->inLanguage( $lang )
 					->text()

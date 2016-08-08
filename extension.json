@@ -34,6 +34,9 @@
 		"CreateCollaborationHub": "SpecialCreateCollaborationHub"
 	},
 	"Hooks": {
+		"SkinTemplateNavigation": [
+			"CollaborationKitHooks::onSkinTemplateNavigation"
+		],
 		"ParserFirstCallInit": [
 			"CollaborationKitHooks::onParserFirstCallInit"
 		],
@@ -70,10 +73,18 @@
 				"jquery.confirmable"
 			],
 			"messages": [
-				"collabkit-list-delete-summary",
-				"collabkit-list-add-summary",
-				"collabkit-list-delete",
-				"collaborationkit-list-add-button"
+				"collaborationkit-list-add",
+				"collaborationkit-list-add-summary",
+				"collaborationkit-list-delete",
+				"collaborationkit-list-delete-summary",
+				"collaborationkit-list-move",
+				"collaborationkit-list-move-summary",
+				"collaborationkit-list-newitem-title",
+				"collaborationkit-list-newitem-label",
+				"collaborationkit-list-newitem-page",
+				"collaborationkit-list-newitem-image",
+				"collaborationkit-list-newitem-description",
+				"cancel"
 			]
 		},
 		"ext.CollaborationKit.blots": {

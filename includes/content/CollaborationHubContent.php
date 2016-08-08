@@ -332,7 +332,7 @@ class CollaborationHubContent extends JsonContent {
 		// deprecated; we need proper list handling to do this properly
 		/*
 		// Members
-		$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfMessage( 'collaborationkit-members-header' )->inContentLanguage()->text() );
+		$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-members-header' )->inContentLanguage()->text() );
 		$membersTitleRev = $title ? Revision::newFromTitle( $membersTitle ) : null;
 		if ( $membersTitleRev ) {
 
@@ -358,13 +358,13 @@ class CollaborationHubContent extends JsonContent {
 			)->getLinkUrl();
 
 			$signupButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-members-signup' )->inContentLanguage()->text(),
+				'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
 				'href' => $membersSignupUrl,
 				'id' => 'wp-signup',
 				'flags' => [ 'progressive' ]
 			] );
 			$seeAllButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-members-view' )->inContentLanguage()->text(),
+				'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
 				'href' => $membersTitle->getLinkUrl(),
 				'id' => 'wp-seeall'
 			] );
@@ -488,7 +488,7 @@ class CollaborationHubContent extends JsonContent {
 							'EditCollaborationHub',
 							$title->getPrefixedURL()
 						),
-						wfMessage( 'collabkit-list-delete' )->inContentLanguage()->text()
+						wfMessage( 'collaborationkit-list-delete' )->inContentLanguage()->text()
 					);
 				}
 				$sectionLinksHtml = '';
@@ -540,18 +540,18 @@ class CollaborationHubContent extends JsonContent {
 						'EditCollaborationHub',
 						$title->getPrefixedURL()
 					),
-					wfMessage( 'collabkit-list-delete' )->inContentLanguage()->text()
+					wfMessage( 'collaborationkit-list-delete' )->inContentLanguage()->text()
 				) );
 				$list .= Html::closeElement( 'h2' );
 
 				$list .= Html::rawElement(
 					'p',
 					[ 'class' => 'wp-missing-note' ],
-					wfMessage( 'collaborationkit-missing-note' )->inContentLanguage()->parse()
+					wfMessage( 'collaborationkit-hub-missingpage-note' )->inContentLanguage()->parse()
 				);
 
 				$list .= new OOUI\ButtonWidget( [
-					'label' => wfMessage( 'collaborationkit-create-subpage' )->inContentLanguage()->text(),
+					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )->inContentLanguage()->text(),
 					'href' => SpecialPage::getTitleFor(
 							'EditCollaborationHub',
 							$spTitle->getPrefixedURL()
