@@ -25,10 +25,14 @@
 	"collaborationkit-list-toomanytags": "Error if <nowiki>{{#transcludelist:...}}</nowiki> is given more than the allowed number of tag arguments. $1 - number of tags allowed. $2 - number of tags given.",
 	"collaborationkit-list-delete": "Tooltip for trash can icon on list editor",
 	"collaborationkit-list-delete-summary": "Edit summary for removing an item from a CollaborationKit list. $1 = Item that is being removed.",
+	"collaborationkit-list-delete-popup": "Popup notification for telling users an item was removed from a CollaborationKit list. $1 = Item being removed.",
+	"collaborationkit-list-delete-popup-title": "Title for item removed popup",
 	"collaborationkit-list-add": "Text of button to add a new item to a CollaborationKit list page.",
 	"collaborationkit-list-add-summary": "Edit summary when adding a new item to CollaborationKit list page",
 	"collaborationkit-list-move": "Tooltip for move icon on list editor",
-	"collaborationkit-list-move-summary": "Edit summary for moving an on a CollaborationKit list. $1 = Item that is being moved.",
+	"collaborationkit-list-move-summary": "Edit summary for moving an item on a CollaborationKit list. $1 = Item that is being moved.",
+	"collaborationkit-list-move-popup": "Popup notification for telling users an item was moved on a CollaborationKit list. $1 = Item being moved.",
+	"collaborationkit-list-move-popup-title": "Title for item moved popup",
 	"collaborationkit-list-newitem-title": "Title for new item dialog for CollaborationKit lists",
 	"collaborationkit-list-newitem-label": "Submit button label for new item dialog for CollaborationKit lists",
 	"collaborationkit-list-newitem-page": "Label for page field on new item dialog for CollaborationKit lists",
@@ -37,9 +41,9 @@
 	"collaborationkit-listedit-description": "Header on edit page for the list description text box",
 	"collaborationkit-listedit-list": "Header on edit page for the main body of the list",
 	"collaborationkit-editjsontab": "Text of the tab used to edit the page as JSON.",
-	"collaborationkit-hub-members-header": "Members header for CH mainpages; also used for subpage name",
+	"collaborationkit-hub-members-header": "Members header for CH mainpages; also used for feature (subpage) name",
 	"collaborationkit-hub-members-signup": "Label for the 'join' button in the members block",
 	"collaborationkit-hub-members-view": "Label for the 'view all' button in the members block",
-	"collaborationkit-hub-missingpage-note": "Note and helpt text for missing section subpages on a collaboration hub mainpage",
-	"collaborationkit-hub-missingpage-create": "Button label for creating a new subpage"
+	"collaborationkit-hub-missingpage-note": "Note and helpt text for missing feature sections (subpages) on a collaboration hub mainpage",
+	"collaborationkit-hub-missingpage-create": "Button label for creating a new feature (subpage)"
 }

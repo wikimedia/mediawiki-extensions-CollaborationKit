@@ -41,11 +41,10 @@
 			saveJson( res, function () {
 				$item.remove();
 				mw.notify(
-					// FIXME i18n
-					'List was saved with "' + title + '" deleted.',
+					mw.msg( 'collaborationkit-list-delete-popup', title ),
 					{
 						tag: 'collabkit',
-						title: 'Item Deleted', // FIXME i18n
+						title:  mw.msg( 'collaborationkit-list-delete-popup-title' ),
 						type: 'info'
 					}
 				);
@@ -157,15 +156,14 @@
 			}
 
 			res.content.items = resArray;
-			res.summary = mw.msg( 'collaborationkit-list-move-summary', title );
+			res.summary = mw.msg( 'collaborationkit-list-move-summary', reorderedItem );
 			saveJson( res, function () {
 				$spinner.remove();
 				mw.notify(
-					// FIXME i18n
-					'List was saved with new order for "' + reorderedItem + '"',
+					mw.msg( 'collaborationkit-list-move-popup', reorderedItem ),
 					{
 						tag: 'collabkit',
-						title: 'Page Saved', // FIXME i18n
+						title: mw.msg( 'collaborationkit-list-move-popup-title' ),
 						type: 'info'
 					}
 				);
