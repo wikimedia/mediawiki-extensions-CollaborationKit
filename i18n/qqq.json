@@ -41,9 +41,13 @@
 	"collaborationkit-listedit-description": "Header on edit page for the list description text box",
 	"collaborationkit-listedit-list": "Header on edit page for the main body of the list",
 	"collaborationkit-editjsontab": "Text of the tab used to edit the page as JSON.",
-	"collaborationkit-hub-members-header": "Members header for CH mainpages; also used for feature (subpage) name",
+	"collaborationkit-hub-members-header": "Members header for Collaboration Hub mainpages; also used for feature (subpage) name",
 	"collaborationkit-hub-members-signup": "Label for the 'join' button in the members block",
 	"collaborationkit-hub-members-view": "Label for the 'view all' button in the members block",
 	"collaborationkit-hub-missingpage-note": "Note and helpt text for missing feature sections (subpages) on a collaboration hub mainpage",
-	"collaborationkit-hub-missingpage-create": "Button label for creating a new feature (subpage)"
+	"collaborationkit-hub-missingpage-create": "Button label for creating a new feature (subpage)",
+	"collaborationkit-hub-subpage-view": "View link label for subpages on Collaboration Hub mainpages",
+	"collaborationkit-hub-subpage-remove": "Remove link label for subpages on Collaboration Hub mainpages",
+	"collaborationkit-hub-edit-apierror": "Error message for API edit error",
+	"collaborationkit-hub-edit-tojsonerror": "Error message when something went wrong converting to JSON"
 }

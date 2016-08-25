@@ -76,7 +76,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 
 		$jsonText = FormatJson::encode( $contentBlock );
 		if ( $jsonText === null ) {
-			return Status::newFatal( 'collaborationhub-edit-tojsonerror' );
+			return Status::newFatal( 'collaborationkit-hub-edit-tojsonerror' );
 		}
 
 		// Ensure that a valid context is provided to the API in unit tests
@@ -99,7 +99,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 			$api = new ApiMain( $der, true );
 			$api->execute();
 		} catch ( UsageException $e ) {
-			return Status::newFatal( $context->msg( 'collaborationhub-edit-apierror',
+			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
 				$e->getCodeString() ) );
 		}
 		return Status::newGood();
