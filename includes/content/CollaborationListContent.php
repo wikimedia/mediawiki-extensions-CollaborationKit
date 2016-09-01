@@ -374,7 +374,7 @@ class CollaborationListContent extends JsonContent {
 				if ( class_exists( 'PageImages' ) ) {
 					$image = PageImages::getPageImage( $titleForItem );
 				}
-			} elseif ( is_string( $item->image ) ) {
+			} elseif ( isset( $item->image ) && is_string( $item->image ) ) {
 				$imageTitle = Title::newFromText( $item->image, NS_FILE );
 				if ( $imageTitle ) {
 					$image = wfFindFile( $imageTitle );
