@@ -9,6 +9,5 @@ $specialPageAliases = [];
 
 /** English (English) */
 $specialPageAliases['en'] = [
-	'CreateCollaborationHub' => [ 'CreateCollaborationHub' ],
-	'EditCollaborationHub' => [ 'EditCollaborationHub' ],
+	'CreateCollaborationHub' => [ 'CreateCollaborationHub' ]
 ];

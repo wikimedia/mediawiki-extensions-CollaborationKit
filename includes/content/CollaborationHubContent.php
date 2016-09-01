@@ -293,7 +293,6 @@ class CollaborationHubContent extends JsonContent {
 		$output->addModules( 'ext.CollaborationKit.icons' );
 		$output->addModules( 'ext.CollaborationKit.blots' );
 		$output->setEnableOOUI( true );
-		OutputPage::setupOOUI();
 	}
 
 	/**
@@ -415,166 +414,149 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput &$output ) {
-		// global $wgParser;
-		return $html = 'CONTENT APPEARS HERE (PENDING T136785)';
+		global $wgParser;
 
-		/*
-		$linkRenderer = $wgParser->getLinkRenderer();
-		$list = '';
+		$html = '';
 
 		foreach ( $this->getContent() as $item ) {
-
-			// TODO check if subpage exists
-
-			// get collaborationhubcontent object for the subpage and stuff
-			$spTitle = Title::newFromText( $item['item'] );
+			if ( !isset( $item['title'] ) ) {
+				continue;
+			}
+			$spTitle = Title::newFromText( $item['title'] );
 			$spRev = Revision::newFromTitle( $spTitle );
-			$list .= Html::openElement( 'div', [ 'class' => 'wp-pagelist-section' ] );
 
-			// So the ToC has something to link to
-			$tocLinks = [];
+			// open element and do header
+			$html .= $this->makeHeader( $title, $item );
 
 			if ( isset( $spRev ) ) {
+				// DO CONTENT FROM PAGE
 				$spContent = $spRev->getContent();
 				$spContentModel = $spRev->getContentModel();
-				// TODO Check if it's even a hub?
 
-				if ( $spContentModel == 'CollaborationHubContent' ) {
-					$spPage = $spContent->getDisplayName();
-				} else {
-					$spPage = $spTitle->getSubpageText();
-				}
+				// TODO: needed options: remove section markers, first section etc for wikitext; add all this later
+				$contentOutput = $spContent->getParserOutput( $spTitle, $spRev, $options );
+
+				$html .= $contentOutput->getText();
+
+				// register as template for stuff
+				$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );
 			} else {
-				$spPage = $spTitle->getSubpageText();
-			}
-			$spPageLink = Sanitizer::escapeId( htmlspecialchars( $spPage ) );
-
-			// Replicate generateToC's handling of duplicates
-			while ( in_array( $spPageLink, $tocLinks ) ) {
-				$spPageLink .= '1';
-			}
-			$tocLinks[] = $spPageLink;
-
-			if ( isset( $spRev ) ) {
-				// add content block to listContent
-				// TODO sanitise?
-
-				// TODO Shouldn't this be using Linker::makeHeadline?
-				$headline = Html::rawElement(
-					'span',
-					[ 'class' => 'mw-headline', 'id' => $spPageLink ],
-					$spPage
-				);
-
-				$sectionLinks = [
-					'viewLink' => $linkRenderer->makeLink(
-						$spTitle,
-						wfMessage( 'view' )->inContentLanguage()->text()
-					)
-				];
-				if ( $spTitle->userCan( 'edit' ) ) {
-					$sectionLinks['edit'] = $linkRenderer->makeLink(
-						SpecialPage::getTitleFor(
-							'EditCollaborationHub',
-							$spTitle->getPrefixedURL()
-						),
-						wfMessage( 'edit' )->inContentLanguage()->text()
-					);
-				}
-				// TODO figure out why this one isn't showing up
-				if ( $title->userCan( 'edit' ) ) {
-					$sectionLinks['delete'] = $linkRenderer->makeLink(
-						SpecialPage::getTitleFor(
-							'EditCollaborationHub',
-							$title->getPrefixedURL()
-						),
-						wfMessage( 'collaborationkit-list-delete' )->inContentLanguage()->text()
-					);
-				}
-				$sectionLinksHtml = '';
-				foreach ( $sectionLinks as $link => $linkString ) {
-					$sectionLinksHtml .= $this->editSectionLink( $linkString );
-				}
-
-				Html::rawElement(
-					'span',
-					[ 'class' => 'mw-editsection' ],
-					$sectionLinksHtml
-				);
-
-				$list .= Html::rawElement(
-					'h2',
-					[],
-					$headline . $sectionLinksHtml
-				);
-
-				// TODO wrap in stuff
-				// TODO REPLACE ALL THIS WITH PROPER AGNOSTIC HANDLING SOMEHOW
-				if ( $spContentModel == 'CollaborationHubContent' ) {
-					// TODO wrap in stuff
-					$list .= $spContent->getParsedIntroduction( $title, $options );
-					// TODO wrap in stuff; limit number of things to output for lists, length for wikitext
-					$list .= $spContent->getParsedContent( $title, $options, $output );
-				} else {
-					// Oh shit it's not a hubpage
-					if ( $spContentModel == 'wikitext' ) {
-						$list .= $spContent->getParserOutput( $spTitle )->getText();
-					} else {
-						// Oh shit, what?
-					}
-				}
-			} else {
-				// TODO Replace this with a button to special:createcollaborationhub/title
-				$list .= Html::openElement(
-					'h2',
-					[ 'class' => 'wp-header-missing' ]
-				);
-				$list .= Html::element(
-					'span',
-					[ 'id' => $spPageLink, 'class' => 'mw-headline' ],
-					$spTitle->getSubpageText()
-				);
-
-				$list .= $this->editSectionLink( $linkRenderer->makeLink(
-					SpecialPage::getTitleFor(
-						'EditCollaborationHub',
-						$title->getPrefixedURL()
-					),
-					wfMessage( 'collaborationkit-list-delete' )->inContentLanguage()->text()
-				) );
-				$list .= Html::closeElement( 'h2' );
-
-				$list .= Html::rawElement(
+				// DO CONTENT FOR NOT YET MADE PAGE
+				$html .= Html::rawElement(
 					'p',
 					[ 'class' => 'wp-missing-note' ],
 					wfMessage( 'collaborationkit-hub-missingpage-note' )->inContentLanguage()->parse()
 				);
 
-				$list .= new OOUI\ButtonWidget( [
+				$linkRenderer = $wgParser->getLinkRenderer();
+				$html .= new OOUI\ButtonWidget( [
 					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )->inContentLanguage()->text(),
-					'href' => SpecialPage::getTitleFor(
-							'EditCollaborationHub',
-							$spTitle->getPrefixedURL()
-						)->getLinkURL()
+					'href' => $spTitle->getEditURL()
 				] );
-			}
-			$list .= Html::closeElement( 'div' );
 
-			// Register page as dependency
-			if ( isset( $spRev ) ) {
-				$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );
-			} else {
+				// register as template for stuff
 				$output->addTemplate( $spTitle, $spTitle->getArticleId(), null );
 			}
-		}
-		$html .= $ToC . $list;
 
-		return Html::rawElement(
-			'div',
-			[ 'class' => 'wp-content' ],
-			$html
+			$html .= Html::closeElement( 'div' );
+		}
+
+		return $html;
+	}
+
+	/**
+	 * Helper function for getParsedcontent for making subpage section headers
+	 * @param $contentItem array of data for the content item we're generating the header for
+	 * @return string html (NOTE THIS IS AN OPEN DIV)
+	 */
+	protected function makeHeader( Title $title, array $contentItem ) {
+		global $wgParser;
+		static $tocLinks = []; // All used ids for the sections for the toc
+		$linkRenderer = $wgParser->getLinkRenderer();
+
+		$spTitle = Title::newFromText( $contentItem['title'] );
+		$spRev = Revision::newFromTitle( $spTitle );
+
+		// Get display name
+		if ( isset( $contentItem['displayTitle'] ) ) {
+			$spPage = $contentItem['displayTitle'];
+		} else {
+			$spPage = $spTitle->getSubpageText();
+		}
+
+		// Generate an id for the section for anchors
+		// Make sure this matches the ToC anchor generation
+		$spPageLink = Sanitizer::escapeId( htmlspecialchars( $spPage ) );
+		$spPageLink2 = $spPageLink;
+		$spPageLinkCounter = 1;
+		while ( in_array( $spPageLink2, $tocLinks ) ) {
+			$spPageLink2 = $spPageLink . $spPageLinkCounter;
+			$spPageLinkCounter++;
+		}
+		$tocLinks[] = $spPageLink2;
+
+		// Get editsection-style links for the subpage
+		$sectionLinks = [];
+		$sectionLinksText = '';
+		if ( isset( $spRev ) ) {
+			$sectionLinks[ 'viewLink' ] = $linkRenderer->makeLink(
+				$spTitle,
+				wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text()
+			);
+		}
+		if ( $spTitle->userCan( 'edit' ) ) {
+			if ( isset( $spRev ) ) {
+				$linkString = 'edit';
+			} else {
+				$linkString = 'create';
+			}
+
+			// TODO get appropriate edit link if it's something weird
+			$sectionLinks['edit'] = $linkRenderer->makeLink(
+				$spTitle,
+				wfMessage( $linkString )->inContentLanguage()->text(),
+				[],
+				[ 'action' => 'edit' ]
+			);
+		}
+		if ( $title->userCan( 'edit' ) ) {
+			$sectionLinks['removeLink'] = $linkRenderer->makeLink(
+				$title,
+				wfMessage( 'collaborationkit-hub-subpage-remove' )->inContentLanguage()->text(),
+				[],
+				[ 'action' => 'edit' ]
+			);
+		}
+		foreach ( $sectionLinks as $sectionLink ) {
+			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink );
+		}
+		$sectionLinksText = Html::rawElement(
+			'span',
+			[ 'class' => 'mw-editsection' ],
+			$sectionLinksText
 		);
-		*/
+
+		// Assemble header
+		// Open general section here since we have the id here
+		$html = Html::openElement(
+			'div',
+			[
+				'class' => 'wp-pagelist-section',
+				'id' => $spPageLink2
+			]
+		);
+		$html .= Html::rawElement(
+			'h2',
+			[],
+			Html::element(
+				'span',
+				[ 'class' => 'mw-headline' ],
+				$spPage
+			) . $sectionLinksText
+		);
+
+		OutputPage::setupOOUI();
+		return $html;
 	}
 
 	/**
@@ -582,27 +564,26 @@ class CollaborationHubContent extends JsonContent {
 	 * @param $link string html of the link itself
 	 * @return string html
 	 */
-	protected function editSectionLink( $link ) {
-		$html = Html::openElement(
+	protected function makeEditSectionLink( string $link ) {
+		$html = Html::rawElement(
 			'span',
-			[ 'class' => 'mw-editsection' ]
+			[ 'class' => 'mw-editsection' ],
+			Html::element(
+				'span',
+				[ 'class' => 'mw-editsection-bracket' ],
+				'['
+			) .
+			Html::rawElement(
+				'span',
+				[],
+				$link
+			) .
+			Html::element(
+				'span',
+				[ 'class' => 'mw-editsection-bracket' ],
+				']'
+			)
 		);
-		$html .= Html::element(
-			'span',
-			[ 'class' => 'mw-editsection-bracket' ],
-			'['
-		);
-		$html .= Html::rawElement(
-			'span',
-			[],
-			$link
-		);
-		$html .= Html::element(
-			'span',
-			[ 'class' => 'mw-editsection-bracket' ],
-			']'
-		);
-		$html .= Html::closeElement( 'span' );
 
 		return $html;
 	}
@@ -626,7 +607,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $icon data: either an icon id or anything to use as a seed
 	 * @return string
 	 */
-	protected function makeIcon( $icon ) {
+	protected function makeIcon( string $icon ) {
 		// Keep this synced with the icons listed in the module in extension.json
 		$iconsPreset = [
 			// Randomly selectable items
@@ -714,8 +695,8 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $seed fallback seed for explicitly something somethinged ones
 	 * @return string
 	 */
-	public function getParsedImage( $fallback = 'none', $size = 50, $seed = null ) {
-		if ( $seed === null ) {
+	public function getParsedImage( $fallback = 'none', $size = 50, $seed = '' ) {
+		if ( $seed === '' ) {
 			$image = $this->getImage();
 
 			if ( $image == '' || $image == '-' ) {
