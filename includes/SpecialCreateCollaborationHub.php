@@ -71,11 +71,11 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'cssclass' => 'mw-ck-sourceinput'
 		];
 
-		$fields['description'] = [
+		$fields['introduction'] = [
 			'type' => 'textarea',
 			'rows' => 5,
 			'label-message' => 'collaborationkit-createhub-introduction',
-			'cssclass' => 'mw-ck-descriptioninput'
+			'cssclass' => 'mw-ck-introductioninput'
 		];
 
 		return $fields;
@@ -112,11 +112,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationhkit-createhub-nopermission' );
 		}
 
-		$content = [
-			'type' => 'subpage-list',
-			'items' => []
-		];
-
 		// ACTUAL STUFF HERE
 		if ( $data['content_source'] !== 'new' ) { // Importing from wikitext
 			$source = Title::newFromText( $data['source'] );
@@ -152,8 +147,9 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			$data['display_name'],
 			$data['icon'],
 			$data['colour'],
-			$data['description'],
-			$content,
+			$data['introduction'],
+			'',
+			[],
 			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
 			$this->getContext()
 		);

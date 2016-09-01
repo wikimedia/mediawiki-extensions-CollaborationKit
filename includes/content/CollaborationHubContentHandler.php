@@ -57,7 +57,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @param string $colour
 	 * @param string $introduction
 	 * @param string $footer
-	 * @param array|string $content
+	 * @param array $content
 	 * @param string $summary Message key for edit summary
 	 * @param IContextSource $context The calling context
 	 * @return Status
