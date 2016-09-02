@@ -607,7 +607,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $icon data: either an icon id or anything to use as a seed
 	 * @return string
 	 */
-	protected function makeIcon( string $icon ) {
+	protected function makeIcon( $icon ) {
 		// Keep this synced with the icons listed in the module in extension.json
 		$iconsPreset = [
 			// Randomly selectable items
