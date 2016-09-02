@@ -564,7 +564,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param $link string html of the link itself
 	 * @return string html
 	 */
-	protected function makeEditSectionLink( string $link ) {
+	protected function makeEditSectionLink( $link ) {
 		$html = Html::rawElement(
 			'span',
 			[ 'class' => 'mw-editsection' ],
