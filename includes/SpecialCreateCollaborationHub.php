@@ -158,6 +158,48 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return $result;
 		}
 
+		$memberListTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-members' ) );
+		if ( !$memberListTitle ) {
+			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
+		}
+		$memberResult = CollaborationListContentHandler::postMemberList(
+			$memberListTitle,
+			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
+			$this->getContext()
+		);
+
+		if ( !$memberResult->isGood() ) {
+			return $memberResult;
+		}
+
+		$announcementsTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-announcements' )->plain() );
+		if ( !$announcementsTitle ) {
+			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
+		}
+		// Ensure that a valid context is provided to the API in unit tests
+		$context = $this->getContext();
+		$der = new DerivativeContext( $context );
+		$request = new DerivativeRequest(
+			$context->getRequest(),
+			[
+				'action' => 'edit',
+				'title' => $announcementsTitle->getFullText(),
+				'text' => "* " . $context->msg( 'collaborationkit-hub-announcements-initial' )->plain() . " ~~~~~",
+				'summary' => $context->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
+				'token' => $context->getUser()->getEditToken(),
+			],
+			true // Treat data as POSTed
+		);
+		$der->setRequest( $request );
+		try {
+			$api = new ApiMain( $der, true );
+			$api->execute();
+		} catch ( UsageException $e ) {
+			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
+				$e->getCodeString() ) );
+		}
+
+		// Once all the pages we want to create are created, we send them to the first one
 		$this->getOutput()->redirect( $title->getFullUrl() );
 		return Status::newGood();
 	}

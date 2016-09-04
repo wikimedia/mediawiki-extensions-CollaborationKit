@@ -13,7 +13,7 @@
  *		{
  *			"title": "The title, generally a subpage; we'll force this later",
  *			"image": "Image or icon to use",
-			"display_title": "What to show on the page (defaults to {{SUBPAGENAME}} otherwise)",
+ *			"display_title": "What to show on the page (defaults to {{SUBPAGENAME}} otherwise)",
  *			...
  *		},
  *		...

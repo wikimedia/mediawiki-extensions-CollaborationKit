@@ -60,6 +60,30 @@ JSON;
 	}
 
 	/**
+	 * @param string $username
+	 * @return CollaborationListContent
+	 */
+	public static function makeMemberList( $username, $initialDescription ) {
+		$linkToUserpage = Title::makeTitleSafe( NS_USER, $username )->getPrefixedText();
+		$newMemberList = [
+			"items" => [
+				[
+					"title" => $linkToUserpage
+				]
+			],
+			"options" => [
+				"ismemberlist" => true,
+				"memberoptions" => (object)[]
+			],
+			"description" => "$initialDescription"
+		];
+
+		$newMemberListJson = FormatJson::encode( $newMemberList, "\t", FormatJson::ALL_OK );
+
+		return new CollaborationListContent( $newMemberListJson );
+	}
+
+	/**
 	 * @return string
 	 */
 	protected function getContentClass() {
@@ -89,6 +113,46 @@ JSON;
 
 	public function supportsDirectApiEditing() {
 		return true;
+	}
+
+	/**
+	 * @param Title $title
+	 * @param string $summary
+	 * @param IContextSource $context
+	 * @todo rework this to use a generic CollaborationList editor function once it exists
+	 */
+	public static function postMemberList( Title $title, $summary, IContextSource $context ) {
+
+		$username = $context->getUser()->getName();
+		$collabList = self::makeMemberList(
+			$username,
+			$context->msg( 'collaborationkit-hub-members-description' )
+		);
+
+		// Ensure that a valid context is provided to the API in unit tests
+		$der = new DerivativeContext( $context );
+		$request = new DerivativeRequest(
+			$context->getRequest(),
+			[
+				'action' => 'edit',
+				'title' => $title->getFullText(),
+				'contentmodel' => 'CollaborationListContent',
+				'contentformat' => 'application/json',
+				'text' => $collabList->serialize(),
+				'summary' => $summary,
+				'token' => $context->getUser()->getEditToken(),
+			],
+			true // Treat data as POSTed
+		);
+		$der->setRequest( $request );
+		try {
+			$api = new ApiMain( $der, true );
+			$api->execute();
+		} catch ( UsageException $e ) {
+			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
+				$e->getCodeString() ) );
+		}
+		return Status::newGood();
 	}
 }
 

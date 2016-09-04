@@ -24,9 +24,12 @@
  *				"order": "numeric", // or potentially collation??
  *				"default": "string-Text here" // or "column-title", etc
  *			},
- *			...
  *		},
  *		"defaultsort": "sort-criteria name" // or "column-title" ?? what about multi-key sort??
+ *		 "ismemberlist": true/false, // TODO, causes page to render totally differently
+ *       "memberoptions": { // for future customizations
+ *          ...
+ *        }
  *	}
  *	"description": "Some arbitrary wikitext"
  *}
@@ -108,7 +111,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Format json
 	 *
-	 * Do not escape < and > its unnecessary and ugly
+	 * Do not escape < and > it's unnecessary and ugly
 	 * @return string
 	 */
 	public function beautifyJSON() {
