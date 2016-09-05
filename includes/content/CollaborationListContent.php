@@ -233,6 +233,13 @@ class CollaborationListContent extends JsonContent {
 	 * @todo FIXME implement
 	 */
 	private function validateOptions( stdClass $options ) {
+		foreach ( $options as $name => $value ) {
+			// FIXME should this be pass by reference.
+			$res = $this->validateOption( $name, $value );
+			if ( !$res ) {
+				return false;
+			}
+		}
 		return true;
 	}
 
@@ -251,6 +258,10 @@ class CollaborationListContent extends JsonContent {
 		case 'includeDesc':
 			$value = (bool)$value;
 			return true;
+		case 'mode':
+			if ( in_array( $value, [ 'normal', 'no-img' ] ) ) {
+				return true;
+			}
 		default:
 			return false;
 		}
@@ -301,7 +312,8 @@ class CollaborationListContent extends JsonContent {
 		if ( !$lang ) {
 			$lang = $title->getPageLanguage();
 		}
-		$text = $this->convertToWikitext( $lang, $this->getFullRenderListOptions() );
+		$listOptions = $this->getFullRenderListOptions() + (array)$this->options;
+		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
 	}
 
@@ -368,28 +380,29 @@ class CollaborationListContent extends JsonContent {
 				"class" => "mw-collabkit-list-item",
 				"data-collabkit-item-title" => $item->title
 			] );
-
-			$image = null;
-			if ( !isset( $item->image ) && $titleForItem ) {
-				if ( class_exists( 'PageImages' ) ) {
-					$image = PageImages::getPageImage( $titleForItem );
+			if ( $options['mode'] !== 'no-img' ) {
+				$image = null;
+				if ( !isset( $item->image ) && $titleForItem ) {
+					if ( class_exists( 'PageImages' ) ) {
+						$image = PageImages::getPageImage( $titleForItem );
+					}
+				} elseif ( isset( $item->image ) && is_string( $item->image ) ) {
+					$imageTitle = Title::newFromText( $item->image, NS_FILE );
+					if ( $imageTitle ) {
+						$image = wfFindFile( $imageTitle );
+					}
 				}
-			} elseif ( isset( $item->image ) && is_string( $item->image ) ) {
-				$imageTitle = Title::newFromText( $item->image, NS_FILE );
-				if ( $imageTitle ) {
-					$image = wfFindFile( $imageTitle );
-				}
-			}
 
-			$text .= '<div class="mw-collabkit-list-img">';
-			if ( $image ) {
-				// Important: If you change the width of the image
-				// you also need to change it in the stylesheet.
-				$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
-			} else {
-				$text .= '<div class="mw-ckicon-page-grey2 mw-collabkit-list-noimageplaceholder"></div>';
+				$text .= '<div class="mw-collabkit-list-img">';
+				if ( $image ) {
+					// Important: If you change the width of the image
+					// you also need to change it in the stylesheet.
+					$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
+				} else {
+					$text .= '<div class="mw-ckicon-page-grey2 mw-collabkit-list-noimageplaceholder"></div>';
+				}
+				$text .= '</div>';
 			}
-			$text .= '</div>';
 
 			$text .= '<div class="mw-collabkit-list-container">';
 			// Question: Arguably it would be more semantically correct to use
@@ -448,6 +461,7 @@ class CollaborationListContent extends JsonContent {
 			'defaultSort' => 'random',
 			'offset' => 0,
 			'tags' => [],
+			'mode' => 'normal'
 		];
 	}
 
