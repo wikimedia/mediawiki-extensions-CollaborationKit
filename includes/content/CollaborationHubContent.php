@@ -252,7 +252,7 @@ class CollaborationHubContent extends JsonContent {
 			'div',
 			[ 'class' => 'wp-header-image' ],
 			// TODO move all image stuff to ToC class (what is that class even going to be, anyway?)
-			$this->getParsedImage( $this->getImage(), 150 )
+			$this->getParsedImage( $this->getImage(), 200 )
 		);
 		// get members list
 		$html .= Html::rawElement(
