@@ -433,10 +433,42 @@ class CollaborationHubContent extends JsonContent {
 				$spContent = $spRev->getContent();
 				$spContentModel = $spRev->getContentModel();
 
-				// TODO: needed options: remove section markers, first section etc for wikitext; add all this later
-				$contentOutput = $spContent->getParserOutput( $spTitle, $spRev, $options );
+				if ( $spContentModel == 'CollaborationHubContent' ) {
+					// this is dumb, but we'll just rebuild the intro here for now
+					$text = Html::rawElement(
+						'div',
+						[ 'class' => 'wp-header-image' ],
+						$spContent->getParsedImage( $spContent->getImage(), 100 )
+					);
+					$text .= $spContent->getParsedIntroduction( $spTitle, $options );
+				} elseif ( $spContentModel == 'CollaborationListContent' ) {
+					$lang = $options->getTargetLanguage();
+					if ( !$lang ) {
+						$lang = $title->getPageLanguage();
+					}
+					// convert to wikitext with maxItems limit in place
+					$wikitext = $spContent->convertToWikitext(
+						$lang,
+						[
+							'includeDesc' => false,
+							'maxItems' => 4,
+							// TODO use a sort according to options in the item line
+							'defaultSort' => 'random'
+						]
+					);
+					$text = $wgParser->parse( $wikitext, $spTitle, $options )->getText();
+				} else {
+					if ( $spContentModel == 'wikitext' ) {
+						// to grab first section only
+						$spContent = $spContent->getSection( 0 );
+					}
+					// Parse whatever (else) as whatever
+					$contentOutput = $spContent->getParserOutput( $spTitle, $spRev, $options );
 
-				$html .= $contentOutput->getText();
+					$text = $contentOutput->getText();
+				}
+
+				$html .= $text;
 
 				// register as template for stuff
 				$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );

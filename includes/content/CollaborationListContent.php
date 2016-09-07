@@ -320,7 +320,7 @@ class CollaborationListContent extends JsonContent {
 	 * @param $options Array Options to override the default transclude options
 	 * @return string The wikitext
 	 */
-	private function convertToWikitext( Language $lang, $options = [] ) {
+	public function convertToWikitext( Language $lang, $options = [] ) {
 		$this->decode();
 		$options = $options + $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
