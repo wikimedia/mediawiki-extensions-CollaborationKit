@@ -416,6 +416,11 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput &$output ) {
 		global $wgParser;
 
+		$lang = $options->getTargetLanguage();
+		if ( !$lang ) {
+			$lang = $title->getPageLanguage();
+		}
+
 		$html = '';
 
 		foreach ( $this->getContent() as $item ) {
@@ -442,10 +447,6 @@ class CollaborationHubContent extends JsonContent {
 					);
 					$text .= $spContent->getParsedIntroduction( $spTitle, $options );
 				} elseif ( $spContentModel == 'CollaborationListContent' ) {
-					$lang = $options->getTargetLanguage();
-					if ( !$lang ) {
-						$lang = $title->getPageLanguage();
-					}
 					// convert to wikitext with maxItems limit in place
 					$wikitext = $spContent->convertToWikitext(
 						$lang,
@@ -456,12 +457,21 @@ class CollaborationHubContent extends JsonContent {
 							'defaultSort' => 'random'
 						]
 					);
-					$text = $wgParser->parse( $wikitext, $spTitle, $options )->getText();
+					$text = $wgParser->parse( $wikitext, $title, $options )->getText();
+				} elseif ( $spContentModel == 'wikitext' ) {
+					// to grab first section only
+					$spContent = $spContent->getSection( 0 );
+
+					// Do template preproccessing magic
+					// ... parse, get text into $text
+					$rawText = $spContent->serialize();
+					// Get rid of all <noinclude>'s.
+					$wgParser->startExternalParse( $title, $options, Parser::OT_WIKI );
+					$frame = $wgParser->getPreprocessor()->newFrame()->newChild( [], $spTitle );
+					$node = $wgParser->preprocessToDom( $rawText, Parser::PTD_FOR_INCLUSION );
+					$processedText = $frame->expand( $node, PPFrame::RECOVER_ORIG & ( ~PPFrame::NO_IGNORE ) );
+					$text = $wgParser->parse( $processedText, $title, $options )->getText();
 				} else {
-					if ( $spContentModel == 'wikitext' ) {
-						// to grab first section only
-						$spContent = $spContent->getSection( 0 );
-					}
 					// Parse whatever (else) as whatever
 					$contentOutput = $spContent->getParserOutput( $spTitle, $spRev, $options );
 
