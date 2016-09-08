@@ -73,7 +73,8 @@ JSON;
 			],
 			"options" => [
 				"ismemberlist" => true,
-				"memberoptions" => (object)[]
+				"memberoptions" => (object)[],
+				"mode" => "normal"
 			],
 			"description" => "$initialDescription"
 		];

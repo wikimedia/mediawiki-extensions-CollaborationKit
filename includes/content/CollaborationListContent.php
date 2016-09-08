@@ -265,6 +265,12 @@ class CollaborationListContent extends JsonContent {
 			if ( in_array( $value, [ 'normal', 'no-img' ] ) ) {
 				return true;
 			}
+		case 'ismemberlist':
+			$value = (bool)$value;
+			return true;
+		case 'memberoptions':
+			// Allow arbitrary input until this actually gets used for something. T141018
+			return true;
 		default:
 			return false;
 		}

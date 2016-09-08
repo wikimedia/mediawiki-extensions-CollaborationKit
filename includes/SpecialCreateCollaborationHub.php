@@ -172,7 +172,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return $memberResult;
 		}
 
-		$announcementsTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-announcements' )->plain() );
+		$announcementsTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->plain() );
 		if ( !$announcementsTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
@@ -184,7 +184,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			[
 				'action' => 'edit',
 				'title' => $announcementsTitle->getFullText(),
-				'text' => "* " . $context->msg( 'collaborationkit-hub-announcements-initial' )->plain() . " ~~~~~",
+				'text' => "* " . $context->msg( 'collaborationkit-hub-announcements-initial' )->inContentLanguage()->plain() . " ~~~~~",
 				'summary' => $context->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
 				'token' => $context->getUser()->getEditToken(),
 			],
