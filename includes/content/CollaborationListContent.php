@@ -561,8 +561,24 @@ class CollaborationListContent extends JsonContent {
 
 		$output = $this->description;
 		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->getHumanOptions();
+		$output .= self::HUMAN_DESC_SPLIT;
 		$output .= $this->getHumanEditableList();
 		return $output;
+	}
+
+	/**
+	 * Output the options in human readable form
+	 *
+	 * @return String key=value pairs separated by newlines.
+	 */
+	private function getHumanOptions() {
+		$this->decode();
+		$ret = '';
+		foreach ( $this->options as $opt => $value ) {
+			$ret .= $opt . '=' . $value . "\n";
+		}
+		return $ret;
 	}
 
 	/**
@@ -638,22 +654,51 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * @param $options String Human readable options
+	 */
+	private static function parseHumanOptions( $options ) {
+		$finalList = [];
+		$optList = explode( "\n", $options );
+		foreach ( $optList as $line ) {
+			$splitLine = explode( '=', $line, 2 );
+			if ( count( $splitLine ) !== 2 ) {
+				continue;
+			}
+			$name = trim( $splitLine[0] );
+			$value = trim( $splitLine[1] );
+			if ( self::validateOption( $name, $value ) ) {
+				$finalList[$name] = $value;
+			}
+		}
+		return (object)$finalList;
+	}
+
+	/**
 	 * Convert from human editable form into a (php) array
 	 *
 	 * @param $text String text to convert
 	 * @return Array Result of converting it to native form
 	 */
 	public static function convertFromHumanEditable( $text ) {
-		$res = [ 'options' => new StdClass, 'items' => [] ];
+		$res = [ 'items' => [] ];
 
-		$split = strrpos( $text, self::HUMAN_DESC_SPLIT );
-		if ( $split === false ) {
+		$split2 = strrpos( $text, self::HUMAN_DESC_SPLIT );
+		if ( $split2 === false ) {
+			throw new MWContentSerializationException( "Missing list description" );
+		}
+
+		$split1 = strrpos( $text, self::HUMAN_DESC_SPLIT, -strlen( $text ) + $split2 - 1 );
+		if ( $split1 === false ) {
 			throw new MWContentSerializationException( "Missing list description" );
 		}
 		$dividerLength = strlen( self::HUMAN_DESC_SPLIT );
-		$res['description'] = substr( $text, 0, $split );
 
-		$list = substr( $text, $split + $dividerLength );
+		$optionLength = $split2 - ( $split1 + $dividerLength );
+		$optionString = substr( $text, $split1 + $dividerLength, $optionLength );
+		$res['options'] = self::parseHumanOptions( $optionString );
+
+		$res['description'] = substr( $text, 0, $split1 );
+		$list = substr( $text, $split2 + $dividerLength );
 		$listLines = explode( "\n", $list );
 		foreach ( $listLines as $line ) {
 			$res['items'][] = self::convertFromHumanEditableItemLine( $line );
