@@ -346,11 +346,14 @@
 			dialog = this;
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
-			var itemToAdd = {
+			var index, itemToAdd = {
 				title: title,
 				notes: notes
-			},
-				index;
+			};
+
+			if ( file ) {
+				itemToAdd.image = file;
+			}
 			if ( dialog.itemIndex ) {
 				if (	res.content.items <= dialog.itemIndex ||
 					res.content.items[ dialog.itemIndex ].title !== dialog.itemTitle
@@ -364,13 +367,7 @@
 			} else {
 				index = res.content.items.length;
 			}
-			res.content.items[ index ] = {
-				title: title,
-				notes: notes
-			};
-			if ( file !== '' ) {
-				itemToAdd.image = file;
-			}
+			res.content.items[ index ] = itemToAdd;
 			res.summary = mw.msg( 'collaborationkit-list-add-summary', title );
 			saveJson( res, function () {
 				dialog.close(); // FIXME should we just leave open?
