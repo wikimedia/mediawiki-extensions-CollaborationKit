@@ -49,5 +49,6 @@
 	"collaborationkit-hub-subpage-view": "View link label for subpages on Collaboration Hub mainpages",
 	"collaborationkit-hub-subpage-remove": "Remove link label for subpages on Collaboration Hub mainpages",
 	"collaborationkit-hub-edit-apierror": "Error message for API edit error",
-	"collaborationkit-hub-edit-tojsonerror": "Error message when something went wrong converting to JSON"
+	"collaborationkit-hub-edit-tojsonerror": "Error message when something went wrong converting to JSON",
+	"collaborationkit-hub-toc-label": "Label for the toc on a Collaboration Hub mainpage"
 }

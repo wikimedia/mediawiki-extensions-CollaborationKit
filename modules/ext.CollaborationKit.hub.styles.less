@@ -5,14 +5,16 @@
 // ARGH
 .wp-toc {
 	clear: both;
-	margin: 1em 0;
+	margin: 1em 0 2em;
 
 	ul {
 		padding: 0;
 		margin: 0;
-		list-style: none;
 	}
 	li {
+		max-width: 7.5em;
+		text-align: center;
+		list-style: none;
 		float: left;
 		margin: .5em 1.25em .5em 0;
 		word-wrap: break-word;
@@ -24,13 +26,28 @@
 	}
 
 	.file-image {
-		height: 40px;
+		height: 50px;
 		overflow: hidden;
 
 		img {
 			vertical-align: middle;
 		}
 	}
+	.toc-label {
+		font-weight: bold;
+		margin: 0 0 1em;
+		border-bottom: 3px solid;
+		width: 33%;
+	}
+	.mw-ckicon {
+		height: 50px;
+		width: 50px;
+	}
+}
+.mw-content-rtl .wp-toc ul,
+.mw-content-ltr .wp-toc ul {
+	margin: 0;
+	padding: 0;
 }
 
 // Mainpage hub layout (.mw-body included because vector has excessively specific rules)
@@ -86,30 +103,6 @@
 	font-size: 115%;
 }
 
-.wp-toc {
-	ul {
-		list-style: none;
-	}
-	li {
-		max-width: 6em;
-		text-align: center;
-	}
-	.toc-label {
-		font-weight: bold;
-		margin: 0 0 1em;
-		border-bottom: 3px solid;
-		width: 33%;
-	}
-	.mw-ckicon {
-		height: 50px;
-		width: 50px;
-	}
-}
-.mw-content-rtl .wp-toc ul,
-.mw-content-ltr .wp-toc ul {
-	margin: 0;
-	padding: 0;
-}
 
 // Themes
 .mw-body .wp-mainpage {
