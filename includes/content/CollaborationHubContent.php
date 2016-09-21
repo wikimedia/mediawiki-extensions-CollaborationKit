@@ -493,7 +493,7 @@ class CollaborationHubContent extends JsonContent {
 				$linkRenderer = $wgParser->getLinkRenderer();
 				$html .= new OOUI\ButtonWidget( [
 					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )->inContentLanguage()->text(),
-					'href' => $spTitle->getEditURL()
+					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText(), 'feature' => $spTitle->getSubpageText() ] )
 				] );
 
 				// register as template for stuff
@@ -549,17 +549,23 @@ class CollaborationHubContent extends JsonContent {
 		if ( $spTitle->userCan( 'edit' ) ) {
 			if ( isset( $spRev ) ) {
 				$linkString = 'edit';
+				// TODO get appropriate edit link if it's something weird
+				$sectionLinks['edit'] = $linkRenderer->makeLink(
+					$spTitle,
+					wfMessage( $linkString )->inContentLanguage()->text(),
+					[],
+					[ 'action' => 'edit' ]
+				);
 			} else {
 				$linkString = 'create';
+				$sectionLinks['edit'] = $linkRenderer->makeLink(
+					SpecialPage::getTitleFor( 'CreateHubFeature' ),
+					wfMessage( $linkString )->inContentLanguage()->text(),
+					[],
+					[ 'collaborationhub' => $title->getPrefixedDBKey(), 'feature' => $spTitle->getSubpageText() ]
+				);
 			}
 
-			// TODO get appropriate edit link if it's something weird
-			$sectionLinks['edit'] = $linkRenderer->makeLink(
-				$spTitle,
-				wfMessage( $linkString )->inContentLanguage()->text(),
-				[],
-				[ 'action' => 'edit' ]
-			);
 		}
 		if ( $title->userCan( 'edit' ) ) {
 			$sectionLinks['removeLink'] = $linkRenderer->makeLink(
