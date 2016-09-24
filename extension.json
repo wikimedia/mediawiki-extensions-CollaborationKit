@@ -20,6 +20,8 @@
 		"CollaborationKitHooks": "includes/CollaborationKit.php",
 		"CollaborationHubContent": "includes/content/CollaborationHubContent.php",
 		"CollaborationHubContentHandler": "includes/content/CollaborationHubContentHandler.php",
+		"CollaborationHubTOC": "includes/content/CollaborationHubTOC.php",
+		"CollaborationKitIcon": "includes/content/CollaborationKitIcon.php",
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
 		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",

@@ -53,5 +53,6 @@
 	"collaborationkit-hub-subpage-view": "View",
 	"collaborationkit-hub-subpage-remove": "Remove feature",
 	"collaborationkit-hub-edit-apierror": "API edit error: $1",
-	"collaborationkit-hub-edit-tojsonerror": "Error converting to JSON"
+	"collaborationkit-hub-edit-tojsonerror": "Error converting to JSON",
+	"collaborationkit-hub-toc-label": "Project contents"
 }

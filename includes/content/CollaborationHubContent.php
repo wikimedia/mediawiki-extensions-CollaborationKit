@@ -270,7 +270,7 @@ class CollaborationHubContent extends JsonContent {
 		$html .= Html::rawElement(
 			'div',
 			[ 'class' => 'wp-toc' ],
-			$this->getTableofContents( $title, $options )
+			$this->getTableOfContents( $title, $options )
 		);
 		// get transcluded content
 		$html .= Html::rawElement(
@@ -636,98 +636,10 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOptions $options
 	 * @return string
 	 */
-	protected function getTableofContents( Title $title, ParserOptions $options ) {
-		// This is going to be moved into its own class, and cleaning it up here is too much effort right now.
-		// Restoring placeholder.
-		$html = '<div>TOC APPEARS HERE (PENDING T140170)</div>';
+	protected function getTableOfContents( Title $title, ParserOptions $options ) {
+		$toc = new CollaborationHubTOC();
 
-		return $html;
-	}
-
-	/**
-	 * Generates html for canned icons
-	 * @param string $icon data: either an icon id or anything to use as a seed
-	 * @return string
-	 */
-	protected function makeIcon( $icon ) {
-		// Keep this synced with the icons listed in the module in extension.json
-		$iconsPreset = [
-			// Randomly selectable items
-			'book',
-			'circlestar',
-			'clock',
-			'community',
-			'contents',
-			'die',
-			'edit',
-			'eye',
-			'flag',
-			'funnel',
-			'gear',
-			'heart',
-			'journal',
-			'key',
-			'link',
-			'map',
-			'menu',
-			'newspaper',
-			'ol',
-			'page',
-			'paperclip',
-			'puzzlepiece',
-			'ribbon',
-			'rocket',
-			'star',
-			'sun',
-			'ul',
-
-			'addimage',
-			'addmapmarker',
-			'addquote',
-			'bell',
-			'circleline',
-			'circletriangle',
-			'circlex',
-			'discussion',
-			'download',
-			'editprotected',
-			'gallery',
-			'image',
-			'lock',
-			'mail',
-			'mapmarker',
-			'message',
-			'messagenew',
-			'messagescary',
-			'move',
-			'nowiki',
-			'pagechecked',
-			'pageribbon',
-			'pagesearch',
-			'print',
-			'quotes',
-			'search',
-			'starmenu',
-			'translate',
-			'trash',
-			'user'
-		];
-		// if preset or other logical class name, just set class; we allow non-preset ones for on-wiki flexibility?
-		if ( $icon !== null && in_array( $icon, $iconsPreset ) ) {
-			$class = Sanitizer::escapeClass( $icon );
-		} else {
-			// Choose random class name using $icon value as seed
-			$class = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 27];
-		}
-
-		$colour = $this->getThemeColour();
-		if ( $colour == 'black' ) {
-			$colorSuffix = '';
-		} else {
-			$colorSuffix = '-' . $colour;
-		}
-
-		return Html::element( 'div', [ 'class' => 'mw-ckicon mw-ckicon-' . $class .  $colorSuffix ] );
+		return $toc->renderTOC( $this->content, $this->themeColour );
 	}
 
 	/**
@@ -737,34 +649,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $seed fallback seed for explicitly something somethinged ones
 	 * @return string
 	 */
-	public function getParsedImage( $fallback = 'none', $size = 50, $seed = '' ) {
-		if ( $seed === '' ) {
-			$image = $this->getImage();
-
-			if ( $image == '' || $image == '-' ) {
-				if ( $fallback == 'none' ) {
-					return '';
-				} elseif ( $fallback == 'random' ) {
-					return $this->makeIcon( $this->getDisplayName() );
-				} else {
-					// Maybe they want a specific one?
-					return $this->makeIcon( $fallback );
-				}
-			}
-			if ( wfFindFile( $image ) ) {
-				return Html::rawElement(
-					'div',
-					[ 'class' => 'file-image' ],
-					wfFindFile( $image )->transform( [ 'width' => $size ] )->toHtml()
-				);
-			} else {
-				return $this->makeIcon( $image );
-			}
-		} else {
-			// No image data etc; use seed
-			return $this->makeIcon( $seed );
-		}
-
-		// TODO make it handle/return error/do something besides just selecting a random one when file doesn't exist/image key not found?
+	public function getParsedImage( $image, $size = 200 ) {
+		return CollaborationKitIcon::makeIconOrImage( $this->getImage(), $size, 'puzzlepiece' );
 	}
 }
