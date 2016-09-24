@@ -6,6 +6,13 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		parent::__construct( $modelId );
 	}
 
+	public function canBeUsedOn( Title $title ) {
+		if ( $title->inNamespace( NS_PROJECT ) || $title->inNamespace( NS_USER ) ) {
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * @param string $text
 	 * @param string $format
