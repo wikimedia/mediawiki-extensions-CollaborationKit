@@ -20,7 +20,9 @@ class CollaborationListContentHandler extends TextContentHandler {
 	}
 
 	public function canBeUsedOn( Title $title ) {
-		if ( $title->inNamespace( NS_PROJECT ) || $title->inNamespace( NS_USER ) ) {
+		global $wgCollaborationListAllowedNamespaces;
+
+		if ( in_array( $title->getNamespace(), array_keys( array_filter( $wgCollaborationListAllowedNamespaces ) ) ) ) {
 			return true;
 		}
 		return false;

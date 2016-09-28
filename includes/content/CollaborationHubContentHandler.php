@@ -7,7 +7,12 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	public function canBeUsedOn( Title $title ) {
-		if ( $title->inNamespace( NS_PROJECT ) || $title->inNamespace( NS_USER ) ) {
+		global $wgCollaborationHubAllowedNamespaces;
+
+		$namespace = $title->getNamespace();
+		if ( in_array( $namespace, array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) ) )
+			&& MWNamespace::hasSubpages( $namespace ) ) {
+
 			return true;
 		}
 		return false;

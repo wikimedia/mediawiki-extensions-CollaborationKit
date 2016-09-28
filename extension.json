@@ -33,6 +33,18 @@
 		"CollaborationHubContent": "CollaborationHubContentHandler",
 		"CollaborationListContent": "CollaborationListContentHandler"
 	},
+	"config": {
+		"CollaborationHubAllowedNamespaces": {
+			"_merge_strategy": "array_plus",
+			"2": true,
+			"4": true
+		},
+		"CollaborationListAllowedNamespaces": {
+			"_merge_strategy": "array_plus",
+			"2": true,
+			"4": true
+		}
+	},
 	"SpecialPages": {
 		"CreateCollaborationHub": "SpecialCreateCollaborationHub",
 		"CreateHubFeature": "SpecialCreateHubFeature"
