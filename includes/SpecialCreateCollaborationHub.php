@@ -44,12 +44,18 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				'cssclass' => 'mw-ck-iconinput',
 				'label-message' => 'collaborationkit-createhub-image',
 			],
-			// Colours for the hub styles
-			'colour' => [
-				'type' => 'text',
-				'cssclass' => 'mw-ck-colourinput',
-				'label-message' => 'collaborationkit-createhub-colour',
-			]
+		];
+		// Colours for the hub styles
+		$colours = [];
+		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
+			$colours[ 'collaborationkit-' . $colour ] = $colour;
+		}
+		$fields['colour'] = [
+			'type' => 'select',
+			'cssclass' => 'mw-ck-colourinput',
+			'label-message' => 'collaborationkit-createhub-colour',
+			'options' => $this->getOptions( $colours ),
+			'default' => 'blue5'
 		];
 
 		// Content source options
@@ -83,6 +89,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 	/**
 	 * Build and return the aossociative array for the content source field.
+	 * @param array $mapping
 	 * @return array
 	 */
 	protected function getOptions( $mapping ) {

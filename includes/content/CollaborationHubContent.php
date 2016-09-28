@@ -57,33 +57,35 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * 23 preset colours; actual colour values are set in the extension.json and less modules
-	 * @var array
+	 * @return array
 	 */
-	protected $themeColours = [
-		'red1',
-		'red2',
-		'grey1',
-		'grey2',
-		'blue1',
-		'blue2',
-		'blue3',
-		'blue4',
-		'blue5',
-		'blue6',
-		'purple1',
-		'purple2',
-		'purple3',
-		'purple4',
-		'purple5',
-		'yellow1',
-		'yellow2',
-		'yellow3',
-		'yellow4',
-		'green1',
-		'green2',
-		'green3',
-		'black'
-	];
+	public static function getThemeColours() {
+		return [
+			'red1',
+			'red2',
+			'grey1',
+			'grey2',
+			'blue1',
+			'blue2',
+			'blue3',
+			'blue4',
+			'blue5',
+			'blue6',
+			'purple1',
+			'purple2',
+			'purple3',
+			'purple4',
+			'purple5',
+			'yellow1',
+			'yellow2',
+			'yellow3',
+			'yellow4',
+			'green1',
+			'green2',
+			'green3',
+			'black'
+		];
+	}
 
 	/**
 	 * Whether contents have been populated
@@ -112,7 +114,7 @@ class CollaborationHubContent extends JsonContent {
 		}
 
 		// Check if colour is one of the presets; if somehow this isn't a string and still matches one of the presets, I don't even want to know
-		if ( !in_array( $this->themeColour, $this->themeColours ) ) {
+		if ( !in_array( $this->themeColour, CollaborationHubContent::getThemeColours() ) ) {
 			return false;
 		}
 
