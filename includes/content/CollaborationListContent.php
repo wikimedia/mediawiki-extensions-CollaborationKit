@@ -4,35 +4,7 @@
  * Important design assumption: This class assumes lists are small
  * (e.g. Average case < 500 items, outliers < 2000)
  *
- * Json structure is as follows:
- * {
- * 	items: [
- *		{
- *			"title": "The title, possibly a page name",
- *			"link": "Page to link to if not title, or false to disable link",
- *			"notes": "Freeform wikitext",
- *			"image": "Image to use. Set to false to disable using PageImages ext",
- *			"sortkey": { "name of sort criteria": "sortkey", ... }
- *			"tags": [ "tag1", "tag2", ... ]
- *		},
- *		...
- *	],
- *	"options": {
- *		"sortcriteria": { //unimplemented
- *			// FIXME, not sure if this actually meets with usecase
- *			"criteria name": {
- *				"order": "numeric", // or potentially collation??
- *				"default": "string-Text here" // or "column-title", etc
- *			},
- *		},
- *		"defaultsort": "sort-criteria name" // or "column-title" ?? what about multi-key sort??
- *		 "ismemberlist": true/false, // TODO, causes page to render totally differently
- *       "memberoptions": { // for future customizations
- *          ...
- *        }
- *	}
- *	"description": "Some arbitrary wikitext"
- *}
+ * Schema is found in CollaborationListContentSchema.php.
  *
  */
 class CollaborationListContent extends JsonContent {
@@ -60,52 +32,23 @@ class CollaborationListContent extends JsonContent {
 	 * @return bool Whether the contents are valid
 	 */
 	public function isValid() {
+		$listSchema = include __DIR__ . '/CollaborationListContentSchema.php';
 		if ( !parent::isValid() ) {
 			return false;
 		}
-
 		$status = $this->getData();
 		if ( !is_object( $status ) || !$status->isOk() ) {
 			return false;
 		}
-
 		$data = $status->value;
-
-		if (
-			!property_exists( $data, "items" )
-			|| !property_exists( $data, "options" )
-			|| !property_exists( $data, "description" )
-		) {
+		$jsonAsArray = json_decode( json_encode( $data ), true );
+		try {
+			EventLogging::schemaValidate( $jsonAsArray, $listSchema );
+			return true;
+		} catch ( JsonSchemaException $e ) {
 			return false;
 		}
-		foreach ( $data as $field => $value ) {
-			switch ( $field ) {
-			case 'items':
-				if ( !is_array( $value ) ) {
-					return false;
-				}
-				if ( !$this->validateItems( $value ) ) {
-					return false;
-				}
-				break;
-			case 'options':
-				if ( !is_object( $value ) ) {
-					return false;
-				}
-				if ( !$this->validateOptions( $value ) ) {
-					return false;
-				}
-				break;
-			case 'description':
-				if ( !is_string( $value ) ) {
-					return false;
-				}
-				break;
-			default:
-				return false;
-			}
-		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -140,140 +83,6 @@ class CollaborationListContent extends JsonContent {
 		}
 
 		return new static( $pstContent->beautifyJSON() );
-	}
-
-	/**
-	 * Validate the item structure.
-	 *
-	 * Format is a list of:
-	 *	{
-	 *		"title": "The title, possibly but not neccessarily a page name",
-	 *		"link": "Page to link to if not title, or false to disable link",
-	 *		"notes": "Freeform wikitext",
-	 *		"image": "Image to use. Set to false to disable using PageImages ext",
-	 *		"sortkey": { "name of sort criteria": "sortkey", ... }
-	 *		"tags": [ "tag1", "tag2", ... ]
-	 *	}
-	 * @param $items Array
-	 * @return boolean
-	 */
-	private function validateItems( array $items ) {
-		if ( count( $items ) > self::MAX_LIST_SIZE ) {
-			return false;
-		}
-		$itemsSoFar = [];
-		foreach ( $items as $item ) {
-			// Fixme do we enforce uniqueness on title?
-			if ( !property_exists( $item, 'title' )
-				|| !is_string( $item->title )
-				|| isset( $itemsSoFar[$item->title] )
-			) {
-				return false;
-			}
-			$itemsSoFar[$item->title] = true;
-			foreach ( $item as $field => $value ) {
-				switch ( $field ) {
-				case 'title':
-				case 'notes':
-					if ( !is_string( $value ) ) {
-						return false;
-					}
-					break;
-				case 'link':
-				case 'image':
-					if ( $value === false ) {
-						break;
-					}
-					if ( !is_string( $value ) ||
-						!Title::makeTitleSafe( NS_MAIN, $value )
-					) {
-						return false;
-					}
-					break;
-				case 'sortkey':
-					// FIXME: Validate it matches options.
-					if ( !is_object( $sortkey ) ) {
-						return false;
-					}
-					foreach ( $value as $keyname => $keytext ) {
-						if ( !is_string( $keytext ) ) {
-							return false;
-						}
-					}
-					break;
-				case 'tags':
-					if ( !is_array( $value ) ) {
-						return false;
-					}
-					foreach ( $value as $tag ) {
-						if ( !is_string( $tag ) ) {
-							return false;
-						}
-						if ( !Title::makeTitleSafe( 0, $tag ) ) {
-							// Title is not really exactly
-							// what we need. It bans some
-							// things we don't care about,
-							// like "..". But all in all,
-							// its a good proxy for a sane
-							// tag name.
-							return false;
-						}
-					}
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	/**
-	 * Validate the options structure
-	 *
-	 * @param $options stdClass
-	 * @return boolean
-	 * @todo FIXME implement
-	 */
-	private function validateOptions( stdClass $options ) {
-		foreach ( $options as $name => $value ) {
-			// FIXME should this be pass by reference.
-			$res = $this->validateOption( $name, $value );
-			if ( !$res ) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private static function validateOption( $name, &$value ) {
-		switch ( $name ) {
-		case 'defaultSort':
-			if ( in_array( $value, [ 'natural', 'random' ] ) ) {
-				return true;
-			}
-		case 'maxItems':
-		case 'offset':
-			if ( is_numeric( $value ) ) {
-				$value = (int)$value;
-				return true;
-			}
-		case 'includeDesc':
-			$value = (bool)$value;
-			return true;
-		case 'mode':
-			if ( in_array( $value, [ 'normal', 'no-img' ] ) ) {
-				return true;
-			}
-		case 'ismemberlist':
-			$value = (bool)$value;
-			return true;
-		case 'memberoptions':
-			// Allow arbitrary input until this actually gets used for something. T141018
-			return true;
-		default:
-			return false;
-		}
 	}
 
 	/**
@@ -464,6 +273,7 @@ class CollaborationListContent extends JsonContent {
 
 	public function getDefaultOptions() {
 		// FIXME implement
+		// FIXME use defaults from schema instead of hardcoded values
 		return [
 			'includeDesc' => false,
 			'maxItems' => 5,
