@@ -212,11 +212,11 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Fill $output with information derived from the content.
-	 * @param Title $title
-	 * @param int $revId
-	 * @param ParserOptions $options
-	 * @param bool $generateHtml
-	 * @param ParserOutput $output
+	 * @param $title Title
+	 * @param $revId int
+	 * @param $options ParserOptions
+	 * @param $generateHtml bool
+	 * @param $output ParserOutput
 	 */
 	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
 		$generateHtml, ParserOutput &$output
@@ -309,8 +309,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param Title $title
-	 * @param ParserOptions $options
+	 * @param $title Title
+	 * @param $options ParserOptions
 	 * @return string
 	 */
 	protected function getMembersBlock( Title $title, ParserOptions $options ) {
@@ -368,8 +368,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param Title $title
-	 * @param ParserOptions $options
+	 * @param $title Title
+	 * @param $options ParserOptions
 	 * @return string
 	 */
 	protected function getParsedIntroduction( Title $title, ParserOptions $options ) {
@@ -381,8 +381,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param Title $title
-	 * @param ParserOptions $options
+	 * @param $title Title
+	 * @param $options ParserOptions
 	 * @return string
 	 */
 	protected function getParsedFooter( Title $title, ParserOptions $options ) {
@@ -394,9 +394,9 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput; the bulk of the actual content
-	 * @param Title $title
-	 * @param ParserOptions $options
-	 * @param ParserOutput &$output
+	 * @param $title Title
+	 * @param $options ParserOptions
+	 * @param &$output ParserOutput
 	 * @return string
 	 */
 	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput &$output ) {
@@ -624,8 +624,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput: the table of contents
-	 * @param Title $title
-	 * @param ParserOptions $options
+	 * @param $title Title
+	 * @param $options ParserOptions
 	 * @return string
 	 */
 	protected function getTableOfContents( Title $title, ParserOptions $options ) {
@@ -636,9 +636,9 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Generate an image based on what's in 'image', be it an icon or a file
-	 * @param string $fallback for what to do for no icons - nothing, random, specific icon...
-	 * @param int $size for non-icon images
-	 * @param string $seed fallback seed for explicitly something somethinged ones
+	 * @param $fallback string for what to do for no icons - nothing, random, specific icon...
+	 * @param $size int for non-icon images
+	 * @param $seed string fallback seed for explicitly something somethinged ones
 	 * @return string
 	 */
 	public function getParsedImage( $image, $size = 200 ) {

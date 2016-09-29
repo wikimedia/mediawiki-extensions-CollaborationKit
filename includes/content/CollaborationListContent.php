@@ -121,9 +121,9 @@ class CollaborationListContent extends JsonContent {
 	/**
 	* Beautifies JSON and does subst: prior to save.
 	*
-	* @param Title $title Title
-	* @param User $user User
-	* @param ParserOptions $popts
+	* @param $title Title Title
+	* @param $user User User
+	* @param $popts ParserOptions
 	* @return CollaborationListContent
 	*/
 	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
@@ -305,11 +305,11 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * Fill $output with information derived from the content.
-	 * @param Title $title
-	 * @param int $revId
-	 * @param ParserOptions $options
-	 * @param bool $generateHtml
-	 * @param ParserOutput $output
+	 * @param $title Title
+	 * @param $revId int
+	 * @param $options ParserOptions
+	 * @param $generateHtml bool
+	 * @param $output ParserOutput
 	 */
 	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
 		$generateHtml, ParserOutput &$output
@@ -496,7 +496,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Sort an array pseudo-randomly using an affine transform
 	 *
-	 * @param Array $items Stuff to sort (sorted in-place)
+	 * @param $items Array Stuff to sort (sorted in-place)
 	 * @return Array
 	 */
 	private function sortRandomly( &$items ) {

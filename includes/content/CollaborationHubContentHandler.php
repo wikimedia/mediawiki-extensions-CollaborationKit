@@ -6,6 +6,10 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		parent::__construct( $modelId );
 	}
 
+	/**
+	 * @param $title Title of page to check
+	 * @return bool
+	 */
 	public function canBeUsedOn( Title $title ) {
 		global $wgCollaborationHubAllowedNamespaces;
 
@@ -19,8 +23,8 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	/**
-	 * @param string $text
-	 * @param string $format
+	 * @param $text string
+	 * @param $format string
 	 * @return CollaborationHubContent
 	 * @throws MWContentSerializationException
 	 */
@@ -63,15 +67,15 @@ class CollaborationHubContentHandler extends TextContentHandler {
 
 	/**
 	 * Edit a Collaboration Hub via the edit API
-	 * @param Title $title
-	 * @param string $displayName
-	 * @param string $icon
-	 * @param string $colour
-	 * @param string $introduction
-	 * @param string $footer
-	 * @param array $content
-	 * @param string $summary Message key for edit summary
-	 * @param IContextSource $context The calling context
+	 * @param $title Title
+	 * @param $displayName string
+	 * @param $icon string
+	 * @param $colour string
+	 * @param $introduction string
+	 * @param $footer string
+	 * @param $content array
+	 * @param $summary string Message key for edit summary
+	 * @param $context IContextSource The calling context
 	 * @return Status
 	 */
 	public static function edit( Title $title, $displayName, $image, $colour, $introduction, $footer, $content, $summary, IContextSource $context ) {

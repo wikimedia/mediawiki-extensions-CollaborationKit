@@ -4,9 +4,9 @@ class CollaborationKitIcon {
 
 	/**
 	 * Generate an in icon based on an on-wiki file or a canned CK icon
-	 * @param string $icon icon id, filename, or random seed
-	 * @param int $size intended height/width for rendered icon in px
-	 * @param string $fallback what to do for no icon; allowed values are 'random', 'none', or a valid icon id
+	 * @param $icon string icon id, filename, or random seed
+	 * @param $size int intended height/width for rendered icon in px
+	 * @param $fallback string what to do for no icon; allowed values are 'random', 'none', or a valid icon id
 	 * @return string html
 	 */
 	public static function makeIconOrImage( $icon, $size = 50, $colour = 'black', $fallback = 'random' ) {
@@ -32,9 +32,9 @@ class CollaborationKitIcon {
 
 	/**
 	 * Generate an in icon using a canned CK icon
-	 * @param string $icon icon id or random seed
-	 * @param int $size intended height/width for rendered icon in px
-	 * @param string $fallback what to do for no icon; allowed values are 'random', 'none', or a valid icon id
+	 * @param $icon string icon id or random seed
+	 * @param $size int intended height/width for rendered icon in px
+	 * @param $fallback string what to do for no icon; allowed values are 'random', 'none', or a valid icon id
 	 * @return string html
 	 */
 	public static function makeIcon( $icon, $size = 50, $colour = 'black', $background = 'transparent' ) {
@@ -68,9 +68,9 @@ class CollaborationKitIcon {
 	/**
 	 * Make an image from a file onwiki
 	 * Assumes the file exists, and this was already checked. Doesn't work if it doesn't.
-	 * @param string $file filename
-	 * @param int $size width, height in px
-	 * @param string $background colour for optional css backgroundstuff
+	 * @param $file string filename
+	 * @param $size int width, height in px
+	 * @param $background string colour for optional css backgroundstuff
 	 * @return string html
 	 */
 	public static function makeImage( $file, $size = 50, $background = 'transparent' ) {

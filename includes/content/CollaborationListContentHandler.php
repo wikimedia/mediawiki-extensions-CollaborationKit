@@ -19,6 +19,10 @@ class CollaborationListContentHandler extends TextContentHandler {
 		parent::__construct( $modelId, $formats );
 	}
 
+	/**
+	 * @param $title Title of page to check
+	 * @return bool
+	 */
 	public function canBeUsedOn( Title $title ) {
 		global $wgCollaborationListAllowedNamespaces;
 
@@ -69,7 +73,7 @@ JSON;
 	}
 
 	/**
-	 * @param string $username
+	 * @param $username string
 	 * @return CollaborationListContent
 	 */
 	public static function makeMemberList( $username, $initialDescription ) {
@@ -126,9 +130,9 @@ JSON;
 	}
 
 	/**
-	 * @param Title $title
-	 * @param string $summary
-	 * @param IContextSource $context
+	 * @param $title Title
+	 * @param $summary string
+	 * @param $context IContextSource
 	 * @todo rework this to use a generic CollaborationList editor function once it exists
 	 */
 	public static function postMemberList( Title $title, $summary, IContextSource $context ) {
@@ -165,5 +169,3 @@ JSON;
 		return Status::newGood();
 	}
 }
-
-

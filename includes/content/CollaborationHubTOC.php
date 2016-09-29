@@ -32,8 +32,8 @@ class CollaborationHubTOC {
 
 	/**
 	 * ToC rendering for hub
-	 * @param array $content block from collaborationhub
-	 * @param string $colour variable from collaborationhub content
+	 * @param $content array block from collaborationhub
+	 * @param $colour string variable from collaborationhub content
 	 * @return string html
 	 */
 	public function renderToC( $content, $colour ) {
@@ -87,9 +87,7 @@ class CollaborationHubTOC {
 
 	/**
 	 * ToC rendering for non-hubs
-	 * @param Title $title of hub the ToC is generated off
-	 *
-	 *
+	 * @param $title Title of hub the ToC is generated off
 	 * @return string html
 	 */
 	public function renderSubpageToC( $title ) {
@@ -100,8 +98,8 @@ class CollaborationHubTOC {
 
 	/**
 	 * Helper function for fillParserOutput; return HTML for a ToC.
-	 * @param Title $title for target
-	 * @param string $type: main or flat or stuff (used as css class)
+	 * @param $title Title for target
+	 * @param $type string main or flat or stuff (used as css class)
 	 * @return string|null
 	 */
 	protected function generateToC( Title $title, ParserOutput &$output, $type = 'main' ) {
