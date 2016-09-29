@@ -102,39 +102,23 @@ class CollaborationHubContent extends JsonContent {
 	 * @return bool Whether the contents are valid
 	 */
 	public function isValid() {
+		$hubSchema = include __DIR__ . '/CollaborationHubContentSchema.php';
 		$this->decode();
-
-		if (
-			!is_string( $this->introduction ) ||
-			!is_string( $this->footer ) ||
-			!is_string( $this->displayName ) ||
-			!is_string( $this->image )
-		) {
-			return false;
-		}
-
-		// Check if colour is one of the presets; if somehow this isn't a string and still matches one of the presets, I don't even want to know
-		if ( !in_array( $this->themeColour, CollaborationHubContent::getThemeColours() ) ) {
-			return false;
-		}
-
-		// 'content' needs to be an array of pages
-		if ( is_array( $this->content ) ) {
-			foreach ( $this->content as $contentItem ) {
-				// 'title' is required; 'image' is optional
-				if (
-					!is_string( $contentItem['title'] ) ||
-					( !is_string( $contentItem['image'] ) && $contentItem['image'] !== null ) ||
-					( !is_string( $contentItem['displayTitle'] ) && $contentItem['displayTitle'] !== null )
-				) {
+		if ( $this->decoded ) {
+			$jsonParse = $this->getData();
+			if ( $jsonParse->isGood() ) {
+				// Forcing the object to become an array
+				$jsonAsArray = json_decode( json_encode( $jsonParse->getValue() ), true );
+				try {
+					EventLogging::schemaValidate( $jsonAsArray, $hubSchema );
+					return true;
+				} catch ( JsonSchemaException $e ) {
 					return false;
 				}
 			}
-		} else {
 			return false;
 		}
-
-		return true;
+		return false;
 	}
 
 	/**
