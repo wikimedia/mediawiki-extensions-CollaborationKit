@@ -4,8 +4,8 @@ class CollaborationHubDiffEngine extends DifferenceEngine {
 
 	/**
 	 * Implement our own diff rendering.
-	 * @param Content $old Old content
-	 * @param Content $new New content
+	 * @param $old Content Old content
+	 * @param $new Content New content
 	 *
 	 * @throws Exception If old or new content is not an instance of CollaborationHubContent
 	 * @return bool|string

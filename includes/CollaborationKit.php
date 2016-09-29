@@ -5,8 +5,8 @@ class CollaborationKitHooks {
 
 	/**
 	 * Override the Edit tab for for CollaborationHub pages; stolen from massmessage
-	 * @param SkinTemplate &$sktemplate
-	 * @param array &$links
+	 * @param &$sktemplate SkinTemplate
+	 * @param &$links array
 	 * @return bool
 	 */
 	public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
@@ -43,8 +43,8 @@ class CollaborationKitHooks {
 	 * Declares JSON as the code editor language for CollaborationKit pages.
 	 *
 	 * This hook only runs if the CodeEditor extension is enabled.
-	 * @param Title $title
-	 * @param string &$lang Page language.
+	 * @param $title Title
+	 * @param &$lang string Page language.
 	 * @return bool
 	 */
 	public static function onCodeEditorGetPageLanguage( $title, &$lang ) {

@@ -14,7 +14,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * @param string $par
+	 * @param $par string
 	 */
 	public function execute( $par ) {
 		parent::execute( $par );
@@ -89,7 +89,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 	/**
 	 * Build and return the aossociative array for the content source field.
-	 * @param array $mapping
+	 * @param $mapping array
 	 * @return array
 	 */
 	protected function getOptions( $mapping ) {
@@ -101,7 +101,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * @param array $data
+	 * @param $data array
 	 * @return Status
 	 */
 	public function onSubmit( array $data ) {
@@ -217,7 +217,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 	/**
 	 * Set the form format to ooui for consistency with the rest of the ck stuff
-	 * @param HTMLForm $form
+	 * @param $form HTMLForm
 	 *
 	 */
 	protected function getDisplayFormat() {
