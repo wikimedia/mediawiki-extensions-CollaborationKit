@@ -18,13 +18,13 @@ return [
 							'type' => 'string'
 						],
 						'link' => [
-							'type' => [ 'string', 'boolean' ]
+							'type' => 'string'
 						],
 						'notes' => [
 							'type' => 'string'
 						],
 						'image' => [
-							'type' => [ 'string', 'boolean' ]
+							'type' => 'string'
 						],
 						'sortkey' => [
 							'type' => 'object',
@@ -71,7 +71,7 @@ return [
 					'default' => 'random'
 				],
 				'maxitems' => [
-					'type' => [ 'number', 'boolean' ],
+					'type' => 'number',
 					'default' => 5
 				],
 				'includedesc' => [
