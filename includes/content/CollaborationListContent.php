@@ -51,6 +51,23 @@ class CollaborationListContent extends JsonContent {
 		return false;
 	}
 
+	private static function validateOption( $name, &$value ) {
+		$listSchema = include __DIR__ . '/CollaborationListContentSchema.php';
+
+		// Force intrepretation as boolean for certain options
+		if ( $name == "ismemberlist" || $name == "includedesc" ) {
+			$value = (bool)$value;
+		}
+
+		// Set up a dummy CollaborationListContent array featuring the options being validated
+		$toValidate = [
+			'description' => '',
+			'items' => [],
+			'options' => [ $name => $value ]
+		];
+		return EventLogging::schemaValidate( $toValidate, $listSchema );
+	}
+
 	/**
 	 * Format json
 	 *
@@ -163,7 +180,7 @@ class CollaborationListContent extends JsonContent {
 			$text .= $this->getDescription() . "\n";
 		}
 		if ( count( $this->items ) === 0 ) {
-			$text .= "<hr>\n{{mediawiki:collaborationkit-list-isempty}}\n";
+			$text .= "{{mediawiki:collaborationkit-list-isempty}}\n";
 			return $text;
 		}
 		$curItem = 0;
@@ -311,22 +328,24 @@ class CollaborationListContent extends JsonContent {
 	 */
 	private function sortRandomly( &$items ) {
 		$totItems = count( $items );
-		$rand1 = mt_rand( 1, $totItems - 1 );
-		$rand2 = mt_rand( 0, $totItems - 1 );
+		if ( count( $items ) > 1 ) { // No point in randomizing if only one item
+			$rand1 = mt_rand( 1, $totItems - 1 );
+			$rand2 = mt_rand( 0, $totItems - 1 );
 
-		while ( $rand1 < $totItems - 1 && $rand1 % $totItems === 0 ) {
-			// Make rand1 relatively prime to $totItems.
-			$rand1++;
-		}
-		uksort( $items, function ( $a, $b ) use( $rand1, $rand2, $totItems ) {
-			$a2 = ( $a * $rand1 + $rand2 ) % $totItems;
-			$b2 = ( $b * $rand1 + $rand2 ) % $totItems;
-			if ( $a2 === $b2 ) {
-				// Really should not happen
-				return 0;
+			while ( $rand1 < $totItems - 1 && $rand1 % $totItems === 0 ) {
+				// Make rand1 relatively prime to $totItems.
+				$rand1++;
 			}
-			return $a2 > $b2 ? 1 : -1;
-		} );
+			uksort( $items, function ( $a, $b ) use( $rand1, $rand2, $totItems ) {
+				$a2 = ( $a * $rand1 + $rand2 ) % $totItems;
+				$b2 = ( $b * $rand1 + $rand2 ) % $totItems;
+				if ( $a2 === $b2 ) {
+					// Really should not happen
+					return 0;
+				}
+				return $a2 > $b2 ? 1 : -1;
+			} );
+		}
 		return $items;
 	}
 
@@ -386,6 +405,9 @@ class CollaborationListContent extends JsonContent {
 		$this->decode();
 		$ret = '';
 		foreach ( $this->options as $opt => $value ) {
+			if ( $opt == "memberoptions" ) { // this is an object which messes with the parsing
+				continue;  // FIXME add special handling
+			}
 			$ret .= $opt . '=' . $value . "\n";
 		}
 		return $ret;
@@ -402,7 +424,11 @@ class CollaborationListContent extends JsonContent {
 		$out = '';
 		foreach ( $this->items as $item ) {
 			$out .= $this->escapeForHumanEditable( $item->title );
-			$out .= "|" . $this->escapeForHumanEditable( $item->notes );
+			if ( isset ( $item->notes ) ) {
+				$out .= "|" . $this->escapeForHumanEditable( $item->notes );
+			} else {
+				$out .= "|";
+			}
 			if ( isset( $item->link ) ) {
 				if ( $item->link === false ) {
 					$out .= "|nolink";
@@ -479,6 +505,9 @@ class CollaborationListContent extends JsonContent {
 			if ( self::validateOption( $name, $value ) ) {
 				$finalList[$name] = $value;
 			}
+			if ( in_array( 'ismemberlist', $finalList ) ) {
+				$finalList['memberoptions'] = (object)[];  // dumb hack
+			}
 		}
 		return (object)$finalList;
 	}
@@ -521,7 +550,15 @@ class CollaborationListContent extends JsonContent {
 		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
 		$itemRes = [ 'title' => $parts[0] ];
 		if ( count( $parts ) > 1 ) {
-			$itemRes['notes'] = $parts[1];
+			// If people are using batch editor, they might define an image etc. despite lack of a note
+			// This is to catch that and prevent weirdness.
+			$testExplosion = explode( "=", $parts[1] );
+			if ( in_array( $testExplosion[0], [ 'image', 'link', 'tags', 'sortkey' ] ) ) {
+				$itemRes[ $testExplosion[0] ] = $testExplosion[1];
+				$itemRes['notes'] = '';
+			} else {
+				$itemRes['notes'] = $parts[1];
+			}
 			$parts = array_slice( $parts, 2 );
 			foreach ( $parts as $part ) {
 				list( $key, $value ) = explode( '=', $part );
@@ -553,6 +590,8 @@ class CollaborationListContent extends JsonContent {
 					);
 				}
 			}
+		} else {
+			$itemRes['notes'] = '';
 		}
 		return $itemRes;
 	}

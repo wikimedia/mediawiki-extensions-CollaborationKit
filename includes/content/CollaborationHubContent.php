@@ -226,7 +226,6 @@ class CollaborationHubContent extends JsonContent {
 
 		// Dummy parse intro and footer to get categories and whatnot
 		$output = $wgParser->parse( $this->getIntroduction() . $this->getFooter(), $title, $options, true, true, $revId );
-
 		$html = '';
 		// set up hub with theme stuff
 		$html .= Html::openElement(
@@ -251,6 +250,12 @@ class CollaborationHubContent extends JsonContent {
 			'div',
 			[ 'class' => 'wp-intro' ],
 			$this->getParsedIntroduction( $title, $options )
+		);
+		// get announcements
+		$html .= Html::rawElement(
+			'div',
+			[ 'class' => 'wp-announcements' ],
+			$this->getParsedAnnouncements( $title, $options )
 		);
 		// get table of contents
 		$html .= Html::rawElement(
@@ -278,6 +283,7 @@ class CollaborationHubContent extends JsonContent {
 		$output->addModuleStyles( 'ext.CollaborationKit.main' );
 		$output->addModules( 'ext.CollaborationKit.icons' );
 		$output->addModules( 'ext.CollaborationKit.blots' );
+		$output->addModules( 'ext.CollaborationKit.list.styles' );
 		$output->setEnableOOUI( true );
 	}
 
@@ -314,56 +320,48 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	protected function getMembersBlock( Title $title, ParserOptions $options ) {
-		// deprecated; we need proper list handling to do this properly
-		/*
-		// Members
-		$membersTitle = Title::newFromText( $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-members-header' )->inContentLanguage()->text() );
-		$membersTitleRev = $title ? Revision::newFromTitle( $membersTitle ) : null;
-		if ( $membersTitleRev ) {
+		global $wgParser;
 
-			$prependiture .= Html::openElement(
-				'div',
-				[ 'id' => 'wp-header-members' ]
-			);
-			$prependiture .= Html::element(
-				'h2',
-				[],
-				wfmessage( 'collaborationkit-members-header' )->inContentLanguage()->text()
-			);
-			$prependiture .= Html::rawElement(
-				'div',
-				[],
-				Revision::newFromTitle( $membersTitle )->getContent()->generateList( $title, $options, $output )
-			);
-
-			// BUTTONS
-			$membersSignupUrl = SpecialPage::getTitleFor(
-				'EditCollaborationHub',
-				$membersTitle->getPrefixedUrl()
-			)->getLinkUrl();
-
-			$signupButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
-				'href' => $membersSignupUrl,
-				'id' => 'wp-signup',
-				'flags' => [ 'progressive' ]
-			] );
-			$seeAllButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
-				'href' => $membersTitle->getLinkUrl(),
-				'id' => 'wp-seeall'
-			] );
-			$prependiture .= Html::rawElement(
-				'div',
-				[ 'id' => 'wp-members-buttons' ],
-				$signupButton . ' ' . $seeAllButton
-			);
-
-			$prependiture .= Html::closeElement( 'div' );
+		$lang = $options->getTargetLanguage();
+		if ( !$lang ) {
+			$lang = $title->getPageLanguage();
 		}
-		*/
 
-		return 'MEMBERS BLOCK HERE (PENDING T140178)';
+		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
+		$membersTitle = Title::newFromText( $membersPageName );
+		if ( $membersTitle->exists() ) {
+			$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
+			$wikitext = $membersContent->convertToWikitext(
+							$lang,
+							[
+								'includeDesc' => false,
+								'maxItems' => 3,
+								'defaultSort' => 'random'
+							]
+						);
+			$membersListHtml = $wgParser->parse( $wikitext, $membersTitle, $options )->getText();
+
+			// rawElement is used because we don't want [edit] links or usual header behavior
+			$membersHeader = Html::rawElement(
+										'h3',
+										[ 'style' => 'text-align: center; padding-bottom: 1em;' ],
+										wfMessage( 'collaborationkit-hub-members-header' )
+									);
+
+			$membersViewButton = new OOUI\ButtonWidget( [
+										'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
+										'href' => $membersTitle->getLinkURL()
+									] );
+			$membersJoinButton = new OOUI\ButtonWidget( [
+										'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
+										'href' => $membersTitle->getEditURL(), // Going through editor is non-JS fallback
+										'flags' => [ 'primary', 'progressive' ]
+									] );
+
+			OutputPage::setupOOUI();
+			$text = $membersHeader . $membersListHtml . $membersViewButton->toString() . $membersJoinButton->toString();
+			return $text;
+		}
 	}
 
 	/**
@@ -377,6 +375,32 @@ class CollaborationHubContent extends JsonContent {
 		$tempOutput = $wgParser->parse( $this->getIntroduction(), $title, $options );
 
 		return $tempOutput->getText();
+	}
+
+	/**
+	 * Helper function for fillParserOutput
+	 * @param $title Title
+	 * @param $options ParserOptions
+	 * @return string
+	 */
+	protected function getParsedAnnouncements( Title $title, ParserOptions $options ) {
+		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->text();
+		$announcementsTitle = Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName );
+		if ( $announcementsTitle->exists() ) {
+			$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
+			$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
+
+			$announcementsEditLink = Html::rawElement(
+														"a",
+														[ 'href' => $announcementsTitle->getEditURL() ],
+														wfMessage( 'edit' ) );
+
+			$announcementsHeader = Html::rawElement(
+													"h3",
+													(object)[],
+													$announcementsSubpageName . ' [' . $announcementsEditLink . ']' );
+			return $announcementsHeader . $announcementsText;
+		}
 	}
 
 	/**
@@ -456,12 +480,14 @@ class CollaborationHubContent extends JsonContent {
 					$frame = $wgParser->getPreprocessor()->newFrame()->newChild( [], $spTitle );
 					$node = $wgParser->preprocessToDom( $rawText, Parser::PTD_FOR_INCLUSION );
 					$processedText = $frame->expand( $node, PPFrame::RECOVER_ORIG & ( ~PPFrame::NO_IGNORE ) );
-					$text = $wgParser->parse( $processedText, $title, $options )->getText();
+					$parsedWikitext = $wgParser->parse( $processedText, $title, $options );
+					$text = $parsedWikitext->getText();
+					$output->addModuleStyles( $parsedWikitext->getModuleStyles() );
 				} else {
 					// Parse whatever (else) as whatever
 					$contentOutput = $spContent->getParserOutput( $spTitle, $spRev, $options );
-
-					$text = $contentOutput->getText();
+					$output->addModuleStyles( $contentOutput->getModuleStyles() );
+					$text = $contentOutput->getRawText();
 				}
 
 				$html .= $text;
