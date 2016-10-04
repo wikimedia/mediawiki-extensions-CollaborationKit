@@ -24,36 +24,26 @@
  */
 class CollaborationHubContent extends JsonContent {
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $displayName;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $image;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $introduction;
 
-	/**
-	 * Array of pages included in the hub
-	 * @var array
-	 */
+	/** @var array pages included in the hub */
 	protected $content;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $footer;
 
-	/**
-	 * @var string
-	 */
+	/** @var string */
 	protected $themeColour;
+
+	/** @var bool Whether contents have been populated */
+	protected $decoded = false;
 
 	/**
 	 * 23 preset colours; actual colour values are set in the extension.json and less modules
@@ -86,12 +76,6 @@ class CollaborationHubContent extends JsonContent {
 			'black'
 		];
 	}
-
-	/**
-	 * Whether contents have been populated
-	 * @var bool
-	 */
-	protected $decoded = false;
 
 	function __construct( $text ) {
 		parent::__construct( $text, 'CollaborationHubContent' );
@@ -187,7 +171,7 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * @return string
+	 * @return array
 	 */
 	public function getContent() {
 		$this->decode();
@@ -280,7 +264,7 @@ class CollaborationHubContent extends JsonContent {
 		$output->setText( $html );
 
 		// Add some style stuff
-		$output->addModuleStyles( 'ext.CollaborationKit.main' );
+		$output->addModuleStyles( 'ext.CollaborationKit.hub.styles' );
 		$output->addModules( 'ext.CollaborationKit.icons' );
 		$output->addModules( 'ext.CollaborationKit.blots' );
 		$output->addModules( 'ext.CollaborationKit.list.styles' );
@@ -669,5 +653,34 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public function getParsedImage( $image, $size = 200 ) {
 		return CollaborationKitIcon::makeIconOrImage( $this->getImage(), $size, 'puzzlepiece' );
+	}
+
+	/**
+	 * Find the parent hub, if any.
+	 * Returns the first CollaborationHub Title found, even if more are higher up, or null if none
+	 * @param $title Title to start looking from
+	 * @return Title|null
+	 */
+	public static function getParentHub( Title $title ) {
+		global $wgCollaborationHubAllowedNamespaces;
+
+		$namespace = $title->getNamespace();
+		if ( MWNamespace::hasSubpages( $namespace ) &&
+			in_array( $namespace, array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) ) ) ) {
+
+			$parentTitle = $title->getBaseTitle();
+			while ( !$title->equals( $parentTitle ) ) {
+				$parentRev = Revision::newFromTitle( $parentTitle );
+				if ( $parentTitle->getContentModel() == 'CollaborationHubContent' && isset( $parentRev ) ) {
+					return $parentTitle;
+				}
+
+				// keep looking
+				$title = $parentTitle;
+			}
+		}
+
+		// Nothing was found
+		return null;
 	}
 }

@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+
 class CollaborationHubTOC {
 
 	/** @var $tocLinks array ids/links for ToC items that have been used already */
@@ -37,9 +39,6 @@ class CollaborationHubTOC {
 	 * @return string html
 	 */
 	public function renderToC( $content, $colour ) {
-		global $wgParser;
-		$linkRenderer = $wgParser->getLinkRenderer();
-
 		$html = Html::openElement( 'div', [ 'class' => 'wp-toc-container' ] );
 		$html .= Html::rawElement(
 			'div',
@@ -50,28 +49,16 @@ class CollaborationHubTOC {
 
 		foreach ( $content as $item ) {
 			$title = Title::newFromText( $item['title'] );
-			$rev = Revision::newFromTitle( $title );
 
-			// TODO sanitise?
 			if ( isset( $item['display_title'] ) ) {
 				$displayTitle = $item['display_title'];
 			} else {
 				$displayTitle = $title->getSubpageText();
 			}
-
-			if ( isset( $item['image'] ) ) {
-				$displayIcon = CollaborationKitIcon::makeIconOrImage( $item['image'], 50, $colour );
-			} else {
-				$displayIcon = CollaborationKitIcon::makeIconOrImage( $displayTitle, 50, $colour );
-			}
-
 			$linkTarget = Title::newFromText( '#' . $this->getToCLinkID( $displayTitle ) );
-			$linkDisplay = new HtmlArmor( Html::rawElement(
-				'div',
-				[],
-				$displayIcon . Html::element( 'span', [ 'class' => 'item-label' ], $displayTitle )
-			) );
-			$link = $linkRenderer->makeLink( $linkTarget, $linkDisplay );
+			$image = isset( $item['image'] ) ? $item['image'] : $displayTitle;
+
+			$link = $this->renderItem( $linkTarget, $displayTitle, $image, $colour, 50 );
 
 			$html .= Html::rawElement(
 				'li',
@@ -90,128 +77,82 @@ class CollaborationHubTOC {
 	 * @param $title Title of hub the ToC is generated off
 	 * @return string html
 	 */
-	public function renderSubpageToC( $title ) {
+	public function renderSubpageToC( Title $title ) {
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 
-	}
-
-	// TOC stuff as was. This is going away.
-
-	/**
-	 * Helper function for fillParserOutput; return HTML for a ToC.
-	 * @param $title Title for target
-	 * @param $type string main or flat or stuff (used as css class)
-	 * @return string|null
-	 */
-	protected function generateToC( Title $title, ParserOutput &$output, $type = 'main' ) {
-		// TODO use correct version of text; support PREVIEWS as well as just pulling the content revision
+		// We assume $title is sane. This is supposed to be called with a $title gotten from CollaborationHubContent::getParentHub, which already checks if it is.
 		$rev = Revision::newFromTitle( $title );
-		if ( isset( $rev ) ) {
-			$sourceContent = $rev->getContent();
-			$html = '';
+		$content = $rev->getContent();
+		$colour = $content->getThemeColour();
+		$image = $content->getImage();
 
-			if ( $rev->getContentModel() == 'CollaborationHubContent' ) {
-				$ToCItems = [];
+		$html = Html::openElement( 'div', [ 'class' => "wp-subpage-toc mw-cktheme-$colour" ] );
 
-				// Add project mainpage to toc for subpages
-				if ( $type != 'main' ) {
+		// ToC label
+		$html .= Html::rawElement(
+			'div',
+			[ 'class' => 'toc-label' ],
+			Html::rawElement(
+				'span',
+				[],
+				wfMessage( 'collaborationkit-subpage-toc-label' )->inContentLanguage()->text()
+			)
+		);
 
-					$display = Html::element(
-						'span',
-						[],
-						$sourceContent->getPageName()
-					);
-					$display = $sourceContent->getImage( 'puzzlepiece', 40 ) . $display;
+		// hubpage
+		$link = $this->renderItem( $title, $content->getDisplayName(), $image, $colour, 16 );
+		$html .= Html::rawElement(
+			'div',
+			[ 'class' => 'toc-subpage-hub' ],
+			$link
+		);
 
-					$ToCItems[$sourceContent->getPageName()] = [
-						Html::rawElement(
-							'span',
-							[ 'class' => 'wp-toc-projectlabel' ],
-							wfMessage( 'collaborationhub-toc-partof' )->inContentLanguage()->text()
-						) . Linker::Link( $title, $display ),
-						'toc-mainpage'
-					];
-				}
+		// Contents
+		$html .= Html::openElement( 'ul', [ 'class' => 'toc-contents' ] );
 
-				foreach ( $sourceContent->getContent() as $item ) {
-					$spTitle = Title::newFromText( $item['item'] );
-					$spRev = Revision::newFromTitle( $spTitle );
+		foreach ( $content->getContent() as $item ) {
+			$itemTitle = Title::newFromText( $item['title'] );
 
-					if ( isset( $spRev ) ) {
-						$spContent = $spRev->getContent();
-						$spContentModel = $spRev->getContentModel();
-
-						$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );
-					} else {
-						$spContentModel = 'none';
-
-						$output->addTemplate( $spTitle, $spTitle->getArticleId(), null );
-					}
-
-					// Display name and #id
-					$item = $spContentModel == 'CollaborationHubContent' ?
-						$spContent->getPageName() : $spTitle->getSubpageText();
-					$display = Html::element( 'span', [ 'class' => 'item-label' ], $item );
-					while ( isset( $ToCItems[$item] ) ) {
-						// Already exists, add a 1 to the end to avoid duplicates
-						$item = $item . '1';
-					}
-
-					// Link
-					if ( $type != 'main' ) {
-						// TODO add 'selected' class if already on it
-						$link = $spTitle;
-					} else {
-						$link = Title::newFromText( '#' . htmlspecialchars( $item ) );
-					}
-
-					// Icon
-					if ( $spContentModel == 'CollaborationHubContent' /* && image is set in $spContent */ ) {
-						$display = $spContent->getImage( 'random', 50 ) . $display;
-					} else {
-						// Use this one as a surrogate because it's not a real hub page; $link can act as seed
-						$display = $this->getImage( 'random', 50, $item ) . $display;
-					}
-
-					$ToCItems[$item] = [ Linker::Link( $link, $display ), Sanitizer::escapeId( 'toc-' . $spTitle->getSubpageText() ) ];
-				}
-				$html .= Html::openElement( 'div', [ 'class' => 'wp-toc' ] );
-
-				if ( $type == 'main' ) {
-					$html .= Html::rawElement(
-						'div',
-						[ 'class' => 'toc-label' ],
-						wfMessage( 'collaborationkit-toc-label' )->inContentLanguage()->text()
-					);
-				}
-
-				$html .= Html::openElement( 'ul' );
-
-				foreach ( $ToCItems as $item => $linkJunk ) {
-					$html .= Html::rawElement(
-						'li',
-						[
-							'class' => 'wp-toc-item ' . $linkJunk[1] // id info
-						],
-						$linkJunk[0] // link html string
-					);
-				}
-				$html .= Html::closeElement( 'ul' );
-				$html .= '<div class="visualClear"></div>';
-				$html .= Html::closeElement( 'div' );
-
-				$html = Html::rawElement(
-					'div',
-					[ 'class' => 'wp-toc-container' ],
-					$html
-				);
+			if ( isset( $item['display_title'] ) ) {
+				$itemDisplayTitle = $item['display_title'];
 			} else {
-				$html = 'Page not found, ToC not possible';
+				$itemDisplayTitle = $itemTitle->getSubpageText();
 			}
-		} else {
-			$html = '';
+			$itemImage = isset( $item['image'] ) ? $item['image'] : $itemDisplayTitle;
+
+			$itemLink = $this->renderItem( $itemTitle, $itemDisplayTitle, $itemImage, $colour, 16 );
+
+			$html .= Html::rawElement(
+				'li',
+				[ 'class' => 'wp-toc-item' ],
+				$itemLink
+			);
 		}
 
+		$html .= Html::closeElement( 'ul' );
+		$html .= Html::closeElement( 'div' );
 		return $html;
 	}
 
+	/**
+	 * Get item for ToC - link with icon and label as contents
+	 * @param $title Title for target
+	 * @param $text string diplay text for title
+	 * @param $image string seed for makeIconOrImage
+	 * @param $imageColour string colour id
+	 * @param $imageSize int size
+	 * @return string html
+	 */
+	protected function renderItem( Title $title, $text, $image, $imageColour, $imageSize ) {
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+
+		$icon = CollaborationKitIcon::makeIconOrImage( $image, $imageSize, $imageColour );
+
+		$linkContent = new HtmlArmor( Html::rawElement(
+			'div',
+			[],
+			$icon . Html::element( 'span', [ 'class' => 'item-label' ], $text )
+		) );
+		return $link = $linkRenderer->makeLink( $title, $linkContent );
+	}
 }

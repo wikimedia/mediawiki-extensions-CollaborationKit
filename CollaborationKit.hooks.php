@@ -70,4 +70,31 @@ class CollaborationKitHooks {
 		}
 	}
 
+	/**
+	 * For the table of contents on subpages of a CollaborationHub
+	 *
+	 * @param $out OutputPage
+	 * @param $text string the HTML text to be added
+	 * @return bool
+	 */
+	public static function onOutputPageBeforeHTML( &$out, &$text ) {
+		$title = $out->getTitle();
+		$parentHub = CollaborationHubContent::getParentHub( $title );
+
+		if ( isset( $parentHub ) && !$out->getProperty( 'CollaborationHubSubpage' ) ) {
+			$toc = new CollaborationHubTOC();
+			$out->prependHtml( $toc->renderSubpageToC( $parentHub ) );
+
+			$colour = Revision::newFromTitle( $parentHub )->getContent()->getThemeColour();
+			$text = Html::rawElement( 'div', [ 'class' => "mw-cklist-square-$colour" ], $text );
+
+			$out->addModuleStyles( 'ext.CollaborationKit.hubsubpage.styles' );
+			$out->addModules( 'ext.CollaborationKit.icons' );
+			$out->addModules( 'ext.CollaborationKit.blots' );
+
+			// Set this mostly just so we can make sure this entire thing hasn't already been done, because otherwise the ToC is added twice on edit for some reason
+			$out->setProperty( 'CollaborationHubSubpage', true );
+		}
+		return true;
+	}
 }

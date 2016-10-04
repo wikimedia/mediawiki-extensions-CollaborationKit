@@ -1,0 +1,151 @@
+// I dunno what to name things.
+
+@import "ext.CollaborationKit.mixins.less";
+
+.wp-subpage-toc {
+	border-width: 3px;
+	border-style: solid none;
+	padding: .125em 0 .5em;
+	margin: 2em 0;
+
+	a, a:visited {
+		color: #446;
+
+		&.new {
+			color: #644;
+		}
+	}
+
+	li div,
+	li,
+	ul.toc-contents {
+		display: inline;
+		margin: 0;
+	}
+	li div.mw-ckicon {
+		display: inline-block;
+	}
+
+	ul {
+		list-style: none;
+		margin: 0;
+		font-size: 90%;
+
+		li:not(:last-child):after {
+			content: '|';
+			margin: 0 .5em;
+		}
+	}
+	li div,
+	li {
+		margin: 0;
+	}
+}
+.toc-label {
+	margin-top: -1em;
+
+	span {
+		padding: .15em .5em .15em 0;
+		background: #fff;
+		font-weight: bold;
+	}
+}
+
+.toc-label span,
+.file-image,
+li div.mw-ckicon,
+.toc-subpage-hub div,
+.toc-subpage-hub {
+	display: inline-block;
+}
+
+.toc-subpage-hub {
+	font-weight: bold;
+
+	&:after{
+		content: '»';
+		margin: 0 .5em;
+	}
+}
+.file-image,
+li div.mw-ckicon {
+	width: 16px;
+	height: 16px;
+	overflow: hidden;
+	margin: 0 .25em -3px 0;
+}
+
+
+// Unnecessary as the ToC will link back anyway
+div span.subpages {
+	display: none;
+}
+
+
+// Themes
+.mw-cktheme-red1 {
+	.chsubtheme( @red1 );
+}
+.mw-cktheme-red2 {
+	.chsubtheme( @red2 );
+}
+.mw-cktheme-grey1 {
+	.chsubtheme( @grey1 );
+}
+.mw-cktheme-grey2 {
+	.chsubtheme( @grey2 );
+}
+.mw-cktheme-blue1 {
+	.chsubtheme( @blue1 );
+}
+.mw-cktheme-blue2 {
+	.chsubtheme( @blue2 );
+}
+.mw-cktheme-blue3 {
+	.chsubtheme( @blue3 );
+}
+.mw-cktheme-blue4 {
+	.chsubtheme( @blue4 );
+}
+.mw-cktheme-blue5 {
+	.chsubtheme( @blue5 );
+}
+.mw-cktheme-blue6 {
+	.chsubtheme( @blue6 );
+}
+.mw-cktheme-purple1 {
+	.chsubtheme( @purple1 );
+}
+.mw-cktheme-purple2 {
+	.chsubtheme( @purple2 );
+}
+.mw-cktheme-purple3 {
+	.chsubtheme( @purple3 );
+}
+.mw-cktheme-purple4 {
+	.chsubtheme( @purple4 );
+}
+.mw-cktheme-purple5 {
+	.chsubtheme( @purple5 );
+}
+.mw-cktheme-yellow1 {
+	.chsubtheme( @yellow1 );
+}
+.mw-cktheme-yellow2 {
+	.chsubtheme( @yellow2 );
+}
+.mw-cktheme-yellow3 {
+	.chsubtheme( @yellow3 );
+}
+.mw-cktheme-yellow4 {
+	.chsubtheme( @yellow4 );
+}
+.mw-cktheme-green1 {
+	.chsubtheme( @green1 );
+}
+.mw-cktheme-green2 {
+	.chsubtheme( @green2 );
+}
+.mw-cktheme-green3 {
+	.chsubtheme( @green3 );
+}
