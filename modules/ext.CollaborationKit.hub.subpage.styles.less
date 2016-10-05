@@ -52,8 +52,8 @@
 }
 
 .toc-label span,
-.file-image,
-li div.mw-ckicon,
+.wp-subpage-toc .file-image,
+.wp-subpage-toc li div.mw-ckicon,
 .toc-subpage-hub div,
 .toc-subpage-hub {
 	display: inline-block;
@@ -67,8 +67,8 @@ li div.mw-ckicon,
 		margin: 0 .5em;
 	}
 }
-.file-image,
-li div.mw-ckicon {
+.wp-subpage-toc .file-image,
+.wp-subpage-toc li div.mw-ckicon {
 	width: 16px;
 	height: 16px;
 	overflow: hidden;
@@ -79,6 +79,11 @@ li div.mw-ckicon {
 // Unnecessary as the ToC will link back anyway
 div span.subpages {
 	display: none;
+}
+
+.wp-toc div .wp-toc img {
+	display: block;
+	margin: auto;
 }
 
 

@@ -41,7 +41,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 
 		$fields = [
 			'collaborationhub' => [
-				'type' => 'text',
+				'type' => 'title',
 				'cssclass' => 'mw-ck-titleinput',
 				'label-message' => 'collaborationkit-createhubfeature-collaborationhub',
 				'default' => $defaultCollabHub
