@@ -77,6 +77,77 @@ return [
 				],
 			],
 		],
+		'scope' =>
+		[
+			'type' => 'object',
+			'properties' =>
+			[
+				'included_categories' =>
+				[
+					'type' => 'array',
+					'items' =>
+					[
+						[
+							'type' => 'object',
+							'properties' =>
+							[
+								'category_name' =>
+								[
+									'type' => 'string'
+								],
+								'category_depth' =>
+								[
+									'type' => 'number',
+									'default' => 9
+								]
+							]
+						]
+					]
+				],
+				'excluded_categories' =>
+				[
+					'type' => 'array',
+					'items' =>
+					[
+						[
+							'type' => 'object',
+							'properties' =>
+							[
+								'category_name' =>
+								[
+									'type' => 'string'
+								],
+								'category_depth' =>
+								[
+									'type' => 'number',
+									'default' => 9
+								]
+							]
+						]
+					]
+				],
+				'included_pages' =>
+				[
+					'type' => 'array',
+					'items' =>
+					[
+						[
+							'type' => 'string'
+						]
+					]
+				],
+				'excluded_pages' =>
+				[
+					'type' => 'array',
+					'items' =>
+					[
+						[
+							'type' => 'string'
+						]
+					]
+				]
+			]
+		]
 	],
 	'required' =>
 	[
