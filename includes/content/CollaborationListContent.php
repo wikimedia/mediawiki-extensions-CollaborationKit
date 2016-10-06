@@ -150,13 +150,14 @@ class CollaborationListContent extends JsonContent {
 		$listOptions = $this->getFullRenderListOptions() + (array)$this->options;
 		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
+		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $listOptions['ismemberlist'] );
 	}
 
 	private function getFullRenderListOptions() {
 		return $listOptions = [
 			'includeDesc' => true,
 			'maxItems' => false,
-			'defaultSort' => 'natural'
+			'defaultSort' => 'natural',
 		];
 	}
 
@@ -234,7 +235,18 @@ class CollaborationListContent extends JsonContent {
 					// you also need to change it in the stylesheet.
 					$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 				} else {
-					$text .= '<div class="mw-ckicon-page-grey2 mw-collabkit-list-noimageplaceholder"></div>';
+var_dump( $options );
+					if ( $options['ismemberlist'] ) {
+						$placeholderIcon = 'mw-ckicon-user-grey2';
+					} else {
+						$placeholderIcon = 'mw-ckicon-page-grey2';
+					}
+					$text .= Html::element( 'div', [
+						"class" => [
+							'mw-collabkit-list-noimageplaceholder',
+							$placeholderIcon
+						]
+					] );
 				}
 				$text .= '</div>';
 			}
@@ -244,8 +256,16 @@ class CollaborationListContent extends JsonContent {
 			// an <Hn> element for this. Would that be better? Unclear.
 			$text .= '<div class="mw-collabkit-list-title">';
 			if ( $titleForItem ) {
+				if ( $options['ismemberlist']
+					&& !isset( $item->link )
+					&& $titleForItem->inNamespace( NS_USER )
+				) {
+					$titleText = $titleForItem->getText();
+				} else {
+					$titleText = $item->title;
+				}
 				$text .= "[[:" . $titleForItem->getPrefixedDBkey() . "|"
-					. wfEscapeWikiText( $item->title ) . "]]";
+					. wfEscapeWikiText( $titleText ) . "]]";
 			} else {
 				$text .=  wfEscapeWikiText( $item->title );
 			}
@@ -297,7 +317,8 @@ class CollaborationListContent extends JsonContent {
 			'defaultSort' => 'random',
 			'offset' => 0,
 			'tags' => [],
-			'mode' => 'normal'
+			'mode' => 'normal',
+			'ismemberlist' => false
 		];
 	}
 

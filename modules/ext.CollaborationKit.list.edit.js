@@ -1,5 +1,5 @@
 ( function ( $, mw, OO ) {
-	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem;
+	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem, addSelf, curUserIsInList;
 
 	addItem = function () {
 		modifyItem( {} );
@@ -39,6 +39,37 @@
 				location.reload();
 			}
 		} );
+	};
+
+	addSelf = function () {
+		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
+			var index, i, curUserTitle,
+				itemToAdd = {};
+
+			curUserTitle = mw.Title.newFromText(
+				mw.config.get( 'wgUserName' ),
+				2
+			);
+			if ( !curUserTitle ) {
+				throw new Error( 'User is not valid title?' );
+			}
+			itemToAdd.title = curUserTitle.getPrefixedText();
+
+			for ( i = 0; i < res.content.items.length; i++ ) {
+				// TODO: Title normalization maybe?
+				if ( res.content.items[ i ].title === itemToAdd.title ) {
+					alert( mw.msg( 'collaborationkit-list-alreadyadded' ) );
+					return;
+				}
+			}
+			index = res.content.items.length;
+			res.content.items[ index ] = itemToAdd;
+			res.summary = mw.msg( 'collaborationkit-list-add-self-summary', itemToAdd.title );
+			saveJson( res, function () {
+				location.reload();
+			} );
+		} );
+
 	};
 
 	deleteItem = function ( $item ) {
@@ -283,17 +314,36 @@
 	 * @param {Object} itemInfo info from json
 	 */
 	NewItemDialog.prototype.initialize = function ( itemInfo ) {
-		var titleWidget, fileToUse, description;
+		var titleWidget, fileToUse, description, itemTitleObj;
 
 		NewItemDialog.parent.prototype.initialize.apply( this, arguments );
 		this.panel1 = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
-		this.titleWidget = new mw.widgets.TitleInputWidget( {
-			label: mw.msg( 'collaborationkit-list-newitem-page' ),
-			validateTitle: false, // we want people to be able to put anything.
-			showRedlink: true
-			// Maybe should also showDescriptions and showImages
-		} );
+		itemTitleObj = this.itemTitle ? new mw.Title.newFromText( this.itemTitle ) : false;
+		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) &&
+			( !itemTitleObj || itemTitleObj.namespace === 2 )
+		) {
+			this.titleWidget = new mw.widgets.UserInputWidget( {
+				label: mw.msg( 'collaborationkit-list-newitem-user' )
+			} );
+			if ( itemTitleObj ) {
+				this.titleWidget.setValue( itemTitleObj.getMainText() );
+			} else if ( this.itemTitle ) {
+				// Something weird happened to get here.
+				mw.log( 'Memberlist mode but invalid Title??' );
+				this.titleWidget.setValue( this.itemTitle );
+			}
+		} else {
+			this.titleWidget = new mw.widgets.TitleInputWidget( {
+				label: mw.msg( 'collaborationkit-list-newitem-page' ),
+				validateTitle: false, // we want people to be able to put anything.
+				showRedlink: true
+				// Maybe should also showDescriptions and showImages
+			} );
+			if ( this.itemTitle ) {
+				this.titleWidget.setValue( this.itemTitle );
+			}
+		}
 		this.fileToUse = new mw.widgets.TitleInputWidget( {
 			label: mw.msg( 'collaborationkit-list-newitem-image' ),
 			namespace: 6,
@@ -305,14 +355,11 @@
 			label: mw.msg( 'collaborationkit-list-newitem-description' )
 		} );
 
-		if ( this.itemTitle ) {
-			this.titleWidget.setValue( this.itemTitle );
-			if ( this.itemDescription ) {
-				this.description.setValue( this.itemDescription );
-			}
-			if ( this.itemImage ) {
-				this.fileToUse.setValue( this.itemImage );
-			}
+		if ( this.itemDescription ) {
+			this.description.setValue( this.itemDescription );
+		}
+		if ( this.itemImage ) {
+			this.fileToUse.setValue( this.itemImage );
 		}
 		this.panel1.$element.append( this.titleWidget.$element );
 		this.panel1.$element.append( $( '<br>' ) );
@@ -343,7 +390,17 @@
 		var title = this.titleWidget.getValue().trim(),
 			file = this.fileToUse.getValue().trim(),
 			notes = this.description.getValue().trim(),
-			dialog = this;
+			dialog = this,
+			titleObj;
+
+		if ( this.titleWidget instanceof mw.widgets.UserInputWidget ) {
+			titleObj = mw.Title.newFromText( 'User:' + title );
+			if ( titleObj ) {
+				title = titleObj.getPrefixedText();
+			} else {
+				mw.log( 'UserInputWidget gave invalid title' );
+			}
+		}
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var index, itemToAdd = {
@@ -354,7 +411,7 @@
 			if ( file ) {
 				itemToAdd.image = file;
 			}
-			if ( dialog.itemIndex ) {
+			if ( dialog.itemIndex !== undefined ) {
 				if (	res.content.items <= dialog.itemIndex ||
 					res.content.items[ dialog.itemIndex ].title !== dialog.itemTitle
 				) {
@@ -378,7 +435,7 @@
 	};
 
 	$( function () {
-		var $list;
+		var $list, buttonMsg;
 
 		if ( !mw.config.get( 'wgEnableCollaborationKitListEdit' ) ) {
 			// This page is not a list, or user does not have edit rights.
@@ -490,6 +547,9 @@
 			}
 		} );
 
+		buttonMsg = mw.config.get( 'wgCollaborationKitIsMemberList' ) ?
+			'collaborationkit-list-add-user' :
+			'collaborationkit-list-add';
 		$list.after(
 			$( '<div></div>' )
 				// FIXME There is probably a way to add the class without
@@ -497,14 +557,41 @@
 				.addClass( 'mw-collabkit-list-additem' )
 				.append(
 					new OO.ui.ButtonWidget( {
-						label: mw.msg( 'collaborationkit-list-add' ),
+						label: mw.msg( buttonMsg ),
 						icon: 'add',
 						flags: 'constructive'
 					} ).on( 'click', addItem )
 					.$element
 				)
 		);
+		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) &&
+			!curUserIsInList()
+		) {
+			$list.before(
+				$( '<div></div>' )
+					.addClass( 'mw-collabkit-list-addself' )
+					.append(
+						new OO.ui.ButtonWidget( {
+							label: mw.msg( 'collaborationkit-list-add-self' ),
+							icon: 'add',
+							flags: 'constructive'
+						} ).on( 'click', addSelf )
+						.$element
+					)
+			);
+		}
 
 	} );
+
+	curUserIsInList = function curUserIsInList() {
+		var titleObj, escapedText;
+		titleObj = mw.Title.newFromText( mw.config.get( 'wgUserName' ), 2 );
+		escapedText = titleObj.getPrefixedText();
+		escapedText = escapedText.replace( /\\/g, '\\\\' );
+		escapedText = escapedText.replace( /"/g, '\\"' );
+		query = '.mw-collabkit-list-item[data-collabkit-item-title="' +
+			escapedText + '"]';
+		return $( query ).length > 0;
+	};
 
 } )( jQuery, mediaWiki, OO );
