@@ -220,7 +220,6 @@ class CollaborationHubContent extends JsonContent {
 		$html .= Html::rawElement(
 			'div',
 			[ 'class' => 'wp-header-image' ],
-			// TODO move all image stuff to ToC class (what is that class even going to be, anyway?)
 			$this->getParsedImage( $this->getImage(), 200 )
 		);
 		// get members list
@@ -316,31 +315,31 @@ class CollaborationHubContent extends JsonContent {
 		if ( $membersTitle->exists() ) {
 			$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
 			$wikitext = $membersContent->convertToWikitext(
-							$lang,
-							[
-								'includeDesc' => false,
-								'maxItems' => 3,
-								'defaultSort' => 'random'
-							]
-						);
+				$lang,
+				[
+					'includeDesc' => false,
+					'maxItems' => 3,
+					'defaultSort' => 'random'
+				]
+			);
 			$membersListHtml = $wgParser->parse( $wikitext, $membersTitle, $options )->getText();
 
 			// rawElement is used because we don't want [edit] links or usual header behavior
 			$membersHeader = Html::rawElement(
-										'h3',
-										[ 'style' => 'text-align: center; padding-bottom: 1em;' ],
-										wfMessage( 'collaborationkit-hub-members-header' )
-									);
+				'h3',
+				[ 'style' => 'text-align: center; padding-bottom: 1em;' ],
+				wfMessage( 'collaborationkit-hub-members-header' )
+			);
 
 			$membersViewButton = new OOUI\ButtonWidget( [
-										'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
-										'href' => $membersTitle->getLinkURL()
-									] );
+				'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
+				'href' => $membersTitle->getLinkURL()
+			] );
 			$membersJoinButton = new OOUI\ButtonWidget( [
-										'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
-										'href' => $membersTitle->getEditURL(), // Going through editor is non-JS fallback
-										'flags' => [ 'primary', 'progressive' ]
-									] );
+				'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
+				'href' => $membersTitle->getEditURL(), // Going through editor is non-JS fallback
+				'flags' => [ 'primary', 'progressive' ]
+			] );
 
 			OutputPage::setupOOUI();
 			$text = $membersHeader . $membersListHtml . $membersViewButton->toString() . $membersJoinButton->toString();
@@ -370,19 +369,22 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedAnnouncements( Title $title, ParserOptions $options ) {
 		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->text();
 		$announcementsTitle = Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName );
+
 		if ( $announcementsTitle->exists() ) {
 			$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
 			$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
 
 			$announcementsEditLink = Html::rawElement(
-														"a",
-														[ 'href' => $announcementsTitle->getEditURL() ],
-														wfMessage( 'edit' ) );
+				'a',
+				[ 'href' => $announcementsTitle->getEditURL() ],
+				wfMessage( 'edit' )
+			);
 
 			$announcementsHeader = Html::rawElement(
-													"h3",
-													(object)[],
-													$announcementsSubpageName . ' [' . $announcementsEditLink . ']' );
+				'h3',
+				(object)[],
+				"$announcementsSubpageName [$announcementsEditLink]"
+			);
 			return $announcementsHeader . $announcementsText;
 		}
 	}

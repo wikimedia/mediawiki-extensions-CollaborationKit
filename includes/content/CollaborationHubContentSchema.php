@@ -1,28 +1,21 @@
 <?php
 return [
 	'type' => 'object',
-	'properties' =>
-	[
-		'introduction' =>
-		[
+	'properties' => [
+		'introduction' => [
 			'type' => 'string',
 		],
-		'footer' =>
-		[
+		'footer' => [
 			'type' => 'string',
 		],
-		'display_name' =>
-		[
+		'display_name' => [
 			'type' => 'string',
 		],
-		'image' =>
-		[
+		'image' => [
 			'type' => 'string',
 		],
-		'colour' =>
-		[
-			'enum' =>
-			[
+		'colour' => [
+			'enum' => [
 				0 => 'red1',
 				1 => 'red2',
 				2 => 'grey1',
@@ -48,34 +41,25 @@ return [
 				22 => 'black',
 			],
 		],
-		'content' =>
-		[
+		'content' => [
 			'type' => 'array',
-			'items' =>
-			[
-				[
-					'type' => 'object',
-					'properties' =>
-					[
-							'title' =>
-							[
-								'type' => 'string',
-							],
-							'image' =>
-							[
-								'type' => 'string',
-							],
-							'display_title' =>
-							[
-								'type' => 'string',
-							],
-						],
-					'required' =>
-					[
-						0 => 'title',
+			'items' => [ [
+				'type' => 'object',
+				'properties' => [
+					'title' => [
+						'type' => 'string',
+					],
+					'image' => [
+						'type' => 'string',
+					],
+					'display_title' => [
+						'type' => 'string',
 					],
 				],
-			],
+				'required' => [
+					0 => 'title',
+				],
+			] ],
 		],
 		'scope' =>
 		[
@@ -149,8 +133,7 @@ return [
 			]
 		]
 	],
-	'required' =>
-	[
+	'required' => [
 		0 => 'content',
 	],
 ];
