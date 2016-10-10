@@ -4,7 +4,7 @@
 class CollaborationKitHooks {
 
 	/**
-	 * Override the Edit tab for for CollaborationHub pages; stolen from massmessage
+	 * Some extra tabs for editing
 	 * @param &$sktemplate SkinTemplate
 	 * @param &$links array
 	 * @return bool
@@ -14,6 +14,7 @@ class CollaborationKitHooks {
 		$request = $sktemplate->getRequest();
 		if ( isset( $links['views']['edit'] ) ) {
 			if ( $title->hasContentModel( 'CollaborationListContent' ) ) {
+				// Edit as JSON
 				$active = in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] )
 					&& $request->getVal( 'format' ) === 'application/json';
 				$links['actions']['editasjson'] = [
@@ -28,11 +29,23 @@ class CollaborationKitHooks {
 					// Make it not be selected when editing json.
 					$links['views']['edit']['class'] = false;
 				}
+			} elseif ( $title->hasContentModel( 'CollaborationHubContent' ) ) {
+				// Add feature
+				$links['actions']['addnewfeature'] = [
+					'class' => '',
+					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText() ] ),
+					'text' => wfMessage( 'collaborationkit-hub-addpage' )->text()
+				];
 			}
 		}
 		return true;
 	}
 
+	/**
+	 * TODO DOCUMENT I'M SURE THIS IS IMPORTANT, BUT I HAVE NO IDEA WHY OR WHAT FOR
+	 *
+	 * @param $parser Parser
+	 */
 	public static function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
 		// Hack for transclusion.

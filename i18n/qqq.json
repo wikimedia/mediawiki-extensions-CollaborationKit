@@ -75,6 +75,8 @@
 	"collaborationkit-hub-edit-apierror": "Error message for API edit error",
 	"collaborationkit-hub-edit-tojsonerror": "Error message when something went wrong converting to JSON",
 	"collaborationkit-hub-toc-label": "Label for the toc on a Collaboration Hub mainpage",
+	"collaborationkit-hub-addpage": "Label for button/link to add a new subpage/feature to a Collaboration Hub",
+	"collaborationkit-hub-manage": "Label for extra button/link to edit Collaboration Hub",
 	"collaborationkit-subpage-toc-label": "Label for the toc on a Collaboration Hub subpage",
 	"collaborationkit-red1": "Color label",
 	"collaborationkit-red2": "Color label",

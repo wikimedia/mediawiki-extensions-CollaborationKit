@@ -258,6 +258,11 @@ class CollaborationHubContent extends JsonContent {
 			[ 'class' => 'wp-footer' ],
 			$this->getParsedFooter( $title, $options )
 		);
+		$html .= Html::rawElement(
+			'div',
+			[ 'class' => 'wp-footeractions' ],
+			$this->getSecondFooter( $title )
+		);
 		$html .= Html::closeElement( 'div' );
 
 		$output->setText( $html );
@@ -382,8 +387,8 @@ class CollaborationHubContent extends JsonContent {
 
 			$announcementsHeader = Html::rawElement(
 				'h3',
-				(object)[],
-				"$announcementsSubpageName [$announcementsEditLink]"
+				[],
+				$announcementsSubpageName . $this->makeEditSectionLink( $announcementsEditLink )
 			);
 			return $announcementsHeader . $announcementsText;
 		}
@@ -400,6 +405,32 @@ class CollaborationHubContent extends JsonContent {
 		$tempOutput = $wgParser->parse( $this->getFooter(), $title, $options );
 
 		return $tempOutput->getText();
+	}
+
+	/**
+	 * Get some extra buttons for another footer
+	 * @param $title Title
+	 * @return string
+	 */
+	protected function getSecondFooter( Title $title ) {
+		$html = '';
+
+		if ( $title->userCan( 'edit' ) ) {
+			$html .= new OOUI\ButtonWidget( [
+				'label' => wfMessage( 'collaborationkit-hub-manage' )->inContentLanguage()->text(),
+				'href' => $title->getLocalURL( [ 'action' => 'edit' ] ),
+				'flags' => [ 'primary', 'progressive' ]
+			] );
+
+			// TODO make sure they have create permission, too
+			$html .= new OOUI\ButtonWidget( [
+				'label' => wfMessage( 'collaborationkit-hub-addpage' )->inContentLanguage()->text(),
+				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText() ] ),
+				'flags' => [ 'primary', 'progressive' ]
+			] );
+		}
+
+		return $html;
 	}
 
 	/**
@@ -488,7 +519,6 @@ class CollaborationHubContent extends JsonContent {
 					wfMessage( 'collaborationkit-hub-missingpage-note' )->inContentLanguage()->parse()
 				);
 
-				$linkRenderer = $wgParser->getLinkRenderer();
 				$html .= new OOUI\ButtonWidget( [
 					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )->inContentLanguage()->text(),
 					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText(), 'feature' => $spTitle->getSubpageText() ] )
