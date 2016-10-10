@@ -18,6 +18,22 @@
 		windowManager.openWindow( dialog );
 	};
 
+	/**
+	 * Find if the current user is already is in list.
+	 *
+	 * @return {boolean}
+	 */
+	curUserIsInList = function curUserIsInList() {
+		var titleObj, escapedText;
+		titleObj = mw.Title.newFromText( mw.config.get( 'wgUserName' ), 2 );
+		escapedText = titleObj.getPrefixedText();
+		escapedText = escapedText.replace( /\\/g, '\\\\' );
+		escapedText = escapedText.replace( /"/g, '\\"' );
+		query = '.mw-collabkit-list-item[data-collabkit-item-title="' +
+			escapedText + '"]';
+		return $( query ).length > 0;
+	};
+
 	modifyExistingItem = function ( itemName ) {
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var done = false;
@@ -582,16 +598,5 @@
 		}
 
 	} );
-
-	curUserIsInList = function curUserIsInList() {
-		var titleObj, escapedText;
-		titleObj = mw.Title.newFromText( mw.config.get( 'wgUserName' ), 2 );
-		escapedText = titleObj.getPrefixedText();
-		escapedText = escapedText.replace( /\\/g, '\\\\' );
-		escapedText = escapedText.replace( /"/g, '\\"' );
-		query = '.mw-collabkit-list-item[data-collabkit-item-title="' +
-			escapedText + '"]';
-		return $( query ).length > 0;
-	};
 
 } )( jQuery, mediaWiki, OO );
