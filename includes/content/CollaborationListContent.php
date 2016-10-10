@@ -155,6 +155,12 @@ class CollaborationListContent extends JsonContent {
 		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $listOptions['ismemberlist'] );
 	}
 
+	private function getOverrideOptions() {
+		$this->decode();
+		$opts = (array)$this->options;
+		return [ 'ismemberlist' => !empty( $opts['ismemberlist'] ) ];
+	}
+
 	private function getFullRenderListOptions() {
 		return $listOptions = [
 			'includeDesc' => true,
@@ -172,7 +178,7 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public function convertToWikitext( Language $lang, $options = [] ) {
 		$this->decode();
-		$options = $options + $this->getDefaultOptions();
+		$options = $options + $this->getOverrideOptions() + $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
 
