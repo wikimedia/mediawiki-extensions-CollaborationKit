@@ -147,7 +147,9 @@ class CollaborationListContent extends JsonContent {
 		if ( !$lang ) {
 			$lang = $title->getPageLanguage();
 		}
-		$listOptions = $this->getFullRenderListOptions() + (array)$this->options;
+		$listOptions = $this->getFullRenderListOptions()
+			+ (array)$this->options
+			+ $this->getDefaultOptions();
 		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
 		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $listOptions['ismemberlist'] );
@@ -235,7 +237,6 @@ class CollaborationListContent extends JsonContent {
 					// you also need to change it in the stylesheet.
 					$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 				} else {
-var_dump( $options );
 					if ( $options['ismemberlist'] ) {
 						$placeholderIcon = 'mw-ckicon-user-grey2';
 					} else {
