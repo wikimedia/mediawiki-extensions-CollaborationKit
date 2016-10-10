@@ -12,6 +12,10 @@
 	.wp-toc .toc-label {
 		border-color: @colour;
 	}
+
+	.wp-footer {
+		border-color: @colour;
+	}
 }
 
 .chsubtheme( @colour ) {
@@ -22,6 +26,11 @@
 	.toc-label {
 		color: darken( @colour, 25% );
 	}
+}
+
+// Fix issue with floats near lists
+ul {
+	display: inline-block;
 }
 
 // Members block, random actiony blocks, etc

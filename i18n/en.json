@@ -75,6 +75,8 @@
 	"collaborationkit-hub-edit-apierror": "API edit error: $1",
 	"collaborationkit-hub-edit-tojsonerror": "Error converting to JSON",
 	"collaborationkit-hub-toc-label": "Project contents",
+	"collaborationkit-hub-addpage": "Add feature",
+	"collaborationkit-hub-manage": "Manage project",
 	"collaborationkit-subpage-toc-label": "Part of a project:",
 	"collaborationkit-red1": "Dark red",
 	"collaborationkit-red2": "Red",
