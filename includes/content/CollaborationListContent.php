@@ -235,7 +235,6 @@ class CollaborationListContent extends JsonContent {
 					// you also need to change it in the stylesheet.
 					$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 				} else {
-var_dump( $options );
 					if ( $options['ismemberlist'] ) {
 						$placeholderIcon = 'mw-ckicon-user-grey2';
 					} else {
