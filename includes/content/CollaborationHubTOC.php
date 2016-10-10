@@ -86,7 +86,8 @@ class CollaborationHubTOC {
 		$colour = $content->getThemeColour();
 		$image = $content->getImage();
 
-		$html = Html::openElement( 'div', [ 'class' => "wp-subpage-toc mw-cktheme-$colour" ] );
+		$html = Html::openElement( 'div', [ 'class' => "mw-cktheme-$colour" ] );
+		$html .= Html::openElement( 'div', [ 'class' => "wp-subpage-toc" ] );
 
 		// ToC label
 		$html .= Html::rawElement(
@@ -130,6 +131,7 @@ class CollaborationHubTOC {
 		}
 
 		$html .= Html::closeElement( 'ul' );
+		$html .= Html::closeElement( 'div' );
 		$html .= Html::closeElement( 'div' );
 		return $html;
 	}

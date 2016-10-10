@@ -61,74 +61,50 @@ return [
 				],
 			] ],
 		],
-		'scope' =>
-		[
+		'scope' => [
 			'type' => 'object',
-			'properties' =>
-			[
-				'included_categories' =>
-				[
+			'properties' => [
+				'included_categories' => [
 					'type' => 'array',
-					'items' =>
-					[
-						[
-							'type' => 'object',
-							'properties' =>
-							[
-								'category_name' =>
-								[
-									'type' => 'string'
-								],
-								'category_depth' =>
-								[
-									'type' => 'number',
-									'default' => 9
-								]
+					'items' => [ [
+						'type' => 'object',
+						'properties' => [
+							'category_name' => [
+								'type' => 'string'
+							],
+							'category_depth' => [
+								'type' => 'number',
+								'default' => 9
 							]
 						]
-					]
+					] ]
 				],
-				'excluded_categories' =>
-				[
+				'excluded_categories' => [
 					'type' => 'array',
-					'items' =>
-					[
-						[
-							'type' => 'object',
-							'properties' =>
-							[
-								'category_name' =>
-								[
-									'type' => 'string'
-								],
-								'category_depth' =>
-								[
-									'type' => 'number',
-									'default' => 9
-								]
+					'items' => [ [
+						'type' => 'object',
+						'properties' => [
+							'category_name' => [
+								'type' => 'string'
+							],
+							'category_depth' => [
+								'type' => 'number',
+								'default' => 9
 							]
 						]
-					]
+					] ]
 				],
-				'included_pages' =>
-				[
+				'included_pages' => [
 					'type' => 'array',
-					'items' =>
-					[
-						[
-							'type' => 'string'
-						]
-					]
+					'items' => [ [
+						'type' => 'string'
+					] ]
 				],
-				'excluded_pages' =>
-				[
+				'excluded_pages' => [
 					'type' => 'array',
-					'items' =>
-					[
-						[
-							'type' => 'string'
-						]
-					]
+					'items' => [ [
+						'type' => 'string'
+					] ]
 				]
 			]
 		]

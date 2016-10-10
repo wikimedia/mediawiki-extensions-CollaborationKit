@@ -15,9 +15,10 @@
 }
 
 .chsubtheme( @colour ) {
-	border-color: @colour;
-	color: @colour;
-
+	.wp-subpage-toc {
+		border-color: @colour;
+		color: @colour;
+	}
 	.toc-label {
 		color: darken( @colour, 25% );
 	}

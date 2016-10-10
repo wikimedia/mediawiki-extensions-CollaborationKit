@@ -327,7 +327,7 @@ class CollaborationHubContent extends JsonContent {
 			// rawElement is used because we don't want [edit] links or usual header behavior
 			$membersHeader = Html::rawElement(
 				'h3',
-				[ 'style' => 'text-align: center; padding-bottom: 1em;' ],
+				[],
 				wfMessage( 'collaborationkit-hub-members-header' )
 			);
 
