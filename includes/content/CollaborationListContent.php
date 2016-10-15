@@ -22,6 +22,8 @@ class CollaborationListContent extends JsonContent {
 	protected $options;
 	/** @var $items Array List of items */
 	protected $items;
+	/** @var $displaymode String The variety of list */
+	protected $displaymode;
 
 	function __construct( $text, $type = 'CollaborationListContent' ) {
 		parent::__construct( $text, $type );
@@ -41,6 +43,10 @@ class CollaborationListContent extends JsonContent {
 			return false;
 		}
 		$data = $status->value;
+		// TODO: The schema should be checking for required fields but for some reason that doesn't work
+		if ( !isset( $data->description ) || !isset( $data->items ) || !isset( $data->options ) ) {
+			return false;
+		}
 		$jsonAsArray = json_decode( json_encode( $data ), true );
 		try {
 			EventLogging::schemaValidate( $jsonAsArray, $listSchema );
@@ -109,13 +115,16 @@ class CollaborationListContent extends JsonContent {
 		if ( $this->decoded ) {
 			return;
 		}
-		if ( !$this->isValid() ) {
-			throw new Exception( "Can't decode invalid content" );
-		}
 		$data = $this->getData()->value;
-		$this->description = $data->description;
-		$this->options = $data->options;
-		$this->items = $data->items;
+		if ( !$this->isValid() ) {
+			$this->displaymode = 'error';
+			$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+		} else {
+			$this->displaymode = 'normal'; // For now, while this field is still optional
+			$this->description = $data->description;
+			$this->options = $data->options;
+			$this->items = $data->items;
+		}
 		$this->decoded = true;
 	}
 
@@ -181,6 +190,14 @@ class CollaborationListContent extends JsonContent {
 		$options = $options + $this->getOverrideOptions() + $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
+
+		// If this is an error-type list (i.e. a schema-violating blob),
+		// just return the plain JSON.
+
+		if ( $this->displaymode == 'error' ) {
+			$errorWikitext = '<div class=errorbox>' . wfMessage( 'collaborationkit-list-invalid' ) . '</div>\n<pre>' . $this->errortext . '</pre>';
+			return $errorWikitext;
+		}
 
 		// Hack to force style loading even when we don't have a Parser reference.
 		$text = "<collaborationkitloadliststyles/>\n";

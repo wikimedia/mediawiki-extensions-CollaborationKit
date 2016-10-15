@@ -31,9 +31,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	public function unserializeContent( $text, $format = null ) {
 		$this->checkFormat( $format );
 		$content = new CollaborationHubContent( $text );
-		if ( !$content->isValid() ) {
-			throw new MWContentSerializationException( 'The collaborationhub content is invalid.' );
-		}
+		// Deliberately not validating at this step; validation is done later.
 		return $content;
 	}
 

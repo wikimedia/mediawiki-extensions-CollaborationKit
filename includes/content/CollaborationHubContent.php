@@ -42,6 +42,9 @@ class CollaborationHubContent extends JsonContent {
 	/** @var string */
 	protected $themeColour;
 
+	/** @var $displaymode String How to display contents */
+	protected $displaymode;
+
 	/** @var bool Whether contents have been populated */
 	protected $decoded = false;
 
@@ -87,18 +90,19 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public function isValid() {
 		$hubSchema = include __DIR__ . '/CollaborationHubContentSchema.php';
-		$this->decode();
-		if ( $this->decoded ) {
-			$jsonParse = $this->getData();
-			if ( $jsonParse->isGood() ) {
-				// Forcing the object to become an array
-				$jsonAsArray = json_decode( json_encode( $jsonParse->getValue() ), true );
-				try {
-					EventLogging::schemaValidate( $jsonAsArray, $hubSchema );
-					return true;
-				} catch ( JsonSchemaException $e ) {
-					return false;
-				}
+		$jsonParse = $this->getData();
+		if ( $jsonParse->isGood() ) {
+			// TODO: The schema should be checking for required fields but for some reason that doesn't work
+			if ( !isset( $jsonParse->value->content ) ) {
+				return false;
+			}
+			// Forcing the object to become an array
+			$jsonAsArray = json_decode( json_encode( $jsonParse->getValue() ), true );
+			try {
+				EventLogging::schemaValidate( $jsonAsArray, $hubSchema );
+				return true;
+			} catch ( JsonSchemaException $e ) {
+				return false;
 			}
 			return false;
 		}
@@ -115,31 +119,36 @@ class CollaborationHubContent extends JsonContent {
 		$jsonParse = $this->getData();
 		$data = $jsonParse->isGood() ? $jsonParse->getValue() : null;
 		if ( $data ) {
-			$this->displayName = isset( $data->display_name ) ? $data->display_name : '';
-			$this->introduction = isset( $data->introduction ) ? $data->introduction : '';
-			$this->footer = isset( $data->footer ) ? $data->footer : '';
-			$this->image = isset( $data->image ) ? $data->image : 'none';
-
-			// Set colour to default if empty or missing
-			if ( !isset( $data->colour ) || $data->colour == '' ) {
-				$this->themeColour = 'blue5';
+			if ( !$this->isValid() ) {
+				$this->displaymode = 'error';
+				$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
 			} else {
-				$this->themeColour = $data->colour;
-			}
+				$this->displayName = isset( $data->display_name ) ? $data->display_name : '';
+				$this->introduction = isset( $data->introduction ) ? $data->introduction : '';
+				$this->footer = isset( $data->footer ) ? $data->footer : '';
+				$this->image = isset( $data->image ) ? $data->image : 'none';
 
-			if ( isset( $data->content ) && is_array( $data->content ) ) {
-				$this->content = [];
-				foreach ( $data->content as $itemObject ) {
-					if ( !is_object( $itemObject ) ) { // Malformed item
-						$this->content = null;
-						break;
+				// Set colour to default if empty or missing
+				if ( !isset( $data->colour ) || $data->colour == '' ) {
+					$this->themeColour = 'blue5';
+				} else {
+					$this->themeColour = $data->colour;
+				}
+
+				if ( isset( $data->content ) && is_array( $data->content ) ) {
+					$this->content = [];
+					foreach ( $data->content as $itemObject ) {
+						if ( !is_object( $itemObject ) ) { // Malformed item
+							$this->content = null;
+							break;
+						}
+						$item = [];
+						$item['title'] = isset( $itemObject->title ) ? $itemObject->title : null;
+						$item['image'] = isset( $itemObject->image ) ? $itemObject->image : null;
+						$item['displayTitle'] = isset( $itemObject->display_title ) ? $itemObject->display_title : null;
+
+						$this->content[] = $item;
 					}
-					$item = [];
-					$item['title'] = isset( $itemObject->title ) ? $itemObject->title : null;
-					$item['image'] = isset( $itemObject->image ) ? $itemObject->image : null;
-					$item['displayTitle'] = isset( $itemObject->display_title ) ? $itemObject->display_title : null;
-
-					$this->content[] = $item;
 				}
 			}
 		}
@@ -211,68 +220,76 @@ class CollaborationHubContent extends JsonContent {
 		// Dummy parse intro and footer to get categories and whatnot
 		$output = $wgParser->parse( $this->getIntroduction() . $this->getFooter(), $title, $options, true, true, $revId );
 		$html = '';
-		// set up hub with theme stuff
-		$html .= Html::openElement(
-			'div',
-			[ 'class' => $this->getHubClasses() ]
-		);
-		// get page image
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-header-image' ],
-			$this->getParsedImage( $this->getImage(), 200 )
-		);
-		// get members list
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-members' ],
-			$this->getMembersBlock( $title, $options )
-		);
-		// get parsed intro
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-intro' ],
-			$this->getParsedIntroduction( $title, $options )
-		);
-		// get announcements
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-announcements' ],
-			$this->getParsedAnnouncements( $title, $options )
-		);
-		// get table of contents
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-toc' ],
-			$this->getTableOfContents( $title, $options )
-		);
-		// get transcluded content
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-content' ],
-			$this->getParsedContent( $title, $options, $output )
-		);
-		// get footer
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-footer' ],
-			$this->getParsedFooter( $title, $options )
-		);
-		$html .= Html::rawElement(
-			'div',
-			[ 'class' => 'wp-footeractions' ],
-			$this->getSecondFooter( $title )
-		);
-		$html .= Html::closeElement( 'div' );
 
-		$output->setText( $html );
+		// If error, then bypass all this and just show the offending JSON
 
-		// Add some style stuff
-		$output->addModuleStyles( 'ext.CollaborationKit.hub.styles' );
-		$output->addModules( 'ext.CollaborationKit.icons' );
-		$output->addModules( 'ext.CollaborationKit.blots' );
-		$output->addModules( 'ext.CollaborationKit.list.styles' );
-		$output->setEnableOOUI( true );
+		if ( $this->displaymode == 'error' ) {
+			$html = '<div class=errorbox>' . wfMessage( 'collaborationkit-hub-invalid' ) . '</div>\n<pre>' . $this->errortext . '</pre>';
+			$output->setText( $html );
+		} else {
+			// set up hub with theme stuff
+			$html .= Html::openElement(
+				'div',
+				[ 'class' => $this->getHubClasses() ]
+			);
+			// get page image
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-header-image' ],
+				$this->getParsedImage( $this->getImage(), 200 )
+			);
+			// get members list
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-members' ],
+				$this->getMembersBlock( $title, $options )
+			);
+			// get parsed intro
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-intro' ],
+				$this->getParsedIntroduction( $title, $options )
+			);
+			// get announcements
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-announcements' ],
+				$this->getParsedAnnouncements( $title, $options )
+			);
+			// get table of contents
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-toc' ],
+				$this->getTableOfContents( $title, $options )
+			);
+			// get transcluded content
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-content' ],
+				$this->getParsedContent( $title, $options, $output )
+			);
+			// get footer
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-footer' ],
+				$this->getParsedFooter( $title, $options )
+			);
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'wp-footeractions' ],
+				$this->getSecondFooter( $title )
+			);
+			$html .= Html::closeElement( 'div' );
+
+			$output->setText( $html );
+
+			// Add some style stuff
+			$output->addModuleStyles( 'ext.CollaborationKit.hub.styles' );
+			$output->addModules( 'ext.CollaborationKit.icons' );
+			$output->addModules( 'ext.CollaborationKit.blots' );
+			$output->addModules( 'ext.CollaborationKit.list.styles' );
+			$output->setEnableOOUI( true );
+		}
 	}
 
 	/**

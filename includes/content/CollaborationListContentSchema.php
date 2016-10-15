@@ -3,6 +3,16 @@ return [
 	'type' => 'object',
 	'required' => [ 'description', 'items', 'options' ],
 	'properties' => [
+		'displaymode' => [
+			'enum' => [
+				0 => 'normal',
+				1 => 'members',
+				2 => 'error'
+			]
+		],
+		'errortext' => [
+			'type' => 'string'
+		],
 		'description' => [
 			'type' => 'string'
 		],

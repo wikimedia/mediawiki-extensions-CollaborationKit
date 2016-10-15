@@ -2,6 +2,12 @@
 return [
 	'type' => 'object',
 	'properties' => [
+		'displaymode' => [
+			'enum' => [
+				0 => 'normal',
+				1 => 'error'
+			]
+		],
 		'introduction' => [
 			'type' => 'string',
 		],

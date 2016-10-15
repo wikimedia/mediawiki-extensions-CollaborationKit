@@ -2,7 +2,7 @@
 	"@metadata": {
 		"authors": [ "Isarra", "bawolff" ]
 	},
-	"colaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
+	"collaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
 	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
 	"createhubfeature": "Header for Special:CreateHubFeature",
 	"collaborationkit-createhub-title": "Label for target page title input on Special:CreateCollaborationHub",
@@ -35,6 +35,7 @@
 	"collaborationkit-createhubfeature-invalidcontenttype": "Error message on Special:CreateHubFeature in the unlikely event that an invalid content type is specified for a feature",
 	"collaborationkit-createhubfeature-editsummary": "Edit summary used by Special:CreateHubFeature when creating a new feature",
 	"collaborationkit-list-isempty": "Shown on lists that are empty immediately after the description",
+	"collaborationkit-list-invalid": "Message shown on lists that do not comply with the JSON Schema; shown before displaying the offending content",
 	"collaborationkit-list-notlist": "Error when <nowiki>{{#transcludelist:page}}</nowiki> is given a page that is not a CollaborationKit list page. $1 Name of page given.",
 	"collaborationkit-list-taglist": "Box for showing tags a specific item has on a list. $1 = comma separated list of tags. $2 = number of tags",
 	"collaborationkit-list-toomanytags": "Error if <nowiki>{{#transcludelist:...}}</nowiki> is given more than the allowed number of tag arguments. $1 - number of tags allowed. $2 - number of tags given.",
@@ -77,6 +78,7 @@
 	"collaborationkit-hub-toc-label": "Label for the toc on a Collaboration Hub mainpage",
 	"collaborationkit-hub-addpage": "Label for button/link to add a new subpage/feature to a Collaboration Hub",
 	"collaborationkit-hub-manage": "Label for extra button/link to edit Collaboration Hub",
+	"collaborationkit-hub-invalid": "Message shown on hubs that do not comply with the JSON Schema; shown before displaying the offending content",
 	"collaborationkit-subpage-toc-label": "Label for the toc on a Collaboration Hub subpage",
 	"collaborationkit-red1": "Color label",
 	"collaborationkit-red2": "Color label",

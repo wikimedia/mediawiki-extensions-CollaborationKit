@@ -2,7 +2,7 @@
 	"@metadata": {
 		"authors": [ "Isarra", "Harej", "bawolff" ]
 	},
-	"colaborationkit-desc": "Next-generation WikiProjects and collaborative workspaces for wikis",
+	"collaborationkit-desc": "Next-generation WikiProjects and collaborative workspaces for wikis",
 	"createcollaborationhub": "Create new Collaboration Hub project",
 	"createhubfeature": "Create a new Collaboration Hub feature",
 	"collaborationkit-createhub-title": "Page title",
@@ -35,6 +35,7 @@
 	"collaborationkit-createhubfeature-freetext": "Generic wiki page",
 	"collaborationkit-createhubfeature-articlelist": "List of pages",
 	"collaborationkit-list-isempty": "This list has no items in it.",
+	"collaborationkit-list-invalid": "This content does not meet the requirements of the CollaborationListContent schema. This may happen as a result of a software update. The content is reproduced below.",
 	"collaborationkit-list-notlist": "[[$1]] is not a CollaborationKit list page",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|Tagged:|Tags:}}''' $1 ",
 	"collaborationkit-list-toomanytags": "You are not allowed to specify more than {{PLURAL:$1|one tag|$1 tags}}",
@@ -77,6 +78,7 @@
 	"collaborationkit-hub-toc-label": "Project contents",
 	"collaborationkit-hub-addpage": "Add feature",
 	"collaborationkit-hub-manage": "Manage project",
+	"collaborationkit-hub-invalid": "This content does not meet the requirements of the CollaborationHubContent schema. This may happen as a result of a software update. The content is reproduced below.",
 	"collaborationkit-subpage-toc-label": "Part of a project:",
 	"collaborationkit-red1": "Dark red",
 	"collaborationkit-red2": "Red",

@@ -45,9 +45,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 			$text = FormatJson::encode( $data );
 		}
 		$content = new CollaborationListContent( $text );
-		if ( !$content->isValid() ) {
-			throw new MWContentSerializationException( 'The collaborationlist content is invalid.' );
-		}
+		// Deliberately not validating at this step; validation is done later.
 		return $content;
 	}
 
