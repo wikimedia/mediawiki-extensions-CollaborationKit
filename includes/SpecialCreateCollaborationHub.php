@@ -17,6 +17,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @param $par string
 	 */
 	public function execute( $par ) {
+		$out = $this->getContext()->getOutput();
+		$out->addModules( 'ext.CollaborationKit.colour' );
+		$out->addModuleStyles( 'ext.CollaborationKit.colourbrowser.styles' );
+		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
 		parent::execute( $par );
 	}
 
@@ -53,6 +57,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$fields['colour'] = [
 			'type' => 'select',
 			'cssclass' => 'mw-ck-colourinput',
+			'id' => 'wpCollabHubColour',
 			'label-message' => 'collaborationkit-createhub-colour',
 			'options' => $this->getOptions( $colours ),
 			'default' => 'blue5'

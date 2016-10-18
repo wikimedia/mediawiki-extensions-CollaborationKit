@@ -84,6 +84,9 @@
 		"ext.CollaborationKit.iconbrowser.styles": {
 			"styles": "ext.CollaborationKit.iconbrowser.styles.less"
 		},
+		"ext.CollaborationKit.colourbrowser.styles": {
+			"styles": "ext.CollaborationKit.colourbrowser.styles.less"
+		},
 		"ext.CollaborationKit.iconbrowser": {
 			"scripts": "ext.CollaborationKit.icon.js",
 			"dependencies": [
@@ -98,6 +101,44 @@
 				"collaborationkit-icon-select",
 				"collaborationkit-icon-launchbutton",
 				"cancel"
+			]
+		},
+		"ext.CollaborationKit.colour": {
+			"scripts": "ext.CollaborationKit.colour.js",
+			"dependencies": [
+				"oojs-ui",
+				"oojs-ui.styles.icons-movement",
+				"mediawiki.widgets",
+				"mediawiki.widgets.UserInputWidget"
+			],
+			"messages": [
+				"collaborationkit-colour-browser",
+				"collaborationkit-colour-select",
+				"collaborationkit-colour-launchbutton",
+				"cancel",
+				"collaborationkit-red1",
+				"collaborationkit-red2",
+				"collaborationkit-grey1",
+				"collaborationkit-grey2",
+				"collaborationkit-blue1",
+				"collaborationkit-blue2",
+				"collaborationkit-blue3",
+				"collaborationkit-blue4",
+				"collaborationkit-blue5",
+				"collaborationkit-blue6",
+				"collaborationkit-purple1",
+				"collaborationkit-purple2",
+				"collaborationkit-purple3",
+				"collaborationkit-purple4",
+				"collaborationkit-purple5",
+				"collaborationkit-yellow1",
+				"collaborationkit-yellow2",
+				"collaborationkit-yellow3",
+				"collaborationkit-yellow4",
+				"collaborationkit-green1",
+				"collaborationkit-green2",
+				"collaborationkit-green3",
+				"collaborationkit-black"
 			]
 		},
 		"ext.CollaborationKit.list.edit": {
