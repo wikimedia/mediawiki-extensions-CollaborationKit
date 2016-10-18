@@ -17,6 +17,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	 * @param string $par
 	 */
 	public function execute( $par ) {
+		$output = $this->getContext()->getOutput();
+		$output->addModules( 'ext.CollaborationKit.iconbrowser' );
+		$output->addModuleStyles( 'ext.CollaborationKit.iconbrowser.styles' );
+		$output->addJsConfigVars( 'wgCollaborationKitIconList', CollaborationKitIcon::getCannedIcons() );
 		parent::execute( $par );
 	}
 
@@ -39,6 +43,9 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			$defaultFeatureName = '';
 		}
 
+		$icons = CollaborationKitIcon::getCannedIcons();
+		$iconChoices = array_combine( $icons, $icons );
+
 		$fields = [
 			'collaborationhub' => [
 				'type' => 'title',
@@ -54,9 +61,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			],
 			// TODO replace with icon selector
 			'icon' => [
-				'type' => 'text',
+				'type' => 'combobox',
 				'cssclass' => 'mw-ck-iconinput',
 				'label-message' => 'collaborationkit-createhubfeature-icon',
+				'options' => $iconChoices
 			],
 			'contenttype' => [
 				'type' => 'radio',

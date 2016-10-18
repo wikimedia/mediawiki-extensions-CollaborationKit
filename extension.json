@@ -81,6 +81,25 @@
 		"ext.CollaborationKit.list.styles": {
 			"styles": "ext.CollaborationKit.list.styles.less"
 		},
+		"ext.CollaborationKit.iconbrowser.styles": {
+			"styles": "ext.CollaborationKit.iconbrowser.styles.less"
+		},
+		"ext.CollaborationKit.iconbrowser": {
+			"scripts": "ext.CollaborationKit.icon.js",
+			"dependencies": [
+				"oojs-ui",
+				"oojs-ui.styles.icons-movement",
+				"mediawiki.widgets",
+				"mediawiki.widgets.UserInputWidget",
+				"ext.CollaborationKit.icons"
+			],
+			"messages": [
+				"collaborationkit-icon-browser",
+				"collaborationkit-icon-select",
+				"collaborationkit-icon-launchbutton",
+				"cancel"
+			]
+		},
 		"ext.CollaborationKit.list.edit": {
 			"scripts": "ext.CollaborationKit.list.edit.js",
 			"dependencies": [
