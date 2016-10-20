@@ -13,7 +13,7 @@ class CollaborationKitHooks {
 		$title = $sktemplate->getTitle();
 		$request = $sktemplate->getRequest();
 		if ( isset( $links['views']['edit'] ) ) {
-			if ( $title->hasContentModel( 'CollaborationListContent' ) || $title->hasContentModel( 'CollaborationHubContent' ) ) {
+			if ( $title->hasContentModel( 'CollaborationListContent' ) ) {
 				// Edit as JSON
 				$active = in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] )
 					&& $request->getVal( 'format' ) === 'application/json';
@@ -29,8 +29,7 @@ class CollaborationKitHooks {
 					// Make it not be selected when editing json.
 					$links['views']['edit']['class'] = false;
 				}
-			}
-			if ( $title->hasContentModel( 'CollaborationHubContent' ) ) {
+			} elseif ( $title->hasContentModel( 'CollaborationHubContent' ) ) {
 				// Add feature
 				$links['actions']['addnewfeature'] = [
 					'class' => '',

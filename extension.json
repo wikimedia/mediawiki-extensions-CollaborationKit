@@ -20,14 +20,13 @@
 		"CollaborationKitHooks": "CollaborationKit.hooks.php",
 		"CollaborationHubContent": "includes/content/CollaborationHubContent.php",
 		"CollaborationHubContentHandler": "includes/content/CollaborationHubContentHandler.php",
-		"CollaborationHubContentEditor": "includes/CollaborationHubContentEditor.php",
 		"CollaborationHubTOC": "includes/content/CollaborationHubTOC.php",
 		"CollaborationKitIcon": "includes/content/CollaborationKitIcon.php",
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
-		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",
 		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",
 		"SpecialCreateHubFeature": "includes/SpecialCreateHubFeature.php",
+		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",
 		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php"
 	},
 	"ContentHandlers": {
@@ -64,8 +63,7 @@
 			"CollaborationListContent::onArticleViewHeader"
 		],
 		"CustomEditor": [
-			"CollaborationListContent::onCustomEditor",
-			"CollaborationHubContent::onCustomEditor"
+			"CollaborationListContent::onCustomEditor"
 		],
 		"OutputPageBeforeHTML": [
 			"CollaborationKitHooks::onOutputPageBeforeHTML"

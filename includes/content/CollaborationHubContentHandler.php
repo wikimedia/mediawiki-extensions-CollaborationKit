@@ -2,19 +2,8 @@
 
 class CollaborationHubContentHandler extends TextContentHandler {
 
-	const FORMAT_WIKI = 'text/x-collabkit';
-
-	public function __construct(
-		$modelId = 'CollaborationHubContent',
-		$formats = [ CONTENT_FORMAT_JSON, CONTENT_FORMAT_TEXT, self::FORMAT_WIKI ]
-	) {
-		// text/x-collabkit is a format for lists similar to <gallery>.
-		// CONTENT_FORMAT_TEXT is for back-compat with old revs. Could be removed.
-
-		// @todo Ideally, we'd have the preferred format for editing be self::FORMAT_WIKI
-		// and the preferred format for db be CONTENT_FORMAT_JSON. Unclear if that's
-		// possible.
-		parent::__construct( $modelId, $formats );
+	public function __construct( $modelId = 'CollaborationHubContent' ) {
+		parent::__construct( $modelId );
 	}
 
 	/**
@@ -34,37 +23,16 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	/**
-	 * Constructs a CollaborationHubContent object. Does not perform any validation,
-	 * as that is done at a later step (to allow for outputting of invalid content for
-	 * debugging purposes.)
-	 *
 	 * @param $text string
-	 * @param $format string|null
+	 * @param $format string
 	 * @return CollaborationHubContent
+	 * @throws MWContentSerializationException
 	 */
 	public function unserializeContent( $text, $format = null ) {
 		$this->checkFormat( $format );
-		if ( $format === self::FORMAT_WIKI ) {
-			$data = CollaborationHubContent::convertFromHumanEditable( $text );
-			$text = FormatJson::encode( $data );
-		}
 		$content = new CollaborationHubContent( $text );
 		// Deliberately not validating at this step; validation is done later.
 		return $content;
-	}
-
-	/**
-	 * Serializes the CollaborationHubContent object.
-	 *
-	 * @param $content Content
-	 * @param $format string|null
-	 * @return mixed
-	 */
-	public function serializeContent( Content $content, $format = null ) {
-		if ( $format === self::FORMAT_WIKI ) {
-			return $content->convertToHumanEditable();
-		}
-		return parent::serializeContent( $content, $format );
 	}
 
 	/**
