@@ -8,7 +8,9 @@ class CollaborationListContentEditor extends EditPage {
 		parent::__construct( $page );
 		// Make human readable the default format for editing, but still
 		// save as json. Can be overriden by url ?format=application/json param.
-		$this->contentFormat = CollaborationListContentHandler::FORMAT_WIKI;
+		if ( $this->getCurrentContent()->isValid() ) {
+			$this->contentFormat = CollaborationListContentHandler::FORMAT_WIKI;
+		}
 	}
 
 	protected function showContentForm() {

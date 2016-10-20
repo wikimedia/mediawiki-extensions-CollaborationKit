@@ -121,7 +121,12 @@ class CollaborationHubContent extends JsonContent {
 		if ( $data ) {
 			if ( !$this->isValid() ) {
 				$this->displaymode = 'error';
-				$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+				if ( !parent::isValid() ) {
+					// It's not even valid json
+					$this->errortext = htmlspecialchars( $this->getNativeData() );
+				} else {
+					$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+				}
 			} else {
 				$this->displayName = isset( $data->display_name ) ? $data->display_name : '';
 				$this->introduction = isset( $data->introduction ) ? $data->introduction : '';
@@ -224,7 +229,7 @@ class CollaborationHubContent extends JsonContent {
 		// If error, then bypass all this and just show the offending JSON
 
 		if ( $this->displaymode == 'error' ) {
-			$html = '<div class=errorbox>' . wfMessage( 'collaborationkit-hub-invalid' ) . '</div>\n<pre>' . $this->errortext . '</pre>';
+			$html = '<div class=errorbox>' . wfMessage( 'collaborationkit-hub-invalid' ) . "</div>\n<pre>" . $this->errortext . '</pre>';
 			$output->setText( $html );
 		} else {
 			// set up hub with theme stuff

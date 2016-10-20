@@ -118,7 +118,12 @@ class CollaborationListContent extends JsonContent {
 		$data = $this->getData()->value;
 		if ( !$this->isValid() ) {
 			$this->displaymode = 'error';
-			$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+			if ( !parent::isValid() ) {
+				// It's not even valid json
+				$this->errortext = htmlspecialchars( $this->getNativeData() );
+			} else {
+				$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+			}
 		} else {
 			$this->displaymode = 'normal'; // For now, while this field is still optional
 			$this->description = $data->description;
@@ -195,7 +200,7 @@ class CollaborationListContent extends JsonContent {
 		// just return the plain JSON.
 
 		if ( $this->displaymode == 'error' ) {
-			$errorWikitext = '<div class=errorbox>' . wfMessage( 'collaborationkit-list-invalid' ) . '</div>\n<pre>' . $this->errortext . '</pre>';
+			$errorWikitext = '<div class=errorbox>' . wfMessage( 'collaborationkit-list-invalid' ) . "</div>\n<pre>" . $this->errortext . '</pre>';
 			return $errorWikitext;
 		}
 
