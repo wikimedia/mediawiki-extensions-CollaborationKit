@@ -1,7 +1,7 @@
 <?php
 return [
 	'type' => 'object',
-	'required' => [ 'description', 'items', 'options' ],
+	'required' => [ 'description', 'items', 'options', 'displaymode' ],
 	'properties' => [
 		'displaymode' => [
 			'enum' => [
@@ -16,62 +16,61 @@ return [
 		'description' => [
 			'type' => 'string'
 		],
-		'items' => [
+		'columns' => [
 			'type' => 'array',
-			'maxItems' => 2000,
+			'maxItems' => 10,
 			'items' => [ [
-				'type' => 'object',
-				'required' => [ 'title' ],
-				'properties' => [
-					'title' => [
-						'type' => 'string'
-					],
-					'link' => [
-						'type' => 'string'
-					],
-					'notes' => [
-						'type' => 'string'
-					],
-					'image' => [
-						'type' => 'string'
-					],
-					'sortkey' => [
+				'label' => [
+					'type' => 'string'
+				],
+				'notes' => [
+					'type' => 'string'
+				],
+				'items' => [
+					'type' => 'array',
+					'maxItems' => 2000,
+					'items' => [ [
 						'type' => 'object',
+						'required' => [ 'title' ],
 						'properties' => [
-							'criterianame' => [
+							'title' => [
 								'type' => 'string'
 							],
-							'value' => [
+							'link' => [
 								'type' => 'string'
+							],
+							'notes' => [
+								'type' => 'string'
+							],
+							'image' => [
+								'type' => 'string'
+							],
+							'sortkey' => [
+								'type' => 'object',
+								'properties' => [
+									'criterianame' => [
+										'type' => 'string'
+									],
+									'value' => [
+										'type' => 'string'
+									]
+								]
+							],
+							'tags' => [
+								'type' => 'array',
+								'maxItems' => 50,
+								'items' => [ [
+									'type' => 'string'
+								] ]
 							]
 						]
-					],
-					'tags' => [
-						'type' => 'array',
-						'maxItems' => 50,
-						'items' => [ [
-							'type' => 'string'
-						] ]
-					]
+					] ]
 				]
 			] ]
 		],
 		'options' => [
 			'type' => 'object',
 			'properties' => [
-				'ismemberlist' => [
-					'type' => 'boolean',
-					'default' => false
-				],
-				'memberoptions' => [
-					'type' => 'object',
-					'properties' => [
-						'inactivethreshold' => [
-							'type' => 'number',
-							'default' => 30
-						]
-					]
-				],
 				'defaultsort' => [
 					'type' => 'string',
 					'default' => 'random'

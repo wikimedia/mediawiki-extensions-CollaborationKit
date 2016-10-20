@@ -41,7 +41,7 @@ class CollaborationListContentEditor extends EditPage {
 
 		$out->addHtml( Html::Hidden( 'wpCollaborationKitOptions', $parts[1] ) );
 
-		$this->showTextbox1( null, $parts[2] );
+		$this->showTextbox1( null, trim( $parts[2] ) );
 	}
 
 	protected function importContentFormData( &$request ) {

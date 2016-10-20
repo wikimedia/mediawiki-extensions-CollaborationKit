@@ -12,7 +12,13 @@ class CollaborationListContent extends JsonContent {
 	const MAX_LIST_SIZE = 2000; // Maybe should be a config option.
 	const RANDOM_CACHE_EXPIRY = 28800; // 8 hours
 	const MAX_TAGS = 50;
+
+	// Splitter for description and options
 	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
+	// Splitter denoting the beginning of a list column
+	const HUMAN_COLUMN_SPLIT = "\n---------~-~---------\n";
+	// Splitter denoting the beginning og the list itself within the column
+	const HUMAN_COLUMN_SPLIT2 = "\n---------------------\n";
 
 	/** @var $decoded boolean Have we decoded the data yet */
 	private $decoded = false;
@@ -20,8 +26,8 @@ class CollaborationListContent extends JsonContent {
 	protected $description;
 	/** @var $options StdClass Options for page */
 	protected $options;
-	/** @var $items Array List of items */
-	protected $items;
+	/** @var $items Array List of columns */
+	protected $columns;
 	/** @var $displaymode String The variety of list */
 	protected $displaymode;
 
@@ -43,8 +49,9 @@ class CollaborationListContent extends JsonContent {
 			return false;
 		}
 		$data = $status->value;
-		// TODO: The schema should be checking for required fields but for some reason that doesn't work
-		if ( !isset( $data->description ) || !isset( $data->items ) || !isset( $data->options ) ) {
+		// FIXME: The schema should be checking for required fields but for some reason that doesn't work
+		// This may be an issue with EventLogging
+		if ( !isset( $data->description ) || !isset( $data->columns ) || !isset( $data->options ) || !isset( $data->displaymode ) ) {
 			return false;
 		}
 		$jsonAsArray = json_decode( json_encode( $data ), true );
@@ -60,15 +67,24 @@ class CollaborationListContent extends JsonContent {
 	private static function validateOption( $name, &$value ) {
 		$listSchema = include __DIR__ . '/CollaborationListContentSchema.php';
 
+		// Special handling for DISPLAYMODE
+		if ( $name == 'DISPLAYMODE' ) {
+			if ( $value == 'members' || $value == 'normal' || $value == 'error' ) {
+				return true;
+			}
+			return false;
+		}
+
 		// Force intrepretation as boolean for certain options
-		if ( $name == "ismemberlist" || $name == "includedesc" ) {
+		if ( $name == "includedesc" ) {
 			$value = (bool)$value;
 		}
 
 		// Set up a dummy CollaborationListContent array featuring the options being validated
 		$toValidate = [
+			'displaymode' => 'normal',
 			'description' => '',
-			'items' => [],
+			'columns' => [],
 			'options' => [ $name => $value ]
 		];
 		return EventLogging::schemaValidate( $toValidate, $listSchema );
@@ -125,15 +141,13 @@ class CollaborationListContent extends JsonContent {
 				$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
 			}
 		} else {
-			$this->displaymode = 'normal'; // For now, while this field is still optional
+			$this->displaymode = $data->displaymode;
 			$this->description = $data->description;
 			$this->options = $data->options;
-			$this->items = $data->items;
+			$this->columns = $data->columns;
 		}
 		$this->decoded = true;
 	}
-
-	// Some placeholder getters; add the rest if there's ever any reason to
 
 	/**
 	 * @return string
@@ -166,13 +180,18 @@ class CollaborationListContent extends JsonContent {
 			+ $this->getDefaultOptions();
 		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
-		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $listOptions['ismemberlist'] );
+		if ( $this->displaymode == 'members' ) {
+			$isMemberList = true;
+		} else {
+			$isMemberList = false;
+		}
+		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $isMemberList );
 	}
 
 	private function getOverrideOptions() {
 		$this->decode();
 		$opts = (array)$this->options;
-		return [ 'ismemberlist' => !empty( $opts['ismemberlist'] ) ];
+		return [];
 	}
 
 	private function getFullRenderListOptions() {
@@ -210,113 +229,131 @@ class CollaborationListContent extends JsonContent {
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
 		}
-		if ( count( $this->items ) === 0 ) {
-			$text .= "{{mediawiki:collaborationkit-list-isempty}}\n";
+		if ( count( $this->columns ) === 0 ) {
+			$text .= "\n{{mediawiki:collaborationkit-list-isempty}}\n";
 			return $text;
 		}
-		$curItem = 0;
+
+		$listclass = count( $this->columns ) > 1 ? 'mw-collabkit-multilist' : 'mw-collabkit-singlelist';
+		$text .= '<div class="mw-collabkit-list ' . $listclass . '">' . "\n";
 		$offset = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
-
-		$sortedItems = $this->items;
-		$this->sortList( $sortedItems, $options['defaultSort'] );
-		$text .= '<div class="mw-collabkit-list">' . "\n";
-
-		foreach ( $sortedItems as $item ) {
-			if ( $offset !== 0 ) {
-				$offset--;
-				continue;
+		foreach ( $this->columns as $column ) {
+			$text .= '<div class="mw-collabkit-column">' . "\n";
+			if ( isset( $column->label ) && $column->label !== '' ) {
+				$text .= "=== {$column->label} ===\n";
 			}
-			$curItem++;
-			if ( $maxItems !== false && $maxItems < $curItem ) {
-				break;
+			if ( isset( $column->notes ) && $column->notes !== '' ) {
+				$text .= "\n{$column->notes}\n\n";
 			}
 
-			$itemTags = isset( $item->tags ) ? $item->tags : [];
-			if ( !$this->matchesTag( $options['tags'], $itemTags ) ) {
+			if ( count( $column->items ) === 0 ) {
+				$text .= "\n{{mediawiki:collaborationkit-list-emptycolumn}}\n";
 				continue;
 			}
 
-			$titleForItem = null;
-			if ( !isset( $item->link ) ) {
-				$titleForItem = Title::newFromText( $item->title );
-			} elseif ( $item->link !== false ) {
-				$titleForItem = Title::newFromText( $item->link );
-			}
-			$text .= Html::openElement( 'div', [
-				"class" => "mw-collabkit-list-item",
-				"data-collabkit-item-title" => $item->title
-			] );
-			if ( $options['mode'] !== 'no-img' ) {
-				$image = null;
-				if ( !isset( $item->image ) && $titleForItem ) {
-					if ( class_exists( 'PageImages' ) ) {
-						$image = PageImages::getPageImage( $titleForItem );
-					}
-				} elseif ( isset( $item->image ) && is_string( $item->image ) ) {
-					$imageTitle = Title::newFromText( $item->image, NS_FILE );
-					if ( $imageTitle ) {
-						$image = wfFindFile( $imageTitle );
-					}
+			$curItem = 0;
+
+			$sortedItems = $column->items;
+			$this->sortList( $sortedItems, $options['defaultSort'] );
+
+			foreach ( $sortedItems as $item ) {
+				if ( $offset !== 0 ) {
+					$offset--;
+					continue;
+				}
+				$curItem++;
+				if ( $maxItems !== false && $maxItems < $curItem ) {
+					break;
 				}
 
-				$text .= '<div class="mw-collabkit-list-img">';
-				if ( $image ) {
-					// Important: If you change the width of the image
-					// you also need to change it in the stylesheet.
-					$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
-				} else {
-					if ( $options['ismemberlist'] ) {
-						$placeholderIcon = 'mw-ckicon-user-grey2';
+				$itemTags = isset( $item->tags ) ? $item->tags : [];
+				if ( !$this->matchesTag( $options['tags'], $itemTags ) ) {
+					continue;
+				}
+
+				$titleForItem = null;
+				if ( !isset( $item->link ) ) {
+					$titleForItem = Title::newFromText( $item->title );
+				} elseif ( $item->link !== false ) {
+					$titleForItem = Title::newFromText( $item->link );
+				}
+				$text .= Html::openElement( 'div', [
+					"class" => "mw-collabkit-list-item",
+					"data-collabkit-item-title" => $item->title
+				] );
+				if ( $options['mode'] !== 'no-img' ) {
+					$image = null;
+					if ( !isset( $item->image ) && $titleForItem ) {
+						if ( class_exists( 'PageImages' ) ) {
+							$image = PageImages::getPageImage( $titleForItem );
+						}
+					} elseif ( isset( $item->image ) && is_string( $item->image ) ) {
+						$imageTitle = Title::newFromText( $item->image, NS_FILE );
+						if ( $imageTitle ) {
+							$image = wfFindFile( $imageTitle );
+						}
+					}
+
+					$text .= '<div class="mw-collabkit-list-img">';
+					if ( $image ) {
+						// Important: If you change the width of the image
+						// you also need to change it in the stylesheet.
+						$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 					} else {
-						$placeholderIcon = 'mw-ckicon-page-grey2';
+						if ( $this->displaymode == 'members' ) {
+							$placeholderIcon = 'mw-ckicon-user-grey2';
+						} else {
+							$placeholderIcon = 'mw-ckicon-page-grey2';
+						}
+						$text .= Html::element( 'div', [
+							"class" => [
+								'mw-collabkit-list-noimageplaceholder',
+								$placeholderIcon
+							]
+						] );
 					}
-					$text .= Html::element( 'div', [
-						"class" => [
-							'mw-collabkit-list-noimageplaceholder',
-							$placeholderIcon
-						]
-					] );
+					$text .= '</div>';
 				}
-				$text .= '</div>';
-			}
 
-			$text .= '<div class="mw-collabkit-list-container">';
-			// Question: Arguably it would be more semantically correct to use
-			// an <Hn> element for this. Would that be better? Unclear.
-			$text .= '<div class="mw-collabkit-list-title">';
-			if ( $titleForItem ) {
-				if ( $options['ismemberlist']
-					&& !isset( $item->link )
-					&& $titleForItem->inNamespace( NS_USER )
-				) {
-					$titleText = $titleForItem->getText();
+				$text .= '<div class="mw-collabkit-list-container">';
+				// Question: Arguably it would be more semantically correct to use
+				// an <Hn> element for this. Would that be better? Unclear.
+				$text .= '<div class="mw-collabkit-list-title">';
+				if ( $titleForItem ) {
+					if ( $this->displaymode == 'members'
+						&& !isset( $item->link )
+						&& $titleForItem->inNamespace( NS_USER )
+					) {
+						$titleText = $titleForItem->getText();
+					} else {
+						$titleText = $item->title;
+					}
+					$text .= "[[:" . $titleForItem->getPrefixedDBkey() . "|"
+						. wfEscapeWikiText( $titleText ) . "]]";
 				} else {
-					$titleText = $item->title;
+					$text .=  wfEscapeWikiText( $item->title );
 				}
-				$text .= "[[:" . $titleForItem->getPrefixedDBkey() . "|"
-					. wfEscapeWikiText( $titleText ) . "]]";
-			} else {
-				$text .=  wfEscapeWikiText( $item->title );
-			}
-			$text .= "</div>\n";
-			$text .= '<div class="mw-collabkit-list-notes">' . "\n";
-			if ( isset( $item->notes ) && is_string( $item->notes ) ) {
-				$text .= $item->notes . "\n";
-			}
+				$text .= "</div>\n";
+				$text .= '<div class="mw-collabkit-list-notes">' . "\n";
+				if ( isset( $item->notes ) && is_string( $item->notes ) ) {
+					$text .= $item->notes . "\n";
+				}
 
-			if ( isset( $item->tags ) && is_array( $item->tags ) && count( $item->tags ) ) {
-				$text .= "\n<div class='toccolours mw-collabkit-list-tags'>" .
-					wfMessage( 'collaborationkit-list-taglist' )
-						->inLanguage( $lang )
-						->params(
-							$lang->commaList(
-								array_map( 'wfEscapeWikiText', $item->tags )
-							)
-						)->numParams( count( $item->tags ) )
-						->text() .
-					"</div>\n";
+				if ( isset( $item->tags ) && is_array( $item->tags ) && count( $item->tags ) ) {
+					$text .= "\n<div class='toccolours mw-collabkit-list-tags'>" .
+						wfMessage( 'collaborationkit-list-taglist' )
+							->inLanguage( $lang )
+							->params(
+								$lang->commaList(
+									array_map( 'wfEscapeWikiText', $item->tags )
+								)
+							)->numParams( count( $item->tags ) )
+							->text() .
+						"</div>\n";
+				}
+				$text .= '</div></div></div>' . "\n";
 			}
-			$text .= '</div></div></div>' . "\n";
+			$text .= "\n</div>";
 		}
 		$text .= "\n</div>";
 		return $text;
@@ -346,8 +383,7 @@ class CollaborationListContent extends JsonContent {
 			'defaultSort' => 'random',
 			'offset' => 0,
 			'tags' => [],
-			'mode' => 'normal',
-			'ismemberlist' => false
+			'mode' => 'normal'
 		];
 	}
 
@@ -455,54 +491,69 @@ class CollaborationListContent extends JsonContent {
 		$this->decode();
 		$ret = '';
 		foreach ( $this->options as $opt => $value ) {
-			if ( $opt == "memberoptions" ) { // this is an object which messes with the parsing
-				continue;  // FIXME add special handling
-			}
 			$ret .= $opt . '=' . $value . "\n";
 		}
+		// This might be a bad idea, but displaymode (not considered
+		// an "option" but a separate attribute) is going to piggy-
+		// back off of this method. Allcaps is to signify its specialness.
+		$ret .= 'DISPLAYMODE=' . $this->displaymode . "\n";
 		return $ret;
 	}
 
 	/**
 	 * Get the list of items in human editable form.
 	 *
-	 * @todo Should this be i18n-ized?
+	 * @todo i18n-ize
 	 */
 	public function getHumanEditableList() {
 		$this->decode();
 
 		$out = '';
-		foreach ( $this->items as $item ) {
-			$out .= $this->escapeForHumanEditable( $item->title );
-			if ( isset ( $item->notes ) ) {
-				$out .= "|" . $this->escapeForHumanEditable( $item->notes );
+		foreach ( $this->columns as $column ) {
+			// Use two to separate columns
+			$out .= self::HUMAN_COLUMN_SPLIT;
+			if ( isset( $column->label ) ) {
+				$out .= $this->escapeForHumanEditable( $column->label );
 			} else {
-				$out .= "|";
+				$out .= 'column';
 			}
-			if ( isset( $item->link ) ) {
-				if ( $item->link === false ) {
-					$out .= "|nolink";
+			if ( isset( $column->notes ) ) {
+				$out .= "|notes=" . $this->escapeForHumanEditable( $column->notes );
+			}
+			$out .= self::HUMAN_COLUMN_SPLIT2;
+
+			foreach ( $column->items as $item ) {
+				$out .= $this->escapeForHumanEditable( $item->title );
+				if ( isset ( $item->notes ) ) {
+					$out .= "|" . $this->escapeForHumanEditable( $item->notes );
 				} else {
-					$out .= "|link=" . $this->escapeForHumanEditable( $item->link );
+					$out .= "|";
 				}
-			}
-			if ( isset( $item->image ) ) {
-				if ( $item->image === false ) {
-					$out .= "|noimage";
-				} else {
-					$out .= "|image=" . $this->escapeForHumanEditable( $item->image );
+				if ( isset( $item->link ) ) {
+					if ( $item->link === false ) {
+						$out .= "|nolink";
+					} else {
+						$out .= "|link=" . $this->escapeForHumanEditable( $item->link );
+					}
 				}
-			}
-			if ( isset( $item->tags ) ) {
-				foreach ( (array)$item->tags as $tag ) {
-					$out .= "|tag=" . $this->escapeForHumanEditable( $tag );
+				if ( isset( $item->image ) ) {
+					if ( $item->image === false ) {
+						$out .= "|noimage";
+					} else {
+						$out .= "|image=" . $this->escapeForHumanEditable( $item->image );
+					}
 				}
+				if ( isset( $item->tags ) ) {
+					foreach ( (array)$item->tags as $tag ) {
+						$out .= "|tag=" . $this->escapeForHumanEditable( $tag );
+					}
+				}
+				if ( substr( $out, -1 ) === '|' ) {
+					$out = substr( $out, 0, strlen( $out ) - 1 );
+				}
+				// Not doing sortkey as that's not really implemented.
+				$out .= "\n";
 			}
-			if ( substr( $out, -1 ) === '|' ) {
-				$out = substr( $out, 0, strlen( $out ) - 1 );
-			}
-			// Not doing sortkey as that's not really implemented.
-			$out .= "\n";
 		}
 		return $out;
 	}
@@ -555,9 +606,6 @@ class CollaborationListContent extends JsonContent {
 			if ( self::validateOption( $name, $value ) ) {
 				$finalList[$name] = $value;
 			}
-			if ( in_array( 'ismemberlist', $finalList ) ) {
-				$finalList['memberoptions'] = (object)[];  // dumb hack
-			}
 		}
 		return (object)$finalList;
 	}
@@ -569,7 +617,7 @@ class CollaborationListContent extends JsonContent {
 	 * @return Array Result of converting it to native form
 	 */
 	public static function convertFromHumanEditable( $text ) {
-		$res = [ 'items' => [] ];
+		$res = [ 'columns' => [] ];
 
 		$split2 = strrpos( $text, self::HUMAN_DESC_SPLIT );
 		if ( $split2 === false ) {
@@ -586,13 +634,80 @@ class CollaborationListContent extends JsonContent {
 		$optionString = substr( $text, $split1 + $dividerLength, $optionLength );
 		$res['options'] = self::parseHumanOptions( $optionString );
 
-		$res['description'] = substr( $text, 0, $split1 );
-		$list = substr( $text, $split2 + $dividerLength );
-		$listLines = explode( "\n", $list );
-		foreach ( $listLines as $line ) {
-			$res['items'][] = self::convertFromHumanEditableItemLine( $line );
+		if ( isset ( $res['options']->DISPLAYMODE ) ) {
+			$res[ 'displaymode' ] = $res['options']->DISPLAYMODE;
+			unset( $res['options']->DISPLAYMODE );
+		} else {
+			throw new MWContentSerializationException( "Missing list displaymode" );
 		}
+
+		$res['description'] = substr( $text, 0, $split1 );
+		$columnText = substr( $text, $split2 + $dividerLength );
+
+		// Put \n back on beginning so it still explodes properly after general trim
+		$columnText = "\n" . $columnText;
+		$columns = explode( self::HUMAN_COLUMN_SPLIT, $columnText );
+		foreach ( $columns as $column ) {
+			// Skip empty lines
+			if ( trim( $column ) !== '' ) {
+				$res['columns'][] = self::convertFromHumanEditableColumn( $column );
+			}
+		}
+
 		return $res;
+	}
+
+	private static function convertFromHumanEditableColumn( $column ) {
+		$columnItem = [ 'items' => [] ];
+
+		$columnContent = explode( self::HUMAN_COLUMN_SPLIT2, $column );
+		if ( count( $columnContent ) == 1 ) {
+			return $columnItem;
+		}
+
+		$parts = explode( "|", $columnContent[0] );
+
+		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
+
+		if ( $parts[0] != 'column' ) {
+			$columnItem[ 'label' ] = $parts[0];
+		}
+
+		$parts = array_slice( $parts, 1 );
+
+		if ( count( $parts ) > 0 ) {
+			foreach ( $parts as $part ) {
+				if ( $part == 'column' ) {
+					continue;
+				}
+				list( $key, $value ) = explode( '=', $part );
+
+				switch ( $key ) {
+				case 'notes':
+					$columnItem[$key] = $value;
+					break;
+				default:
+					$context = wfEscapeWikiText( substr( $part, 30 ) );
+					if ( strlen( $context ) === 30 ) {
+						$context .= '...';
+					}
+					throw new MWContentSerializationException(
+						"Unrecognized option for column:" .
+						wfEscapeWikiText( $key )
+					);
+				}
+			}
+		}
+
+		$listLines = explode( "\n", $columnContent[1] );
+		foreach ( $listLines as $line ) {
+			// Skip empty lines
+			if ( trim( $line ) !== '' ) {
+				$columnItem['items'][] = self::convertFromHumanEditableItemLine( $line );
+			}
+		}
+
+		return $columnItem;
 	}
 
 	private static function convertFromHumanEditableItemLine( $line ) {
@@ -759,7 +874,10 @@ class CollaborationListContent extends JsonContent {
 			&& $title->userCan( 'edit', $user, 'quick' )
 		) {
 			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
+			/*
+			Disabling until JavaScript module is updated.
 			$output->addModules( 'ext.CollaborationKit.list.edit' );
+			*/
 			$output->preventClickjacking();
 		}
 	}

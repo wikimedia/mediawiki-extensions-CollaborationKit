@@ -1,6 +1,6 @@
 {
 	"name": "CollaborationKit",
-	"version": "0.1",
+	"version": "0.2",
 	"author": [ "Kim Schoonover", "Brian Wolff", "James Hare" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:CollaborationKit",
 	"descriptionmsg": "collaborationkit-desc",

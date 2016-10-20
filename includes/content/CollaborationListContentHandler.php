@@ -62,7 +62,10 @@ class CollaborationListContentHandler extends TextContentHandler {
 	public function makeEmptyContent() {
 		$empty = <<<JSON
 			{
-				"items": [],
+				"displaymode": "normal",
+				"columns": [
+					{ "items": [] }
+				],
 				"options": {},
 				"description": ""
 			}
@@ -77,14 +80,13 @@ JSON;
 	public static function makeMemberList( $username, $initialDescription ) {
 		$linkToUserpage = Title::makeTitleSafe( NS_USER, $username )->getPrefixedText();
 		$newMemberList = [
-			"items" => [
-				[
+			"displaymode" => "members",
+			"columns" => [ [
+				"items" => [ [
 					"title" => $linkToUserpage
-				]
-			],
+				] ]
+			] ],
 			"options" => [
-				"ismemberlist" => true,
-				"memberoptions" => (object)[],
 				"mode" => "normal"
 			],
 			"description" => "$initialDescription"

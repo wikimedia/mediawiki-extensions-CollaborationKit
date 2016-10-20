@@ -188,7 +188,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 
 		$initialContent = ''; // Create empty page by default; exception is if there needs to be something such as JSON.
 		if ( $contentModel == 'CollaborationListContent' ) {
-			$initialContent = '{"items":[],"options":{},"description":""}';
+			// FIXME why are we redefining this here? Can't we reuse something from collaborationlistcontenthandler, which already has default content?
+			$initialContent = '{ "columns": [ { "items":[], "options":{}, "description":"" } ] }';
 		}
 
 		$summary = $this->msg( 'collaborationkit-createhubfeature-editsummary' )->plain();
