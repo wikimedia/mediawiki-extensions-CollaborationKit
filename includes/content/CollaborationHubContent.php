@@ -3,26 +3,12 @@
 /**
  * Structured hub pages!
  *
- * Json structure is as follows:
- * {
- * 	"display_name": "Display name for the page/project",
- *	"image": "A file on-wiki or an id that matches one of the canned icons",
- *	"colour": "One of the 23 preset theme colours",
- *	"introduction": "Some arbitrary wikitext to appear at the top",
- *	"content": [
- *		{
- *			"title": "The title, generally a subpage; we'll force this later",
- *			"image": "Image or icon to use",
- *			"display_title": "What to show on the page (defaults to {{SUBPAGENAME}} otherwise)",
- *			...
- *		},
- *		...
- *	],
- *	"footer": "Some more arbitrary wikitext to appear at the bottom"
- * }
+ * Json structure is defined in CollaborationHubContentSchema.php.
  *
  */
 class CollaborationHubContent extends JsonContent {
+
+	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
 
 	/** @var string */
 	protected $displayName;
@@ -473,7 +459,7 @@ class CollaborationHubContent extends JsonContent {
 		$html = '';
 
 		foreach ( $this->getContent() as $item ) {
-			if ( !isset( $item['title'] ) ) {
+			if ( !isset( $item['title'] ) || $item['title'] == '' ) {
 				continue;
 			}
 			$spTitle = Title::newFromText( $item['title'] );
@@ -736,5 +722,184 @@ class CollaborationHubContent extends JsonContent {
 
 		// Nothing was found
 		return null;
+	}
+
+	/**
+	 * Converts content between wikitext and JSON.
+	 *
+	 * @param $toModel string
+	 * @param $lossy string
+	 */
+	public function convert( $toModel, $lossy = '' ) {
+		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
+			global $wgContLang;
+			// using wgContLang is kind of icky. Maybe we should transclude
+			// from mediawiki namespace, or give up on not splitting the
+			// parser cache and just use {{int:... (?)
+			$renderOpts = $this->getFullRenderListOptions();
+			$text = $this->convertToWikitext( $wgContLang, $renderOpts );
+			return ContentHandler::makeContent( $text, null, $toModel );
+		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
+			return ContentHandler::makeContent( $this->getNativeData(), null, $toModel );
+		}
+		return parent::convert( $toModel, $lossy );
+	}
+
+	/**
+	 * Convert JSON to markup that's easier for humans.
+	 */
+	public function convertToHumanEditable() {
+		$this->decode();
+
+		$output = $this->displayName;
+		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->introduction;
+		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->footer;
+		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->image;
+		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->themeColour;
+		$output .= self::HUMAN_DESC_SPLIT;
+		$output .= $this->getHumanEditableContent();
+		return $output;
+	}
+
+	/**
+	 * Get the list of items in human editable form.
+	 *
+	 * @todo Should this be i18n-ized?
+	 */
+	public function getHumanEditableContent() {
+		$this->decode();
+
+		$out = '';
+		foreach ( $this->content as $item ) {
+			$out .= $this->escapeForHumanEditable( $item['title'] );
+			if ( isset ( $item['image'] ) ) {
+				$out .= "|image=" . $this->escapeForHumanEditable( $item['image'] );
+			}
+			if ( isset( $item['displayTitle'] ) ) {
+				$out .= "|display_title=" . $this->escapeForHumanEditable( $item['displayTitle'] );
+			}
+			if ( substr( $out, -1 ) === '|' ) {
+				$out = substr( $out, 0, strlen( $out ) - 1 );
+			}
+			$out .= "\n";
+		}
+		return $out;
+	}
+
+	/**
+	 * Escape characters used as separators in human editable mode.
+	 *
+	 * @todo Unclear if this is best approach. Alternative might be
+	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
+	 */
+	private function escapeForHumanEditable( $text ) {
+		if ( strpos( $text, '{{!}}' ) !== false ) {
+			// Maybe we should use \| too, but that's not MW like.
+			throw new MWContentSerializationException( "{{!}} in content" );
+		}
+		if ( strpos( $text, "\\\n" ) !== false ) {
+			// @todo We don't currently handle this properly.
+			throw new MWContentSerializationException( "Line ending with a \\" );
+		}
+		$text = strtr( $text, [
+			"\n" => '\n',
+			'\n'=> '\\\\n',
+			'|' => '{{!}}'
+		] );
+		return $text;
+	}
+
+	/**
+	 * Removes escape characters inserted in human editable mode.
+	 *
+	 * @param $text string
+	 * @return string
+	 */
+	private static function unescapeForHumanEditable( $text ) {
+		$text = strtr( $text, [
+			'\\\\n'=> "\\n",
+			'\n' => "\n",
+			'{{!}}' => '|'
+		] );
+		return $text;
+	}
+
+	/**
+	 * Convert from human editable form into a (php) array
+	 *
+	 * @param $text String text to convert
+	 * @return Array Result of converting it to native form
+	 */
+	public static function convertFromHumanEditable( $text ) {
+		$res = [];
+		$split = explode( self::HUMAN_DESC_SPLIT, $text );
+
+		$res['display_name'] = $split[0];
+		$res['introduction'] = $split[1];
+		$res['footer'] = $split[2];
+		$res['image'] = $split[3];
+		$res['colour'] = $split[4];
+		$content = $split[5];
+		if ( trim( $content ) == '' ) {
+			$res['content'] = [];
+		} else {
+			$listLines = explode( "\n", $content );
+			foreach ( $listLines as $line ) {
+				$res['content'][] = self::convertFromHumanEditableItemLine( $line );
+			}
+		}
+		return $res;
+	}
+
+	/**
+	 * Helper function that converts individual lines from convertFromHumanEditable.
+	 *
+	 * @param $line string
+	 * @return array
+	 */
+	private static function convertFromHumanEditableItemLine( $line ) {
+		$parts = explode( "|", $line );
+		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
+		$itemRes = [ 'title' => $parts[0] ];
+		if ( count( $parts ) > 1 ) {
+			$parts = array_slice( $parts, 1 );
+			foreach ( $parts as $part ) {
+				list( $key, $value ) = explode( '=', $part );
+				switch ( $key ) {
+				case 'image':
+				case 'display_title':
+					$itemRes[$key] = $value;
+					break;
+				default:
+					$context = wfEscapeWikiText( substr( $part, 30 ) );
+					if ( strlen( $context ) === 30 ) {
+						$context .= '...';
+					}
+					throw new MWContentSerializationException(
+						"Unrecognized option for list item:" .
+						wfEscapeWikiText( $key )
+					);
+				}
+			}
+		}
+		return $itemRes;
+	}
+
+	/**
+	 * Hook to use custom edit page for lists
+	 *
+	 * @param $page Page
+	 * @param $user User
+	 */
+	public static function onCustomEditor( Page $page, User $user ) {
+		if ( $page->getContentModel() === __CLASS__ ) {
+			$editor = new CollaborationHubContentEditor( $page );
+			$editor->edit();
+			return false;
+		}
 	}
 }

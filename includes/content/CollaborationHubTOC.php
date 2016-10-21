@@ -48,8 +48,10 @@ class CollaborationHubTOC {
 		$html .= Html::openElement( 'ul' );
 
 		foreach ( $content as $item ) {
+			if ( $item['title'] == '' ) {
+				continue;
+			}
 			$title = Title::newFromText( $item['title'] );
-
 			if ( isset( $item['display_title'] ) ) {
 				$displayTitle = $item['display_title'];
 			} else {
