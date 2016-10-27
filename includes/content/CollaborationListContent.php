@@ -833,6 +833,44 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * Filter users into active and inactive.
+	 *
+	 * @param $userList Array of titles
+	 * @return Array [ 'active' => [..], 'inactive' => '[..]' ]
+	 */
+	public function filterActiveUsers( $userList ) {
+		$users = [];
+		foreach ( $userList as $user ) {
+			$users[] = $user->getDBKey();
+		}
+
+		$dbr = wfGetDB( DB_REPLICA );
+		$res = $dbr->select(
+			'querycachetwo',
+			'qcc_title',
+			[
+				'qcc_namespace' => NS_USER,
+				// TODO: Perhaps should use batching.
+				'qcc_title' => $users,
+				'qcc_type' => 'activeusers'
+			]
+		);
+
+		$active = [];
+		$inactive = [];
+		$usersFlipped = array_flip( $users );
+		foreach ( $res as $row ) {
+			$active[] = Title::makeTitle( NS_USER, $row->qcc_title );
+			unset( $usersFlipped[$row->qcc_title] );
+		}
+		$remainingUsers = array_keys( $usersFlipped );
+		foreach ( $remainingUsers as $user ) {
+			$inactive[] = Title::makeTitleSafe( NS_USER, $user );
+		}
+		return [ 'active' => $active, 'inactive' => $inactive ];
+	}
+
+	/**
 	 * Hack to allow styles to be loaded from plain transclusion.
 	 *
 	 * We don't have access to a parser object in getWikitextForTransclusion().
