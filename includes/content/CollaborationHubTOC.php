@@ -103,7 +103,10 @@ class CollaborationHubTOC {
 		);
 
 		// hubpage
-		$link = $this->renderItem( $title, $content->getDisplayName(), $image, 16 );
+
+		$name = $content->getDisplayName() == '' ? $title->getText() : $content->getDisplayName();
+		$link = $this->renderItem( $title, $name, $image, 16 );
+
 		$html .= Html::rawElement(
 			'div',
 			[ 'class' => 'mw-ck-toc-subpage-hub' ],
