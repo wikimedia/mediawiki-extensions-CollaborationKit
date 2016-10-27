@@ -49,26 +49,26 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		$fields = [
 			'collaborationhub' => [
 				'type' => 'title',
-				'cssclass' => 'mw-ck-titleinput',
+				'cssclass' => 'mw-ck-title-input',
 				'label-message' => 'collaborationkit-createhubfeature-collaborationhub',
 				'default' => $defaultCollabHub
 			],
 			'featurename' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-displayinput',
+				'cssclass' => 'mw-ck-display-input',
 				'label-message' => 'collaborationkit-createhubfeature-featurename',
 				'default' => $defaultFeatureName
 			],
 			// TODO replace with icon selector
 			'icon' => [
 				'type' => 'combobox',
-				'cssclass' => 'mw-ck-iconinput',
+				'cssclass' => 'mw-ck-icon-input',
 				'label-message' => 'collaborationkit-createhubfeature-icon',
 				'options' => $iconChoices
 			],
 			'contenttype' => [
 				'type' => 'radio',
-				'cssclass' => 'mw-ck-contenttypeinput',
+				'cssclass' => 'mw-ck-content-type-input',
 				'label-message' => 'collaborationkit-createhubfeature-contenttype',
 				'options' => [ $this->msg( 'collaborationkit-createhubfeature-freetext' )->text() => 'wikitext',
 					$this->msg( 'collaborationkit-createhubfeature-articlelist' )->text() => 'CollaborationListContent' ]

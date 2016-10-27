@@ -234,11 +234,11 @@ class CollaborationListContent extends JsonContent {
 			return $text;
 		}
 
-		$listclass = count( $this->columns ) > 1 ? 'mw-collabkit-multilist' : 'mw-collabkit-singlelist';
-		$text .= '<div class="mw-collabkit-list ' . $listclass . '">' . "\n";
+		$listclass = count( $this->columns ) > 1 ? 'mw-ck-multilist' : 'mw-ck-singlelist';
+		$text .= '<div class="mw-ck-list ' . $listclass . '">' . "\n";
 		$offset = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
 		foreach ( $this->columns as $column ) {
-			$text .= '<div class="mw-collabkit-column">' . "\n";
+			$text .= '<div class="mw-ck-list-column">' . "\n";
 			if ( isset( $column->label ) && $column->label !== '' ) {
 				$text .= "=== {$column->label} ===\n";
 			}
@@ -278,7 +278,7 @@ class CollaborationListContent extends JsonContent {
 					$titleForItem = Title::newFromText( $item->link );
 				}
 				$text .= Html::openElement( 'div', [
-					"class" => "mw-collabkit-list-item",
+					"class" => "mw-ck-list-item",
 					"data-collabkit-item-title" => $item->title
 				] );
 				if ( $options['mode'] !== 'no-img' ) {
@@ -294,20 +294,20 @@ class CollaborationListContent extends JsonContent {
 						}
 					}
 
-					$text .= '<div class="mw-collabkit-list-img">';
+					$text .= '<div class="mw-ck-list-image">';
 					if ( $image ) {
 						// Important: If you change the width of the image
 						// you also need to change it in the stylesheet.
 						$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 					} else {
 						if ( $this->displaymode == 'members' ) {
-							$placeholderIcon = 'mw-ckicon-user-grey2';
+							$placeholderIcon = 'mw-ck-icon-user-grey2';
 						} else {
-							$placeholderIcon = 'mw-ckicon-page-grey2';
+							$placeholderIcon = 'mw-ck-icon-page-grey2';
 						}
 						$text .= Html::element( 'div', [
 							"class" => [
-								'mw-collabkit-list-noimageplaceholder',
+								'mw-ck-list-noimageplaceholder',
 								$placeholderIcon
 							]
 						] );
@@ -315,10 +315,10 @@ class CollaborationListContent extends JsonContent {
 					$text .= '</div>';
 				}
 
-				$text .= '<div class="mw-collabkit-list-container">';
+				$text .= '<div class="mw-ck-list-container">';
 				// Question: Arguably it would be more semantically correct to use
 				// an <Hn> element for this. Would that be better? Unclear.
-				$text .= '<div class="mw-collabkit-list-title">';
+				$text .= '<div class="mw-ck-list-title">';
 				if ( $titleForItem ) {
 					if ( $this->displaymode == 'members'
 						&& !isset( $item->link )
@@ -334,13 +334,13 @@ class CollaborationListContent extends JsonContent {
 					$text .=  wfEscapeWikiText( $item->title );
 				}
 				$text .= "</div>\n";
-				$text .= '<div class="mw-collabkit-list-notes">' . "\n";
+				$text .= '<div class="mw-ck-list-notes">' . "\n";
 				if ( isset( $item->notes ) && is_string( $item->notes ) ) {
 					$text .= $item->notes . "\n";
 				}
 
 				if ( isset( $item->tags ) && is_array( $item->tags ) && count( $item->tags ) ) {
-					$text .= "\n<div class='toccolours mw-collabkit-list-tags'>" .
+					$text .= "\n<div class='toccolours mw-ck-list-tags'>" .
 						wfMessage( 'collaborationkit-list-taglist' )
 							->inLanguage( $lang )
 							->params(

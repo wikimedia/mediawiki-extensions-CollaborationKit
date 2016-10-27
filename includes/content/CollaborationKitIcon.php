@@ -37,7 +37,7 @@ class CollaborationKitIcon {
 	 * @param $fallback string what to do for no icon; allowed values are 'random', 'none', or a valid icon id
 	 * @return string html
 	 */
-	public static function makeIcon( $icon, $size = 50, $colour = 'black', $background = 'transparent' ) {
+	public static function makeIcon( $icon, $size = 50, $colour, $background = 'transparent' ) {
 		$iconsPreset = CollaborationKitIcon::getCannedIcons();
 
 		if ( in_array( $icon, $iconsPreset ) ) {
@@ -48,7 +48,7 @@ class CollaborationKitIcon {
 			$iconClass = $iconsPreset[ hexdec( sha1( $icon )[0] ) % 27];
 		}
 
-		if ( $colour == 'black' ) {
+		if ( !isset( $colour ) || $colour == 'black' ) {
 			$colorSuffix = '';
 		} else {
 			$colorSuffix = '-' . $colour;
@@ -57,8 +57,8 @@ class CollaborationKitIcon {
 			'div',
 			[
 				'class' => [
-					'mw-ckicon',
-					'mw-ckicon-' . $iconClass .  $colorSuffix
+					'mw-ck-icon',
+					'mw-ck-icon-' . $iconClass .  $colorSuffix
 				],
 				'css' => "height: {$size}px; width: {$size}px; background-color: $background;"
 			]
@@ -77,7 +77,7 @@ class CollaborationKitIcon {
 		return Html::rawElement(
 			'div',
 			[
-				'class' => 'file-image',
+				'class' => 'mw-ck-file-image',
 				'css' => "max-height: {$size}px; background-color: $background;"
 			],
 			wfFindFile( $file )->transform( [ 'width' => $size ] )->toHtml()

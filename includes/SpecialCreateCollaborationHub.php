@@ -33,19 +33,19 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			// autofilled from how they got here, hopefully
 			'title' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-titleinput',
+				'cssclass' => 'mw-ck-title-input',
 				'label-message' => 'collaborationkit-createhub-title',
 			],
 			// Display name can be different from page title
 			'display_name' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-displayinput',
+				'cssclass' => 'mw-ck-display-input',
 				'label-message' => 'collaborationkit-createhub-displayname',
 			],
 			// Hub image/icon thing
 			'icon' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-iconinput',
+				'cssclass' => 'mw-ck-icon-input',
 				'label-message' => 'collaborationkit-createhub-image',
 			],
 		];
@@ -56,7 +56,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		}
 		$fields['colour'] = [
 			'type' => 'select',
-			'cssclass' => 'mw-ck-colourinput',
+			'cssclass' => 'mw-ck-colour-input',
 			'id' => 'wpCollabHubColour',
 			'label-message' => 'collaborationkit-createhub-colour',
 			'options' => $this->getOptions( $colours ),
@@ -73,20 +73,20 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			] ),
 			'default' => 'new', // might want to change default to clone from the default? (TODO add a canned default as example and stuff: T136470)
 			'label-message' => 'collaborationkit-createhub-content',
-			'cssclass' => 'mw-ck-sourceoptionsinput'
+			'cssclass' => 'mw-ck-source-options-input'
 		];
 		$fields['source'] = [
 			'type' => 'text',
 			'label-message' => 'collaborationkit-createhub-source',
 			'hide-if' => [ '===', 'wpcontent_source', 'new' ],
-			'cssclass' => 'mw-ck-sourceinput'
+			'cssclass' => 'mw-ck-source-input'
 		];
 
 		$fields['introduction'] = [
 			'type' => 'textarea',
 			'rows' => 5,
 			'label-message' => 'collaborationkit-createhub-introduction',
-			'cssclass' => 'mw-ck-introductioninput'
+			'cssclass' => 'mw-ck-introduction-input'
 		];
 
 		return $fields;

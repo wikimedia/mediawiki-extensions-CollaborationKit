@@ -29,7 +29,7 @@
 		escapedText = titleObj.getPrefixedText();
 		escapedText = escapedText.replace( /\\/g, '\\\\' );
 		escapedText = escapedText.replace( /"/g, '\\"' );
-		query = '.mw-collabkit-list-item[data-collabkit-item-title="' +
+		query = '.mw-ck-list-item[data-collabkit-item-title="' +
 			escapedText + '"]';
 		return $( query ).length > 0;
 	};
@@ -132,12 +132,12 @@
 	/**
 	 * Helper function to get ordered list of all items in list
 	 *
-	 * @param {jQuery} $elm The list of items - $( '.mw-collabkit-list' )
+	 * @param {jQuery} $elm The list of items - $( '.mw-ck-list' )
 	 * @return {Array}
 	 */
 	getListOfTitles = function ( $elm ) {
 		var list = [];
-		$elm.children( '.mw-collabkit-list-item' ).each( function () {
+		$elm.children( '.mw-ck-list-item' ).each( function () {
 			list[ list.length ] = $( this ).data( 'collabkit-item-title' );
 		} );
 		return list;
@@ -151,7 +151,7 @@
 			size: 'small',
 			type: 'inline'
 		} );
-		$item.find( '.mw-collabkit-list-title' ).append( $spinner );
+		$item.find( '.mw-ck-list-title' ).append( $spinner );
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var i,
@@ -458,13 +458,13 @@
 			return;
 		}
 
-		$list = $( '.mw-collabkit-list' );
+		$list = $( '.mw-ck-list' );
 		if ( $list.length > 1 ) {
-			mw.log( 'Wrong number of mw-collabkit-list??' );
+			mw.log( 'Wrong number of mw-ck-list??' );
 			return;
 		}
 
-		$list.find( '.mw-collabkit-list-item' ).each( function () {
+		$list.find( '.mw-ck-list-item' ).each( function () {
 			var deleteButton,
 				moveButton,
 				editButton,
@@ -499,8 +499,8 @@
 			$delWrapper = $( '<a></a>' )
 				.attr( 'href', '#' )
 				.click( function ( e ) { e.preventDefault(); } )
-				.addClass( 'mw-collabkit-list-deletebutton' )
-				.addClass( 'mw-collabkit-list-button' )
+				.addClass( 'mw-ck-list-deletebutton' )
+				.addClass( 'mw-ck-list-button' )
 				.append( deleteButton.$element )
 				.confirmable( {
 					handler: function () {
@@ -509,39 +509,39 @@
 				} );
 
 			$moveWrapper = $( '<div></div>' )
-				.addClass( 'mw-collabkit-list-movebutton' )
-				.addClass( 'mw-collabkit-list-button' )
+				.addClass( 'mw-ck-list-movebutton' )
+				.addClass( 'mw-ck-list-button' )
 				.append( moveButton.$element );
 
 			$editWrapper = $( '<div></div>' )
-				.addClass( 'mw-collabkit-list-editbutton' )
-				.addClass( 'mw-collabkit-list-button' )
+				.addClass( 'mw-ck-list-editbutton' )
+				.addClass( 'mw-ck-list-button' )
 				.append( editButton.$element );
 
-			$item.find( '.mw-collabkit-list-title' )
+			$item.find( '.mw-ck-list-title' )
 				.append( $delWrapper )
 				.append( $moveWrapper )
 				.append( $editWrapper );
 		} );
 
 		$list.sortable( {
-			placeholder: 'mw-collabkit-list-dragplaceholder',
+			placeholder: 'mw-ck-list-dragplaceholder',
 			axis: 'y',
 			forcePlaceholderSize: true,
-			handle: '.mw-collabkit-list-movebutton',
+			handle: '.mw-ck-list-movebutton',
 			opacity: 0.6,
 			scroll: true,
 			cursor: 'grabbing', // Also overriden in CSS
 			start: function ( e ) {
 				$( e.target )
-					.addClass( 'mw-collabkit-dragging' )
+					.addClass( 'mw-ck-dragging' )
 					.data( 'startTitleList', getListOfTitles( $list ) );
 			},
 			stop: function ( e, ui ) {
 				var oldListTitles, newListTitles, $target, i, changed;
 
 				$target = $( e.target );
-				$target.removeClass( 'mw-collabkit-dragging' );
+				$target.removeClass( 'mw-ck-dragging' );
 				oldListTitles = $target.data( 'startTitleList' );
 				newListTitles = getListOfTitles( $list );
 				$target.data( 'startTitleList', null );
@@ -570,7 +570,7 @@
 			$( '<div></div>' )
 				// FIXME There is probably a way to add the class without
 				// extra div.
-				.addClass( 'mw-collabkit-list-additem' )
+				.addClass( 'mw-ck-list-additem' )
 				.append(
 					new OO.ui.ButtonWidget( {
 						label: mw.msg( buttonMsg ),
@@ -585,7 +585,7 @@
 		) {
 			$list.before(
 				$( '<div></div>' )
-					.addClass( 'mw-collabkit-list-addself' )
+					.addClass( 'mw-ck-list-addself' )
 					.append(
 						new OO.ui.ButtonWidget( {
 							label: mw.msg( 'collaborationkit-list-add-self' ),
