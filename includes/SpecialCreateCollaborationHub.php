@@ -63,6 +63,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'default' => 'blue5'
 		];
 
+		/* Comment this out until it's actually implemented (T135408)
 		// Content source options
 		$fields['content_source'] = [
 			'type' => 'select',
@@ -81,6 +82,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'hide-if' => [ '===', 'wpcontent_source', 'new' ],
 			'cssclass' => 'mw-ck-sourceinput'
 		];
+		*/
 
 		$fields['introduction'] = [
 			'type' => 'textarea',
@@ -124,6 +126,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationhkit-createhub-nopermission' );
 		}
 
+		/* Comment this out until it's actually implemented (T135408)
 		// ACTUAL STUFF HERE
 		if ( $data['content_source'] !== 'new' ) { // Importing from wikitext
 			$source = Title::newFromText( $data['source'] );
@@ -148,6 +151,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 			// ...?
 		}
+		*/
 
 		$title = Title::newFromText( $data['title'] );
 		if ( !$title ) {
