@@ -95,7 +95,9 @@ class CollaborationKitHooks {
 		$title = $out->getTitle();
 		$parentHub = CollaborationHubContent::getParentHub( $title );
 
-		if ( isset( $parentHub ) && !$out->getProperty( 'CollaborationHubSubpage' ) ) {
+		if ( $parentHub
+			&& $out->getProperty( 'CollaborationHubSubpage' ) === 'in-progress'
+		) {
 			$toc = new CollaborationHubTOC();
 			$out->prependHtml( $toc->renderSubpageToC( $parentHub ) );
 
@@ -110,5 +112,45 @@ class CollaborationKitHooks {
 			$out->setProperty( 'CollaborationHubSubpage', true );
 		}
 		return true;
+	}
+
+	/**
+	 * Propogate if we should create a ToC from ParserOutput -> OutputPage.
+	 *
+	 * Its assumed we should create a ToC on the following conditions:
+	 *  * __NOCOLLABORATIONHUBTOC__ is not on page
+	 *  * Somebody added parser metadata to the OutputPage (More likely to be a real page)
+	 *  * The limit report was enabled (More likely to be a real page)
+	 * These conditions are hacky. Ideally we'd come up with a more
+	 * robust way of determining if this is really a wikipage.
+	 *
+	 * Eventually, the TOC will be output by onOutputPageBeforeHTML hook if this
+	 * hook signals it is ok.
+	 *
+	 * @param $out OutputPage
+	 * @param $pout ParserOutput
+	 */
+	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $pout ) {
+		if ( $out->getProperty( 'CollaborationHubSubpage' ) ) {
+			// We've already been here, so we can't abort
+			// outputting the TOC at this stage.
+			wfDebug( __METHOD__ . ' TOC already outputted, possibly incorrectly.' );
+			return;
+		}
+
+		if ( $pout->getProperty( 'nocollaborationhubtoc' ) !== false ) {
+			// TOC disabled, mark as done.
+			$out->setProperty( 'CollaborationHubSubpage', true );
+		} elseif ( $pout->getLimitReportData() ) {
+			$out->setProperty( 'CollaborationHubSubpage', "in-progress" );
+		}
+	}
+	/**
+	 * Register __NOCOLLABORATIONHUBTOC__ as a magic word.
+	 *
+	 * @param &$magickWords Array All double underscore magic ids
+	 */
+	public static function onGetDoubleUnderscoreIDs( array &$magicWords ) {
+		$magicWords[] = 'nocollaborationhubtoc';
 	}
 }

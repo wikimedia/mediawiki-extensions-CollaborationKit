@@ -69,6 +69,12 @@
 		],
 		"OutputPageBeforeHTML": [
 			"CollaborationKitHooks::onOutputPageBeforeHTML"
+		],
+		"GetDoubleUnderscoreIDs": [
+			"CollaborationKitHooks::onGetDoubleUnderscoreIDs"
+		],
+		"OutputPageParserOutput": [
+			"CollaborationKitHooks::onOutputPageParserOutput"
 		]
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",
