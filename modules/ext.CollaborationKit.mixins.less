@@ -1,6 +1,6 @@
 @import "mediawiki.mixins";
 
-.mw-ckicon {
+.mw-ck-icon {
 	content: '';
 	background-size: contain;
 }
@@ -8,22 +8,22 @@
 .chtheme( @colour ) {
 	border-color: @colour;
 
-	.wp-pagelist-section,
-	.wp-toc .toc-label {
+	.mw-ck-hub-section,
+	.mw-ck-hub-toc .mw-ck-toc-label {
 		border-color: @colour;
 	}
 
-	.wp-footer {
+	.mw-ck-hub-footer {
 		border-color: @colour;
 	}
 }
 
 .chsubtheme( @colour ) {
-	.wp-subpage-toc {
+	.mw-ck-subpage-toc {
 		border-color: @colour;
 		color: @colour;
 	}
-	.toc-label {
+	.mw-ck-toc-label {
 		color: darken( @colour, 25% );
 	}
 }

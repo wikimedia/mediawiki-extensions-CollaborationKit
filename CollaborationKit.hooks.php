@@ -97,6 +97,7 @@ class CollaborationKitHooks {
 
 		if ( $parentHub
 			&& $out->getProperty( 'CollaborationHubSubpage' ) === 'in-progress'
+			&& count( Revision::newFromTitle( $parentHub )->getContent()->getContent() ) > 0
 		) {
 			$toc = new CollaborationHubTOC();
 			$out->prependHtml( $toc->renderSubpageToC( $parentHub ) );

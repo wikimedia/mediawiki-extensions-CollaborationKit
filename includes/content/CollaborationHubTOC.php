@@ -38,11 +38,11 @@ class CollaborationHubTOC {
 	 * @param $colour string variable from collaborationhub content
 	 * @return string html
 	 */
-	public function renderToC( $content, $colour ) {
-		$html = Html::openElement( 'div', [ 'class' => 'wp-toc-container' ] );
+	public function renderToC( $content ) {
+		$html = Html::openElement( 'div', [ 'class' => 'mw-ck-toc-container' ] );
 		$html .= Html::rawElement(
 			'div',
-			[ 'class' => 'toc-label' ],
+			[ 'class' => 'mw-ck-toc-label' ],
 			wfMessage( 'collaborationkit-hub-toc-label' )->inContentLanguage()->text()
 		);
 		$html .= Html::openElement( 'ul' );
@@ -60,11 +60,11 @@ class CollaborationHubTOC {
 			$linkTarget = Title::newFromText( '#' . $this->getToCLinkID( $displayTitle ) );
 			$image = isset( $item['image'] ) ? $item['image'] : $displayTitle;
 
-			$link = $this->renderItem( $linkTarget, $displayTitle, $image, $colour, 50 );
+			$link = $this->renderItem( $linkTarget, $displayTitle, $image, 50 );
 
 			$html .= Html::rawElement(
 				'li',
-				[ 'class' => 'wp-toc-item' ],
+				[ 'class' => 'mw-ck-toc-item' ],
 				$link
 			);
 		}
@@ -88,13 +88,13 @@ class CollaborationHubTOC {
 		$colour = $content->getThemeColour();
 		$image = $content->getImage();
 
-		$html = Html::openElement( 'div', [ 'class' => "mw-cktheme-$colour" ] );
-		$html .= Html::openElement( 'div', [ 'class' => "wp-subpage-toc" ] );
+		$html = Html::openElement( 'div', [ 'class' => "mw-ck-theme-$colour" ] );
+		$html .= Html::openElement( 'div', [ 'class' => "mw-ck-subpage-toc" ] );
 
 		// ToC label
 		$html .= Html::rawElement(
 			'div',
-			[ 'class' => 'toc-label' ],
+			[ 'class' => 'mw-ck-toc-label' ],
 			Html::rawElement(
 				'span',
 				[],
@@ -103,15 +103,15 @@ class CollaborationHubTOC {
 		);
 
 		// hubpage
-		$link = $this->renderItem( $title, $content->getDisplayName(), $image, $colour, 16 );
+		$link = $this->renderItem( $title, $content->getDisplayName(), $image, 16 );
 		$html .= Html::rawElement(
 			'div',
-			[ 'class' => 'toc-subpage-hub' ],
+			[ 'class' => 'mw-ck-toc-subpage-hub' ],
 			$link
 		);
 
 		// Contents
-		$html .= Html::openElement( 'ul', [ 'class' => 'toc-contents' ] );
+		$html .= Html::openElement( 'ul', [ 'class' => 'mw-ck-toc-contents' ] );
 
 		foreach ( $content->getContent() as $item ) {
 			$itemTitle = Title::newFromText( $item['title'] );
@@ -127,7 +127,7 @@ class CollaborationHubTOC {
 
 			$html .= Html::rawElement(
 				'li',
-				[ 'class' => 'wp-toc-item' ],
+				[ 'class' => 'mw-ck-toc-item' ],
 				$itemLink
 			);
 		}
@@ -143,19 +143,18 @@ class CollaborationHubTOC {
 	 * @param $title Title for target
 	 * @param $text string diplay text for title
 	 * @param $image string seed for makeIconOrImage
-	 * @param $imageColour string colour id
 	 * @param $imageSize int size
 	 * @return string html
 	 */
-	protected function renderItem( Title $title, $text, $image, $imageColour, $imageSize ) {
+	protected function renderItem( Title $title, $text, $image, $imageSize ) {
 		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
 
-		$icon = CollaborationKitIcon::makeIconOrImage( $image, $imageSize, $imageColour );
+		$icon = CollaborationKitIcon::makeIconOrImage( $image, $imageSize );
 
 		$linkContent = new HtmlArmor( Html::rawElement(
 			'div',
 			[],
-			$icon . Html::element( 'span', [ 'class' => 'item-label' ], $text )
+			$icon . Html::element( 'span', [ 'class' => 'mw-ck-toc-item-label' ], $text )
 		) );
 		return $link = $linkRenderer->makeLink( $title, $linkContent );
 	}
