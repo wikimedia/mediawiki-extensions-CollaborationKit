@@ -248,17 +248,25 @@ class CollaborationHubContent extends JsonContent {
 				$this->getParsedAnnouncements( $title, $options )
 			);
 			// get table of contents
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-toc' ],
-				$this->getTableOfContents( $title, $options )
-			);
+			if ( count( $this->getContent() ) > 0 ) {
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-hub-toc' ],
+					$this->getTableOfContents( $title, $options )
+				);
+			}
+
+			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
+
 			// get transcluded content
 			$html .= Html::rawElement(
 				'div',
 				[ 'class' => 'mw-ck-hub-content' ],
 				$this->getParsedContent( $title, $options, $output )
 			);
+
+			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
+
 			// get footer
 			$html .= Html::rawElement(
 				'div',
