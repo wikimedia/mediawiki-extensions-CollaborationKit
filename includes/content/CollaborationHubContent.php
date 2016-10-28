@@ -226,48 +226,48 @@ class CollaborationHubContent extends JsonContent {
 			// get page image
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-header-image' ],
+				[ 'class' => 'mw-ck-hub-image' ],
 				$this->getParsedImage( $this->getImage(), 200 )
 			);
 			// get members list
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-members' ],
+				[ 'class' => 'mw-ck-hub-members' ],
 				$this->getMembersBlock( $title, $options )
 			);
 			// get parsed intro
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-intro' ],
+				[ 'class' => 'mw-ck-hub-intro' ],
 				$this->getParsedIntroduction( $title, $options )
 			);
 			// get announcements
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-announcements' ],
+				[ 'class' => 'mw-ck-hub-announcements' ],
 				$this->getParsedAnnouncements( $title, $options )
 			);
 			// get table of contents
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-toc' ],
+				[ 'class' => 'mw-ck-hub-toc' ],
 				$this->getTableOfContents( $title, $options )
 			);
 			// get transcluded content
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-content' ],
+				[ 'class' => 'mw-ck-hub-content' ],
 				$this->getParsedContent( $title, $options, $output )
 			);
 			// get footer
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-footer' ],
+				[ 'class' => 'mw-ck-hub-footer' ],
 				$this->getParsedFooter( $title, $options )
 			);
 			$html .= Html::rawElement(
 				'div',
-				[ 'class' => 'wp-footeractions' ],
+				[ 'class' => 'mw-ck-hub-footer-actions' ],
 				$this->getSecondFooter( $title )
 			);
 			$html .= Html::closeElement( 'div' );
@@ -291,19 +291,13 @@ class CollaborationHubContent extends JsonContent {
 		$colour = $this->getThemeColour();
 
 		$classes = [
-			'wp-mainpage',
-			'wp-collaborationhub'
+			'mw-ck-collaborationhub',
+			'mw-ck-list-square'
 		];
 		if ( $colour == 'black' ) {
-			$classes = array_merge( $classes, [
-				'mw-cklist-square',
-				'mw-cktheme'
-			] );
+			$classes = array_merge( $classes, [ 'mw-ck-theme' ] );
 		} else {
-			$classes = array_merge( $classes, [
-				'mw-cklist-square-' . $colour,
-				'mw-cktheme-' . $colour
-			] );
+			$classes = array_merge( $classes, [ 'mw-ck-theme-' . $colour ] );
 		}
 
 		return $classes;
@@ -318,6 +312,8 @@ class CollaborationHubContent extends JsonContent {
 	protected function getMembersBlock( Title $title, ParserOptions $options ) {
 		global $wgParser;
 
+		$html = '';
+
 		$lang = $options->getTargetLanguage();
 		if ( !$lang ) {
 			$lang = $title->getPageLanguage();
@@ -326,6 +322,13 @@ class CollaborationHubContent extends JsonContent {
 		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
 		$membersTitle = Title::newFromText( $membersPageName );
 		if ( $membersTitle->exists() ) {
+			// rawElement is used because we don't want [edit] links or usual header behavior
+			$html .= Html::rawElement(
+				'h3',
+				[],
+				wfMessage( 'collaborationkit-hub-members-header' )
+			);
+
 			$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
 			$wikitext = $membersContent->convertToWikitext(
 				$lang,
@@ -335,14 +338,8 @@ class CollaborationHubContent extends JsonContent {
 					'defaultSort' => 'random'
 				]
 			);
-			$membersListHtml = $wgParser->parse( $wikitext, $membersTitle, $options )->getText();
 
-			// rawElement is used because we don't want [edit] links or usual header behavior
-			$membersHeader = Html::rawElement(
-				'h3',
-				[],
-				wfMessage( 'collaborationkit-hub-members-header' )
-			);
+			$html .= $wgParser->parse( $wikitext, $membersTitle, $options )->getText();
 
 			$membersViewButton = new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
@@ -355,9 +352,13 @@ class CollaborationHubContent extends JsonContent {
 			] );
 
 			OutputPage::setupOOUI();
-			$text = $membersHeader . $membersListHtml . $membersViewButton->toString() . $membersJoinButton->toString();
-			return $text;
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-members-buttons' ],
+				$membersViewButton->toString() . $membersJoinButton->toString()
+			);
 		}
+		return $html;
 	}
 
 	/**
@@ -477,7 +478,7 @@ class CollaborationHubContent extends JsonContent {
 					// this is dumb, but we'll just rebuild the intro here for now
 					$text = Html::rawElement(
 						'div',
-						[ 'class' => 'wp-header-image' ],
+						[ 'class' => 'mw-ck-hub-image' ],
 						$spContent->getParsedImage( $spContent->getImage(), 100 )
 					);
 					$text .= $spContent->getParsedIntroduction( $spTitle, $options );
@@ -523,7 +524,7 @@ class CollaborationHubContent extends JsonContent {
 				// DO CONTENT FOR NOT YET MADE PAGE
 				$html .= Html::rawElement(
 					'p',
-					[ 'class' => 'wp-missing-note' ],
+					[ 'class' => 'mw-ck-hub-missingfeature-note' ],
 					wfMessage( 'collaborationkit-hub-missingpage-note' )->inContentLanguage()->parse()
 				);
 
@@ -625,7 +626,7 @@ class CollaborationHubContent extends JsonContent {
 		$html = Html::openElement(
 			'div',
 			[
-				'class' => 'wp-pagelist-section',
+				'class' => 'mw-ck-hub-section',
 				'id' => $spPageLink2
 			]
 		);

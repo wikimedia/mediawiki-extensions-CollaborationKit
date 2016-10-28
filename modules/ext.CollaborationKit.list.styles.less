@@ -2,11 +2,11 @@
 
 /* Styles needed when transcluding list content */
 
-.mw-collabkit-list-item {
+.mw-ck-list-item {
 	margin-bottom: 0.5em;
 }
 
-.mw-collabkit-list-img {
+.mw-ck-list-image {
 	float: left;
 	/* If you change width/height, also change in
 	 * CollaborationListContent::convertToWikitext()
@@ -15,7 +15,7 @@
 	height: 64px;
 	overflow: hidden;
 }
-.mw-collabkit-list-noimageplaceholder {
+.mw-ck-list-noimageplaceholder {
 	width: 64px;
 	height: 64px;
 	content: '';
@@ -24,7 +24,7 @@
 	background-position: 50% 50%;
 }
 
-.mw-collabkit-list-container {
+.mw-ck-list-container {
 	height: 64px;
 	padding-left: 10px;
 	display: table-cell;
@@ -32,17 +32,17 @@
 	line-height: 1.2;
 }
 
-.mw-collabkit-list-title {
+.mw-ck-list-title {
 	font-size: 110%;
 	font-weight: bold;
 }
 
-.mw-collabkit-list-notes {
+.mw-ck-list-notes {
 	font-size: 90%;
 }
 
 /* @todo, should maybe replace styling from toccolours with this class */
-.mw-collabkit-list-tags {
+.mw-ck-list-tags {
 	display: inline-block;
 }
 
@@ -51,49 +51,49 @@
 
 
 /* Separate so spinner can replace properly */
-.mw-collabkit-list-deletebutton {
+.mw-ck-list-deletebutton {
 	margin-left: 2em;
 }
 
-.mw-collabkit-list:not(.mw-collabkit-dragging) .mw-collabkit-list-movebutton {
+.mw-ck-list:not(.mw-ck-dragging) .mw-ck-list-movebutton {
 	cursor: ns-resize;
 	cursor: -moz-grab;
 	cursor: -webkit-grab;
 	cursor: grab;
 }
 
-.mw-collabkit-dragging {
+.mw-ck-dragging {
 	cursor: ns-resize;
 	cursor: -moz-grabbing;
 	cursor: -webkit-grabbing;
 	cursor: grabbing;
 }
 
-.mw-collabkit-list-button {
+.mw-ck-list-button {
 	display: inline-block;
 }
 
 /* Unclear if this is a really bad idea, but 24px makes the icon too big */
-.mw-collabkit-list-button .oo-ui-iconElement-icon.oo-ui-iconElement-icon {
+.mw-ck-list-button .oo-ui-iconElement-icon.oo-ui-iconElement-icon {
 	min-height: 22px;
 	height: 1em;
 }
 
-.mw-collabkit-list-additem {
+.mw-ck-list-additem {
 	margin-top: 2em;
 	text-align: center;
 }
 
-.mw-collabkit-list-addself {
+.mw-ck-list-addself {
 	margin-bottom: 0.5em;
 }
 
-.mw-collabkit-list-dragplaceholder {
+.mw-ck-list-dragplaceholder {
 	border: black thin dashed;
 	width: 25%;
 }
 
-.mw-collabkit-list-title .jquery-confirmable-text,
-.mw-collabkit-list-title .mw-spinner {
+.mw-ck-list-title .jquery-confirmable-text,
+.mw-ck-list-title .mw-spinner {
 	padding-left: .5em;
 }
