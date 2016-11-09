@@ -12,128 +12,80 @@ class CollaborationHubContentEditor extends EditPage {
 	}
 
 	/**
-	 * Build and return the aossociative array for the content source field.
-	 * @param $mapping array
-	 * @return array
-	 */
-	protected function getOptions( $mapping ) {
-		$options = [];
-		foreach ( $mapping as $msgKey => $option ) {
-			$options[] = [ 'label' => wfMessage( $msgKey )->escaped(), 'data' => $option ];
-		}
-		return $options;
-	}
-
-	/**
 	 * @param $parts array
-	 * @return array
+	 * @return string html
 	 */
 	protected function getFormFields( $parts ) {
+		$displayName = CollaborationListContentEditor::editorInput(
+			'input',
+			'mw-ck-displayinput',
+			'collaborationkit-hubedit-displayname',
+			'wpCollabHubDisplayName',
+			$parts[0],
+			[ 'id' => 'wpCollabHubDisplayName' ]
+		);
 
-		$fields = [
-			// Display name can be different from page title
-			'display_name' => new OOUI\FieldLayout(
-				new OOUI\TextInputWidget( [
-					'name' => 'wpCollabHubDisplayName',
-					'id' => 'wpCollabHubDisplayName',
-					'type' => 'text',
-					'cssclass' => 'mw-ck-displayinput',
-					'value' => $parts[0]
-					] ),
-				[
-					'label' => wfMessage( 'collaborationkit-hubedit-displayname' )->text(),
-					'align' => 'top'
-				] ),
-			'introduction' => new OOUI\FieldLayout(
-				new OOUI\TextInputWidget( [
-					'multiline' => true,
-					'name' => 'wpCollabHubIntroduction',
-					'id' => 'wpCollabHubIntroduction',
-					'type' => 'textarea',
-					'rows' => 5,
-					'cssclass' => 'mw-ck-introductioninput',
-					'value' => $parts[1]
-					] ),
-				[
-					'label' => wfMessage( 'collaborationkit-hubedit-introduction' )->text(),
-					'align' => 'top'
-				] ),
-			'footer' => new OOUI\FieldLayout(
-				new OOUI\TextInputWidget( [
-					'multiline' => true,
-					'name' => 'wpCollabHubFooter',
-					'id' => 'wpCollabHubFooter',
-					'type' => 'textarea',
-					'rows' => 5,
-					'cssclass' => 'mw-ck-introductioninput',
-					'value' => $parts[2]
-					] ),
-				[
-					'label' => wfMessage( 'collaborationkit-hubedit-footer' )->text(),
-					'align' => 'top'
-				] ),
-			// Hub image/icon thing
-			'image' => new OOUI\FieldLayout(
-				new OOUI\TextInputWidget( [
-					'name' => 'wpCollabHubImage',
-					'id' => 'wpCollabHubImage',
-					'type' => 'text',
-					'cssclass' => 'mw-ck-hubimageinput',
-					'value' => $parts[3]
-					] ),
-				[
-					'label' => wfMessage( 'collaborationkit-hubedit-image' )->text(),
-					'align' => 'top'
-				] ),
-		];
-		// Colours for the hub styles
+		$introduction = CollaborationListContentEditor::editorInput(
+			'textarea',
+			'mw-ck-introductioninput',
+			'collaborationkit-hubedit-introduction',
+			'wpCollabHubIntroduction',
+			$parts[1],
+			[ 'rows' => 8, 'id' => 'wpCollabHubIntroduction' ]
+		);
+
+		$footer = CollaborationListContentEditor::editorInput(
+			'textarea',
+			'mw-ck-footerinput',
+			'collaborationkit-hubedit-footer',
+			'wpCollabHubFooter',
+			$parts[2],
+			[ 'rows' => 6, 'id' => 'wpCollabHubFooter' ]
+		);
+
+		$image = CollaborationListContentEditor::editorInput(
+			'input',
+			'mw-ck-hubimageinput',
+			'collaborationkit-hubedit-image',
+			'wpCollabHubImage',
+			$parts[3],
+			[ 'id' => 'wpCollabHubImage' ]
+		);
+
 		$colours = [];
 		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
 			$colours[ 'collaborationkit-' . $colour ] = $colour;
 		}
-
 		if ( $parts[4] == '' ) {
 			$selectedColour = 'blue5';
 		} else {
 			$selectedColour = $parts[4];
 		}
-
-		$fields['colour'] = new OOUI\FieldLayout(
-			new OOUI\DropdownInputWidget( [
-				'name' => 'wpCollabHubColour',
-				'id' => 'wpCollabHubColour',
-				'type' => 'select',
-				'options' => $this->getOptions( $colours ),
-				'class' => 'mw-ck-colourinput',
-				'value' => $selectedColour
-				] ),
-			[
-				'label' => wfMessage( 'collaborationkit-hubedit-colour' )->text(),
-				'align' => 'top'
-			] );
+		$colour = CollaborationListContentEditor::editorInput(
+			'select',
+			'mw-ck-colourinput',
+			'collaborationkit-hubedit-colour',
+			'wpCollabHubColour',
+			$selectedColour,
+			[ 'id' => 'wpCollabHubColour' ],
+			$colours
+		);
 
 		if ( $parts[5] == '' ) {
 			$includedContent = '';
 		} else {
 			$includedContent = $parts[5];
 		}
+		$content = CollaborationListContentEditor::editorInput(
+			'textarea',
+			'mw-ck-introductioninput',
+			'collaborationkit-hubedit-content',
+			'wpCollabHubContent',
+			$includedContent,
+			[ 'rows' => 18, 'id' => 'wpCollabHubContent' ]
+		);
 
-		$fields['content'] = new OOUI\FieldLayout(
-			new OOUI\TextInputWidget( [
-				'multiline' => true,
-				'name' => 'wpCollabHubContent',
-				'id' => 'wpCollabHubContent',
-				'type' => 'textarea',
-				'rows' => 10,
-				'class' => 'mw-ck-introductioninput',
-				'value' => $includedContent
-				] ),
-			[
-				'label' => wfMessage( 'collaborationkit-hubedit-content' )->text(),
-				'align' => 'top'
-			] );
-
-		return $fields;
+		return $displayName . $image . $colour . $introduction . $content . $footer;
 	}
 
 	/**
@@ -150,22 +102,8 @@ class CollaborationHubContentEditor extends EditPage {
 		}
 
 		$out = RequestContext::getMain()->getOutput();
-		$pageLang = $this->getTitle()->getPageLanguage();
 
-		$formFields = $this->getFormFields( $parts );
-
-		$htmlForm = new OOUI\FieldsetLayout( [ 'items' => $formFields ] );
-		$out->enableOOUI();
-		$out->addHtml( $htmlForm );
-	}
-
-	/**
-	 * Required as a callback by the parent class, but not used as
-	 * we have validation logic elsewhere that works just fine.
-	 * @param $formData
-	 */
-	static function trySubmit( $formData ) {
-		return true;
+		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $this->getFormFields( $parts ) ) );
 	}
 
 	/**
@@ -202,9 +140,5 @@ class CollaborationHubContentEditor extends EditPage {
 			. $colour
 			. CollaborationHubContent::HUMAN_DESC_SPLIT
 			. $content;
-	}
-
-	protected function getDisplayFormat() {
-		return 'ooui';
 	}
 }
