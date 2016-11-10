@@ -912,10 +912,7 @@ class CollaborationListContent extends JsonContent {
 			&& $title->userCan( 'edit', $user, 'quick' )
 		) {
 			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
-			/*
-			Disabling until JavaScript module is updated.
 			$output->addModules( 'ext.CollaborationKit.list.edit' );
-			*/
 			$output->preventClickjacking();
 		}
 	}

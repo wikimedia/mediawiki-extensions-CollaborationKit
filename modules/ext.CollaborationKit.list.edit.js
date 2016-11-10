@@ -37,7 +37,7 @@
 	modifyExistingItem = function ( itemName ) {
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var done = false;
-			$.each( res.content.items, function ( index ) {
+			$.each( res.content.columns[ 0 ].items, function ( index ) {
 				if ( this.title === itemName ) {
 					done = true;
 					modifyItem( {
@@ -71,15 +71,15 @@
 			}
 			itemToAdd.title = curUserTitle.getPrefixedText();
 
-			for ( i = 0; i < res.content.items.length; i++ ) {
+			for ( i = 0; i < res.content.columns[ 0 ].items.length; i++ ) {
 				// TODO: Title normalization maybe?
-				if ( res.content.items[ i ].title === itemToAdd.title ) {
+				if ( res.content.columns[ 0 ].items[ i ].title === itemToAdd.title ) {
 					alert( mw.msg( 'collaborationkit-list-alreadyadded' ) );
 					return;
 				}
 			}
-			index = res.content.items.length;
-			res.content.items[ index ] = itemToAdd;
+			index = res.content.columns[ 0 ].items.length;
+			res.content.columns[ 0 ].items[ index ] = itemToAdd;
 			res.summary = mw.msg( 'collaborationkit-list-add-self-summary', itemToAdd.title );
 			saveJson( res, function () {
 				location.reload();
@@ -103,13 +103,13 @@
 
 		cur = getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var newItems = [];
-			$.each( res.content.items, function ( index ) {
+			$.each( res.content.columns[ 0 ].items, function ( index ) {
 				if ( this.title === title ) {
 					return;
 				}
 				newItems[ newItems.length ] = this;
 			} );
-			res.content.items = newItems;
+			res.content.columns[ 0 ].items = newItems;
 			// Interface for extension defined tags lacking...
 			// res.tags = 'collabkit-list-delete';
 			// FIXME inContentLanguage???
@@ -137,7 +137,8 @@
 	 */
 	getListOfTitles = function ( $elm ) {
 		var list = [];
-		$elm.children( '.mw-ck-list-item' ).each( function () {
+		// FIXME must be changed for multilist.
+		$elm.children().children( '.mw-ck-list-item' ).each( function () {
 			list[ list.length ] = $( this ).data( 'collabkit-item-title' );
 		} );
 		return list;
@@ -162,11 +163,11 @@
 
 			reorderedItem = $item.data( 'collabkit-item-title' );
 
-			if ( res.content.items.length !== originalOrder.length ) {
+			if ( res.content.columns[ 0 ].items.length !== originalOrder.length ) {
 				isEditConflict = true;
 			} else {
 				for ( i = 0; i < originalOrder.length; i++ ) {
-					if ( res.content.items[ i ].title !== originalOrder[ i ] ) {
+					if ( res.content.columns[ 0 ].items[ i ].title !== originalOrder[ i ] ) {
 						isEditConflict = true;
 						break;
 					}
@@ -198,7 +199,7 @@
 				var oneLess,
 					oneMore,
 					i,
-					resItems = res.content.items;
+					resItems = res.content.columns[ 0 ].items;
 
 				if ( resItems[ indexGuess ].title === title ) {
 					return resItems[ indexGuess ];
@@ -231,7 +232,7 @@
 				resArray[ resArray.length ] = findItemInResArray( newOrder[ i ], i );
 			}
 
-			res.content.items = resArray;
+			res.content.columns[ 0 ].items = resArray;
 			res.summary = mw.msg( 'collaborationkit-list-move-summary', reorderedItem );
 			saveJson( res, function () {
 				$spinner.remove();
@@ -428,8 +429,8 @@
 				itemToAdd.image = file;
 			}
 			if ( dialog.itemIndex !== undefined ) {
-				if (	res.content.items <= dialog.itemIndex ||
-					res.content.items[ dialog.itemIndex ].title !== dialog.itemTitle
+				if (	res.content.columns[ 0 ].items <= dialog.itemIndex ||
+					res.content.columns[ 0 ].items[ dialog.itemIndex ].title !== dialog.itemTitle
 				) {
 					alert( 'Edit conflict' );
 					location.reload();
@@ -438,9 +439,9 @@
 				}
 				index = dialog.itemIndex;
 			} else {
-				index = res.content.items.length;
+				index = res.content.columns[ 0 ].items.length;
 			}
-			res.content.items[ index ] = itemToAdd;
+			res.content.columns[ 0 ].items[ index ] = itemToAdd;
 			res.summary = mw.msg( 'collaborationkit-list-add-summary', title );
 			saveJson( res, function () {
 				dialog.close(); // FIXME should we just leave open?
@@ -455,6 +456,11 @@
 
 		if ( !mw.config.get( 'wgEnableCollaborationKitListEdit' ) ) {
 			// This page is not a list, or user does not have edit rights.
+			return;
+		}
+
+		if ( $( '.mw-ck-list.mw-ck-singlelist' ).length !== 1 ) {
+			mw.log( 'Multilist JS editing not implemented yet' );
 			return;
 		}
 
@@ -531,6 +537,7 @@
 			handle: '.mw-ck-list-movebutton',
 			opacity: 0.6,
 			scroll: true,
+			items: '.mw-ck-list-item',
 			cursor: 'grabbing', // Also overriden in CSS
 			start: function ( e ) {
 				$( e.target )
