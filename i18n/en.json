@@ -78,7 +78,7 @@
 	"collaborationkit-hub-missingpage-create": "Create feature",
 	"collaborationkit-hub-pagetitle-members": "Members",
 	"collaborationkit-hub-pagetitle-announcements": "Announcements",
-	"collaborationkit-hub-subpage-view": "View",
+	"collaborationkit-hub-subpage-view": "View page",
 	"collaborationkit-hub-subpage-remove": "Remove feature",
 	"collaborationkit-hub-edit-apierror": "API edit error: $1",
 	"collaborationkit-hub-edit-tojsonerror": "Error converting to JSON",

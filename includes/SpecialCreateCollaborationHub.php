@@ -123,7 +123,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			!$title->userCan( 'create' ) ||
 			!$title->userCan( 'editcontentmodel' )
 		) {
-			return Status::newFatal( 'collaborationhkit-createhub-nopermission' );
+			return Status::newFatal( 'collaborationkit-createhub-nopermission' );
 		}
 
 		/* Comment this out until it's actually implemented (T135408)

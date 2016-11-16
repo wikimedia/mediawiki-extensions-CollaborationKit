@@ -284,6 +284,7 @@ class CollaborationHubContent extends JsonContent {
 
 			// Add some style stuff
 			$output->addModuleStyles( 'ext.CollaborationKit.hub.styles' );
+			$output->addModuleStyles( 'oojs-ui.styles.icons-editing-core' );
 			$output->addModules( 'ext.CollaborationKit.icons' );
 			$output->addModules( 'ext.CollaborationKit.blots' );
 			$output->addModules( 'ext.CollaborationKit.list.styles' );
@@ -396,18 +397,20 @@ class CollaborationHubContent extends JsonContent {
 			$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
 			$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
 
-			$announcementsEditLink = Html::rawElement(
-				'a',
-				[ 'href' => $announcementsTitle->getEditURL() ],
-				wfMessage( 'edit' )
+			$announcementsEditButton = $this->makeEditSectionLink(
+				$announcementsTitle->getEditURL(),
+				wfMessage( 'edit' )->inContentLanguage()->text(),
+				'edit'
 			);
+			$announcementsEditButton->setAttributes( [ 'style' => 'display:block;' ] );
 
 			$announcementsHeader = Html::rawElement(
 				'h3',
 				[],
-				$announcementsSubpageName . $this->makeEditSectionLink( $announcementsEditLink )
+				$announcementsSubpageName
 			);
-			return $announcementsHeader . $announcementsText;
+
+			return $announcementsHeader . $announcementsEditButton . $announcementsText;
 		}
 	}
 
@@ -586,48 +589,14 @@ class CollaborationHubContent extends JsonContent {
 		$sectionLinks = [];
 		$sectionLinksText = '';
 		if ( isset( $spRev ) ) {
-			$sectionLinks[ 'viewLink' ] = $linkRenderer->makeLink(
-				$spTitle,
-				wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text()
-			);
-		}
-		if ( $spTitle->userCan( 'edit' ) ) {
-			if ( isset( $spRev ) ) {
-				$linkString = 'edit';
-				// TODO get appropriate edit link if it's something weird
-				$sectionLinks['edit'] = $linkRenderer->makeLink(
-					$spTitle,
-					wfMessage( $linkString )->inContentLanguage()->text(),
-					[],
-					[ 'action' => 'edit' ]
-				);
-			} else {
-				$linkString = 'create';
-				$sectionLinks['edit'] = $linkRenderer->makeLink(
-					SpecialPage::getTitleFor( 'CreateHubFeature' ),
-					wfMessage( $linkString )->inContentLanguage()->text(),
-					[],
-					[ 'collaborationhub' => $title->getPrefixedDBKey(), 'feature' => $spTitle->getSubpageText() ]
-				);
-			}
-
-		}
-		if ( $title->userCan( 'edit' ) ) {
-			$sectionLinks['removeLink'] = $linkRenderer->makeLink(
-				$title,
-				wfMessage( 'collaborationkit-hub-subpage-remove' )->inContentLanguage()->text(),
-				[],
-				[ 'action' => 'edit' ]
-			);
+			$sectionLinks[ 'viewLink' ] = [];
+			$sectionLinks[ 'viewLink' ][ 'title' ] = $spTitle->getLinkURL();
+			$sectionLinks[ 'viewLink' ][ 'msg' ] = wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text();
+			$sectionLinks[ 'viewLink' ][ 'icon' ] = 'search';
 		}
 		foreach ( $sectionLinks as $sectionLink ) {
-			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink );
+			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink[ 'title' ], $sectionLink[ 'msg' ], $sectionLink[ 'icon' ] );
 		}
-		$sectionLinksText = Html::rawElement(
-			'span',
-			[ 'class' => 'mw-editsection' ],
-			$sectionLinksText
-		);
 
 		// Assemble header
 		// Open general section here since we have the id here
@@ -645,8 +614,9 @@ class CollaborationHubContent extends JsonContent {
 				'span',
 				[ 'class' => 'mw-headline' ],
 				$spPage
-			) . $sectionLinksText
+			)
 		);
+		$html .= $sectionLinksText;
 
 		OutputPage::setupOOUI();
 		return $html;
@@ -654,29 +624,18 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput for making editsection links in headers
-	 * @param $link string html of the link itself
+	 * @param $link Target URL
+	 * @param $message Message to display
+	 * @param $icon Icon to display alongside the message, based on OOjs UI definitions
 	 * @return string html
 	 */
-	protected function makeEditSectionLink( $link ) {
-		$html = Html::rawElement(
-			'span',
-			[ 'class' => 'mw-editsection' ],
-			Html::element(
-				'span',
-				[ 'class' => 'mw-editsection-bracket' ],
-				'['
-			) .
-			Html::rawElement(
-				'span',
-				[],
-				$link
-			) .
-			Html::element(
-				'span',
-				[ 'class' => 'mw-editsection-bracket' ],
-				']'
-			)
-		);
+	protected function makeEditSectionLink( $link, $message, $icon ) {
+		$html = new OOUI\ButtonWidget( [
+			'label' => $message,
+			'href' => $link,
+			'framed' => false,
+			'icon' => $icon
+			] );
 
 		return $html;
 	}
