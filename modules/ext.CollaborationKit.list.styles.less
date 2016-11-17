@@ -23,7 +23,6 @@
 	background-color: #eee;
 	background-position: 50% 50%;
 }
-
 .mw-ck-list-container {
 	height: 64px;
 	padding-left: 10px;
@@ -31,7 +30,6 @@
 	vertical-align: middle;
 	line-height: 1.2;
 }
-
 .mw-ck-list-title {
 	font-size: 110%;
 	font-weight: bold;
@@ -39,6 +37,120 @@
 
 .mw-ck-list-notes {
 	font-size: 90%;
+	margin: 1em 0 2em;
+}
+
+/* Multilist stuff */
+.mw-ck-multilist {
+	.flex-display;
+	flex-wrap: wrap;
+	margin: 0 -.5em;
+
+	.mw-ck-list-column {
+		.grey-box();
+		float: left; // IE9 workaround, maybe
+		.flex();
+		margin: .5em;
+		min-width: 20em; // Todo something smarter for mobile/genuinely narrow things?
+		max-width: 35em;
+		flex-basis: 25em;
+		box-sizing: border-box;
+	}
+
+	.mw-ck-list-notes {
+		margin: 0;
+	}
+	.mw-ck-list-column-header {
+		padding: 1.6em 1.6em .25em;
+		margin: -1.6em -1.6em 1em;
+		border-radius: 3px 3px 0 0;
+	}
+	.mw-ck-list-column-header h3 {
+		margin-top: 0;
+		padding-top: 0;
+	}
+}
+.column-theme-header( #ddd );
+
+// Theme colours mixin and application
+
+.column-theme-header( @color ) {
+	.mw-ck-multilist {
+		.mw-ck-list-column {
+			border-color: fadeout( @color, 25% );
+		}
+		.mw-ck-list-column-header {
+			border: solid 1px @color;
+			border-bottom-width: 3px;
+			background: fadeout( @color, 75% );
+		}
+	}
+}
+.mw-ck-theme-red1 {
+	.column-theme-header( @red1 );
+}
+.mw-ck-theme-red2 {
+	.column-theme-header( @red2 );
+}
+.mw-ck-theme-grey1 {
+	.column-theme-header( @grey1 );
+}
+.mw-ck-theme-grey2 {
+	.column-theme-header( @grey2 );
+}
+.mw-ck-theme-blue1 {
+	.column-theme-header( @blue1 );
+}
+.mw-ck-theme-blue2 {
+	.column-theme-header( @blue2 );
+}
+.mw-ck-theme-blue3 {
+	.column-theme-header( @blue3 );
+}
+.mw-ck-theme-blue4 {
+	.column-theme-header( @blue4 );
+}
+.mw-ck-theme-blue5 {
+	.column-theme-header( @blue5 );
+}
+.mw-ck-theme-blue6 {
+	.column-theme-header( @blue6 );
+}
+.mw-ck-theme-purple1 {
+	.column-theme-header( @purple1 );
+}
+.mw-ck-theme-purple2 {
+	.column-theme-header( @purple2 );
+}
+.mw-ck-theme-purple3 {
+	.column-theme-header( @purple3 );
+}
+.mw-ck-theme-purple4 {
+	.column-theme-header( @purple4 );
+}
+.mw-ck-theme-purple5 {
+	.column-theme-header( @purple5 );
+}
+.mw-ck-theme-yellow1 {
+	.column-theme-header( @yellow1 );
+}
+.mw-ck-theme-yellow2 {
+	.column-theme-header( @yellow2 );
+}
+.mw-ck-theme-yellow3 {
+	.column-theme-header( @yellow3 );
+}
+.mw-ck-theme-yellow4 {
+	.column-theme-header( @yellow4 );
+}
+.mw-ck-theme-green1 {
+	.column-theme-header( @green1 );
+}
+.mw-ck-theme-green2 {
+	.column-theme-header( @green2 );
+}
+.mw-ck-theme-green3 {
+	.column-theme-header( @green3 );
 }
 
 /* @todo, should maybe replace styling from toccolours with this class */

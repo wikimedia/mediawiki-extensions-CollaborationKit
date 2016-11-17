@@ -250,6 +250,9 @@ class CollaborationListContent extends JsonContent {
 		// Hack to force style loading even when we don't have a Parser reference.
 		$text = "<collaborationkitloadliststyles/>\n";
 
+		// Ugly way to prevent unexpected column header TOCs from showing up
+		$text .= "__NOTOC__";
+
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
 		}
@@ -274,12 +277,16 @@ class CollaborationListContent extends JsonContent {
 				'class' => 'mw-ck-list-column',
 				'data-collabkit-column-id' => $colId
 			] ) . "\n";
+			$text .= Html::openElement( 'div', [
+				'class' => 'mw-ck-list-column-header'
+			] ) . "\n";
 			if ( $options['showColumnHeaders'] && isset( $column->label ) && $column->label !== '' ) {
 				$text .= "=== {$column->label} ===\n";
 			}
 			if ( isset( $column->notes ) && $column->notes !== '' ) {
-				$text .= "\n{$column->notes}\n\n";
+				$text .= "<div class=\"mw-ck-list-notes\">{$column->notes}</div>\n";
 			}
+			$text .= "</div>\n";
 
 			if ( count( $column->items ) === 0 ) {
 				$text .= "\n{{mediawiki:collaborationkit-list-emptycolumn}}\n";
