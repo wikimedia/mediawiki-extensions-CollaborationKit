@@ -30,18 +30,19 @@ class CollaborationListContentEditor extends EditPage {
 			'dir' => $pageLang->getDir()
 		];
 
-		$descTitle = wfMessage( 'collaborationkit-listedit-description' )->text();
-		$listTitle = wfMessage( 'collaborationkit-listedit-list' )->text();
+		$html = Html::openElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ] );
+		// Extra form fields
+		$html .= self::editorInput( 'textarea', 'mw-collabkit-desc', 'collaborationkit-listedit-description', 'wpCollabDescTextbox', $parts[0], $attribs );
+		$html .= Html::openElement( 'div', [ 'class' => 'mw-collabkit-textboxmain' ] );
+		$html .= self::editorInput( 'label', 'mw-collabkit-list', 'collaborationkit-listedit-list', 'wpTextbox1' );
+
 		$out = RequestContext::getMain()->getOutput();
-		$out->addHtml(
-			Html::element( 'h2', [ "id" => 'mw-collabkit-desc' ], $descTitle )
-			. Html::textarea( 'wpCollabDescTextbox', $parts[0], $attribs )
-			. Html::element( 'h2', [ "id" => 'mw-collabkit-list' ], $listTitle )
-		);
+		$out->addHtml( $html );
 
 		$out->addHtml( Html::Hidden( 'wpCollaborationKitOptions', $parts[1] ) );
 
 		$this->showTextbox1( null, trim( $parts[2] ) );
+		$out->addHtml( Html::closeElement( 'div' ) . Html::closeElement( 'div' ) );
 	}
 
 	protected function importContentFormData( &$request ) {
@@ -61,5 +62,62 @@ class CollaborationListContentEditor extends EditPage {
 			. $options
 			. CollaborationListContent::HUMAN_DESC_SPLIT
 			. $main;
+	}
+
+	/**
+	 * Helper for generatng random form elements for the extended edit pages
+	 *
+	 * @param $type string
+	 * @param $id string
+	 * @param $label string
+	 * @param $name string
+	 * @param $value string|bool starting value
+	 * @param $attribs array $attribs for Html functions
+	 * @param $options array options for select, radio types
+	 *
+	 * @return string html
+	 */
+	public static function editorInput( $type, $id, $label, $name, $value = '', $attribs = [], $options = [] ) {
+		if ( $type == 'check' ) {
+			$html = '';
+		} else {
+			$html = Html::label( wfMessage( $label )->text(), $name );
+		}
+
+		switch ( $type ) {
+			case 'label':
+				return $html;
+			case 'input':
+				$html .= 	Html::input( $name,  $value, 'text', $attribs );
+				break;
+			case 'textarea':
+				$html .= 	Html::textarea( $name, $value, $attribs );
+				break;
+			case 'check':
+				$html .= 	Html::check( $name, $value ? true : false, $attribs );
+				$html = Html::label( wfMessage( $label )->text(), $name );
+				break;
+			case 'select':
+				$attribs['name'] = $name;
+				$attribs['id'] = $id;
+				$html .= Html::openElement( 'select', $attribs );
+				foreach ( $options as $message => $optionValue ) {
+					$optionAttribs = [ 'value' => $optionValue ];
+					if ( $optionValue == $value ) {
+						$optionAttribs['selected'] = '';
+					}
+					$html .= Html::rawElement( 'option', $optionAttribs, wfMessage( $message )->text() );
+				}
+				$html .= Html::closeElement( 'select' );
+				break;
+			case 'radio':
+				$html = 'not implemented';
+				break;
+			default:
+				throw new Exception( "don't do that" );
+		}
+
+		$html = Html::rawElement( 'div', [ 'class' => $id ], $html );
+		return $html;
 	}
 }
