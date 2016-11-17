@@ -234,10 +234,16 @@ class CollaborationListContent extends JsonContent {
 			return $text;
 		}
 
-		$listclass = count( $this->columns ) > 1 ? 'mw-ck-multilist' : 'mw-ck-singlelist';
+		if ( $this->displaymode === 'members' && count( $this->columns ) === 1 ) {
+			$columns = $this->sortUsersIntoColumns( $this->columns[0] );
+		} else {
+			$columns = $this->columns;
+		}
+
+		$listclass = count( $columns ) > 1 ? 'mw-ck-multilist' : 'mw-ck-singlelist';
 		$text .= '<div class="mw-ck-list ' . $listclass . '">' . "\n";
 		$offset = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
-		foreach ( $this->columns as $column ) {
+		foreach ( $columns as $column ) {
 			$text .= '<div class="mw-ck-list-column">' . "\n";
 			if ( isset( $column->label ) && $column->label !== '' ) {
 				$text .= "=== {$column->label} ===\n";
@@ -833,17 +839,53 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * Sort users into active/inactive column
+	 *
+	 * @param $column Array An array containing key items, which
+	 *  is an array of stdClass's representing each list item.
+	 *  Each of these has a key named title which contains
+	 *  a user name (including namespace). May have non-users too.
+	 * @return Array Two column structure sorted active/inactive.
+	 * @todo Should link property be taken into account as actual name?
+	 */
+	private function sortUsersIntoColumns( $column ) {
+		$nonUserItems = [];
+		$userItems = [];
+		foreach ( $column->items as $item ) {
+			$title = Title::newFromText( $item->title );
+			if ( !$title ||
+				!$title->inNamespace( NS_USER ) ||
+				$title->isSubpage()
+			) {
+				$nonUserItems[] = $item;
+			} else {
+				$userItems[ $title->getDBKey() ] = $item;
+			}
+		}
+		$res = $this->filterActiveUsers( $userItems );
+		$inactiveFlatList = array_merge( array_values( $res['inactive'] ), $nonUserItems );
+
+		$activeColumn = (object)[
+			'items' => array_values( $res['active'] ),
+			'label' => wfMessage( 'collaborationkit-column-active' )->inContentLanguage()->text(),
+		];
+		$inactiveColumn = (object)[
+			'items' => $inactiveFlatList,
+			'label' => wfMessage( 'collaborationkit-column-inactive' )->inContentLanguage()->text(),
+		];
+
+		return [ $activeColumn, $inactiveColumn ];
+	}
+
+	/**
 	 * Filter users into active and inactive.
 	 *
-	 * @param $userList Array of titles
+	 * @note The results of this function get stored in parser cache.
+	 * @param $userList Array of user dbkeys => stdClass
 	 * @return Array [ 'active' => [..], 'inactive' => '[..]' ]
 	 */
-	public function filterActiveUsers( $userList ) {
-		$users = [];
-		foreach ( $userList as $user ) {
-			$users[] = $user->getDBKey();
-		}
-
+	private function filterActiveUsers( $userList ) {
+		$users = array_keys( $userList );
 		$dbr = wfGetDB( DB_REPLICA );
 		$res = $dbr->select(
 			'querycachetwo',
@@ -853,21 +895,16 @@ class CollaborationListContent extends JsonContent {
 				// TODO: Perhaps should use batching.
 				'qcc_title' => $users,
 				'qcc_type' => 'activeusers'
-			]
+			],
+			__METHOD__
 		);
 
 		$active = [];
-		$inactive = [];
-		$usersFlipped = array_flip( $users );
 		foreach ( $res as $row ) {
-			$active[] = Title::makeTitle( NS_USER, $row->qcc_title );
-			unset( $usersFlipped[$row->qcc_title] );
+			$active[$row->qcc_title] = $userList[$row->qcc_title];
+			unset( $userList[$row->qcc_title] );
 		}
-		$remainingUsers = array_keys( $usersFlipped );
-		foreach ( $remainingUsers as $user ) {
-			$inactive[] = Title::makeTitleSafe( NS_USER, $user );
-		}
-		return [ 'active' => $active, 'inactive' => $inactive ];
+		return [ 'active' => $active, 'inactive' => $userList ];
 	}
 
 	/**

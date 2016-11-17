@@ -115,5 +115,7 @@
 	"collaborationkit-green1": "Color label",
 	"collaborationkit-green2": "Color label",
 	"collaborationkit-green3": "Color label",
-	"collaborationkit-black": "Color label"
+	"collaborationkit-black": "Color label",
+	"collaborationkit-column-active": "Column header for the list of active members of a collaboration hub project",
+	"collaborationkit-column-inactive": "Column header for the list of members of a project who are no longer active on wiki."
 }

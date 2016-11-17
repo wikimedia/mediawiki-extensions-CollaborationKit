@@ -115,5 +115,7 @@
 	"collaborationkit-green1": "Forest green",
 	"collaborationkit-green2": "Bright green",
 	"collaborationkit-green3": "Khaki",
-	"collaborationkit-black": "Black"
+	"collaborationkit-black": "Black",
+	"collaborationkit-column-active": "Active members",
+	"collaborationkit-column-inactive": "Inactive members"
 }
