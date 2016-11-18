@@ -9,6 +9,13 @@ class CollaborationHubContentEditor extends EditPage {
 		// Make human readable the default format for editing, but still
 		// save as json. Can be overriden by url ?format=application/json param.
 		$this->contentFormat = CollaborationHubContentHandler::FORMAT_WIKI;
+
+		// Nice JavaScript buttons
+		$out = $this->getContext()->getOutput();
+		$out->addModules( 'ext.CollaborationKit.colour' );
+		$out->addModules( 'ext.CollaborationKit.hubimage' );
+		$out->addModuleStyles( 'ext.CollaborationKit.colourbrowser.styles' );
+		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
 	}
 
 	/**

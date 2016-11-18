@@ -19,8 +19,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	public function execute( $par ) {
 		$out = $this->getContext()->getOutput();
 		$out->addModules( 'ext.CollaborationKit.colour' );
+		$out->addModules( 'ext.CollaborationKit.hubimage' );
 		$out->addModuleStyles( 'ext.CollaborationKit.colourbrowser.styles' );
 		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
+
 		parent::execute( $par );
 	}
 
@@ -45,7 +47,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			// Hub image/icon thing
 			'icon' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-icon-input',
+				'cssclass' => 'mw-ck-hubimageinput',
 				'label-message' => 'collaborationkit-createhub-image',
 			],
 		];
@@ -56,7 +58,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		}
 		$fields['colour'] = [
 			'type' => 'select',
-			'cssclass' => 'mw-ck-colour-input',
+			'cssclass' => 'mw-ck-colourinput',
 			'id' => 'wpCollabHubColour',
 			'label-message' => 'collaborationkit-createhub-colour',
 			'options' => $this->getOptions( $colours ),

@@ -111,6 +111,23 @@
 				"cancel"
 			]
 		},
+		"ext.CollaborationKit.hubimage": {
+			"scripts": "ext.CollaborationKit.hubimage.js",
+			"dependencies": [
+				"oojs-ui",
+				"oojs-ui.styles.icons-movement",
+				"mediawiki.widgets",
+				"mediawiki.widgets.UserInputWidget",
+				"ext.visualEditor.mwimage",
+				"mediawiki.api"
+			],
+			"messages": [
+				"collaborationkit-hubimage-browser",
+				"collaborationkit-hubimage-select",
+				"collaborationkit-hubimage-launchbutton",
+				"cancel"
+			]
+		},
 		"ext.CollaborationKit.colour": {
 			"scripts": "ext.CollaborationKit.colour.js",
 			"dependencies": [

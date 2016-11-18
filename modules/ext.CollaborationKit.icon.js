@@ -29,7 +29,7 @@
 				divElm = $( '<div></div>' )
 					.addClass( 'mw-ck-iconbrowser-iconcontainer' )
 					.append( $( '<div></div>' )
-						.addClass( 'mw-ckicon-' + iconList[ i ] )
+						.addClass( 'mw-ck-icon-' + iconList[ i ] )
 						.addClass( 'mw-ck-iconbrowser-icon' )
 					);
 
@@ -61,10 +61,10 @@
 
 						// Generate preview
 						$( '.iconPreview' )
-							.addClass( 'mw-ckicon-' + toAppend )
+							.addClass( 'mw-ck-icon-' + toAppend )
 							.css( 'display', 'block' );
 						// Set form value
-						$( '.mw-ck-iconinput input' ).val( toAppend );
+						$( '.mw-ck-icon-input input' ).val( toAppend );
 
 						dialog.close( { action: action } );
 					} );
@@ -99,11 +99,10 @@
 	iconBrowserButton.setLabel( mw.msg( 'collaborationkit-icon-launchbutton' ) );
 	iconBrowserButton.on( 'click', openItUp );
 
-	$( 'div.mw-ck-iconinput' ).addClass( 'icon-browser-field' );
-	$( 'div.mw-ck-iconinput .oo-ui-labelElement-label' ).css( 'display', 'none' );
-	$( 'div.mw-ck-iconinput .oo-ui-fieldLayout-field' ).css( 'display', 'none' );
-	$( 'div.mw-ck-iconinput' )
-		.append( '<div class="iconPreview" style="display:none"></div>' )
+	$( 'div.mw-ck-icon-input' ).addClass( 'icon-browser-field' );
+	$( 'div.mw-ck-icon-input div' ).css( 'display', 'none' );
+	$( 'div.mw-ck-icon-input' )
+		.append( '<div class="iconPreview mw-ck-icon-circlestar"></div>' )
 		.append( iconBrowserButton.$element );
 
 } )( jQuery, mediaWiki, OO );

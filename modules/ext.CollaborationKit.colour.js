@@ -85,7 +85,8 @@
 				);
 
 				// Set form value
-				$( '#wpCollabHubColour select' ).val( toAppend );
+				$( 'select#mw-ck-colourinput option[value=' + toAppend + '], div.mw-ck-colourinput select option[value=' + toAppend + ']' )
+					.attr( 'selected', 'selected' );
 
 				dialog.close( { action: action } );
 			} );
@@ -131,11 +132,11 @@
 		colourBrowserButton.setLabel( mw.msg( 'collaborationkit-colour-launchbutton' ) );
 		colourBrowserButton.on( 'click', openItUp );
 
-		curColour = $( '#wpCollabHubColour select option:selected' ).val();
+		curColour = $( 'select#mw-ck-colourinput option:selected, div.mw-ck-colourinput select option:selected' ).val();
 
-		$( '#wpCollabHubColour div span' ).css( 'display', 'none' );
-		$( '#wpCollabHubColour' ).addClass( 'colour-browser-field' );
-		$( '#wpCollabHubColour' ).append(
+		$( 'select#mw-ck-colourinput, div.oo-ui-fieldLayout-field div.mw-ck-colourinput' ).css( 'display', 'none' );
+		$( '.mw-ck-colourinput' ).addClass( 'colour-browser-field' );
+		$( '.mw-ck-colourinput' ).append(
 			$( '<div class="colourPreview mw-ck-colourblock-container"></div>' )
 				.append( getColourBlock( curColour ) )
 				.append(
@@ -146,7 +147,6 @@
 					.append( colourBrowserButton.$element )
 				)
 		);
-		$( '#wpCollabHubColour select' ).css( 'display', 'none' );
 	};
 
 	$( setupPage );
