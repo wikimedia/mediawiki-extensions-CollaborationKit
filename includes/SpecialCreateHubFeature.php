@@ -189,7 +189,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		$initialContent = ''; // Create empty page by default; exception is if there needs to be something such as JSON.
 		if ( $contentModel == 'CollaborationListContent' ) {
 			// FIXME why are we redefining this here? Can't we reuse something from collaborationlistcontenthandler, which already has default content?
-			$initialContent = '{ "columns": [ { "items":[], "options":{}, "description":"" } ] }';
+			$initialContent = '{ "displaymode": "normal", "columns": [ { "items":[] } ], "options":{}, "description":"" }';
 		}
 
 		$summary = $this->msg( 'collaborationkit-createhubfeature-editsummary' )->plain();
@@ -217,6 +217,9 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
 				$e->getCodeString() ) );
 		}
+
+		// Purge the hub's cache so that it doesn't say "feature does not exist"
+		$hubTitleObject->invalidateCache();
 
 		// Once all the pages we want to create are created, we send them to the first one
 		$this->getOutput()->redirect( $title->getFullUrl() );

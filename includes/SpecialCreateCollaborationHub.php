@@ -160,22 +160,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
 
-		$result = CollaborationHubContentHandler::edit(
-			$title,
-			$data['display_name'],
-			$data['icon'],
-			$data['colour'],
-			$data['introduction'],
-			'',
-			[],
-			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
-			$this->getContext()
-		);
-
-		if ( !$result->isGood() ) {
-			return $result;
-		}
-
 		$memberListTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-members' ) );
 		if ( !$memberListTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
@@ -215,6 +199,22 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		} catch ( UsageException $e ) {
 			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
 				$e->getCodeString() ) );
+		}
+
+		$result = CollaborationHubContentHandler::edit(
+			$title,
+			$data['display_name'],
+			$data['icon'],
+			$data['colour'],
+			$data['introduction'],
+			'',
+			[],
+			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
+			$this->getContext()
+		);
+
+		if ( !$result->isGood() ) {
+			return $result;
 		}
 
 		// Once all the pages we want to create are created, we send them to the first one
