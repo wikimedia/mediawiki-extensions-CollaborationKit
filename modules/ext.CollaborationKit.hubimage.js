@@ -99,6 +99,8 @@
 					$( 'img.hubimagePreview' )
 						.attr( 'src', data.query.pages[ -1 ].imageinfo[ 0 ].thumburl )
 						.css( 'margin-bottom', '10px' )
+						.css( 'width', '200px' )
+						.css( 'height', 'auto' )
 						.css( 'display', 'block' );
 				}
 		);
