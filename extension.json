@@ -89,6 +89,9 @@
 		"ext.CollaborationKit.list.styles": {
 			"styles": "ext.CollaborationKit.list.styles.less"
 		},
+		"zzext.CollaborationKit.edit.styles": {
+			"styles": "ext.CollaborationKit.edit.styles.less"
+		},
 		"ext.CollaborationKit.iconbrowser.styles": {
 			"styles": "ext.CollaborationKit.iconbrowser.styles.less"
 		},

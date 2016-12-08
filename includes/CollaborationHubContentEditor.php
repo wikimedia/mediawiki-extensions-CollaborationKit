@@ -4,6 +4,9 @@
  */
 class CollaborationHubContentEditor extends EditPage {
 
+	/** @var string */
+	protected $colour;
+
 	function __construct( $page ) {
 		parent::__construct( $page );
 		// Make human readable the default format for editing, but still
@@ -14,6 +17,7 @@ class CollaborationHubContentEditor extends EditPage {
 		$out = $this->getContext()->getOutput();
 		$out->addModules( 'ext.CollaborationKit.colour' );
 		$out->addModules( 'ext.CollaborationKit.hubimage' );
+		$out->addModuleStyles( 'zzext.CollaborationKit.edit.styles' );
 		$out->addModuleStyles( 'ext.CollaborationKit.colourbrowser.styles' );
 		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
 	}
@@ -78,6 +82,8 @@ class CollaborationHubContentEditor extends EditPage {
 			$colours
 		);
 
+		$this->colour = $selectedColour;
+
 		if ( $parts[5] == '' ) {
 			$includedContent = '';
 		} else {
@@ -110,7 +116,10 @@ class CollaborationHubContentEditor extends EditPage {
 
 		$out = RequestContext::getMain()->getOutput();
 
-		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $this->getFormFields( $parts ) ) );
+		$partFields = $this->getFormFields( $parts );
+		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
+		$out->prependHtml( Html::openElement( 'div', [ 'class' => 'mw-ck-theme-' . $this->colour ] ) );
+		$out->addHtml( Html::closeElement( 'div' ) );
 	}
 
 	/**

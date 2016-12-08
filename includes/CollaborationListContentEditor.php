@@ -11,6 +11,9 @@ class CollaborationListContentEditor extends EditPage {
 		if ( $this->getCurrentContent()->isValid() ) {
 			$this->contentFormat = CollaborationListContentHandler::FORMAT_WIKI;
 		}
+
+		$out = $this->getContext()->getOutput();
+		$out->addModuleStyles( 'zzext.CollaborationKit.edit.styles' );
 	}
 
 	protected function showContentForm() {
