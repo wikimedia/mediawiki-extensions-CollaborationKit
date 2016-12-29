@@ -43,7 +43,13 @@ class CollaborationKitHooks {
 	}
 
 	/**
-	 * TODO DOCUMENT I'M SURE THIS IS IMPORTANT, BUT I HAVE NO IDEA WHY OR WHAT FOR
+	 * Register the {{#transcludelist:...}} and <collaborationkitloadliststyles> hooks
+	 *
+	 * #transcludelist is to allow users to transclude a CollaborationList with
+	 * custom options. <collaborationkitloadliststyles> allows enabling our style
+	 * modules directly from wikitext, so we can do plain wikitext transclusions of
+	 * lists and have them work properly, since ContentHandler does not provide access
+	 * to the parser when doing plain wikitext transclusion.
 	 *
 	 * @param $parser Parser
 	 */
