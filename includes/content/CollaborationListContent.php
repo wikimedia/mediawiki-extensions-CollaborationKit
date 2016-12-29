@@ -243,8 +243,11 @@ class CollaborationListContent extends JsonContent {
 		$listclass = count( $columns ) > 1 ? 'mw-ck-multilist' : 'mw-ck-singlelist';
 		$text .= '<div class="mw-ck-list ' . $listclass . '">' . "\n";
 		$offset = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
-		foreach ( $columns as $column ) {
-			$text .= '<div class="mw-ck-list-column">' . "\n";
+		foreach ( $columns as $colId => $column ) {
+			$text .= Html::openElement( 'div', [
+				'class' => 'mw-ck-list-column',
+				'data-collabkit-column-id' => $colId
+			] ) . "\n";
 			if ( isset( $column->label ) && $column->label !== '' ) {
 				$text .= "=== {$column->label} ===\n";
 			}

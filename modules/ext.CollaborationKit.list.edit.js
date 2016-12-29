@@ -1,8 +1,19 @@
 ( function ( $, mw, OO ) {
-	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem, addSelf, curUserIsInList;
+	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem, addSelf, curUserIsInList, getCol;
 
 	addItem = function () {
 		modifyItem( {} );
+	};
+
+	getColId = function ( $item ) {
+		var $col, id;
+
+		$col = $item.closest( '.mw-ck-list-column' );
+		id = parseInt( $col.data( 'collabkit-column-id' ), 10 );
+		if ( $col.length === 0 || !isFinite( id ) ) {
+			throw new Error( 'Cannot find column' );
+		}
+		return id;
 	};
 
 	/**
@@ -34,17 +45,24 @@
 		return $( query ).length > 0;
 	};
 
-	modifyExistingItem = function ( itemName ) {
+	/**
+	 * Edit an existing item.
+	 *
+	 * @param {string} itemName The title of the item in question
+	 * @param {int} colId Which column the item is in
+	 */
+	modifyExistingItem = function ( itemName, colId ) {
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var done = false;
-			$.each( res.content.columns[ 0 ].items, function ( index ) {
+			$.each( res.content.columns[ colId ].items, function ( index ) {
 				if ( this.title === itemName ) {
 					done = true;
 					modifyItem( {
 						itemTitle: this.title,
 						itemImage: this.image,
 						itemDescription: this.notes,
-						itemIndex: index
+						itemIndex: index,
+						itemColId: colId
 					} );
 					return false;
 				}
@@ -91,7 +109,8 @@
 	deleteItem = function ( $item ) {
 		var cur,
 			$spinner,
-			title = $item.data( 'collabkit-item-title' );
+			title = $item.data( 'collabkit-item-title' ),
+			colId = getColId( $item );
 
 		$spinner = $.createSpinner( {
 			size: 'small',
@@ -103,13 +122,13 @@
 
 		cur = getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var newItems = [];
-			$.each( res.content.columns[ 0 ].items, function ( index ) {
+			$.each( res.content.columns[ colId ].items, function ( index ) {
 				if ( this.title === title ) {
 					return;
 				}
 				newItems[ newItems.length ] = this;
 			} );
-			res.content.columns[ 0 ].items = newItems;
+			res.content.columns[ colId ].items = newItems;
 			// Interface for extension defined tags lacking...
 			// res.tags = 'collabkit-list-delete';
 			// FIXME inContentLanguage???
@@ -313,6 +332,11 @@
 			this.itemImage = config.itemImage;
 			this.itemIndex = config.itemIndex;
 		}
+		if ( config.itemColId ) {
+			this.itemColId = config.itemColId;
+		} else {
+			this.itemColId = 0;
+		}
 		NewItemDialog.parent.call( this, config );
 	}
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
@@ -429,8 +453,8 @@
 				itemToAdd.image = file;
 			}
 			if ( dialog.itemIndex !== undefined ) {
-				if (	res.content.columns[ 0 ].items <= dialog.itemIndex ||
-					res.content.columns[ 0 ].items[ dialog.itemIndex ].title !== dialog.itemTitle
+				if (	res.content.columns[ dialog.itemColId ].items <= dialog.itemIndex ||
+					res.content.columns[ dialog.itemColId ].items[ dialog.itemIndex ].title !== dialog.itemTitle
 				) {
 					alert( 'Edit conflict' );
 					location.reload();
@@ -439,9 +463,9 @@
 				}
 				index = dialog.itemIndex;
 			} else {
-				index = res.content.columns[ 0 ].items.length;
+				index = res.content.columns[ dialog.itemColId ].items.length;
 			}
-			res.content.columns[ 0 ].items[ index ] = itemToAdd;
+			res.content.columns[ dialog.itemColId ].items[ index ] = itemToAdd;
 			res.summary = mw.msg( 'collaborationkit-list-add-summary', title );
 			saveJson( res, function () {
 				dialog.close(); // FIXME should we just leave open?
@@ -459,17 +483,7 @@
 			return;
 		}
 
-		if ( $( '.mw-ck-list.mw-ck-singlelist' ).length !== 1 ) {
-			mw.log( 'Multilist JS editing not implemented yet' );
-			return;
-		}
-
 		$list = $( '.mw-ck-list' );
-		if ( $list.length > 1 ) {
-			mw.log( 'Wrong number of mw-ck-list??' );
-			return;
-		}
-
 		$list.find( '.mw-ck-list-item' ).each( function () {
 			var deleteButton,
 				moveButton,
@@ -477,8 +491,10 @@
 				$delWrapper,
 				$moveWrapper,
 				$editWrapper,
+				colId,
 				$item = $( this );
 
+			colId = getColId( $item );
 			deleteButton = new OO.ui.ButtonWidget( {
 				framed: false,
 				icon: 'remove',
@@ -496,7 +512,7 @@
 				label: 'edit',
 				framed: false
 			} ).on( 'click', function () {
-				modifyExistingItem( $item.data( 'collabkit-item-title' ) );
+				modifyExistingItem( $item.data( 'collabkit-item-title' ), colId );
 			} );
 
 			// FIXME, the <a> might make an extra target when tabbing
