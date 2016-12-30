@@ -75,6 +75,9 @@
 		],
 		"OutputPageParserOutput": [
 			"CollaborationKitHooks::onOutputPageParserOutput"
+		],
+		"OutputPageBodyAttributes": [
+			"CollaborationHubContentEditor::setCollabkitTheme"
 		]
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",

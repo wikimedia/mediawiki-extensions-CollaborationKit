@@ -117,9 +117,30 @@ class CollaborationHubContentEditor extends EditPage {
 		$out = RequestContext::getMain()->getOutput();
 
 		$partFields = $this->getFormFields( $parts );
+		// See setCollabkitTheme for how the setProperty works.
+		$out->setProperty( 'collabkit-theme', $this->colour );
 		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
-		$out->prependHtml( Html::openElement( 'div', [ 'class' => 'mw-ck-theme-' . $this->colour ] ) );
-		$out->addHtml( Html::closeElement( 'div' ) );
+	}
+
+	/**
+	 * Hook handler for OutputPageBodyAttributes.
+	 *
+	 * Used to set the color theme for Hub edit pages.
+	 *
+	 * @param OutputPage $out
+	 * @param Skin $sk
+	 * @param array $bodyAttribs Attributes for the <body> element
+	 */
+	public static function setCollabkitTheme( OutputPage $out, $skin, &$bodyAttribs ) {
+		$theme = $out->getProperty( 'collabkit-theme' );
+		if ( $theme ) {
+			$themeClass = 'mw-ck-theme-' . $theme;
+			if ( !isset( $bodyAttribs['class'] ) ) {
+				$bodyAttribs['class'] = $themeClass;
+			} else {
+				$bodyAttribs['class'] .= ' ' . $themeClass;
+			}
+		}
 	}
 
 	/**
