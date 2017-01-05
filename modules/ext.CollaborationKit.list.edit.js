@@ -152,19 +152,29 @@
 	 * Helper function to get ordered list of all items in list
 	 *
 	 * @param {jQuery} $elm The list of items - $( '.mw-ck-list' )
-	 * @return {Array}
+	 * @return {Array} 2D array of all items in all columns.
 	 */
 	getListOfTitles = function ( $elm ) {
 		var list = [];
 		// FIXME must be changed for multilist.
-		$elm.children().children( '.mw-ck-list-item' ).each( function () {
-			list[ list.length ] = $( this ).data( 'collabkit-item-title' );
+		$elm.children( '.mw-ck-list-column' ).each( function () {
+			var $this, colId;
+			$this = $( this );
+			colId = $this.data( 'collabkit-column-id' );
+			list[ colId ] = [];
+			$this.children( '.mw-ck-list-item' ).each( function () {
+				list[ colId ][ list[ colId ].length ] = $( this ).data( 'collabkit-item-title' );
+			} );
 		} );
 		return list;
 	};
 
 	/**
 	 * If the order of the list changes, save back to page
+	 *
+	 * @param {jQuery} $item List item in question
+	 * @param {Array} newOrder 2-D list of all items in new order
+	 * @param {Array} originalOrder Original order of all items as 2-D list
 	 */
 	reorderList = function ( $item, newOrder, originalOrder ) {
 		var $spinner = $.createSpinner( {
@@ -175,20 +185,23 @@
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var i,
+				j,
 				reorderedItem,
-				findItemsInResArray,
+				findItemInResArray,
 				resArray = [],
 				isEditConflict = false;
 
 			reorderedItem = $item.data( 'collabkit-item-title' );
 
-			if ( res.content.columns[ 0 ].items.length !== originalOrder.length ) {
-				isEditConflict = true;
-			} else {
-				for ( i = 0; i < originalOrder.length; i++ ) {
-					if ( res.content.columns[ 0 ].items[ i ].title !== originalOrder[ i ] ) {
-						isEditConflict = true;
-						break;
+			outer: for ( i = 0; i < originalOrder.length; i++ ) {
+				if ( res.content.columns[ i ].items.length !== originalOrder[ i ].length ) {
+					isEditConflict = true;
+				} else {
+					for ( j = 0; j < originalOrder[ i ].length; j++ ) {
+						if ( res.content.columns[ i ].items[ j ].title !== originalOrder[ i ][ j ] ) {
+							isEditConflict = true;
+							break outer;
+						}
 					}
 				}
 			}
@@ -212,13 +225,22 @@
 			/**
 			 * Find an item in the result array.
 			 *
-			 * Optimized to first look in the most likely spots
+			 * Optimized to first look in the most likely spots.
+			 * Assumes that titles must be unique in a list.
+			 *
+			 * @param {string} title Title of list item to find
+			 * @param {int} indexGuess Where we think it might be
+			 * @param {int} colGuess Which column we think its in
+			 * @return {Object} The item object for the given title
 			 */
-			findItemInResArray = function ( title, indexGuess ) {
+			findItemInResArray = function ( title, indexGuess, colGuess ) {
 				var oneLess,
 					oneMore,
 					i,
-					resItems = res.content.columns[ 0 ].items;
+					j,
+					resItems = res.content.columns[ colGuess ].items;
+
+				indexGuess = indexGuess % resItems.length;
 
 				if ( resItems[ indexGuess ].title === title ) {
 					return resItems[ indexGuess ];
@@ -235,9 +257,11 @@
 				}
 
 				// Still here, check entire array.
-				for ( i = 0; i < resItems.length; i++ ) {
-					if ( resItems[ i ].title === title ) {
-						return resItems[ i ];
+				for ( i = 0; i < res.content.columns.length; i++ ) {
+					for ( j = 0; j < res.content.columns[ i ].items.length; j++ ) {
+						if ( res.content.columns[ i ].items[ j ].title === title ) {
+							return res.content.columns[ i ].items[ j ];
+						}
 					}
 				}
 
@@ -247,11 +271,17 @@
 				location.reload();
 				throw new Error( 'Item ' + title + ' is missing' );
 			};
+			resArray = [];
 			for ( i = 0; i < newOrder.length; i++ ) {
-				resArray[ resArray.length ] = findItemInResArray( newOrder[ i ], i );
+				resArray[ i ] = [];
+				for ( j = 0; j < newOrder[ i ].length; j++ ) {
+					resArray[ i ][ j ] = findItemInResArray( newOrder[ i ][ j ], j, i );
+				}
+			}
+			for ( i = 0; i < resArray.length; i++ ) {
+				res.content.columns[ i ].items = resArray[ i ];
 			}
 
-			res.content.columns[ 0 ].items = resArray;
 			res.summary = mw.msg( 'collaborationkit-list-move-summary', reorderedItem );
 			saveJson( res, function () {
 				$spinner.remove();
@@ -561,7 +591,7 @@
 					.data( 'startTitleList', getListOfTitles( $list ) );
 			},
 			stop: function ( e, ui ) {
-				var oldListTitles, newListTitles, $target, i, changed;
+				var oldListTitles, newListTitles, $target, i, j, changed, count;
 
 				$target = $( e.target );
 				$target.removeClass( 'mw-ck-dragging' );
@@ -570,15 +600,24 @@
 				$target.data( 'startTitleList', null );
 				// FIXME better error handling
 				if ( oldListTitles.length !== newListTitles.length ) {
-					throw new Error( 'We somehow lost an item?!' );
+					throw new Error( 'We somehow lost a column?!' );
 				}
 
 				changed = false;
+				count = 0;
 				for ( i = 0; i < oldListTitles.length; i++ ) {
-					if ( oldListTitles[ i ] !== newListTitles[ i ] ) {
-						changed = true;
-						break;
+					count += oldListTitles.length;
+					count -= newListTitles.length;
+					for ( j = 0; j < oldListTitles[ i ].length; j++ ) {
+						if ( oldListTitles[ i ][ j ] !== newListTitles[ i ][ j ] ) {
+							changed = true;
+							break;
+						}
 					}
+				}
+				if ( count !== 0 ) {
+					// Sanity check failure
+					throw new Error( 'List item has disappeared?' );
 				}
 				if ( changed ) {
 					reorderList( ui.item, newListTitles, oldListTitles );
