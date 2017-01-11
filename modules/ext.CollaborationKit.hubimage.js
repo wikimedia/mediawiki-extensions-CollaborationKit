@@ -18,7 +18,7 @@
 	ProcessDialog.prototype.initialize = function () {
 			ProcessDialog.super.prototype.initialize.apply( this, arguments );
 
-			this.content = new ve.ui.MWMediaSearchWidget();
+			this.content = new mw.widgets.MediaSearchWidget();
 			this.$body.append( this.content.$element );
 		};
 

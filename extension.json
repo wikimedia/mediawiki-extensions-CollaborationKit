@@ -124,7 +124,7 @@
 				"oojs-ui.styles.icons-movement",
 				"mediawiki.widgets",
 				"mediawiki.widgets.UserInputWidget",
-				"ext.visualEditor.mwimage",
+				"mediawiki.widgets.MediaSearch",
 				"mediawiki.api"
 			],
 			"messages": [
