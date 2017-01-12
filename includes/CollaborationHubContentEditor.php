@@ -15,10 +15,15 @@ class CollaborationHubContentEditor extends EditPage {
 
 		// Nice JavaScript buttons
 		$out = $this->getContext()->getOutput();
-		$out->addModules( 'ext.CollaborationKit.colour' );
-		$out->addModules( 'ext.CollaborationKit.hubimage' );
-		$out->addModuleStyles( 'zzext.CollaborationKit.edit.styles' );
-		$out->addModuleStyles( 'ext.CollaborationKit.colourbrowser.styles' );
+		$out->addModules( [
+			'mediawiki.htmlform',
+			'ext.CollaborationKit.colour',
+			'ext.CollaborationKit.hubimage'
+		] );
+		$out->addModuleStyles( [
+			'zzext.CollaborationKit.edit.styles',
+			'ext.CollaborationKit.colourbrowser.styles'
+		] );
 		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
 	}
 
@@ -27,41 +32,27 @@ class CollaborationHubContentEditor extends EditPage {
 	 * @return string html
 	 */
 	protected function getFormFields( $parts ) {
-		$displayName = CollaborationListContentEditor::editorInput(
-			'input',
-			'mw-ck-displayinput',
-			'collaborationkit-hubedit-displayname',
-			'wpCollabHubDisplayName',
-			$parts[0],
-			[ 'id' => 'wpCollabHubDisplayName' ]
-		);
 
-		$introduction = CollaborationListContentEditor::editorInput(
-			'textarea',
-			'mw-ck-introductioninput',
-			'collaborationkit-hubedit-introduction',
-			'wpCollabHubIntroduction',
-			$parts[1],
-			[ 'rows' => 8, 'id' => 'wpCollabHubIntroduction' ]
-		);
-
-		$footer = CollaborationListContentEditor::editorInput(
-			'textarea',
-			'mw-ck-footerinput',
-			'collaborationkit-hubedit-footer',
-			'wpCollabHubFooter',
-			$parts[2],
-			[ 'rows' => 6, 'id' => 'wpCollabHubFooter' ]
-		);
-
-		$image = CollaborationListContentEditor::editorInput(
-			'input',
-			'mw-ck-hubimageinput',
-			'collaborationkit-hubedit-image',
-			'wpCollabHubImage',
-			$parts[3],
-			[ 'id' => 'wpCollabHubImage' ]
-		);
+		$fields = [
+			'display_name' => [
+				'type' => 'text',
+				'cssclass' => 'mw-ck-displayinput',
+				'label-message' => 'collaborationkit-hubedit-displayname',
+				'help-message' => 'collaborationkit-hubedit-displayname-help',
+				'name' => 'wpCollabHubDisplayName',
+				'id' => 'wpCollabHubDisplayName',
+				'default' => $parts[0]
+			],
+			'icon' => [
+				'type' => 'text',
+				'cssclass' => 'mw-ck-hubimageinput',
+				'label-message' => 'collaborationkit-hubedit-image',
+				'help-message' => 'collaborationkit-hubedit-image-help',
+				'name' => 'wpCollabHubImage',
+				'default' => $parts[3],
+				'id' => 'wpCollabHubImage'
+			],
+		];
 
 		$colours = [];
 		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
@@ -72,33 +63,72 @@ class CollaborationHubContentEditor extends EditPage {
 		} else {
 			$selectedColour = $parts[4];
 		}
-		$colour = CollaborationListContentEditor::editorInput(
-			'select',
-			'mw-ck-colourinput',
-			'collaborationkit-hubedit-colour',
-			'wpCollabHubColour',
-			$selectedColour,
-			[ 'id' => 'wpCollabHubColour' ],
-			$colours
-		);
+		$fields['colour'] = [
+			'type' => 'select',
+			'cssclass' => 'mw-ck-colourinput',
+			'name' => 'wpCollabHubColour',
+			'id' => 'wpCollabHubColour',
+			'label-message' => 'collaborationkit-hubedit-colour',
+			'options' => $this->getOptions( $colours ),
+			'default' => $selectedColour
+		];
 
 		$this->colour = $selectedColour;
+
+		$fields['introduction'] = [
+			'type' => 'textarea',
+			'cssclass' => 'mw-ck-introductioninput',
+			'label-message' => 'collaborationkit-hubedit-introduction',
+			'placeholder' => 'collaborationkit-hubedit-introduction-placeholder',
+			'name' => 'wpCollabHubIntroduction',
+			'default' => $parts[1],
+			'rows' => 8,
+			'id' => 'wpCollabHubIntroduction'
+		];
 
 		if ( $parts[5] == '' ) {
 			$includedContent = '';
 		} else {
 			$includedContent = $parts[5];
 		}
-		$content = CollaborationListContentEditor::editorInput(
-			'textarea',
-			'mw-ck-introductioninput',
-			'collaborationkit-hubedit-content',
-			'wpCollabHubContent',
-			$includedContent,
-			[ 'rows' => 18, 'id' => 'wpCollabHubContent' ]
-		);
+		$fields['content'] = [
+			'type' => 'textarea',
+			'cssclass' => 'mw-ck-textboxmain',
+			'label-message' => 'collaborationkit-hubedit-content',
+			'help-message' => 'collaborationkit-hubedit-content-help',
+			'name' => 'wpCollabHubContent',
+			'default' => $includedContent,
+			'rows' => 18,
+			'id' => 'wpCollabHubContent'
+		];
 
-		return $displayName . $image . $colour . $introduction . $content . $footer;
+		$fields['footer'] = [
+			'type' => 'textarea',
+			'cssclass' => 'mw-ck-footerinput',
+			'label-message' => 'collaborationkit-hubedit-footer',
+			'help-message' => 'collaborationkit-hubedit-footer-help',
+			'name' => 'wpCollabHubFooter',
+			'default' => $parts[2],
+			'rows' => 6,
+			'id' => 'wpCollabHubFooter'
+		];
+
+		$dummyForm = HTMLForm::factory( 'ooui', $fields, $this->getContext() );
+
+		return $dummyForm->prepareForm()->getBody();
+	}
+
+	/**
+	 * Build and return the aossociative array for the content source field.
+	 * @param $mapping array
+	 * @return array
+	 */
+	protected function getOptions( $mapping ) {
+		$options = [];
+		foreach ( $mapping as $msgKey => $option ) {
+			$options[wfMessage( $msgKey )->escaped()] = $option;
+		}
+		return $options;
 	}
 
 	/**

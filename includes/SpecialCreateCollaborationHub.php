@@ -40,19 +40,23 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				'cssclass' => 'mw-ck-title-input',
 				'label-message' => 'collaborationkit-createhub-title',
 				'validation-callback' => [ $this, 'titleValidate' ],
+				'help-message' => 'collaborationkit-createhub-title-help',
+				'placeholder-message' => 'collaborationkit-createhub-title-placeholder',
 				'required' => true
 			],
 			// Display name can be different from page title
 			'display_name' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-display-input',
-				'label-message' => 'collaborationkit-createhub-displayname',
+				'label-message' => 'collaborationkit-hubedit-displayname',
+				'help-message' => 'collaborationkit-hubedit-displayname-help'
 			],
 			// Hub image/icon thing
 			'icon' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-hubimageinput',
-				'label-message' => 'collaborationkit-createhub-image',
+				'label-message' => 'collaborationkit-hubedit-image',
+				'help-message' => 'collaborationkit-hubedit-image-help'
 			],
 		];
 		// Colours for the hub styles
@@ -64,7 +68,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'type' => 'select',
 			'cssclass' => 'mw-ck-colourinput',
 			'id' => 'wpCollabHubColour',
-			'label-message' => 'collaborationkit-createhub-colour',
+			'label-message' => 'collaborationkit-hubedit-colour',
 			'options' => $this->getOptions( $colours ),
 			'default' => 'blue5'
 		];
@@ -93,8 +97,9 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$fields['introduction'] = [
 			'type' => 'textarea',
 			'rows' => 5,
-			'label-message' => 'collaborationkit-createhub-introduction',
-			'cssclass' => 'mw-ck-introduction-input'
+			'label-message' => 'collaborationkit-hubedit-introduction',
+			'cssclass' => 'mw-ck-introduction-input',
+			'placeholder-message' => 'collaborationkit-hubedit-introduction-placeholder'
 		];
 
 		return $fields;

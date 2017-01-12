@@ -2,24 +2,17 @@
 
 .ck-customeditor-toolbars( @default );
 
-.mw-collabkit-modifiededitform > div {
-	margin-top: .5em;
-}
-.mw-collabkit-modifiededitform label {
+.mw-collabkit-modifiededitform .oo-ui-labelElement-label {
 	font-weight: bold;
-}
-
-.mw-ck-displayinput label:after,
-.mw-ck-hubimageinput label:after,
-.mw-ck-colourinput label:after {
-	content: ':';
-	padding-right: .5em;
 }
 .mw-ck-displayinput,
 .mw-ck-hubimageinput {
 	input {
 		width: 40%;
 	}
+}
+.oo-ui-textInputWidget {
+	max-width: 100%;
 }
 
 .ck-customeditor-toolbars( @color ) {

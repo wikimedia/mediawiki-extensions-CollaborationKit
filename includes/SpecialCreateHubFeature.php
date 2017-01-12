@@ -59,11 +59,12 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				'label-message' => 'collaborationkit-createhubfeature-featurename',
 				'default' => $defaultFeatureName
 			],
-			// TODO replace with icon selector
+			// TODO replace with subclassed image selector
 			'icon' => [
 				'type' => 'combobox',
 				'cssclass' => 'mw-ck-icon-input',
 				'label-message' => 'collaborationkit-createhubfeature-icon',
+				'help-message' => 'collaborationkit-createhubfeature-icon-help',
 				'options' => $iconChoices
 			],
 			'contenttype' => [
