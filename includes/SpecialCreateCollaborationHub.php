@@ -9,8 +9,10 @@
 
 class SpecialCreateCollaborationHub extends FormSpecialPage {
 
-	public function __construct() {
-		parent::__construct( 'CreateCollaborationHub' );
+	public function __construct( $name = 'CreateCollaborationHub', $right = 'createpage' ) {
+		// Note: The right check is primarily for UI. There are
+		// additional checks later on.
+		parent::__construct( $name, $right );
 	}
 
 	/**
