@@ -8,6 +8,7 @@
 
 	// Specify a static title and actions.
 	ProcessDialog.static.title = mw.msg( 'collaborationkit-hubimage-browser' );
+	ProcessDialog.static.name = 'collabkit-hubimage';
 	ProcessDialog.static.actions = [
 		{ action: 'save', label: mw.msg( 'collaborationkit-hubimage-select' ), flags: 'primary' },
 		{ label: mw.msg( 'cancel' ), flags: 'safe' }
