@@ -26,6 +26,7 @@
 
 	// Specify a static title and actions.
 	ProcessDialog.static.title = mw.msg( 'collaborationkit-colour-browser' );
+	ProcessDialog.static.name = 'collabkit-colourselect';
 	ProcessDialog.static.actions = [
 		{ action: 'save', label: mw.msg( 'collaborationkit-colour-select' ), flags: 'primary' },
 		{ label: mw.msg( 'cancel' ), flags: 'safe' }

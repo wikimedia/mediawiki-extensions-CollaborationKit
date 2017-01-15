@@ -371,6 +371,7 @@
 	}
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
 	NewItemDialog.static.title = mw.msg( 'collaborationkit-list-newitem-title' );
+	NewItemDialog.static.name = 'collabkit-newitemdialog';
 	NewItemDialog.static.actions = [
 		{
 			action: 'continue',
