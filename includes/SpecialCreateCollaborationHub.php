@@ -37,6 +37,8 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				'type' => 'text',
 				'cssclass' => 'mw-ck-title-input',
 				'label-message' => 'collaborationkit-createhub-title',
+				'validation-callback' => [ $this, 'titleValidate' ],
+				'required' => true
 			],
 			// Display name can be different from page title
 			'display_name' => [
@@ -97,6 +99,39 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
+	 * Callback to validate given title
+	 *
+	 * @param $value string The title value to test
+	 * @return bool|string|Message True on success, or Message for error
+	 */
+	public function titleValidate( $value ) {
+		$title = Title::newFromText( $value );
+		if ( !$title ) {
+			return $this->msg( 'collaborationkit-createhub-invalidtitle' );
+		}
+
+		// TODO: Add an option to import it to itself as target if the
+		// page already exists, archiving the existing page to a subpage (T136475)
+		if ( $title->exists() ) {
+			return $this->msg( 'collaborationkit-createhub-exists' );
+		}
+
+		$handler = new CollaborationHubContentHandler();
+		if ( !$handler->canBeUsedOn( $title ) ) {
+			// Most likely a namespace issue.
+			$lang = $this->getLanguage();
+			$allowedNSConfig = $this->getConfig()->get( 'CollaborationListAllowedNamespaces' );
+			$allowedNS = array_keys( array_filter( $allowedNSConfig ) );
+			$textNS = array_map( [ $lang, 'getFormattedNsText' ], $allowedNS );
+			return $this->msg( 'collaborationkit-createhub-wrongnamespace' )
+				->numParams( count( $textNS ) )
+				->params( $lang->commaList( $textNS ) );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Build and return the aossociative array for the content source field.
 	 * @param $mapping array
 	 * @return array
@@ -116,14 +151,18 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	public function onSubmit( array $data ) {
 		$title = Title::newFromText( $data['title'] );
 		if ( !$title ) {
+			// Should already be checked, but make extra sure.
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
-		} elseif ( $title->exists() ) {
-			// TODO: Add an option to import it to itself as target if the page already exists, archiving the existing page to a subpage (T136475)
-			return Status::newFatal( 'collaborationkit-createhub-exists' );
-		} elseif (
-			!$title->userCan( 'edit' ) ||
-			!$title->userCan( 'create' ) ||
-			!$title->userCan( 'editcontentmodel' )
+		}
+
+		$user = $this->getUser();
+		// TODO: Consider changing to getUserPermissionsErrors for
+		// better error message. Possibly as a first step in constructor
+		// as the non-title specific error.
+		if (
+			!$title->userCan( 'edit', $user ) ||
+			!$title->userCan( 'create', $user ) ||
+			!$title->userCan( 'editcontentmodel', $user )
 		) {
 			return Status::newFatal( 'collaborationkit-createhub-nopermission' );
 		}

@@ -120,5 +120,6 @@
 	"collaborationkit-green3": "Color label",
 	"collaborationkit-black": "Color label",
 	"collaborationkit-column-active": "Column header for the list of active members of a collaboration hub project",
-	"collaborationkit-column-inactive": "Column header for the list of members of a project who are no longer active on wiki."
+	"collaborationkit-column-inactive": "Column header for the list of members of a project who are no longer active on wiki.",
+	"collaborationkit-createhub-wrongnamespace": "Error message from Special:CreateCollaborationHub if the title specified is not allowed to be used with the CollaborationHubContent content model. Normally this means that the title is in the wrong namespace. $1 - Number of namespaces that CollaborationHub is allowed on. $2 - Comma separated list of namespace names that are allowed to be used."
 }

@@ -120,5 +120,6 @@
 	"collaborationkit-green3": "Khaki",
 	"collaborationkit-black": "Black",
 	"collaborationkit-column-active": "Active members",
-	"collaborationkit-column-inactive": "Inactive members"
+	"collaborationkit-column-inactive": "Inactive members",
+	"collaborationkit-createhub-wrongnamespace": "This page name cannot be used as a Collaboration Hub. Collaboration Hubs can only be created in the {{PLURAL:$1|$2 namespace|following namespaces: $2}}."
 }
