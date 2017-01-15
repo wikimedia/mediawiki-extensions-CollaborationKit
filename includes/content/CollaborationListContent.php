@@ -188,12 +188,15 @@ class CollaborationListContent extends JsonContent {
 		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $isMemberList );
 	}
 
-	private function getOverrideOptions() {
-		$this->decode();
-		$opts = (array)$this->options;
-		return [];
-	}
-
+	/**
+	 * Get rendering options to use when directly viewing the list page
+	 *
+	 * These are used on direct page views, and plain wikitext
+	 * transclusions. They are not used when using the parser function.
+	 *
+	 * @todo FIXME These should maybe not be used during transclusion.
+	 * @return Array Options
+	 */
 	private function getFullRenderListOptions() {
 		return $listOptions = [
 			'includeDesc' => true,
@@ -211,7 +214,7 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public function convertToWikitext( Language $lang, $options = [] ) {
 		$this->decode();
-		$options = $options + $this->getOverrideOptions() + $this->getDefaultOptions();
+		$options = $options + $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
 
@@ -219,7 +222,11 @@ class CollaborationListContent extends JsonContent {
 		// just return the plain JSON.
 
 		if ( $this->displaymode == 'error' ) {
-			$errorWikitext = '<div class=errorbox>' . wfMessage( 'collaborationkit-list-invalid' ) . "</div>\n<pre>" . $this->errortext . '</pre>';
+			$errorWikitext = '<div class=errorbox>' .
+				wfMessage( 'collaborationkit-list-invalid' )->inLanguage( $lang )->plain() .
+				"</div>\n<pre>" .
+				$this->errortext .
+				'</pre>';
 			return $errorWikitext;
 		}
 
@@ -383,6 +390,18 @@ class CollaborationListContent extends JsonContent {
 		return parent::convert( $toModel, $lossy );
 	}
 
+	/**
+	 * Default rendering options.
+	 *
+	 * These are used when rendering a list and no option
+	 * value was specified. getFullRenderListOptions() will
+	 * override some of these values when a list page is directly
+	 * viewed.
+	 *
+	 * Any new option must be added to this list.
+	 *
+	 * @return Array default rendering options to use.
+	 */
 	public function getDefaultOptions() {
 		// FIXME implement
 		// FIXME use defaults from schema instead of hardcoded values
