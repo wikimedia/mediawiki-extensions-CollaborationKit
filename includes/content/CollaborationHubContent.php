@@ -339,12 +339,15 @@ class CollaborationHubContent extends JsonContent {
 			);
 
 			$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
+			$activeCol = wfMessage( 'collaborationkit-column-active' )->inContentLanguage()->plain();
 			$wikitext = $membersContent->convertToWikitext(
 				$lang,
 				[
 					'includeDesc' => false,
 					'maxItems' => 3,
-					'defaultSort' => 'random'
+					'defaultSort' => 'random',
+					'columns' => [ $activeCol ],
+					'showColumnHeaders' => false
 				]
 			);
 
