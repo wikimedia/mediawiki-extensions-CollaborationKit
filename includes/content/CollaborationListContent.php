@@ -54,9 +54,26 @@ class CollaborationListContent extends JsonContent {
 		if ( !isset( $data->description ) || !isset( $data->columns ) || !isset( $data->options ) || !isset( $data->displaymode ) ) {
 			return false;
 		}
+
 		$jsonAsArray = json_decode( json_encode( $data ), true );
+
 		try {
 			EventLogging::schemaValidate( $jsonAsArray, $listSchema );
+			// FIXME: The schema should be enforcing data type requirements, but it isn't.
+			// Again, this is probably EventLogging.
+			$numberOfColumns = count( $jsonAsArray[ "columns" ] );
+			for ( $i = 0; $i < $numberOfColumns; $i++ ) {
+				if ( !is_array( $jsonAsArray[ "columns" ][ $i ] ) ) {
+					return false;
+				} else {
+					$numberOfItems = count( $jsonAsArray[ "columns" ][ $i ][ "items" ] );
+					for ( $j = 0; $j < $numberOfItems; $j++ ) {
+						if ( !is_array( $jsonAsArray[ "columns" ][ $i ][ "items" ][ $j ] ) ) {
+							return false;
+						}
+					}
+				}
+			}
 			return true;
 		} catch ( JsonSchemaException $e ) {
 			return false;
