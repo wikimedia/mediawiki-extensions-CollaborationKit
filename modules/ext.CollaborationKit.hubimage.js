@@ -44,7 +44,7 @@
 							.css( 'margin-bottom', '10px' );
 
 						// Set form value
-						$( '.mw-ck-hubimageinput input, div#wpCollabHubImage input' ).val( fileTitle );
+						$( '.mw-ck-hubimageinput input' ).val( fileTitle );
 
 						dialog.close( { action: action } );
 					} );
@@ -79,12 +79,12 @@
 	hubimageBrowserButton.setLabel( mw.msg( 'collaborationkit-hubimage-launchbutton' ) );
 	hubimageBrowserButton.on( 'click', openItUp );
 
-	$( 'div.mw-ck-hubimageinput, div#wpCollabHubImage' ).addClass( 'hubimage-browser-field' );
-	$( 'div.mw-ck-hubimageinput label, div#wpCollabHubImage' )
+	$( 'div.mw-ck-hubimageinput' ).addClass( 'hubimage-browser-field' );
+	$( 'div.mw-ck-hubimageinput label' )
 		.append( '<img class="hubimagePreview" /><div class="hubimageBrowserButton">' )
 		.append( hubimageBrowserButton.$element )
 		.append( '</div>' );
-	$( 'div.mw-ck-hubimageinput input, div#wpCollabHubImage input' ).css( 'display', 'none' );
+	$( 'div.mw-ck-hubimageinput input' ).css( 'display', 'none' );
 
 	// Load current hub image
 	if ( $( 'input#wpCollabHubImage' ).val() !== undefined ) {
