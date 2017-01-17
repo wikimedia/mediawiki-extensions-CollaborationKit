@@ -87,7 +87,7 @@
 	$( 'div.mw-ck-hubimageinput input' ).css( 'display', 'none' );
 
 	// Load current hub image
-	if ( $( 'input#wpCollabHubImage' ).val() !== undefined ) {
+	if ( $( 'div.mw-ck-hubimageinput input' ).val() !== undefined ) {
 		currentImageFilename = 'File:' + $( 'input#wpCollabHubImage' ).val();
 		currentImage = new mw.Api()
 			.get( {
