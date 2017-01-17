@@ -195,7 +195,7 @@ class CollaborationListContent extends JsonContent {
 		$listOptions = $this->getFullRenderListOptions()
 			+ (array)$this->options
 			+ $this->getDefaultOptions();
-		$text = $this->convertToWikitext( $lang, $listOptions );
+		$text = "__NOEDITSECTION__" . $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
 		if ( $this->displaymode == 'members' ) {
 			$isMemberList = true;
