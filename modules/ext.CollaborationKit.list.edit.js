@@ -35,8 +35,12 @@
 	 * @return {boolean}
 	 */
 	curUserIsInList = function curUserIsInList() {
-		var titleObj, escapedText;
-		titleObj = mw.Title.newFromText( mw.config.get( 'wgUserName' ), 2 );
+		var titleObj, escapedText, currentUser;
+		currentUser = mw.config.get( 'wgUserName' );
+		if ( !currentUser ) {
+			return false;
+		}
+		titleObj = mw.Title.newFromText( currentUser, 2 );
 		escapedText = titleObj.getPrefixedText();
 		escapedText = escapedText.replace( /\\/g, '\\\\' );
 		escapedText = escapedText.replace( /"/g, '\\"' );
@@ -516,115 +520,122 @@
 
 		$list = $( '.mw-ck-list' );
 		$list.find( '.mw-ck-list-item' ).each( function () {
-			var deleteButton,
-				moveButton,
-				editButton,
-				$delWrapper,
-				$moveWrapper,
-				$editWrapper,
-				colId,
-				$item = $( this );
+				var deleteButton,
+					moveButton,
+					editButton,
+					$delWrapper,
+					$moveWrapper,
+					$editWrapper,
+					colId,
+					$item = $( this );
 
-			colId = getColId( $item );
-			deleteButton = new OO.ui.ButtonWidget( {
-				framed: false,
-				icon: 'remove',
-				iconTitle: mw.msg( 'collaborationkit-list-delete' )
-			} );
-
-			// Icon instead of button to avoid conflict with jquery.ui
-			moveButton = new OO.ui.IconWidget( {
-				framed: false,
-				icon: 'move',
-				iconTitle: mw.msg( 'collaborationkit-list-move' )
-			} );
-
-			editButton = new OO.ui.ButtonWidget( {
-				label: 'edit',
-				framed: false
-			} ).on( 'click', function () {
-				modifyExistingItem( $item.data( 'collabkit-item-title' ), colId );
-			} );
-
-			// FIXME, the <a> might make an extra target when tabbing
-			// through the document (Maybe also messing up screen readers).
-			// not sure. Its used so that jquery.confirmable makes a link.
-			$delWrapper = $( '<a></a>' )
-				.attr( 'href', '#' )
-				.click( function ( e ) { e.preventDefault(); } )
-				.addClass( 'mw-ck-list-deletebutton' )
-				.addClass( 'mw-ck-list-button' )
-				.append( deleteButton.$element )
-				.confirmable( {
-					handler: function () {
-						deleteItem( $item );
-					}
+				colId = getColId( $item );
+				deleteButton = new OO.ui.ButtonWidget( {
+					framed: false,
+					icon: 'remove',
+					iconTitle: mw.msg( 'collaborationkit-list-delete' )
 				} );
 
-			$moveWrapper = $( '<div></div>' )
-				.addClass( 'mw-ck-list-movebutton' )
-				.addClass( 'mw-ck-list-button' )
-				.append( moveButton.$element );
+				// Icon instead of button to avoid conflict with jquery.ui
 
-			$editWrapper = $( '<div></div>' )
-				.addClass( 'mw-ck-list-editbutton' )
-				.addClass( 'mw-ck-list-button' )
-				.append( editButton.$element );
-
-			$item.find( '.mw-ck-list-title' )
-				.append( $delWrapper )
-				.append( $moveWrapper )
-				.append( $editWrapper );
-		} );
-
-		$list.sortable( {
-			placeholder: 'mw-ck-list-dragplaceholder',
-			axis: 'y',
-			forcePlaceholderSize: true,
-			handle: '.mw-ck-list-movebutton',
-			opacity: 0.6,
-			scroll: true,
-			items: '.mw-ck-list-item',
-			cursor: 'grabbing', // Also overriden in CSS
-			start: function ( e ) {
-				$( e.target )
-					.addClass( 'mw-ck-dragging' )
-					.data( 'startTitleList', getListOfTitles( $list ) );
-			},
-			stop: function ( e, ui ) {
-				var oldListTitles, newListTitles, $target, i, j, changed, count;
-
-				$target = $( e.target );
-				$target.removeClass( 'mw-ck-dragging' );
-				oldListTitles = $target.data( 'startTitleList' );
-				newListTitles = getListOfTitles( $list );
-				$target.data( 'startTitleList', null );
-				// FIXME better error handling
-				if ( oldListTitles.length !== newListTitles.length ) {
-					throw new Error( 'We somehow lost a column?!' );
+				if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
+					moveButton = new OO.ui.IconWidget( {
+						framed: false,
+						icon: 'move',
+						iconTitle: mw.msg( 'collaborationkit-list-move' )
+					} );
 				}
 
-				changed = false;
-				count = 0;
-				for ( i = 0; i < oldListTitles.length; i++ ) {
-					count += oldListTitles.length;
-					count -= newListTitles.length;
-					for ( j = 0; j < oldListTitles[ i ].length; j++ ) {
-						if ( oldListTitles[ i ][ j ] !== newListTitles[ i ][ j ] ) {
-							changed = true;
-							break;
+				editButton = new OO.ui.ButtonWidget( {
+					label: 'edit',
+					framed: false
+				} ).on( 'click', function () {
+					modifyExistingItem( $item.data( 'collabkit-item-title' ), colId );
+				} );
+
+				// FIXME, the <a> might make an extra target when tabbing
+				// through the document (Maybe also messing up screen readers).
+				// not sure. Its used so that jquery.confirmable makes a link.
+				$delWrapper = $( '<a></a>' )
+					.attr( 'href', '#' )
+					.click( function ( e ) { e.preventDefault(); } )
+					.addClass( 'mw-ck-list-deletebutton' )
+					.addClass( 'mw-ck-list-button' )
+					.append( deleteButton.$element )
+					.confirmable( {
+						handler: function () {
+							deleteItem( $item );
+						}
+					} );
+
+				if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
+					$moveWrapper = $( '<div></div>' )
+						.addClass( 'mw-ck-list-movebutton' )
+						.addClass( 'mw-ck-list-button' )
+						.append( moveButton.$element );
+				}
+
+				$editWrapper = $( '<div></div>' )
+					.addClass( 'mw-ck-list-editbutton' )
+					.addClass( 'mw-ck-list-button' )
+					.append( editButton.$element );
+
+				$item.find( '.mw-ck-list-title' )
+					.append( $delWrapper )
+					.append( $moveWrapper )
+					.append( $editWrapper );
+			} );
+
+		if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
+			$list.sortable( {
+				placeholder: 'mw-ck-list-dragplaceholder',
+				axis: 'y',
+				forcePlaceholderSize: true,
+				handle: '.mw-ck-list-movebutton',
+				opacity: 0.6,
+				scroll: true,
+				items: '.mw-ck-list-item',
+				cursor: 'grabbing', // Also overriden in CSS
+				start: function ( e ) {
+					$( e.target )
+						.addClass( 'mw-ck-dragging' )
+						.data( 'startTitleList', getListOfTitles( $list ) );
+				},
+				stop: function ( e, ui ) {
+					var oldListTitles, newListTitles, $target, i, j, changed, count;
+
+					$target = $( e.target );
+					$target.removeClass( 'mw-ck-dragging' );
+					oldListTitles = $target.data( 'startTitleList' );
+					newListTitles = getListOfTitles( $list );
+					$target.data( 'startTitleList', null );
+					// FIXME better error handling
+					if ( oldListTitles.length !== newListTitles.length ) {
+						throw new Error( 'We somehow lost a column?!' );
+					}
+
+					changed = false;
+					count = 0;
+					for ( i = 0; i < oldListTitles.length; i++ ) {
+						count += oldListTitles.length;
+						count -= newListTitles.length;
+						for ( j = 0; j < oldListTitles[ i ].length; j++ ) {
+							if ( oldListTitles[ i ][ j ] !== newListTitles[ i ][ j ] ) {
+								changed = true;
+								break;
+							}
 						}
 					}
+					if ( count !== 0 ) {
+						// Sanity check failure
+						throw new Error( 'List item has disappeared?' );
+					}
+					if ( changed ) {
+						reorderList( ui.item, newListTitles, oldListTitles );
+					}
 				}
-				if ( count !== 0 ) {
-					// Sanity check failure
-					throw new Error( 'List item has disappeared?' );
-				}
-				if ( changed ) {
-					reorderList( ui.item, newListTitles, oldListTitles );
-				}
-			}
-		} );
+			} );
+		}
 
 		buttonMsg = mw.config.get( 'wgCollaborationKitIsMemberList' ) ?
 			'collaborationkit-list-add-user' :
