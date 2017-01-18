@@ -994,8 +994,10 @@ class CollaborationListContent extends JsonContent {
 	 * @param $parser Parser
 	 */
 	public static function loadStyles( $content, array $attributes, Parser $parser ) {
-		$parser->getOutput()->addModuleStyles( 'ext.CollaborationKit.list.styles' );
-		$parser->getOutput()->addModules( 'ext.CollaborationKit.icons' );
+		$parser->getOutput()->addModuleStyles( [
+			'ext.CollaborationKit.list.styles',
+			'ext.CollaborationKit.icons'
+		] );
 		return '';
 	}
 

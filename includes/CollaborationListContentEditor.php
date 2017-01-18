@@ -14,7 +14,7 @@ class CollaborationListContentEditor extends EditPage {
 
 		$out = $this->getContext()->getOutput();
 		$out->addModules( 'mediawiki.htmlform' );
-		$out->addModuleStyles( 'zzext.CollaborationKit.edit.styles' );
+		$out->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
 	}
 
 	protected function showContentForm() {
@@ -37,7 +37,7 @@ class CollaborationListContentEditor extends EditPage {
 		$fields = [
 			'description' => [
 				'type' => 'textarea',
-				'cssclass' => 'mw-ck-introductioninput',
+				'cssclass' => 'mw-ck-introduction-input',
 				'label-message' => 'collaborationkit-listedit-description',
 				'placeholder' => 'collaborationkit-listedit-description-placeholder',
 				'name' => 'wpCollabListDescription',
@@ -47,7 +47,7 @@ class CollaborationListContentEditor extends EditPage {
 			],
 			'content' => [
 				'type' => 'textarea',
-				'cssclass' => 'mw-ck-textboxmain',
+				'cssclass' => 'mw-ck-content-input',
 				'label-message' => 'collaborationkit-listedit-list',
 				'help-message' => 'collaborationkit-listedit-list-help',
 				'name' => 'wpCollabListContent',

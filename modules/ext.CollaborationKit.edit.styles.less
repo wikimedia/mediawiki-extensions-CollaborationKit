@@ -2,17 +2,24 @@
 
 .ck-customeditor-toolbars( @default );
 
-.mw-collabkit-modifiededitform .oo-ui-labelElement-label {
-	font-weight: bold;
-}
-.mw-ck-displayinput,
-.mw-ck-hubimageinput {
-	input {
-		width: 40%;
+.mw-collabkit-modifiededitform {
+	.oo-ui-textInputWidget {
+		max-width: 100%;
 	}
 }
-.oo-ui-textInputWidget {
-	max-width: 100%;
+.mw-htmlform-ooui-wrapper,
+.mw-collabkit-modifiededitform {
+	label .oo-ui-labelElement-label {
+		font-weight: bold;
+	}
+	.mw-ck-title-input,
+	.mw-ck-display-input,
+	.mw-ck-icon-input,
+	.mw-ck-hub-image-input {
+		&.oo-ui-textInputWidget {
+			max-width: 40em;
+		}
+	}
 }
 
 .ck-customeditor-toolbars( @color ) {

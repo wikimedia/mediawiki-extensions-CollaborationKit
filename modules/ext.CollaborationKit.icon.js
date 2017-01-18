@@ -17,67 +17,67 @@
 	// Use the initialize() method to add content to the dialog's $body,
 	// to initialize widgets, and to set up event handlers.
 	ProcessDialog.prototype.initialize = function () {
-			var iconList, radioChoices, className;
+		var iconList, radioChoices, className;
 
-			ProcessDialog.super.prototype.initialize.apply( this, arguments );
+		ProcessDialog.super.prototype.initialize.apply( this, arguments );
 
-			this.content = new OO.ui.PanelLayout( { padded: true, expanded: false } );
+		this.content = new OO.ui.PanelLayout( { padded: true, expanded: false } );
 
-			iconList = mw.config.get( 'wgCollaborationKitIconList' );
+		iconList = mw.config.get( 'wgCollaborationKitIconList' );
 
-			radioChoices = [];
-			for ( i = 0; i < iconList.length; i++ ) {
-				divElm = $( '<div></div>' )
-					.addClass( 'mw-ck-iconbrowser-iconcontainer' )
-					.append( $( '<div></div>' )
-						.addClass( 'mw-ck-icon-' + iconList[ i ] )
-						.addClass( 'mw-ck-iconbrowser-icon' )
-					);
+		radioChoices = [];
+		for ( i = 0; i < iconList.length; i++ ) {
+			divElm = $( '<div></div>' )
+				.addClass( 'mw-ck-iconbrowser-iconcontainer' )
+				.append( $( '<div></div>' )
+					.addClass( 'mw-ck-icon-' + iconList[ i ] )
+					.addClass( 'mw-ck-iconbrowser-icon' )
+				);
 
-				radioChoices.push( new OO.ui.RadioOptionWidget( {
-					label: divElm,
-					data: iconList[ i ]
-				} ) );
-			}
+			radioChoices.push( new OO.ui.RadioOptionWidget( {
+				label: divElm,
+				data: iconList[ i ]
+			} ) );
+		}
 
-			this.radioSelect = new OO.ui.RadioSelectWidget( {
-				name: 'iconChoice',
-				items: radioChoices,
-				classes: [ 'mw-ck-iconbrowser' ]
-			} );
+		this.radioSelect = new OO.ui.RadioSelectWidget( {
+			name: 'iconChoice',
+			items: radioChoices,
+			classes: [ 'mw-ck-iconbrowser' ]
+		} );
 
-			this.content.$element.append( this.radioSelect.$element );
+		this.content.$element.append( this.radioSelect.$element );
 
-			this.$body.append( this.content.$element );
-		};
+		this.$body.append( this.content.$element );
+	};
 
 	// In the event "Select" is pressed
 	ProcessDialog.prototype.getActionProcess = function ( action ) {
-			var dialog, toAppend, openItUp, windowManager, processDialog, iconBrowserButton;
+		var dialog, toAppend, openItUp, windowManager, processDialog, iconBrowserButton;
 
-			dialog = this;
-			if ( action ) {
-				return new OO.ui.Process( function () {
-						toAppend = dialog.radioSelect.getSelectedItem().getData();
+		dialog = this;
+		if ( action ) {
+			return new OO.ui.Process( function () {
+				toAppend = dialog.radioSelect.getSelectedItem().getData();
 
-						// Generate preview
-						$( '.iconPreview' )
-							.addClass( 'mw-ck-icon-' + toAppend )
-							.css( 'display', 'block' );
-						// Set form value
-						$( '.mw-ck-icon-input input' ).val( toAppend );
+				// Generate preview
+				$( '.iconPreview' )
+					.addClass( 'mw-ck-icon-' + toAppend )
+					.css( 'display', 'block' );
+				// Set form value
+				$( '.mw-ck-icon-input input' ).val( toAppend );
 
-						dialog.close( { action: action } );
-					} );
-			}
-			// Fallback to parent handler.
-			return ProcessDialog.super.prototype.getActionProcess.call( this, action );
-		};
+				dialog.close( { action: action } );
+			} );
+		}
+		// Fallback to parent handler.
+		return ProcessDialog.super.prototype.getActionProcess.call( this, action );
+	};
 
 	// Get dialog height.
 	ProcessDialog.prototype.getBodyHeight = function () {
-			return this.content.$element.outerHeight( true );
-		};
+		return this.content.$element.outerHeight( true );
+	};
 
 	// Create and append the window manager.
 	openItUp = function () {

@@ -19,7 +19,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	public function execute( $par ) {
 		$output = $this->getContext()->getOutput();
 		$output->addModules( 'ext.CollaborationKit.iconbrowser' );
-		$output->addModuleStyles( 'ext.CollaborationKit.iconbrowser.styles' );
+		$output->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
 		$output->addJsConfigVars( 'wgCollaborationKitIconList', CollaborationKitIcon::getCannedIcons() );
 		parent::execute( $par );
 	}

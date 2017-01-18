@@ -283,11 +283,13 @@ class CollaborationHubContent extends JsonContent {
 			$output->setText( $html );
 
 			// Add some style stuff
-			$output->addModuleStyles( 'ext.CollaborationKit.hub.styles' );
-			$output->addModuleStyles( 'oojs-ui.styles.icons-editing-core' );
-			$output->addModules( 'ext.CollaborationKit.icons' );
-			$output->addModules( 'ext.CollaborationKit.blots' );
-			$output->addModules( 'ext.CollaborationKit.list.styles' );
+			$output->addModuleStyles( [
+				'ext.CollaborationKit.hub.styles',
+				'oojs-ui.styles.icons-editing-core',
+				'ext.CollaborationKit.icons',
+				'ext.CollaborationKit.blots',
+				'ext.CollaborationKit.list.styles'
+			] );
 			$output->setEnableOOUI( true );
 		}
 	}

@@ -17,12 +17,11 @@ class CollaborationHubContentEditor extends EditPage {
 		$out = $this->getContext()->getOutput();
 		$out->addModules( [
 			'mediawiki.htmlform',
-			'ext.CollaborationKit.colour',
-			'ext.CollaborationKit.hubimage'
+			'ext.CollaborationKit.colourbrowser',
+			'ext.CollaborationKit.hubimagebrowser'
 		] );
 		$out->addModuleStyles( [
-			'zzext.CollaborationKit.edit.styles',
-			'ext.CollaborationKit.colourbrowser.styles'
+			'ext.CollaborationKit.edit.styles',
 		] );
 		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
 	}
@@ -36,7 +35,7 @@ class CollaborationHubContentEditor extends EditPage {
 		$fields = [
 			'display_name' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-displayinput',
+				'cssclass' => 'mw-ck-display-input',
 				'label-message' => 'collaborationkit-hubedit-displayname',
 				'help-message' => 'collaborationkit-hubedit-displayname-help',
 				'name' => 'wpCollabHubDisplayName',
@@ -45,7 +44,7 @@ class CollaborationHubContentEditor extends EditPage {
 			],
 			'icon' => [
 				'type' => 'text',
-				'cssclass' => 'mw-ck-hubimageinput',
+				'cssclass' => 'mw-ck-hub-image-input',
 				'label-message' => 'collaborationkit-hubedit-image',
 				'help-message' => 'collaborationkit-hubedit-image-help',
 				'name' => 'wpCollabHubImage',
@@ -65,7 +64,7 @@ class CollaborationHubContentEditor extends EditPage {
 		}
 		$fields['colour'] = [
 			'type' => 'select',
-			'cssclass' => 'mw-ck-colourinput',
+			'cssclass' => 'mw-ck-colour-input',
 			'name' => 'wpCollabHubColour',
 			'id' => 'wpCollabHubColour',
 			'label-message' => 'collaborationkit-hubedit-colour',
@@ -77,7 +76,7 @@ class CollaborationHubContentEditor extends EditPage {
 
 		$fields['introduction'] = [
 			'type' => 'textarea',
-			'cssclass' => 'mw-ck-introductioninput',
+			'cssclass' => 'mw-ck-introduction-input',
 			'label-message' => 'collaborationkit-hubedit-introduction',
 			'placeholder' => 'collaborationkit-hubedit-introduction-placeholder',
 			'name' => 'wpCollabHubIntroduction',
@@ -93,7 +92,7 @@ class CollaborationHubContentEditor extends EditPage {
 		}
 		$fields['content'] = [
 			'type' => 'textarea',
-			'cssclass' => 'mw-ck-textboxmain',
+			'cssclass' => 'mw-ck-content-input',
 			'label-message' => 'collaborationkit-hubedit-content',
 			'help-message' => 'collaborationkit-hubedit-content-help',
 			'name' => 'wpCollabHubContent',
@@ -104,7 +103,7 @@ class CollaborationHubContentEditor extends EditPage {
 
 		$fields['footer'] = [
 			'type' => 'textarea',
-			'cssclass' => 'mw-ck-footerinput',
+			'cssclass' => 'mw-ck-footer-input',
 			'label-message' => 'collaborationkit-hubedit-footer',
 			'help-message' => 'collaborationkit-hubedit-footer-help',
 			'name' => 'wpCollabHubFooter',

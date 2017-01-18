@@ -92,14 +92,8 @@
 		"ext.CollaborationKit.list.styles": {
 			"styles": "ext.CollaborationKit.list.styles.less"
 		},
-		"zzext.CollaborationKit.edit.styles": {
+		"ext.CollaborationKit.edit.styles": {
 			"styles": "ext.CollaborationKit.edit.styles.less"
-		},
-		"ext.CollaborationKit.iconbrowser.styles": {
-			"styles": "ext.CollaborationKit.iconbrowser.styles.less"
-		},
-		"ext.CollaborationKit.colourbrowser.styles": {
-			"styles": "ext.CollaborationKit.colourbrowser.styles.less"
 		},
 		"ext.CollaborationKit.iconbrowser": {
 			"scripts": "ext.CollaborationKit.icon.js",
@@ -115,9 +109,10 @@
 				"collaborationkit-icon-select",
 				"collaborationkit-icon-launchbutton",
 				"cancel"
-			]
+			],
+			"styles": "ext.CollaborationKit.iconbrowser.styles.less"
 		},
-		"ext.CollaborationKit.hubimage": {
+		"ext.CollaborationKit.hubimagebrowser": {
 			"scripts": "ext.CollaborationKit.hubimage.js",
 			"dependencies": [
 				"oojs-ui",
@@ -134,7 +129,7 @@
 				"cancel"
 			]
 		},
-		"ext.CollaborationKit.colour": {
+		"ext.CollaborationKit.colourbrowser": {
 			"scripts": "ext.CollaborationKit.colour.js",
 			"dependencies": [
 				"oojs-ui",
@@ -170,7 +165,8 @@
 				"collaborationkit-green2",
 				"collaborationkit-green3",
 				"collaborationkit-black"
-			]
+			],
+			"styles": "ext.CollaborationKit.colourbrowser.styles.less"
 		},
 		"ext.CollaborationKit.list.edit": {
 			"scripts": "ext.CollaborationKit.list.edit.js",

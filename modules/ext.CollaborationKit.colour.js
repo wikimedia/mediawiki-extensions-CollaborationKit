@@ -86,7 +86,7 @@
 				);
 
 				// Set form value
-				$( 'select#mw-ck-colourinput option[value=' + toAppend + '], div.mw-ck-colourinput select option[value=' + toAppend + ']' )
+				$( 'div.mw-ck-colourinput select option[value=' + toAppend + ']' )
 					.attr( 'selected', 'selected' );
 
 				dialog.close( { action: action } );
@@ -133,11 +133,11 @@
 		colourBrowserButton.setLabel( mw.msg( 'collaborationkit-colour-launchbutton' ) );
 		colourBrowserButton.on( 'click', openItUp );
 
-		curColour = $( 'select#mw-ck-colourinput option:selected, div.mw-ck-colourinput select option:selected' ).val();
+		curColour = $( 'div.mw-ck-colour-input select option:selected' ).val();
 
-		$( 'select#mw-ck-colourinput, div.oo-ui-fieldLayout-field div.mw-ck-colourinput' ).css( 'display', 'none' );
-		$( '.mw-ck-colourinput' ).addClass( 'colour-browser-field' );
-		$( '.mw-ck-colourinput' ).append(
+		$( 'div.oo-ui-fieldLayout-field div.mw-ck-colour-input' ).css( 'display', 'none' );
+		$( '.mw-ck-colour-input' ).addClass( 'colour-browser-field' );
+		$( '.mw-ck-colour-input' ).append(
 			$( '<div class="colourPreview mw-ck-colourblock-container"></div>' )
 				.append( getColourBlock( curColour ) )
 				.append(

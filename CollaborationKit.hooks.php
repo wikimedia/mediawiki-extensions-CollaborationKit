@@ -107,9 +107,11 @@ class CollaborationKitHooks {
 			$colour = Revision::newFromTitle( $parentHub )->getContent()->getThemeColour();
 			$text = Html::rawElement( 'div', [ 'class' => "mw-cklist-square-$colour" ], $text );
 
-			$out->addModuleStyles( 'ext.CollaborationKit.hubsubpage.styles' );
-			$out->addModules( 'ext.CollaborationKit.icons' );
-			$out->addModules( 'ext.CollaborationKit.blots' );
+			$out->addModuleStyles( [
+				'ext.CollaborationKit.hubsubpage.styles',
+				'ext.CollaborationKit.icons',
+				'ext.CollaborationKit.blots'
+			] );
 
 			// Set this mostly just so we can make sure this entire thing hasn't already been done, because otherwise the ToC is added twice on edit for some reason
 			$out->setProperty( 'CollaborationHubSubpage', true );
