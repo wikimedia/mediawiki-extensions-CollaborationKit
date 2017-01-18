@@ -248,10 +248,10 @@ class CollaborationListContent extends JsonContent {
 		}
 
 		// Hack to force style loading even when we don't have a Parser reference.
-		$text = "<collaborationkitloadliststyles/>\n";
+		$text = "<collaborationkitloadliststyles/>";
 
-		// Ugly way to prevent unexpected column header TOCs and edit-section buttons from showing up
-		$text .= "__NOTOC__ __NOEDITSECTION__";
+		// Ugly way to prevent unexpected column header TOCs and editsection links from showing up
+		$text .= "__NOTOC__ __NOEDITSECTION__\n";
 
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
@@ -277,9 +277,7 @@ class CollaborationListContent extends JsonContent {
 				'class' => 'mw-ck-list-column',
 				'data-collabkit-column-id' => $colId
 			] ) . "\n";
-			$text .= Html::openElement( 'div', [
-				'class' => 'mw-ck-list-column-header'
-			] ) . "\n";
+			$text .= '<div class="mw-ck-list-column-header">' . "\n";
 			if ( $options['showColumnHeaders'] && isset( $column->label ) && $column->label !== '' ) {
 				$text .= "=== {$column->label} ===\n";
 			}
