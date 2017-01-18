@@ -3,7 +3,7 @@
 		"authors": [ "Isarra", "Harej", "bawolff" ]
 	},
 	"collaborationkit-desc": "Next-generation WikiProjects and collaborative workspaces for wikis",
-	"createcollaborationhub": "Create new Collaboration Hub project",
+	"createcollaborationhub": "Create new Collaboration Hub",
 	"createhubfeature": "Create a new Collaboration Hub feature",
 	"collaborationkit-createhub-title": "Page title",
 	"collaborationkit-createhub-invalidtitle": "The specified title is invalid.",
@@ -112,7 +112,7 @@
 	"collaborationkit-column-active": "Active members",
 	"collaborationkit-column-inactive": "Inactive members",
 	"collaborationkit-createhub-wrongnamespace": "This page name cannot be used as a Collaboration Hub. Collaboration Hubs can only be created in the {{PLURAL:$1|$2 namespace|following namespaces: $2}}.",
-	"createcollaborationhub-text": "You are creating a new Collaboration Hub. Once the page is created, you will be able to add features, as well as edit any of this later.",
+	"createcollaborationhub-text": "You are creating a new Collaboration Hub, a workspace for organizing a project. Once this page is created, you will be able to add features and make other edits.",
 	"collaborationkit-createhub-title-help": "Where to create the Hub",
 	"collaborationkit-createhub-title-placeholder": "Project:...",
 	"collaborationkit-hubedit-displayname-help": "Used to refer to the project on other pages. Only needed if different from the page title.",
