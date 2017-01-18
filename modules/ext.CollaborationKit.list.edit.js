@@ -58,6 +58,12 @@
 	modifyExistingItem = function ( itemName, colId ) {
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var done = false;
+			// Member lists pretend to have two columns (active and inactive),
+			// but in the source code, it's only one column. This forces one column
+			// for the purposes of the JS editor.
+			if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
+				colId = 0;
+			}
 			$.each( res.content.columns[ colId ].items, function ( index ) {
 				if ( this.title === itemName ) {
 					done = true;
