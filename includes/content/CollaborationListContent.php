@@ -195,7 +195,7 @@ class CollaborationListContent extends JsonContent {
 		$listOptions = $this->getFullRenderListOptions()
 			+ (array)$this->options
 			+ $this->getDefaultOptions();
-		$text = "__NOEDITSECTION__" . $this->convertToWikitext( $lang, $listOptions );
+		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
 		if ( $this->displaymode == 'members' ) {
 			$isMemberList = true;
@@ -250,8 +250,8 @@ class CollaborationListContent extends JsonContent {
 		// Hack to force style loading even when we don't have a Parser reference.
 		$text = "<collaborationkitloadliststyles/>\n";
 
-		// Ugly way to prevent unexpected column header TOCs from showing up
-		$text .= "__NOTOC__";
+		// Ugly way to prevent unexpected column header TOCs and edit-section buttons from showing up
+		$text .= "__NOTOC__ __NOEDITSECTION__";
 
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
