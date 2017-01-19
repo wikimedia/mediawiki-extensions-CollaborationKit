@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": [ "Isarra", "Harej", "bawolff" ]
+		"authors": [
+			"Isarra",
+			"Harej",
+			"bawolff"
+		]
 	},
 	"collaborationkit-desc": "Next-generation WikiProjects and collaborative workspaces for wikis",
 	"createcollaborationhub": "Create new Collaboration Hub",

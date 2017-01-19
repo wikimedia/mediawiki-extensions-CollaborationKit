@@ -1,6 +1,10 @@
 {
 	"@metadata": {
-		"authors": [ "Isarra", "bawolff" ]
+		"authors": [
+			"Isarra",
+			"Harej",
+			"bawolff"
+		]
 	},
 	"collaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
 	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
