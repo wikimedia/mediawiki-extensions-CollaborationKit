@@ -22,7 +22,7 @@ class CollaborationKitIcon {
 			$iconsPreset = CollaborationKitIcon::getCannedIcons();
 
 			if ( !in_array( $icon, $iconsPreset ) && in_array( $fallback, $iconsPreset ) ) {
-				return CollaborationKitIcon::makeIcon( $fallback, $size, 'grey2', '#eee' );
+				return CollaborationKitIcon::makeIcon( $fallback, $size, 'lightgrey', '#eee' );
 			} else {
 				// makeicon falls back to making a random icon anyway, and we've ruled out all the other fallbacks at this point
 				return CollaborationKitIcon::makeIcon( $icon, $size, $colour );

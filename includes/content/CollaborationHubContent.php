@@ -40,28 +40,28 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public static function getThemeColours() {
 		return [
-			'red1',
-			'red2',
-			'grey1',
-			'grey2',
-			'blue1',
-			'blue2',
-			'blue3',
-			'blue4',
-			'blue5',
-			'blue6',
-			'purple1',
-			'purple2',
-			'purple3',
-			'purple4',
-			'purple5',
-			'yellow1',
-			'yellow2',
-			'yellow3',
-			'yellow4',
-			'green1',
-			'green2',
-			'green3',
+			'darkred',
+			'red',
+			'darkgrey',
+			'lightgrey',
+			'skyblue',
+			'blue',
+			'bluegrey',
+			'navyblue',
+			'darkblue',
+			'aquamarine',
+			'violet',
+			'purple',
+			'mauve',
+			'lightmauve',
+			'salmon',
+			'orange',
+			'yellow',
+			'gold',
+			'pastelyellow',
+			'forestgreen',
+			'brightgreen',
+			'khaki',
 			'black'
 		];
 	}
@@ -121,7 +121,7 @@ class CollaborationHubContent extends JsonContent {
 
 				// Set colour to default if empty or missing
 				if ( !isset( $data->colour ) || $data->colour == '' ) {
-					$this->themeColour = 'blue5';
+					$this->themeColour = 'darkblue';
 				} else {
 					$this->themeColour = $data->colour;
 				}

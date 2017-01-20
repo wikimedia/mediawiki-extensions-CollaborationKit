@@ -341,9 +341,9 @@ class CollaborationListContent extends JsonContent {
 						$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
 					} else {
 						if ( $this->displaymode == 'members' ) {
-							$placeholderIcon = 'mw-ck-icon-user-grey2';
+							$placeholderIcon = 'mw-ck-icon-user-lightgrey';
 						} else {
-							$placeholderIcon = 'mw-ck-icon-page-grey2';
+							$placeholderIcon = 'mw-ck-icon-page-lightgrey';
 						}
 						$text .= Html::element( 'div', [
 							"class" => [

@@ -71,7 +71,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'cssclass' => 'mw-ck-colour-input',
 			'label-message' => 'collaborationkit-hubedit-colour',
 			'options' => $this->getOptions( $colours ),
-			'default' => 'blue5'
+			'default' => 'darkblue'
 		];
 
 		/* Comment this out until it's actually implemented (T135408)
