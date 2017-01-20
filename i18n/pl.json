@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps"
+		]
+	},
+	"collaborationkit-createhub-title": "Tytuł strony",
+	"collaborationkit-createhubfeature-icon": "Ikona",
+	"collaborationkit-list-newitem-description": "Opis (opcjonalnie)",
+	"collaborationkit-listedit-description": "Opis",
+	"collaborationkit-hubedit-introduction": "Wprowadzenie",
+	"collaborationkit-hubedit-footer": "Stopka",
+	"collaborationkit-hub-pagetitle-announcements": "Ogłoszenia"
+}

@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac"
+		]
+	},
+	"collaborationkit-createhubfeature-articlelist": "Էջերի ցանկ",
+	"collaborationkit-list-emptycolumn": "Այս ցանկը չունի տարրեր",
+	"collaborationkit-list-delete": "Հեռացնել տարրը",
+	"collaborationkit-listedit-description": "Նկարագրություն",
+	"collaborationkit-hub-members-signup": "Միանալ",
+	"collaborationkit-hub-members-view": "Դիտել ամբողջ ցանկը",
+	"collaborationkit-hub-pagetitle-members": "Մասնակիցներ",
+	"collaborationkit-icon-select": "Ընտրել",
+	"collaborationkit-red1": "Մուգ կարմիր",
+	"collaborationkit-red2": "Կարմիր",
+	"collaborationkit-grey2": "Բաց մոխրագույն",
+	"collaborationkit-blue1": "Երկնակապույտ",
+	"collaborationkit-blue2": "Կապույտ",
+	"collaborationkit-blue5": "Մուգ կապույտ",
+	"collaborationkit-purple2": "Մուգ մանուշակագույն",
+	"collaborationkit-purple3": "Յասամանագույն",
+	"collaborationkit-purple4": "Բաց յասամանագույն",
+	"collaborationkit-yellow2": "Դեղին",
+	"collaborationkit-yellow3": "Ոսկե",
+	"collaborationkit-green2": "Վառ կանաչ",
+	"collaborationkit-createhub-title-placeholder": "Նախագիծ..."
+}

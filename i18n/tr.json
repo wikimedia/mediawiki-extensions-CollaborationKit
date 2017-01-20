@@ -1,0 +1,40 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sayginer"
+		]
+	},
+	"createhubfeature": "Yeni bir İş Birliği Merkezi bölümü oluştur",
+	"collaborationkit-createhub-title": "Sayfa başlığı",
+	"collaborationkit-createhub-nopermission": "Bu başlıkla bir İş Birliği Merkezi oluşturma izniniz yok",
+	"collaborationkit-createhubfeature-exists": "Belirttiğiniz başlıklı sayfa zaten mevcut.",
+	"collaborationkit-list-emptycolumn": "Bu listede hiçbir öge yok.",
+	"collaborationkit-list-add-user": "Listeye kullanıcı ekle",
+	"collaborationkit-list-add-self": "Projeye katıl",
+	"collaborationkit-list-newitem-label": "Listeye ekle",
+	"collaborationkit-listedit-description": "Tanım",
+	"collaborationkit-hubedit-colour": "Merkez tema rengi",
+	"collaborationkit-hub-members-header": "Üyelerimizle tanış!",
+	"collaborationkit-hub-members-signup": "Katıl",
+	"collaborationkit-hub-members-view": "Tam listeyi görüntüle",
+	"collaborationkit-hub-pagetitle-members": "Üyeler",
+	"collaborationkit-hub-subpage-view": "Sayfayı görüntüle",
+	"collaborationkit-icon-select": "Seç",
+	"collaborationkit-colour-launchbutton": "Renklere göz at",
+	"collaborationkit-colour-browser": "Renk tarayıcısı",
+	"collaborationkit-hubimage-launchbutton": "Görsellere göz at",
+	"collaborationkit-hubimage-browser": "Medya tarayıcısı",
+	"collaborationkit-red1": "Koyu kırmızı",
+	"collaborationkit-red2": "Kırmızı",
+	"collaborationkit-grey1": "Koyu gri",
+	"collaborationkit-grey2": "Açık gri",
+	"collaborationkit-blue1": "Gök mavisi",
+	"collaborationkit-blue2": "Mavi",
+	"collaborationkit-blue5": "Koyu mavi",
+	"collaborationkit-purple2": "Mor",
+	"collaborationkit-yellow2": "Sarı",
+	"collaborationkit-yellow3": "Altın",
+	"collaborationkit-black": "Siyah",
+	"collaborationkit-column-active": "Aktif üyeler",
+	"collaborationkit-column-inactive": "Aktif olmayan üyeler"
+}
