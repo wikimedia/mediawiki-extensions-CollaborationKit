@@ -5,13 +5,14 @@
 			"Harej",
 			"bawolff",
 			"Amire80",
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Raymond"
 		]
 	},
 	"collaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
 	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
 	"createhubfeature": "Header for Special:CreateHubFeature. Hubs are the WikiProject pages as a whole, and \"features\" are the sections inside them.",
-	"collaborationkit-createhub-title": "Label for target page title input on Special:CreateCollaborationHub",
+	"collaborationkit-createhub-title": "Label for target page title input on Special:CreateCollaborationHub\n{{Identical|Page title}}",
 	"collaborationkit-createhub-invalidtitle": "Error message for an invalid title",
 	"collaborationkit-createhub-exists": "Error message for attempting to create a page that already exists",
 	"collaborationkit-createhub-nopermission": "Error message for no permission to edit/create/whatever",
@@ -74,7 +75,7 @@
 	"collaborationkit-hub-missingpage-create": "Button label for creating a new feature (subpage)",
 	"collaborationkit-hub-pagetitle-members": "The title of the /Members subpage for a Collaboration Hub (without the leading slash)\n{{Identical|Member}}",
 	"collaborationkit-hub-pagetitle-announcements": "The title of the /Announcements subpage for a Collaboration Hub (without the leading slash)\n{{Identical|Announcement}}",
-	"collaborationkit-hub-subpage-view": "View link label for subpages on Collaboration Hub mainpages",
+	"collaborationkit-hub-subpage-view": "View link label for subpages on Collaboration Hub mainpages\n{{Identical|View page}}",
 	"collaborationkit-hub-subpage-remove": "Remove link label for subpages on Collaboration Hub mainpages",
 	"collaborationkit-hub-edit-apierror": "Error message for API edit error",
 	"collaborationkit-hub-edit-tojsonerror": "Error message when something went wrong converting to JSON",
