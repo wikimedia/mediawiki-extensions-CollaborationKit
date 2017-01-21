@@ -86,7 +86,7 @@
 				);
 
 				// Set form value
-				$( 'div.mw-ck-colourinput select option[value=' + toAppend + ']' )
+				$( 'div.mw-ck-colour-input select option[value=' + toAppend + ']' )
 					.attr( 'selected', 'selected' );
 
 				dialog.close( { action: action } );
