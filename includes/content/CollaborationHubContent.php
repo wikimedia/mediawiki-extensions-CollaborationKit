@@ -233,7 +233,7 @@ class CollaborationHubContent extends JsonContent {
 			$html .= Html::rawElement(
 				'div',
 				[ 'class' => 'mw-ck-hub-members' ],
-				$this->getMembersBlock( $title, $options )
+				$this->getMembersBlock( $title, $options, $output )
 			);
 			// get parsed intro
 			$html .= Html::rawElement(
@@ -293,6 +293,9 @@ class CollaborationHubContent extends JsonContent {
 				'ext.CollaborationKit.blots',
 				'ext.CollaborationKit.list.styles'
 			] );
+			$output->addModules( [
+				'ext.CollaborationKit.list.members'
+			] );
 			$output->setEnableOOUI( true );
 		}
 	}
@@ -323,7 +326,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param $options ParserOptions
 	 * @return string
 	 */
-	protected function getMembersBlock( Title $title, ParserOptions $options ) {
+	protected function getMembersBlock( Title $title, ParserOptions $options, ParserOutput &$output ) {
 		global $wgParser;
 
 		$html = '';
@@ -336,6 +339,10 @@ class CollaborationHubContent extends JsonContent {
 		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
 		$membersTitle = Title::newFromText( $membersPageName );
 		if ( $membersTitle->exists() ) {
+
+			$membersPageID = $membersTitle->getArticleID();
+			$output->addJsConfigVars( 'wgCollaborationKitAssociatedMemberList', $membersPageID );
+
 			// rawElement is used because we don't want [edit] links or usual header behavior
 			$html .= Html::rawElement(
 				'h3',
@@ -366,7 +373,8 @@ class CollaborationHubContent extends JsonContent {
 			$membersJoinButton = new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
 				'href' => $membersTitle->getEditURL(), // Going through editor is non-JS fallback
-				'flags' => [ 'primary', 'progressive' ]
+				'flags' => [ 'primary', 'progressive' ],
+				'classes' => [ 'mw-ck-members-join' ]
 			] );
 
 			OutputPage::setupOOUI();

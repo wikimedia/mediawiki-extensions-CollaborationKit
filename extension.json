@@ -207,6 +207,18 @@
 				"cancel"
 			]
 		},
+		"ext.CollaborationKit.list.ui": {
+			"scripts": "ext.CollaborationKit.list.ui.js",
+			"dependencies": [
+				"ext.CollaborationKit.list.edit"
+			]
+		},
+		"ext.CollaborationKit.list.members": {
+			"scripts": "ext.CollaborationKit.list.members.js",
+			"dependencies": [
+				"ext.CollaborationKit.list.edit"
+			]
+		},
 		"ext.CollaborationKit.blots": {
 			"selectorWithoutVariant": ".mw-ck-theme.mw-ck-list-{name} ul",
 			"selectorWithVariant": ".mw-ck-theme-{variant}.mw-ck-list-{name} ul",

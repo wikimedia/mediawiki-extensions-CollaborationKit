@@ -1066,7 +1066,8 @@ class CollaborationListContent extends JsonContent {
 			&& $title->userCan( 'edit', $user, 'quick' )
 		) {
 			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
-			$output->addModules( 'ext.CollaborationKit.list.edit' );
+			// FIXME: only load .list.members if the list is a member list (displaymode = members)
+			$output->addModules( [ 'ext.CollaborationKit.list.ui', 'ext.CollaborationKit.list.members' ] );
 			$output->preventClickjacking();
 		}
 	}
