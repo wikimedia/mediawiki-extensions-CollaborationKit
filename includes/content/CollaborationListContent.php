@@ -960,26 +960,30 @@ class CollaborationListContent extends JsonContent {
 	 * @return Array [ 'active' => [..], 'inactive' => '[..]' ]
 	 */
 	private function filterActiveUsers( $userList ) {
-		$users = array_keys( $userList );
-		$dbr = wfGetDB( DB_REPLICA );
-		$res = $dbr->select(
-			'querycachetwo',
-			'qcc_title',
-			[
-				'qcc_namespace' => NS_USER,
-				// TODO: Perhaps should use batching.
-				'qcc_title' => $users,
-				'qcc_type' => 'activeusers'
-			],
-			__METHOD__
-		);
+		if ( count( $userList ) > 0 ) {
+			$users = array_keys( $userList );
+			$dbr = wfGetDB( DB_REPLICA );
+			$res = $dbr->select(
+				'querycachetwo',
+				'qcc_title',
+				[
+					'qcc_namespace' => NS_USER,
+					// TODO: Perhaps should use batching.
+					'qcc_title' => $users,
+					'qcc_type' => 'activeusers'
+				],
+				__METHOD__
+			);
 
-		$active = [];
-		foreach ( $res as $row ) {
-			$active[$row->qcc_title] = $userList[$row->qcc_title];
-			unset( $userList[$row->qcc_title] );
+			$active = [];
+			foreach ( $res as $row ) {
+				$active[$row->qcc_title] = $userList[$row->qcc_title];
+				unset( $userList[$row->qcc_title] );
+			}
+			return [ 'active' => $active, 'inactive' => $userList ];
+		} else {
+			return [ 'active' => [], 'inactive' => [] ];
 		}
-		return [ 'active' => $active, 'inactive' => $userList ];
 	}
 
 	/**
