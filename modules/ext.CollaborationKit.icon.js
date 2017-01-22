@@ -100,8 +100,7 @@
 	iconBrowserButton.setLabel( mw.msg( 'collaborationkit-icon-launchbutton' ) );
 	iconBrowserButton.on( 'click', openItUp );
 
-	$( 'div.mw-ck-icon-input' ).addClass( 'icon-browser-field' );
-	$( 'div.mw-ck-icon-input div' ).css( 'display', 'none' );
+	$( 'div.mw-ck-icon-input .oo-ui-comboBoxInputWidget' ).css( 'display', 'none' );
 	$( 'div.mw-ck-icon-input' )
 		.append( '<div class="iconPreview mw-ck-icon-circlestar"></div>' )
 		.append( iconBrowserButton.$element );

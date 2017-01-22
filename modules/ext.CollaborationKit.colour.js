@@ -135,9 +135,8 @@
 
 		curColour = $( 'div.mw-ck-colour-input select option:selected' ).val();
 
-		$( 'div.oo-ui-fieldLayout-field div.mw-ck-colour-input' ).css( 'display', 'none' );
-		$( '.mw-ck-colour-input' ).addClass( 'colour-browser-field' );
-		$( '.mw-ck-colour-input' ).append(
+		$( '.mw-ck-colour-input .oo-ui-dropdownWidget' ).css( 'display', 'none' );
+		$( '.mw-ck-colour-input .mw-ck-colour-input' ).append(
 			$( '<div class="colourPreview mw-ck-colourblock-container"></div>' )
 				.append( getColourBlock( curColour ) )
 				.append(

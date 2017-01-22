@@ -79,14 +79,13 @@
 	hubimageBrowserButton.setLabel( mw.msg( 'collaborationkit-hubimage-launchbutton' ) );
 	hubimageBrowserButton.on( 'click', openItUp );
 
-	$( 'div.mw-ck-hub-image-input' ).addClass( 'hubimage-browser-field' );
-	$( 'div.mw-ck-hub-image-input div' ).css( 'display', 'none' );
-	$( 'div.mw-ck-hub-image-input' )
+	$( 'div.mw-ck-hub-image-input input' ).css( 'display', 'none' );
+	$( 'div.mw-ck-hub-image-input div.oo-ui-textInputWidget' )
 		.append( '<img class="hubimagePreview" /><div class="hubimageBrowserButton">' )
 		.append( hubimageBrowserButton.$element )
 		.append( '</div>' );
 	// Load current hub image
-	if ( $( 'div.mw-ck-hub-image-input input' ).val() !== undefined ) {
+	if ( $( 'div.mw-ck-hub-image-input input' ).val() !== '' ) {
 		currentImageFilename = 'File:' + $( 'div.mw-ck-hub-image-input input' ).val();
 		currentImage = new mw.Api()
 			.get( {
