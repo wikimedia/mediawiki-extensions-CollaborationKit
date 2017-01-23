@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Banjo"
+		]
+	},
+	"collaborationkit-createhubfeature-icon": "Icona",
+	"collaborationkit-list-newitem-description": "Descrición (opcional)",
+	"collaborationkit-listedit-description": "Descrición",
+	"collaborationkit-hubedit-introduction": "Introdución",
+	"collaborationkit-hub-members-view": "Vista lista completa",
+	"collaborationkit-colour-select": "Seleccionar",
+	"collaborationkit-hubimage-select": "Seleccionar",
+	"collaborationkit-blue": "Azul",
+	"collaborationkit-darkblue": "Azul escuro",
+	"collaborationkit-violet": "Violeta",
+	"collaborationkit-orange": "Laranxa",
+	"collaborationkit-yellow": "Amarelo",
+	"collaborationkit-gold": "Ouro",
+	"collaborationkit-black": "Negro",
+	"collaborationkit-createhub-title-placeholder": "Proxecto:..."
+}
