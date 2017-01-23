@@ -59,6 +59,8 @@
 			classes: [ 'mw-ck-colourchoice-container' ]
 		} );
 
+		this.radioSelect.selectItemByData( $( '.mw-ck-colour-input select' ).val() );
+
 		this.content.$element.append( this.radioSelect.$element );
 
 		this.$body.append( this.content.$element );

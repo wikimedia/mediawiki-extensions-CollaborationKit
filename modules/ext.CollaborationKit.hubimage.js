@@ -17,9 +17,27 @@
 	// Use the initialize() method to add content to the dialog's $body,
 	// to initialize widgets, and to set up event handlers.
 	ProcessDialog.prototype.initialize = function () {
+		var defaultSearchTerm, nsPrefix;
+
+		nsPrefix = mw.config.get( 'wgFormattedNamespaces' )[ 6 ] + ':';
+
 		ProcessDialog.super.prototype.initialize.apply( this, arguments );
 
+		// Default image search flow:
+		// First work off of existing value for hub image, if it exists
+		// If no hub image (new hub creation), search display title or page title
+		// If nothing specified, fill in a filename for a generic icon
+
+		if ( $( 'input[name=wpdisplay_name]' ).val() !== '' ) {
+			defaultSearchTerm = $( 'input[name=wpdisplay_name]' ).val();
+		} else if ( $( 'input[name=wptitle]' ).val() !== '' ) {
+			defaultSearchTerm = $( 'input[name=wptitle]' ).val();
+		} else {
+			defaultSearchTerm = 'OOjs UI icon puzzle-ltr.svg';
+		}
+
 		this.content = new mw.widgets.MediaSearchWidget();
+		this.content.getQuery().setValue( defaultSearchTerm );
 		this.$body.append( this.content.$element );
 	};
 
@@ -31,7 +49,11 @@
 		dialog = this;
 		if ( action ) {
 			return new OO.ui.Process( function () {
-				fileObj = dialog.content.getResults().getSelectedItem().getData();
+				fileObj = dialog.content.getResults().getSelectedItem();
+				if ( fileObj === null ) {
+					return dialog.close();
+				}
+				fileObj = fileObj.getData();
 				fileUrl = fileObj.thumburl;
 				fileTitle = new mw.Title( fileObj.title );
 				fileTitle = fileTitle.title + '.' + fileTitle.ext;

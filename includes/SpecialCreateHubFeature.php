@@ -65,7 +65,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				'cssclass' => 'mw-ck-icon-input',
 				'label-message' => 'collaborationkit-createhubfeature-icon',
 				'help-message' => 'collaborationkit-createhubfeature-icon-help',
-				'options' => $iconChoices
+				'options' => $iconChoices,
+				'default' => 'circlestar'
 			],
 			'contenttype' => [
 				'type' => 'radio',

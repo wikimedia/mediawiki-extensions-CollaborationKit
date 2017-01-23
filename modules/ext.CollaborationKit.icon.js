@@ -46,6 +46,8 @@
 			classes: [ 'mw-ck-iconbrowser' ]
 		} );
 
+		this.radioSelect.selectItemByData( $( '.mw-ck-icon-input input' ).val() );
+
 		this.content.$element.append( this.radioSelect.$element );
 
 		this.$body.append( this.content.$element );
@@ -62,6 +64,7 @@
 
 				// Generate preview
 				$( '.iconPreview' )
+					.attr( 'class', 'iconPreview' ) // Purges current icon selection
 					.addClass( 'mw-ck-icon-' + toAppend )
 					.css( 'display', 'block' );
 				// Set form value
@@ -86,7 +89,7 @@
 
 		// Create a new dialog window.
 		processDialog = new ProcessDialog( {
-			size: 'medium'
+			size: 'large'
 		} );
 
 		// Add windows to window manager using the addWindows() method.
