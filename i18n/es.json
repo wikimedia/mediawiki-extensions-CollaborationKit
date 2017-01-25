@@ -1,16 +1,26 @@
 {
 	"@metadata": {
 		"authors": [
-			"Dgstranz"
+			"Dgstranz",
+			"Macofe"
 		]
 	},
+	"collaborationkit-createhub-title": "Título de la página",
 	"collaborationkit-createhubfeature-icon": "Icono",
 	"collaborationkit-createhubfeature-articlelist": "Lista de páginas",
 	"collaborationkit-list-isempty": "Esta lista no tiene columnas o elementos.",
 	"collaborationkit-list-emptycolumn": "Esta lista no tiene ningún elemento.",
 	"collaborationkit-list-add-user": "Añadir un usuario a la lista",
+	"collaborationkit-list-newitem-label": "Añadir a la lista",
 	"collaborationkit-listedit-description": "Descripción",
+	"collaborationkit-hubedit-introduction": "Introducción",
+	"collaborationkit-editjsontab": "Editar como JSON",
 	"collaborationkit-hub-members-view": "Ver la lista completa",
+	"collaborationkit-hub-pagetitle-members": "Miembros",
+	"collaborationkit-hub-pagetitle-announcements": "Anuncios",
+	"collaborationkit-icon-select": "Seleccionar",
+	"collaborationkit-colour-select": "Seleccionar",
+	"collaborationkit-hubimage-select": "Seleccionar",
 	"collaborationkit-darkred": "Rojo oscuro",
 	"collaborationkit-red": "Rojo",
 	"collaborationkit-darkgrey": "Gris oscuro",
@@ -29,7 +39,9 @@
 	"collaborationkit-orange": "Naranja",
 	"collaborationkit-yellow": "Amarillo",
 	"collaborationkit-gold": "Oro",
+	"collaborationkit-pastelyellow": "Amarillo pastel",
 	"collaborationkit-forestgreen": "Verde bosque",
+	"collaborationkit-brightgreen": "Verde brillante",
 	"collaborationkit-khaki": "Caqui",
 	"collaborationkit-black": "Negro",
 	"collaborationkit-column-active": "Miembros activos",
