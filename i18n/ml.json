@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jameela P."
+		]
+	},
+	"collaborationkit-createhub-title": "താളിന്റെ തലക്കെട്ട്",
+	"collaborationkit-createhubfeature-articlelist": "താളുകളുടെ പട്ടിക",
+	"collaborationkit-list-delete": "ഇനം നീക്കംചെയ്യുക",
+	"collaborationkit-list-move-popup-title": "താൾ സംരക്ഷിച്ചു",
+	"collaborationkit-list-newitem-description": "വിവരണം (ഐച്ഛികം)",
+	"collaborationkit-listedit-description": "വിവരണം",
+	"collaborationkit-hub-pagetitle-members": "അംഗങ്ങൾ",
+	"collaborationkit-icon-select": "തിരഞ്ഞെടുക്കുക",
+	"collaborationkit-colour-select": "തിരഞ്ഞെടുക്കുക",
+	"collaborationkit-hubimage-select": "തിരഞ്ഞെടുക്കുക",
+	"collaborationkit-darkred": "കടുത്ത ചുവപ്പുനിറം",
+	"collaborationkit-red": "ചുവപ്പ്",
+	"collaborationkit-darkgrey": "കടുത്ത ചാരനിറം",
+	"collaborationkit-blue": "നീല",
+	"collaborationkit-darkblue": "കടുത്ത നീലനിറം",
+	"collaborationkit-violet": "ഊതവർണ്ണം",
+	"collaborationkit-purple": "ധൂമ്രവർണ്ണം",
+	"collaborationkit-mauve": "നീലലോഹിത വർണ്ണം",
+	"collaborationkit-salmon": "പിംഗലവർണ്ണം",
+	"collaborationkit-orange": "ഓറഞ്ച്",
+	"collaborationkit-yellow": "മഞ്ഞ",
+	"collaborationkit-gold": "സ്വർണ്ണ വർണ്ണം",
+	"collaborationkit-brightgreen": "പച്ച",
+	"collaborationkit-black": "കറുപ്പ്",
+	"collaborationkit-column-active": "സജീവ അംഗങ്ങൾ"
+}
