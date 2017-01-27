@@ -734,12 +734,12 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	private static function convertFromHumanEditableColumn( $column ) {
+		// Adding newline so that HUMAN_COLUMN_SPLIT2 correctly triggers
+		$column = $column . "\n";
+
 		$columnItem = [ 'items' => [] ];
 
 		$columnContent = explode( self::HUMAN_COLUMN_SPLIT2, $column );
-		if ( count( $columnContent ) == 1 ) {
-			return $columnItem;
-		}
 
 		$parts = explode( "|", $columnContent[0] );
 
@@ -775,11 +775,15 @@ class CollaborationListContent extends JsonContent {
 			}
 		}
 
-		$listLines = explode( "\n", $columnContent[1] );
-		foreach ( $listLines as $line ) {
-			// Skip empty lines
-			if ( trim( $line ) !== '' ) {
-				$columnItem['items'][] = self::convertFromHumanEditableItemLine( $line );
+		if ( count( $columnContent ) == 1 ) {
+			return $columnItem;
+		} else {
+			$listLines = explode( "\n", $columnContent[1] );
+			foreach ( $listLines as $line ) {
+				// Skip empty lines
+				if ( trim( $line ) !== '' ) {
+					$columnItem['items'][] = self::convertFromHumanEditableItemLine( $line );
+				}
 			}
 		}
 
