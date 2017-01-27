@@ -30,7 +30,7 @@ class CollaborationKitHooks {
 					$links['views']['edit']['class'] = false;
 				}
 			}
-			if ( $title->hasContentModel( 'CollaborationHubContent' ) ) {
+			if ( !in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] ) && $title->hasContentModel( 'CollaborationHubContent' ) ) {
 				// Add feature
 				$links['actions']['addnewfeature'] = [
 					'class' => '',

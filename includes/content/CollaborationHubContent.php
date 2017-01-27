@@ -273,11 +273,14 @@ class CollaborationHubContent extends JsonContent {
 				[ 'class' => 'mw-ck-hub-footer' ],
 				$this->getParsedFooter( $title, $options )
 			);
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-footer-actions' ],
-				$this->getSecondFooter( $title )
-			);
+			if ( !$options->getIsPreview() ) {
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-hub-footer-actions' ],
+					$this->getSecondFooter( $title )
+				);
+			}
+
 			$html .= Html::closeElement( 'div' );
 
 			$output->setText( $html );
