@@ -1,18 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"Margherita.mignanelli"
 		]
 	},
 	"collaborationkit-createhub-title": "Titolo della pagina",
 	"collaborationkit-createhub-invalidtitle": "Il titolo specificato non è valido.",
+	"collaborationkit-createhub-exists": "Esiste già una pagina con il titolo indicato.",
 	"collaborationkit-createhubfeature-icon": "Icona",
 	"collaborationkit-createhubfeature-contenttype": "Che tipo di pagina è questa?",
 	"collaborationkit-createhubfeature-articlelist": "Elenco di pagine",
+	"collaborationkit-list-emptycolumn": "Questa colonna non ha voci.",
+	"collaborationkit-list-notlist": "[[$1]] non è una pagina di elenco di collaborazione",
 	"collaborationkit-list-delete": "Rimuovi elemento",
+	"collaborationkit-list-delete-popup": "Salvato con successo: $1 è stato eliminato dall'elenco.",
 	"collaborationkit-list-add": "Aggiungi nuovo elemento all'elenco",
 	"collaborationkit-list-add-user": "Aggiungi utente all'elenco",
 	"collaborationkit-list-alreadyadded": "Sei già un membro di questo progetto.",
+	"collaborationkit-list-move-popup": "Salvato con successo: $1 è stato ri-ordinato.",
 	"collaborationkit-list-move-popup-title": "Pagina salvata",
 	"collaborationkit-list-newitem-title": "Aggiungi elemento all'elenco",
 	"collaborationkit-list-newitem-label": "Aggiungi all'elenco",
@@ -24,9 +30,12 @@
 	"collaborationkit-hubedit-introduction": "Introduzione",
 	"collaborationkit-hubedit-footer": "Piè di pagina",
 	"collaborationkit-editjsontab": "Modifica come JSON",
+	"collaborationkit-hub-announcements-initial": "E' stato impostato un nuovo centro di collaborazione!",
 	"collaborationkit-hub-members-view": "Visualizza elenco completo",
+	"collaborationkit-hub-missingpage-note": "Questa configurazione non esiste. Puoi creare una nuova configurazione usando il tasto qui sotto.",
 	"collaborationkit-hub-pagetitle-members": "Membri",
-	"collaborationkit-hub-manage": "Gestione progetto",
+	"collaborationkit-hub-toc-label": "Caratteristiche del progetto",
+	"collaborationkit-hub-manage": "Centro di gestione",
 	"collaborationkit-icon-select": "Seleziona",
 	"collaborationkit-colour-select": "Seleziona",
 	"collaborationkit-hubimage-select": "Seleziona",
@@ -48,5 +57,7 @@
 	"collaborationkit-black": "Nero",
 	"collaborationkit-column-active": "Membri attivi",
 	"collaborationkit-column-inactive": "Membri inattivi",
-	"collaborationkit-createhub-title-placeholder": "Progetto:..."
+	"collaborationkit-createhub-title-help": "Dove creare il fulcro della collaborazione",
+	"collaborationkit-createhub-title-placeholder": "Progetto:...",
+	"collaborationkit-listedit-list-help": "La sintassi personalizzata viene usata per la modifica collettiva. In sostanza, un elemento per riga, con diverse colonne segnata da vari trattini. Vedi [[Aiuto:CollaborationLists]] per ulteriori informazioni."
 }
