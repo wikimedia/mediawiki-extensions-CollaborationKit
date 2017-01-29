@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-createhub-title": "Tytuł strony",
+	"collaborationkit-createhub-exists": "Strona o podanym tytule już istnieje.",
 	"collaborationkit-createhubfeature-icon": "Ikona",
 	"collaborationkit-list-newitem-description": "Opis (opcjonalnie)",
 	"collaborationkit-listedit-description": "Opis",
