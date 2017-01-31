@@ -6,10 +6,14 @@
 		]
 	},
 	"collaborationkit-createhub-title": "Título de la página",
+	"collaborationkit-createhub-exists": "Ya existe una página con el título especificado.",
 	"collaborationkit-createhubfeature-icon": "Icono",
+	"collaborationkit-createhubfeature-contenttype": "¿De qué tipo es esta página?",
+	"collaborationkit-createhubfeature-freetext": "Página wiki genérica",
 	"collaborationkit-createhubfeature-articlelist": "Lista de páginas",
 	"collaborationkit-list-isempty": "Esta lista no tiene columnas o elementos.",
 	"collaborationkit-list-emptycolumn": "Esta columna no tiene ningún elemento.",
+	"collaborationkit-list-toomanytags": "No se te permite especificar más de {{PLURAL:$1|una etiqueta|$1 etiquetas}}.",
 	"collaborationkit-list-add-user": "Añadir un usuario a la lista",
 	"collaborationkit-list-alreadyadded": "Ya eres un miembro de este proyecto.",
 	"collaborationkit-list-newitem-label": "Añadir a la lista",
@@ -20,6 +24,8 @@
 	"collaborationkit-hub-members-view": "Ver la lista completa",
 	"collaborationkit-hub-pagetitle-members": "Miembros",
 	"collaborationkit-hub-pagetitle-announcements": "Anuncios",
+	"collaborationkit-hub-subpage-view": "Ver página",
+	"collaborationkit-hub-edit-tojsonerror": "Error de conversión a JSON",
 	"collaborationkit-icon-select": "Seleccionar",
 	"collaborationkit-colour-select": "Seleccionar",
 	"collaborationkit-hubimage-select": "Seleccionar",
@@ -47,5 +53,7 @@
 	"collaborationkit-khaki": "Caqui",
 	"collaborationkit-black": "Negro",
 	"collaborationkit-column-active": "Miembros activos",
-	"collaborationkit-column-inactive": "Miembros inactivos"
+	"collaborationkit-column-inactive": "Miembros inactivos",
+	"collaborationkit-hubedit-introduction-placeholder": "¡Introduce aquí tu proyecto! Dinos lo que deseas hacer.",
+	"collaborationkit-listedit-description-placeholder": "Describe sobre qué o para qué es la lista."
 }

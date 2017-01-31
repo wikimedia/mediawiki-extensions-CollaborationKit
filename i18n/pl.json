@@ -7,9 +7,17 @@
 	"collaborationkit-createhub-title": "Tytuł strony",
 	"collaborationkit-createhub-exists": "Strona o podanym tytule już istnieje.",
 	"collaborationkit-createhubfeature-icon": "Ikona",
+	"collaborationkit-createhubfeature-articlelist": "Lista stron",
+	"collaborationkit-list-delete": "Usuń element",
+	"collaborationkit-list-add": "Dodaj nowy element do listy",
+	"collaborationkit-list-add-user": "Dodaj użytkownika do listy",
+	"collaborationkit-list-newitem-title": "Dodaj element do listy",
 	"collaborationkit-list-newitem-description": "Opis (opcjonalnie)",
 	"collaborationkit-listedit-description": "Opis",
 	"collaborationkit-hubedit-introduction": "Wprowadzenie",
 	"collaborationkit-hubedit-footer": "Stopka",
-	"collaborationkit-hub-pagetitle-announcements": "Ogłoszenia"
+	"collaborationkit-hub-pagetitle-announcements": "Ogłoszenia",
+	"collaborationkit-icon-select": "Wybierz",
+	"collaborationkit-colour-select": "Wybierz",
+	"collaborationkit-hubimage-select": "Wybierz"
 }

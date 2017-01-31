@@ -1,19 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kareyac"
+			"Kareyac",
+			"Okras"
 		]
 	},
 	"createcollaborationhub": "Создание нового центра сотрудничества",
 	"collaborationkit-createhub-title": "Заголовок страницы",
 	"collaborationkit-createhub-invalidtitle": "Указан некорректный заголовок.",
-	"collaborationkit-createhub-exists": "Уже существует страница с указанным заголовком, и нет никакой поддержки для импорта",
+	"collaborationkit-createhub-exists": "Уже существует страница с указанным заголовком.",
 	"collaborationkit-createhubfeature-icon": "Иконка",
 	"collaborationkit-createhubfeature-contenttype": "Какой это тип страницы?",
 	"collaborationkit-createhubfeature-invalidtitle": "Вы выбрали недопустимое название страницы.",
 	"collaborationkit-createhubfeature-articlelist": "Список страниц",
 	"collaborationkit-list-isempty": "Этот список не имеет столбцов или элементов.",
-	"collaborationkit-list-emptycolumn": "Этот список не имеет никаких элементов в нем.",
+	"collaborationkit-list-emptycolumn": "Этот столбец не имеет никаких элементов в нём.",
 	"collaborationkit-list-add": "Добавить новый элемент в список",
 	"collaborationkit-list-add-user": "Добавить пользователя в список",
 	"collaborationkit-list-add-self": "Присоединяйтесь к проекту",
