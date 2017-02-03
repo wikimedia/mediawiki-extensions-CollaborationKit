@@ -1,6 +1,6 @@
 {
 	"name": "CollaborationKit",
-	"version": "0.3",
+	"version": "0.4",
 	"author": [ "Kim Schoonover", "Brian Wolff", "James Hare" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:CollaborationKit",
 	"descriptionmsg": "collaborationkit-desc",
@@ -22,7 +22,7 @@
 		"CollaborationHubContentHandler": "includes/content/CollaborationHubContentHandler.php",
 		"CollaborationHubContentEditor": "includes/CollaborationHubContentEditor.php",
 		"CollaborationHubTOC": "includes/content/CollaborationHubTOC.php",
-		"CollaborationKitIcon": "includes/content/CollaborationKitIcon.php",
+		"CollaborationKitImage": "includes/content/CollaborationKitImage.php",
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
 		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",

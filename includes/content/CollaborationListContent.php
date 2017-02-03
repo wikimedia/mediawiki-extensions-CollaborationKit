@@ -192,11 +192,27 @@ class CollaborationListContent extends JsonContent {
 		if ( !$lang ) {
 			$lang = $title->getPageLanguage();
 		}
+
+		// If this is an error-type list (i.e. a schema-violating blob), just return the plain JSON.
+		if ( $this->displaymode == 'error' ) {
+			$errorText = '<div class=errorbox>' .
+				wfMessage( 'collaborationkit-list-invalid' )->inLanguage( $lang )->plain() .
+				"</div>\n<pre>" .
+				$this->errortext .
+				'</pre>';
+			$output = $wgParser->parse( $errorText, $title, $options, true, true, $revId );
+			return;
+		}
+
 		$listOptions = $this->getFullRenderListOptions()
 			+ (array)$this->options
 			+ $this->getDefaultOptions();
+
+		// Preparing page contents
 		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
+
+		// Special JS variable if this is a member list
 		if ( $this->displaymode == 'members' ) {
 			$isMemberList = true;
 		} else {
@@ -234,18 +250,7 @@ class CollaborationListContent extends JsonContent {
 		$options = $options + $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
-
-		// If this is an error-type list (i.e. a schema-violating blob),
-		// just return the plain JSON.
-
-		if ( $this->displaymode == 'error' ) {
-			$errorWikitext = '<div class=errorbox>' .
-				wfMessage( 'collaborationkit-list-invalid' )->inLanguage( $lang )->plain() .
-				"</div>\n<pre>" .
-				$this->errortext .
-				'</pre>';
-			return $errorWikitext;
-		}
+		$iconWidth = $options['iconWidth'];
 
 		// Hack to force style loading even when we don't have a Parser reference.
 		$text = "<collaborationkitloadliststyles/>";
@@ -322,37 +327,12 @@ class CollaborationListContent extends JsonContent {
 					"data-collabkit-item-title" => $item->title
 				] );
 				if ( $options['mode'] !== 'no-img' ) {
-					$image = null;
-					if ( !isset( $item->image ) && $titleForItem ) {
-						if ( class_exists( 'PageImages' ) ) {
-							$image = PageImages::getPageImage( $titleForItem );
-						}
-					} elseif ( isset( $item->image ) && is_string( $item->image ) ) {
-						$imageTitle = Title::newFromText( $item->image, NS_FILE );
-						if ( $imageTitle ) {
-							$image = wfFindFile( $imageTitle );
-						}
-					}
-
-					$text .= '<div class="mw-ck-list-image">';
-					if ( $image ) {
-						// Important: If you change the width of the image
-						// you also need to change it in the stylesheet.
-						$text .= '[[File:' . $image->getName() . "|left|64px|alt=]]\n";
+					if ( isset( $item->image ) ) {
+						$text .= $this->generateImage( $item->image, $this->displaymode, $titleForItem, $iconWidth );
 					} else {
-						if ( $this->displaymode == 'members' ) {
-							$placeholderIcon = 'mw-ck-icon-user-lightgrey';
-						} else {
-							$placeholderIcon = 'mw-ck-icon-page-lightgrey';
-						}
-						$text .= Html::element( 'div', [
-							"class" => [
-								'mw-ck-list-noimageplaceholder',
-								$placeholderIcon
-							]
-						] );
+						// Use fallback mechanisms
+						$text .= $this->generateImage( null, $this->displaymode, $titleForItem, $iconWidth );
 					}
-					$text .= '</div>';
 				}
 
 				$text .= '<div class="mw-ck-list-container">';
@@ -399,6 +379,54 @@ class CollaborationListContent extends JsonContent {
 		return $text;
 	}
 
+	/**
+	 * Invokes CollaborationKitImage::makeImage with fallback criteria
+	 *
+	 * @param string $definedImage The filename given in the list item
+	 * @param string $displayMode Type of list (members or otherwise)
+	 * @param Title $title Title object of the list item
+	 * @param int $size The width of the icon image. Default is 64px;
+	 * @return string HTML
+	 */
+	protected static function generateImage( $definedImage, $displayMode, $title, $size = 64 ) {
+		$image = null;
+		$iconColour = '';
+		$linkOrNot = true;
+
+		// Step 1: Use the defined image, assuming it's valid
+		if ( $definedImage !== null && is_string( $definedImage ) ) {
+			$imageTitle = Title::newFromText( $definedImage, NS_FILE );
+			if ( $imageTitle ) {
+				$image = wfFindFile( $imageTitle )->getName();
+			}
+		}
+
+		// Step 2: No defined image / invalid defined image? Use PageImages if possible.
+		if ( $image === null && $title && class_exists( 'PageImages' ) ) {
+			$queryPageImages = PageImages::getPageImage( $title );
+			if ( $queryPageImages !== false ) {
+				$image = $queryPageImages->getName();
+			}
+		}
+
+		// Step 3: None of the above work? Time for fallback icons.
+		if ( $image === null ) {
+			$iconColour = "lightgrey";
+			$linkOrNot = false;
+			if ( $displayMode == 'members' ) {
+				$image = 'user';
+			} else {
+				$image = 'page';
+			}
+		}
+
+		return CollaborationKitImage::makeImage(
+			$image,
+			$size,
+			[ 'classes' => [ 'mw-ck-list-image' ], 'colour' => $iconColour, 'link' => $linkOrNot, 'renderAsWikitext' => true ]
+		);
+	}
+
 	public function convert( $toModel, $lossy = '' ) {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
 			global $wgContLang;
@@ -437,7 +465,8 @@ class CollaborationListContent extends JsonContent {
 			'tags' => [],
 			'mode' => 'normal',
 			'columns' => [],
-			'showColumnHeaders' => true
+			'showColumnHeaders' => true,
+			'iconWidth' => 64
 		];
 	}
 

@@ -352,7 +352,8 @@ class CollaborationHubContent extends JsonContent {
 					'maxItems' => 3,
 					'defaultSort' => 'random',
 					'columns' => [ $activeCol ],
-					'showColumnHeaders' => false
+					'showColumnHeaders' => false,
+					'iconWidth' => 32
 				]
 			);
 
@@ -656,8 +657,7 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	protected function getTableOfContents( Title $title, ParserOptions $options ) {
 		$toc = new CollaborationHubTOC();
-
-		return $toc->renderTOC( $this->content, $this->themeColour );
+		return $toc->renderToC( $this->content );
 	}
 
 	/**
@@ -668,7 +668,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	public function getParsedImage( $image, $size = 200 ) {
-		return CollaborationKitIcon::makeIconOrImage( $this->getImage(), $size, 'puzzlepiece' );
+		return CollaborationKitImage::makeImage( $image, $size, [ 'fallback' => 'puzzlepiece' ] );
 	}
 
 	/**

@@ -1,7 +1,5 @@
 <?php
 
-use MediaWiki\MediaWikiServices;
-
 class CollaborationHubTOC {
 
 	/** @var $tocLinks array ids/links for ToC items that have been used already */
@@ -35,7 +33,6 @@ class CollaborationHubTOC {
 	/**
 	 * ToC rendering for hub
 	 * @param $content array block from collaborationhub
-	 * @param $colour string variable from collaborationhub content
 	 * @return string html
 	 */
 	public function renderToC( $content ) {
@@ -58,9 +55,9 @@ class CollaborationHubTOC {
 				$displayTitle = $title->getSubpageText();
 			}
 			$linkTarget = Title::newFromText( '#' . $this->getToCLinkID( $displayTitle ) );
-			$image = isset( $item['image'] ) ? $item['image'] : $displayTitle;
+			$image = isset( $item['image'] ) ? $item['image'] : null;
 
-			$link = $this->renderItem( $linkTarget, $displayTitle, $image, 50 );
+			$link = CollaborationKitImage::makeImage( $image, 50, [ 'link' => $linkTarget, 'label' => $displayTitle ] );
 
 			$html .= Html::rawElement(
 				'li',
@@ -80,8 +77,6 @@ class CollaborationHubTOC {
 	 * @return string html
 	 */
 	public function renderSubpageToC( Title $title ) {
-		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-
 		// We assume $title is sane. This is supposed to be called with a $title gotten from CollaborationHubContent::getParentHub, which already checks if it is.
 		$rev = Revision::newFromTitle( $title );
 		$content = $rev->getContent();
@@ -105,7 +100,7 @@ class CollaborationHubTOC {
 		// hubpage
 
 		$name = $content->getDisplayName() == '' ? $title->getText() : $content->getDisplayName();
-		$link = $this->renderItem( $title, $name, $image, 16 );
+		$link = CollaborationKitImage::makeImage( $image, 16, [ 'link' => $title, 'label' => $name ] );
 
 		$html .= Html::rawElement(
 			'div',
@@ -126,7 +121,11 @@ class CollaborationHubTOC {
 			}
 			$itemImage = isset( $item['image'] ) ? $item['image'] : $itemDisplayTitle;
 
-			$itemLink = $this->renderItem( $itemTitle, $itemDisplayTitle, $itemImage, $colour, 16 );
+			$itemLink = CollaborationKitImage::makeImage(
+				$itemImage,
+				16,
+				[ 'link' => $itemTitle, 'label' => $itemDisplayTitle, 'colour' => $colour ]
+			);
 
 			$html .= Html::rawElement(
 				'li',
@@ -139,26 +138,5 @@ class CollaborationHubTOC {
 		$html .= Html::closeElement( 'div' );
 		$html .= Html::closeElement( 'div' );
 		return $html;
-	}
-
-	/**
-	 * Get item for ToC - link with icon and label as contents
-	 * @param $title Title for target
-	 * @param $text string diplay text for title
-	 * @param $image string seed for makeIconOrImage
-	 * @param $imageSize int size
-	 * @return string html
-	 */
-	protected function renderItem( Title $title, $text, $image, $imageSize ) {
-		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
-
-		$icon = CollaborationKitIcon::makeIconOrImage( $image, $imageSize );
-
-		$linkContent = new HtmlArmor( Html::rawElement(
-			'div',
-			[],
-			$icon . Html::element( 'span', [ 'class' => 'mw-ck-toc-item-label' ], $text )
-		) );
-		return $link = $linkRenderer->makeLink( $title, $linkContent );
 	}
 }

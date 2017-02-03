@@ -94,6 +94,10 @@ return [
 				'tags' => [
 					'type' => 'array',
 					'items' => [ [] ]
+				],
+				'iconWidth' => [
+					'type' => 'number',
+					'default' => 64
 				]
 			]
 		]

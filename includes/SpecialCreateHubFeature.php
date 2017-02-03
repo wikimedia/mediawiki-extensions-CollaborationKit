@@ -20,7 +20,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		$output = $this->getContext()->getOutput();
 		$output->addModules( 'ext.CollaborationKit.iconbrowser' );
 		$output->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
-		$output->addJsConfigVars( 'wgCollaborationKitIconList', CollaborationKitIcon::getCannedIcons() );
+		$output->addJsConfigVars( 'wgCollaborationKitIconList', CollaborationKitImage::getCannedIcons() );
 		parent::execute( $par );
 	}
 
@@ -43,7 +43,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			$defaultFeatureName = '';
 		}
 
-		$icons = CollaborationKitIcon::getCannedIcons();
+		$icons = CollaborationKitImage::getCannedIcons();
 		$iconChoices = array_combine( $icons, $icons );
 
 		$fields = [
