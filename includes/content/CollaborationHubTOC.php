@@ -16,7 +16,6 @@ class CollaborationHubTOC {
 		$linkCounter = 1;
 		while ( in_array( $link2, $this->tocLinks ) ) {
 			$link2 = $link . '_' . $linkCounter;
-			$spPageLinkCounter++;
 		}
 		$this->tocLinks[] = $link2;
 		return $link2;
