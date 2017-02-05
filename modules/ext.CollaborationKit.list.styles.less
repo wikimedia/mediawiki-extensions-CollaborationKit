@@ -43,6 +43,9 @@
 /* Multilist stuff */
 .mw-ck-multilist {
 	.flex-display;
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 	margin: 0 -.5em;
 
@@ -53,6 +56,9 @@
 		margin: .5em;
 		min-width: 20em; // Todo something smarter for mobile/genuinely narrow things?
 		max-width: 35em;
+		-webkit-flex-basis: 25em;
+		-moz-flex-basis: 25em;
+		-ms-flex-basis: 25em;
 		flex-basis: 25em;
 		box-sizing: border-box;
 	}
