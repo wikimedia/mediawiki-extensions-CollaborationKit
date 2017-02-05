@@ -397,7 +397,10 @@ class CollaborationListContent extends JsonContent {
 		if ( $definedImage !== null && is_string( $definedImage ) ) {
 			$imageTitle = Title::newFromText( $definedImage, NS_FILE );
 			if ( $imageTitle ) {
-				$image = wfFindFile( $imageTitle )->getName();
+				$imageObj = wfFindFile( $imageTitle );
+				if ( $imageObj ) {
+					$image = $imageObj->getName();
+				}
 			}
 		}
 
