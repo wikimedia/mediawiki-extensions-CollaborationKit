@@ -45,7 +45,7 @@
 			} );
 			if ( !done ) {
 				// FIXME error handling
-				alert( 'Edit conflict!' );
+				alert( mw.msg( 'collaborationkit-list-error-edit' ) );
 				location.reload();
 			}
 		} );
@@ -184,7 +184,7 @@
 				if (	res.content.columns[ dialog.itemColId ].items <= dialog.itemIndex ||
 					res.content.columns[ dialog.itemColId ].items[ dialog.itemIndex ].title !== dialog.itemTitle
 				) {
-					alert( 'Edit conflict' );
+					alert( mw.msg( 'collaborationkit-list-error-editconflict' ) );
 					location.reload();
 					// fixme proper handling.
 					throw new Error( 'edit conflict' );

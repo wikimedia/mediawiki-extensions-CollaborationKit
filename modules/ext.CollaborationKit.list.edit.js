@@ -177,7 +177,7 @@
 
 				// Must be missing.
 				// FIXME sane error handling.
-				alert( 'Edit conflict detected' );
+				alert( mw.msg( 'collaborationkit-list-error-editconflict' ) );
 				location.reload();
 				throw new Error( 'Item ' + title + ' is missing' );
 			};
@@ -227,7 +227,7 @@
 			) {
 				mw.log( 'Could not get page ' + pageId );
 				// FIXME better error handling
-				alert( 'Unhandled error fetching page with ajax' );
+				alert( mw.msg( 'collaborationkit-list-error-couldnotgetpage' ) );
 				throw new Error( 'Could not get page' );
 			}
 			rev = data.query.pages[ pageId ].revisions[ 0 ];
@@ -240,7 +240,7 @@
 			res.content = JSON.parse( rev[ '*' ] );
 			callback( res );
 		} ).fail(
-			function () { alert( 'Unhandled ajax error' ); }
+			function () { alert( mw.msg( 'collaborationkit-list-error-generic' ) ); }
 		);
 	};
 
@@ -260,7 +260,7 @@
 			basetimestamp: params.timestamp
 		} ).done( callback ).fail( function () {
 			// FIXME proper error handling.
-			alert( 'Unhandled error saving page' );
+			alert( 'collaborationkit-list-error-saving' );
 		} );
 	};
 
