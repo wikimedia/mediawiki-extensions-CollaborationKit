@@ -716,12 +716,13 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public function convert( $toModel, $lossy = '' ) {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
-			global $wgContLang;
-			// using wgContLang is kind of icky. Maybe we should transclude
-			// from mediawiki namespace, or give up on not splitting the
-			// parser cache and just use {{int:... (?)
-			$renderOpts = $this->getFullRenderListOptions();
-			$text = $this->convertToWikitext( $wgContLang, $renderOpts );
+			// Not ideal at all, but without access to the name of the page being transcluded, we
+			// can't embed the rest of the page. This is just a holdover to prevent the thing from
+			// throwing an exception.
+			$this->decode();
+			$image = $this->getImage();
+			$intro = $this->getIntroduction();
+			$text = "<div style='margin:0 2em 2em 0;'>[[File:$image|200px|left]]</div>\n<div style='font-size:115%;'>$intro</div>";
 			return ContentHandler::makeContent( $text, null, $toModel );
 		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
 			return ContentHandler::makeContent( $this->getNativeData(), null, $toModel );
