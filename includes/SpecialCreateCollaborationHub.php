@@ -34,15 +34,27 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @return array
 	 */
 	protected function getFormFields() {
+		$allowedNamespaces = $this->getConfig()->get( 'CollaborationListAllowedNamespaces' );
+		$namespaceNames = $this->getLanguage()->getNamespaces();
+		$namespaceChoices = [];
+		foreach ( $allowedNamespaces as $nsIndex => $nsCanBeUsed ) {
+			$namespaceChoices[ $namespaceNames[ $nsIndex ] ] = $nsIndex;
+		}
 
 		$fields = [
 			// autofilled from how they got here, hopefully
+
+			'namespace' => [
+				'type' => 'select',
+				'options' => $namespaceChoices,
+				'cssclass' => 'mw-ck-namespace-input',
+				'label-message' => 'collaborationkit-createhub-title',
+				'help-message' => 'collaborationkit-createhub-title-help',
+				'required' => true
+			],
 			'title' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-title-input',
-				'label-message' => 'collaborationkit-createhub-title',
-				'validation-callback' => [ $this, 'titleValidate' ],
-				'help-message' => 'collaborationkit-createhub-title-help',
 				'placeholder-message' => 'collaborationkit-createhub-title-placeholder',
 				'required' => true
 			],
@@ -61,6 +73,12 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				'help-message' => 'collaborationkit-hubedit-image-help'
 			],
 		];
+
+		// Our preference is the Project namespace
+		if ( in_array( 4, $allowedNamespaces ) ) {
+			$fields[ 'namespace' ][ 'default' ] = 4;
+		}
+
 		// Colours for the hub styles
 		$colours = [];
 		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
@@ -107,40 +125,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * Callback to validate given title
-	 *
-	 * @param $value string The title value to test
-	 * @return bool|string|Message True on success, or Message for error
-	 */
-	public function titleValidate( $value ) {
-		$title = Title::newFromText( $value );
-		if ( !$title ) {
-			return $this->msg( 'collaborationkit-createhub-invalidtitle' );
-		}
-
-		// TODO: Add an option to import it to itself as target if the
-		// page already exists, archiving the existing page to a subpage (T136475)
-		if ( $title->exists() ) {
-			return $this->msg( 'collaborationkit-createhub-exists' );
-		}
-
-		$handler = new CollaborationHubContentHandler();
-		if ( !$handler->canBeUsedOn( $title ) ) {
-			// Most likely a namespace issue.
-			$lang = $this->getLanguage();
-			$allowedNSConfig = $this->getConfig()->get( 'CollaborationListAllowedNamespaces' );
-			$allowedNS = array_keys( array_filter( $allowedNSConfig ) );
-			$textNS = array_map( [ $lang, 'getFormattedNsText' ], $allowedNS );
-			return $this->msg( 'collaborationkit-createhub-wrongnamespace' )
-				->numParams( count( $textNS ) )
-				->params( $lang->commaList( $textNS ) );
-		}
-
-		return true;
-	}
-
-	/**
-	 * Build and return the aossociative array for the content source field.
+	 * Build and return the associative array for the content source field.
 	 * @param $mapping array
 	 * @return array
 	 */
@@ -157,9 +142,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @return Status
 	 */
 	public function onSubmit( array $data ) {
-		$title = Title::newFromText( $data['title'] );
+		$namespaces = $this->getLanguage()->getNamespaces();
+		$pagename = $namespaces[ $data[ 'namespace' ] ] . ':' . $data['title'];
+		$title = Title::newFromText( $pagename );
 		if ( !$title ) {
-			// Should already be checked, but make extra sure.
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
 
@@ -202,12 +188,12 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		}
 		*/
 
-		$title = Title::newFromText( $data['title'] );
+		$title = Title::newFromText( $pagename );
 		if ( !$title ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
 
-		$memberListTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-members' ) );
+		$memberListTitle = Title::newFromText( $pagename . '/' . $this->msg( 'collaborationkit-hub-pagetitle-members' ) );
 		if ( !$memberListTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
@@ -221,7 +207,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return $memberResult;
 		}
 
-		$announcementsTitle = Title::newFromText( $data['title'] . '/' . $this->msg( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->plain() );
+		$announcementsTitle = Title::newFromText( $pagename . '/' . $this->msg( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->plain() );
 		if ( !$announcementsTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}

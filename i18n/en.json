@@ -122,7 +122,7 @@
 	"collaborationkit-createhub-wrongnamespace": "This page name cannot be used as a Collaboration Hub. Collaboration Hubs can only be created in the {{PLURAL:$1|$2 namespace|following namespaces: $2}}.",
 	"createcollaborationhub-text": "You are creating a new Collaboration Hub, a workspace for organizing a project. Once this page is created, you will be able to add features and make other edits.",
 	"collaborationkit-createhub-title-help": "Where to create the Collaboration Hub",
-	"collaborationkit-createhub-title-placeholder": "Project:...",
+	"collaborationkit-createhub-title-placeholder": "New Project",
 	"collaborationkit-hubedit-displayname-help": "Used to refer to the project on other pages. Only needed if different from the page title.",
 	"collaborationkit-hubedit-image-help": "An image or icon to represent the project",
 	"collaborationkit-hubedit-introduction-placeholder": "Introduce your project here! Tell us what you want to do.",
