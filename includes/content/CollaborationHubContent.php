@@ -208,6 +208,8 @@ class CollaborationHubContent extends JsonContent {
 		global $wgParser;
 		$this->decode();
 
+		OutputPage::setupOOUI();
+
 		// Dummy parse intro and footer to get categories and whatnot
 		$output = $wgParser->parse( $this->getIntroduction() . $this->getFooter(), $title, $options, true, true, $revId );
 		$html = '';
@@ -324,9 +326,10 @@ class CollaborationHubContent extends JsonContent {
 	 * Helper function for fillParserOutput
 	 * @param $title Title
 	 * @param $options ParserOptions
+	 * @param $membersContent CollaborationListContent|null Force-fed member-list Content for testing purposes.
 	 * @return string
 	 */
-	protected function getMembersBlock( Title $title, ParserOptions $options, ParserOutput &$output ) {
+	protected function getMembersBlock( Title $title, ParserOptions $options, ParserOutput $output, $membersContent = null ) {
 		global $wgParser;
 
 		$html = '';
@@ -338,7 +341,7 @@ class CollaborationHubContent extends JsonContent {
 
 		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
 		$membersTitle = Title::newFromText( $membersPageName );
-		if ( $membersTitle->exists() ) {
+		if ( $membersTitle->exists() || $membersContent !== null ) {
 
 			$membersPageID = $membersTitle->getArticleID();
 			$output->addJsConfigVars( 'wgCollaborationKitAssociatedMemberList', $membersPageID );
@@ -350,7 +353,9 @@ class CollaborationHubContent extends JsonContent {
 				wfMessage( 'collaborationkit-hub-members-header' )
 			);
 
-			$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
+			if ( $membersContent === null ) {
+				$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
+			}
 			$activeCol = wfMessage( 'collaborationkit-column-active' )->inContentLanguage()->plain();
 			$wikitext = $membersContent->convertToWikitext(
 				$lang,
@@ -377,13 +382,13 @@ class CollaborationHubContent extends JsonContent {
 				'classes' => [ 'mw-ck-members-join' ]
 			] );
 
-			OutputPage::setupOOUI();
 			$html .= Html::rawElement(
 				'div',
 				[ 'class' => 'mw-ck-members-buttons' ],
 				$membersViewButton->toString() . $membersJoinButton->toString()
 			);
 		}
+
 		return $html;
 	}
 
@@ -404,15 +409,19 @@ class CollaborationHubContent extends JsonContent {
 	 * Helper function for fillParserOutput
 	 * @param $title Title
 	 * @param $options ParserOptions
+	 * @param $announcementsText string Force-fed announcements HTML for testing purposes
 	 * @return string
 	 */
-	protected function getParsedAnnouncements( Title $title, ParserOptions $options ) {
+	protected function getParsedAnnouncements( Title $title, ParserOptions $options, $announcementsText = null ) {
 		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->text();
 		$announcementsTitle = Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName );
 
-		if ( $announcementsTitle->exists() ) {
-			$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
-			$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
+		if ( $announcementsTitle->exists() || $announcementsText !== null ) {
+
+			if ( $announcementsText === null ) {
+				$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
+				$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
+			}
 
 			$announcementsEditButton = $this->makeEditSectionLink(
 				$announcementsTitle->getEditURL(),
@@ -479,7 +488,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param &$output ParserOutput
 	 * @return string
 	 */
-	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput &$output ) {
+	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput $output ) {
 		global $wgParser;
 
 		$lang = $options->getTargetLanguage();
@@ -693,9 +702,10 @@ class CollaborationHubContent extends JsonContent {
 	 * Find the parent hub, if any.
 	 * Returns the first CollaborationHub Title found, even if more are higher up, or null if none
 	 * @param $title Title to start looking from
+	 * @param $destination Title for testing purposes
 	 * @return Title|null
 	 */
-	public static function getParentHub( Title $title ) {
+	public static function getParentHub( Title $title, Title $destination = null ) {
 		global $wgCollaborationHubAllowedNamespaces;
 
 		$namespace = $title->getNamespace();
