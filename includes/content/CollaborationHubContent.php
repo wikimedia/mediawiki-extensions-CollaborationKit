@@ -456,14 +456,16 @@ class CollaborationHubContent extends JsonContent {
 			$html .= new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-manage' )->inContentLanguage()->text(),
 				'href' => $title->getLocalURL( [ 'action' => 'edit' ] ),
-				'flags' => [ 'primary', 'progressive' ]
+				'flags' => [ 'progressive' ],
+				'icon' => 'edit'
 			] );
 
 			// TODO make sure they have create permission, too
 			$html .= new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-addpage' )->inContentLanguage()->text(),
 				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText() ] ),
-				'flags' => [ 'primary', 'progressive' ]
+				'flags' => [ 'progressive' ],
+				'icon' => 'add'
 			] );
 		}
 
@@ -610,6 +612,11 @@ class CollaborationHubContent extends JsonContent {
 			$sectionLinks[ 'viewLink' ][ 'title' ] = $spTitle->getLinkURL();
 			$sectionLinks[ 'viewLink' ][ 'msg' ] = wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text();
 			$sectionLinks[ 'viewLink' ][ 'icon' ] = 'search';
+
+			$sectionLinks[ 'editLink' ] = [];
+			$sectionLinks[ 'editLink' ][ 'title' ] = $spTitle->getEditURL();
+			$sectionLinks[ 'editLink' ][ 'msg' ] = wfMessage( 'edit' )->inContentLanguage()->text();
+			$sectionLinks[ 'editLink' ][ 'icon' ] = 'edit';
 		}
 		foreach ( $sectionLinks as $sectionLink ) {
 			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink[ 'title' ], $sectionLink[ 'msg' ], $sectionLink[ 'icon' ] );
@@ -633,7 +640,9 @@ class CollaborationHubContent extends JsonContent {
 				$spPage
 			)
 		);
-		$html .= $sectionLinksText;
+		if ( $sectionLinksText !== '' ) {
+			$html .= Html::rawElement( 'div', [ 'class' => 'mw-ck-hub-section-buttons' ], $sectionLinksText );
+		}
 
 		OutputPage::setupOOUI();
 		return $html;
@@ -648,6 +657,7 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	protected function makeEditSectionLink( $link, $message, $icon ) {
 		$html = new OOUI\ButtonWidget( [
+			'classes' => [ 'mw-ck-hub-section-button' ],
 			'label' => $message,
 			'href' => $link,
 			'framed' => false,
