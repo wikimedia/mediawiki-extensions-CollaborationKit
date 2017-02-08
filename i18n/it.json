@@ -18,6 +18,8 @@
 	"collaborationkit-list-add": "Aggiungi nuovo elemento all'elenco",
 	"collaborationkit-list-add-user": "Aggiungi utente all'elenco",
 	"collaborationkit-list-alreadyadded": "Sei già un membro di questo progetto.",
+	"collaborationkit-list-error-editconflict": "Si è verificato un conflitto di edizione, e le tue modifiche non sono state salvate. Aggiorna la pagina e riprova.",
+	"collaborationkit-list-error-saving": "Le tue modifiche all'elenco non sono state salvate. Aggiorna la pagina e riprova.",
 	"collaborationkit-list-move-popup": "Salvato con successo: $1 è stato ri-ordinato.",
 	"collaborationkit-list-move-popup-title": "Pagina salvata",
 	"collaborationkit-list-newitem-title": "Aggiungi elemento all'elenco",
