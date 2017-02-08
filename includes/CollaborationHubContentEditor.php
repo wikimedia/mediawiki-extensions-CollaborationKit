@@ -58,7 +58,7 @@ class CollaborationHubContentEditor extends EditPage {
 			$colours[ 'collaborationkit-' . $colour ] = $colour;
 		}
 		if ( $parts[4] == '' ) {
-			$selectedColour = 'darkblue';
+			$selectedColour = 'lightgrey';
 		} else {
 			$selectedColour = $parts[4];
 		}

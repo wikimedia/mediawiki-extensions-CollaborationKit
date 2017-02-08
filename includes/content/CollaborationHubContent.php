@@ -121,7 +121,7 @@ class CollaborationHubContent extends JsonContent {
 
 				// Set colour to default if empty or missing
 				if ( !isset( $data->colour ) || $data->colour == '' ) {
-					$this->themeColour = 'darkblue';
+					$this->themeColour = 'lightgrey';
 				} else {
 					$this->themeColour = $data->colour;
 				}
