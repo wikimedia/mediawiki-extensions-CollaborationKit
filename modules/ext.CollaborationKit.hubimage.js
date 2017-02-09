@@ -23,17 +23,22 @@
 
 		ProcessDialog.super.prototype.initialize.apply( this, arguments );
 
-		// Default image search flow:
-		// First work off of existing value for hub image, if it exists
-		// If no hub image (new hub creation), search display title or page title
-		// If nothing specified, fill in a filename for a generic icon
+		// Default image order of preference:
+		// Display name > Page title > Nothing
 
-		if ( $( 'input[name=wpdisplay_name]' ).val() !== '' ) {
-			defaultSearchTerm = $( 'input[name=wpdisplay_name]' ).val();
-		} else if ( $( 'input[name=wptitle]' ).val() !== '' ) {
+		defaultSearchTerm = '';
+
+		if ( mw.config.get( 'wgTitle' ) !== undefined ) {
+			defaultSearchTerm = mw.config.get( 'wgTitle' );
+		}
+		if ( $( 'input[name=wptitle]' ).val() !== '' && $( 'input[name=wptitle]' ).val() !== undefined ) {
 			defaultSearchTerm = $( 'input[name=wptitle]' ).val();
-		} else {
-			defaultSearchTerm = 'OOjs UI icon puzzle-ltr.svg';
+		}
+		if ( $( 'input[name=wpdisplay_name]' ).val() !== '' && $( 'input[name=wpdisplay_name]' ).val() !== undefined ) {
+			defaultSearchTerm = $( 'input[name=wpdisplay_name]' ).val();
+		}
+		if ( $( 'input[name=wpCollabHubDisplayName]' ).val() !== '' && $( 'input[name=wpCollabHubDisplayName]' ).val() !== undefined ) {
+			defaultSearchTerm = $( 'input[name=wpCollabHubDisplayName]' ).val();
 		}
 
 		this.content = new mw.widgets.MediaSearchWidget();
@@ -103,7 +108,7 @@
 
 	$( 'div.mw-ck-hub-image-input input' ).css( 'display', 'none' );
 	$( 'div.mw-ck-hub-image-input div.oo-ui-textInputWidget' )
-		.append( '<img class="hubimagePreview" /><div class="hubimageBrowserButton">' )
+		.append( '<img class="hubimagePreview" style="width:200px; background:#eee; height:200px; margin-bottom:10px; display:block;" /><div class="hubimageBrowserButton">' )
 		.append( hubimageBrowserButton.$element )
 		.append( '</div>' );
 	// Load current hub image
@@ -121,10 +126,7 @@
 			.done( function ( data ) {
 				$( 'img.hubimagePreview' )
 					.attr( 'src', data.query.pages[ 0 ].imageinfo[ 0 ].thumburl )
-					.css( 'margin-bottom', '10px' )
-					.css( 'width', '100px' )
-					.css( 'height', 'auto' )
-					.css( 'display', 'block' );
+					.css( 'height', 'auto' );
 			}
 		);
 	}
