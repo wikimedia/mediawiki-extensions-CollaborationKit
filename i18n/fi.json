@@ -4,6 +4,7 @@
 			"Pyscowicz"
 		]
 	},
+	"collaborationkit-createhubfeature-contenttype": "Minkä tyyppinen sivu tämä on?",
 	"collaborationkit-createhubfeature-articlelist": "Luettelo sivuista",
 	"collaborationkit-list-delete": "Poista kohde",
 	"collaborationkit-list-delete-summary": "/* $1 */ Poistaminen luettelosta.",
@@ -19,6 +20,7 @@
 	"collaborationkit-colour-launchbutton": "Selaa värejä",
 	"collaborationkit-colour-select": "Valitse",
 	"collaborationkit-hubimage-launchbutton": "Selaa kuvia",
+	"collaborationkit-hubimage-select": "Valitse",
 	"collaborationkit-darkred": "Tummanpunainen",
 	"collaborationkit-red": "Punainen",
 	"collaborationkit-darkgrey": "Tummanharmaa",

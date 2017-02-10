@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Srdjan m"
+		]
+	},
+	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajem",
+	"collaborationkit-list-delete": "Ukloni stavku",
+	"collaborationkit-list-delete-summary": "/* $1 */ Brišem sa spiska.",
+	"collaborationkit-list-delete-popup": "Uspješno sačuvano: $1 je uklonjena sa spiska.",
+	"collaborationkit-list-delete-popup-title": "Stavka obrisana",
+	"collaborationkit-list-add": "Dodaj novu stavku na spisak",
+	"collaborationkit-list-add-user": "Dodaj korisnika na spisak",
+	"collaborationkit-list-add-self": "Pridruži se projektu",
+	"collaborationkit-list-add-summary": "/* $1 */ Dodajem na spisak.",
+	"collaborationkit-list-add-self-summary": "/* $1 */ Pridružujem se projektu.",
+	"collaborationkit-list-alreadyadded": "Već ste član ovog projekta."
+}
