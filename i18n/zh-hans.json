@@ -120,7 +120,7 @@
 	"collaborationkit-createhub-wrongnamespace": "此页面名不能用作协作中心。协作中心只可以创建于{{PLURAL:$1|$2名字空间|以下名字空间：$2}}。",
 	"createcollaborationhub-text": "您正在创建一个新的中心，这是组织专题的工作区。一旦此页面被创建，您将可以添加功能，并作出其他编辑。",
 	"collaborationkit-createhub-title-help": "在哪里创建协作中心",
-	"collaborationkit-createhub-title-placeholder": "专题：...",
+	"collaborationkit-createhub-title-placeholder": "新专题",
 	"collaborationkit-hubedit-displayname-help": "用于在其他页面参考专题。只在与页面标题不同时需要。",
 	"collaborationkit-hubedit-image-help": "代表专题的图片或图标",
 	"collaborationkit-hubedit-introduction-placeholder": "在此介绍您的专题！告诉我们您想做什么。",

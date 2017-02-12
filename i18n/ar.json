@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"ASHmed",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Aboulouei1"
 		]
 	},
 	"collaborationkit-list-error-editconflict": "حدث تضارب في التحرير، ولم تُحفظ تغييراتك. رجاءً أعد تحميل الصفحة وحاول مرة أخرى.",
 	"collaborationkit-list-error-couldnotgetpage": "تعذر تحميل الصفحة. برجاء إعادة التحميل والمحاولة مرة أخرى.",
 	"collaborationkit-list-error-generic": "هنالك خلل ما. برجاء إعادة تحميل الصفحة والمحاولة مرة أخرى.",
-	"collaborationkit-list-error-saving": "لم تُحفظ تعديلاتك لهذه القائمة. برجاء إعادة تحميل الصفحة والمحاولة مرة أخرى."
+	"collaborationkit-list-error-saving": "لم تُحفظ تعديلاتك لهذه القائمة. يرجى إعادة تحميل الصفحة والمحاولة مرة أخرى.",
+	"collaborationkit-createhub-title-placeholder": "مشروع جديد"
 }

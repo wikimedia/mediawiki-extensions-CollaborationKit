@@ -120,7 +120,7 @@
 	"collaborationkit-createhub-wrongnamespace": "Dieser Seitenname kann nicht als Kollaborationsknoten verwendet werden. Kollaborationsknoten können nur {{PLURAL:$1|im Namensraum|in den Namensräumen}} „$2“ erstellt werden.",
 	"createcollaborationhub-text": "Du erstellst einen neuen Kollaborationsknoten, ein Arbeitsraum zur Organisation eines Projekts. Sobald diese Seite erstellt wurde, kannst du Funktionen hinzufügen und weitere Bearbeitungen durchführen.",
 	"collaborationkit-createhub-title-help": "Wo der Kollaborationsknoten zu erstellen ist",
-	"collaborationkit-createhub-title-placeholder": "Projekt:…",
+	"collaborationkit-createhub-title-placeholder": "Neues Projekt",
 	"collaborationkit-hubedit-displayname-help": "Wird verwendet, um auf anderen Seiten auf das Projekt zu verweisen. Nur erforderlich, wenn der Anzeigename vom Seitentitel abweicht.",
 	"collaborationkit-hubedit-image-help": "Ein Bild oder Symbol, das das Projekt darstellt.",
 	"collaborationkit-hubedit-introduction-placeholder": "Stelle dein Projekt hier vor! Sage uns, was du tun möchtest.",

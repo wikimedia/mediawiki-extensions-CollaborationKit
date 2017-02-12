@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
-			"Wladek92"
+			"Wladek92",
+			"Aboulouei1"
 		]
 	},
 	"collaborationkit-desc": "Outils pour la construction de projets Wiki et d'espaces de travail collaboratifs wiki.",
@@ -121,7 +122,7 @@
 	"collaborationkit-createhub-wrongnamespace": "Ce nom de page ne peut pas être utilisé comme Centre de Collaboration. Les Centres de Collaboration ne peuvent être créés que dans {{PLURAL:$1|l’espace de noms $2|les espaces de nom suivants : $2}}.",
 	"createcollaborationhub-text": "Vous êtes en train de créer un Centre de Collaboration, un espace de travail pour organiser un projet. Une fois cette page créée, vous pourrez ajouter des fonctionnalités et faire d’autres modifications.",
 	"collaborationkit-createhub-title-help": "Où créer le Centre de collaboration",
-	"collaborationkit-createhub-title-placeholder": "Projet : ...",
+	"collaborationkit-createhub-title-placeholder": "Nouveau projet",
 	"collaborationkit-hubedit-displayname-help": "Utilisé pour faire référence au projet sur d’autres pages. Nécessaire uniquement s’il est différent du titre de la page.",
 	"collaborationkit-hubedit-image-help": "Une image ou une icône pour représenter le projet",
 	"collaborationkit-hubedit-introduction-placeholder": "Présentez votre projet ici ! Dites-nous ce que vous voulez faire.",
