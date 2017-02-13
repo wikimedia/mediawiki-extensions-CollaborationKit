@@ -49,13 +49,13 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				'options' => $namespaceChoices,
 				'cssclass' => 'mw-ck-namespace-input',
 				'label-message' => 'collaborationkit-createhub-title',
-				'help-message' => 'collaborationkit-createhub-title-help',
 				'required' => true
 			],
 			'title' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-title-input',
 				'placeholder-message' => 'collaborationkit-createhub-title-placeholder',
+				'help-message' => 'collaborationkit-createhub-title-help',
 				'required' => true
 			],
 			// Display name can be different from page title
