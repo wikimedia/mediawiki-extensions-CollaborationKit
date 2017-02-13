@@ -1,10 +1,6 @@
 ( function ( $, mw, OO ) {
 	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem, addSelf, curUserIsInList, getCol;
 
-	addItem = function () {
-		modifyItem( {} );
-	};
-
 	getColId = function ( $item ) {
 		var $col, id;
 
@@ -265,7 +261,6 @@
 	};
 
 	module.exports = {
-		addItem: addItem,
 		getColId: getColId,
 		deleteItem: deleteItem,
 		getListOfTitles: getListOfTitles,

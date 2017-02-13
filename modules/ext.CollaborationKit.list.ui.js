@@ -1,6 +1,9 @@
 ( function ( $, mw, OO ) {
-
 	var LE = require( 'ext.CollaborationKit.list.edit' );
+
+	addItem = function ( colId ) {
+		modifyItem( { itemColId: colId } );
+	};
 
 	/**
 	 * @param {Object} itemToEdit The name of the title to modify, or false to add new.
@@ -204,7 +207,7 @@
 	};
 
 	$( function () {
-		var $list, buttonMsg, memberListPage;
+		var $list, $column, buttonMsg, memberListPage;
 
 		if ( !mw.config.get( 'wgEnableCollaborationKitListEdit' ) ) {
 			// This page is not a list, or user does not have edit rights.
@@ -212,6 +215,11 @@
 		}
 
 		$list = $( '.mw-ck-list' );
+		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
+			$column = $( '.mw-ck-list-column[data-collabkit-column-id=0] .mw-ck-list-item:last-child' );
+		} else {
+			$column = $( '.mw-ck-list-item:last-child' );
+		}
 		$list.find( '.mw-ck-list-item' ).each( function () {
 				var deleteButton,
 					moveButton,
@@ -333,7 +341,7 @@
 		buttonMsg = mw.config.get( 'wgCollaborationKitIsMemberList' ) ?
 			'collaborationkit-list-add-user' :
 			'collaborationkit-list-add';
-		$list.after(
+		$column.after(
 			$( '<div></div>' )
 				// FIXME There is probably a way to add the class without
 				// extra div.
@@ -343,7 +351,9 @@
 						label: mw.msg( buttonMsg ),
 						icon: 'add',
 						flags: 'constructive'
-					} ).on( 'click', LE.addItem )
+					} ).on( 'click', function () {
+						addItem( $( event.target ).closest( '.mw-ck-list-column' ).data( 'collabkit-column-id' ) );
+					} )
 					.$element
 				)
 		);
