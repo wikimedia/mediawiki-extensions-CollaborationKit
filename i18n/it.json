@@ -62,6 +62,6 @@
 	"collaborationkit-column-active": "Membri attivi",
 	"collaborationkit-column-inactive": "Membri inattivi",
 	"collaborationkit-createhub-title-help": "Dove creare il fulcro della collaborazione",
-	"collaborationkit-createhub-title-placeholder": "Progetto:...",
+	"collaborationkit-createhub-title-placeholder": "Nuovo progetto",
 	"collaborationkit-listedit-list-help": "La sintassi personalizzata viene usata per la modifica di massa. In sostanza, un elemento per riga, con diverse colonne segnata da vari trattini. Vedi [[Help:CollaborationLists]] per ulteriori informazioni."
 }
