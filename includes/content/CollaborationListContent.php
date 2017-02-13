@@ -1,12 +1,20 @@
 <?php
 
 /**
+ * A content model for representing lists of wiki pages in JSON.
+ *
+ * This content model is used to prepare lists of pages (i.e., of
+ * members' user pages or of wiki pages to work on) and associated
+ * metadata while separating content from presentation.
+ * Features associated JavaScript modules allowing for quick
+ * manipulation of list contents.
  * Important design assumption: This class assumes lists are small
  * (e.g. Average case < 500 items, outliers < 2000)
- *
  * Schema is found in CollaborationListContentSchema.php.
  *
+ * @file
  */
+
 class CollaborationListContent extends JsonContent {
 
 	const MAX_LIST_SIZE = 2000; // Maybe should be a config option.
@@ -37,6 +45,7 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * Decode and validate the contents.
+	 *
 	 * @return bool Whether the contents are valid
 	 */
 	public function isValid() {
@@ -81,6 +90,13 @@ class CollaborationListContent extends JsonContent {
 		return false;
 	}
 
+	/**
+	 * Validates a list configuration option against the schema.
+	 *
+	 * @param string $name The name of the parameter
+	 * @param mixed $value The value of the parameter
+	 * @return bool Whether the configuration option is valid.
+	 */
 	private static function validateOption( $name, &$value ) {
 		$listSchema = include __DIR__ . '/CollaborationListContentSchema.php';
 
@@ -108,7 +124,7 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	 * Format json
+	 * Format JSON
 	 *
 	 * Do not escape < and > it's unnecessary and ugly
 	 * @return string
@@ -120,9 +136,9 @@ class CollaborationListContent extends JsonContent {
 	/**
 	* Beautifies JSON and does subst: prior to save.
 	*
-	* @param $title Title Title
-	* @param $user User User
-	* @param $popts ParserOptions
+	* @param Title $title
+	* @param User $user
+	* @param ParserOptions $popts
 	* @return CollaborationListContent
 	*/
 	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
@@ -176,11 +192,12 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * Fill $output with information derived from the content.
-	 * @param $title Title
-	 * @param $revId int
-	 * @param $options ParserOptions
-	 * @param $generateHtml bool
-	 * @param $output ParserOutput
+	 *
+	 * @param Title $title
+	 * @param int $revId Revision ID
+	 * @param ParserOptions $options
+	 * @param bool $generateHtml
+	 * @param ParserOutput $output
 	 */
 	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
 		$generateHtml, ParserOutput &$output
@@ -228,7 +245,7 @@ class CollaborationListContent extends JsonContent {
 	 * transclusions. They are not used when using the parser function.
 	 *
 	 * @todo FIXME These should maybe not be used during transclusion.
-	 * @return Array Options
+	 * @return array Options
 	 */
 	private function getFullRenderListOptions() {
 		return $listOptions = [
@@ -241,8 +258,8 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Convert the JSON to wikitext.
 	 *
-	 * @param $lang Language The (content) language to render the page in.
-	 * @param $options Array Options to override the default transclude options
+	 * @param Language $lang The (content) language to render the page in.
+	 * @param array $options Options to override the default transclude options
 	 * @return string The wikitext
 	 */
 	public function convertToWikitext( Language $lang, $options = [] ) {
@@ -430,6 +447,13 @@ class CollaborationListContent extends JsonContent {
 		);
 	}
 
+	/**
+	 * Converts between different text-based content models
+	 *
+	 * @param string $toModel The desired content model, use the CONTENT_MODEL_XXX flags.
+	 * @param string $lossy Flag, set to "lossy" to allow lossy conversion. If lossy conversion is not allowed, full round-trip conversion is expected to work without losing information.
+	 * @return Content|bool A content object with the content model $toModel.
+	 */
 	public function convert( $toModel, $lossy = '' ) {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
 			global $wgContLang;
@@ -455,7 +479,7 @@ class CollaborationListContent extends JsonContent {
 	 *
 	 * Any new option must be added to this list.
 	 *
-	 * @return Array default rendering options to use.
+	 * @return array default rendering options to use.
 	 */
 	public function getDefaultOptions() {
 		// FIXME implement
@@ -476,8 +500,8 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Sort a list
 	 *
-	 * @param &$items Array List to sort (sorted in-place)
-	 * @param $mode String sort method
+	 * @param array &$items List to sort (sorted in-place)
+	 * @param string $mode sort method
 	 * @return Array sorted list
 	 * @throws UnexpectedValueException on unrecognized mode
 	 */
@@ -517,8 +541,8 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Sort an array pseudo-randomly using an affine transform
 	 *
-	 * @param $items Array Stuff to sort (sorted in-place)
-	 * @return Array
+	 * @param array $items Stuff to sort (sorted in-place)
+	 * @return array
 	 */
 	private function sortRandomly( &$items ) {
 		$totItems = count( $items );
@@ -550,9 +574,9 @@ class CollaborationListContent extends JsonContent {
 	 * e.g. $tagSpecifier = [ [ 'a', 'b' ], ['b', 'd'] ]
 	 * means that any item must have the tags (a&&b) || (b&&d).
 	 *
-	 * @param $tagSpecifier Array What tags to check (aka $options['tags'])
-	 * @param $itemTags Array What tags is this item tagged with
-	 * @return boolean If the item matches
+	 * @param array $tagSpecifier What tags to check (aka $options['tags'])
+	 * @param array $itemTags What tags is this item tagged with
+	 * @return bool If the item matches
 	 */
 	private function matchesTag( array $tagSpecifier, array $itemTags ) {
 		if ( !$tagSpecifier ) {
@@ -578,6 +602,7 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * Convert JSON to markup that's easier for humans.
+	 * @return string
 	 */
 	public function convertToHumanEditable() {
 		$this->decode();
@@ -593,7 +618,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Output the options in human readable form
 	 *
-	 * @return String key=value pairs separated by newlines.
+	 * @return string key=value pairs separated by newlines.
 	 */
 	private function getHumanOptions() {
 		$this->decode();
@@ -611,6 +636,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Get the list of items in human editable form.
 	 *
+	 * @return string
 	 * @todo i18n-ize
 	 */
 	public function getHumanEditableList() {
@@ -669,6 +695,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Escape characters used as separators in human editable mode.
 	 *
+	 * @return string Escaped text
 	 * @todo Unclear if this is best approach. Alternative might be
 	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
 	 */
@@ -689,6 +716,9 @@ class CollaborationListContent extends JsonContent {
 		return $text;
 	}
 
+	/**
+	 * @return string
+	 */
 	private static function unescapeForHumanEditable( $text ) {
 		$text = strtr( $text, [
 			'\\\\n'=> "\\n",
@@ -700,6 +730,7 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * @param $options String Human readable options
+	 * @return object
 	 */
 	private static function parseHumanOptions( $options ) {
 		$finalList = [];
@@ -721,8 +752,8 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Convert from human editable form into a (php) array
 	 *
-	 * @param $text String text to convert
-	 * @return Array Result of converting it to native form
+	 * @param string $text text to convert
+	 * @return array Result of converting it to native form
 	 */
 	public static function convertFromHumanEditable( $text ) {
 		$res = [ 'columns' => [] ];
@@ -765,6 +796,9 @@ class CollaborationListContent extends JsonContent {
 		return $res;
 	}
 
+	/**
+	 * @return array
+	 */
 	private static function convertFromHumanEditableColumn( $column ) {
 		// Adding newline so that HUMAN_COLUMN_SPLIT2 correctly triggers
 		$column = $column . "\n";
@@ -822,6 +856,9 @@ class CollaborationListContent extends JsonContent {
 		return $columnItem;
 	}
 
+	/**
+	 * @return array
+	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
 		$parts = explode( "|", $line );
 		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
@@ -875,6 +912,10 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * Function to handle {{#trancludelist:Page name|options...}} calls
+	 *
+	 * @param Parser $parser
+	 * @param string $pageName
+	 * @return string|array HTML string or an array [ string, 'noparse' => false ]
 	 */
 	public static function transcludeHook( $parser, $pageName = '' ) {
 		$args = func_get_args();
@@ -949,11 +990,11 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Sort users into active/inactive column
 	 *
-	 * @param $column Array An array containing key items, which
+	 * @param array $column An array containing key items, which
 	 *  is an array of stdClass's representing each list item.
 	 *  Each of these has a key named title which contains
 	 *  a user name (including namespace). May have non-users too.
-	 * @return Array Two column structure sorted active/inactive.
+	 * @return array Two column structure sorted active/inactive.
 	 * @todo Should link property be taken into account as actual name?
 	 */
 	private function sortUsersIntoColumns( $column ) {
@@ -992,8 +1033,8 @@ class CollaborationListContent extends JsonContent {
 	 * Filter users into active and inactive.
 	 *
 	 * @note The results of this function get stored in parser cache.
-	 * @param $userList Array of user dbkeys => stdClass
-	 * @return Array [ 'active' => [..], 'inactive' => '[..]' ]
+	 * @param array $userList Array of user dbkeys => stdClass
+	 * @return array [ 'active' => [..], 'inactive' => '[..]' ]
 	 */
 	private function filterActiveUsers( $userList ) {
 		if ( count( $userList ) > 0 ) {
@@ -1029,9 +1070,10 @@ class CollaborationListContent extends JsonContent {
 	 * So instead we put <collaborationkitloadliststyles/> on the page, which
 	 * calls this.
 	 *
-	 * @param $content String Input to parser hook
-	 * @param $attribs Array
-	 * @param $parser Parser
+	 * @param string $content Input to parser hook
+	 * @param array $attribs
+	 * @param Parser $parser
+	 * @return string Empty string
 	 */
 	public static function loadStyles( $content, array $attributes, Parser $parser ) {
 		$parser->getOutput()->addModuleStyles( [
@@ -1048,7 +1090,7 @@ class CollaborationListContent extends JsonContent {
 	 * @todo Not clear if this is the best hook to use. onBeforePageDisplay
 	 *  doesn't have easy access to oldid
 	 *
-	 * @param $output OutputPage
+	 * @param Article $article
 	 */
 	public static function onArticleViewHeader( Article $article ) {
 		$title = $article->getTitle();
@@ -1075,8 +1117,9 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Hook to use custom edit page for lists
 	 *
-	 * @param $page Page
-	 * @param $user User
+	 * @param Page $page
+	 * @param User $user
+	 * @return bool
 	 */
 	public static function onCustomEditor( Page $page, User $user ) {
 		if ( $page->getContentModel() === __CLASS__ ) {

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Class for loading ResourceLoader modules
+ *
+ * @file
+ */
+
 class ResourceLoaderListStyleModule extends ResourceLoaderImageModule {
 	protected function getCssDeclarations( $primary, $fallback ) {
 		return [

@@ -1,6 +1,12 @@
 ( function ( $, mw, OO ) {
 	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem, addSelf, curUserIsInList, getCol;
 
+	/**
+	 * Retrieves ID number of column
+	 *
+	 * @param {jQuery} $item
+	 * @return {int}
+	 */
 	getColId = function ( $item ) {
 		var $col, id;
 
@@ -12,6 +18,11 @@
 		return id;
 	};
 
+	/**
+	 * Deletes an item from the list
+	 *
+	 * @param {jQuery} $item
+	 */
 	deleteItem = function ( $item ) {
 		var cur,
 			$spinner,
@@ -203,6 +214,12 @@
 		} );
 	};
 
+	/**
+	 * Retrieves JSON form of the list content
+	 *
+	 * @param {int} pageId
+	 * @param {Object} callback
+	 */
 	getCurrentJson = function ( pageId, callback ) {
 		var api = new mw.Api();
 
@@ -240,6 +257,12 @@
 		);
 	};
 
+	/**
+	 * Saves the JSON text to a CollaborationListContent page
+	 *
+	 * @param {Object} params
+	 * @param {Object} callback
+	 */
 	saveJson = function ( params, callback ) {
 		var api = new mw.Api();
 

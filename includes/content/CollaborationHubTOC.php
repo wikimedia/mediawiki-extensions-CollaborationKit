@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Helper class to generate table of contents for CollaborationHubContent.
+ *
+ * @file
+ */
+
 class CollaborationHubTOC {
 
 	/** @var $tocLinks array ids/links for ToC items that have been used already */
@@ -7,7 +13,8 @@ class CollaborationHubTOC {
 
 	/**
 	 * Get unique id for ToC Link/header
-	 * @param $header
+	 *
+	 * @param string $header
 	 * @return string
 	 */
 	public function getToCLinkID( $header ) {
@@ -30,9 +37,10 @@ class CollaborationHubTOC {
 	}
 
 	/**
-	 * ToC rendering for hub
-	 * @param $content array block from collaborationhub
-	 * @return string html
+	 * ToC rendering for CollaborationHubContent
+	 *
+	 * @param array $content Array block from CollaborationHubContent
+	 * @return string HTML
 	 */
 	public function renderToC( $content ) {
 		$html = Html::openElement( 'div', [ 'class' => 'mw-ck-toc-container' ] );
@@ -71,8 +79,9 @@ class CollaborationHubTOC {
 	}
 
 	/**
-	 * ToC rendering for non-hubs
-	 * @param $title Title of hub the ToC is generated off
+	 * ToC rendering for other pages such as subpages
+	 *
+	 * @param Title $title Hub the ToC is generated from
 	 * @return string html
 	 */
 	public function renderSubpageToC( Title $title ) {

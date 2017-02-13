@@ -1,6 +1,10 @@
 ( function ( $, mw, OO ) {
 
-	// Subclass ProcessDialog.
+	/**
+	 * Subclass ProcessDialog.
+	 *
+	 * @param {Object} config
+	 */
 	function ProcessDialog( config ) {
 		ProcessDialog.super.call( this, config );
 	}
@@ -14,8 +18,10 @@
 		{ label: mw.msg( 'cancel' ), flags: 'safe' }
 	];
 
-	// Use the initialize() method to add content to the dialog's $body,
-	// to initialize widgets, and to set up event handlers.
+	/**
+	 * Use the initialize() method to add content to the dialog's $body,
+	 * to initialize widgets, and to set up event handlers.
+	 */
 	ProcessDialog.prototype.initialize = function () {
 		var defaultSearchTerm, nsPrefix;
 
@@ -46,7 +52,10 @@
 		this.$body.append( this.content.$element );
 	};
 
-	// In the event "Select" is pressed
+	/**
+	 * In the event "Select" is pressed
+	 *
+	 */
 	ProcessDialog.prototype.getActionProcess = function ( action ) {
 		var dialog, openItUp, windowManager, processDialog,
 			currentImageFilename, currentImage, hubimageBrowserButton;
@@ -80,12 +89,16 @@
 		return ProcessDialog.super.prototype.getActionProcess.call( this, action );
 	};
 
-	// Get dialog height.
+	/**
+	 * Get dialog height.
+	 */
 	ProcessDialog.prototype.getBodyHeight = function () {
 			return 600;
 		};
 
-	// Create and append the window manager.
+	/**
+	 * Create and append the window manager.
+	 */
 	openItUp = function () {
 		windowManager = new OO.ui.WindowManager();
 		$( 'body' ).append( windowManager.$element );

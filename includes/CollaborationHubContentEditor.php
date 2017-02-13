@@ -1,7 +1,12 @@
 <?php
+
 /**
+ * Specialized editing interface for CollaborationHubContent pages.
+ *
  * @todo Unicode unsafe browsers?
+ * @file
  */
+
 class CollaborationHubContentEditor extends EditPage {
 
 	/** @var string */
@@ -27,7 +32,9 @@ class CollaborationHubContentEditor extends EditPage {
 	}
 
 	/**
-	 * @param $parts array
+	 * Prepares form fields.
+	 *
+	 * @param array $parts
 	 * @return string html
 	 */
 	protected function getFormFields( $parts ) {
@@ -118,8 +125,9 @@ class CollaborationHubContentEditor extends EditPage {
 	}
 
 	/**
-	 * Build and return the aossociative array for the content source field.
-	 * @param $mapping array
+	 * Build and return the associative array for the content source field.
+	 *
+	 * @param array $mapping
 	 * @return array
 	 */
 	protected function getOptions( $mapping ) {
@@ -157,7 +165,7 @@ class CollaborationHubContentEditor extends EditPage {
 	 * Used to set the color theme for Hub edit pages.
 	 *
 	 * @param OutputPage $out
-	 * @param Skin $sk
+	 * @param Skin $skin
 	 * @param array $bodyAttribs Attributes for the <body> element
 	 */
 	public static function setCollabkitTheme( OutputPage $out, $skin, &$bodyAttribs ) {
@@ -175,7 +183,8 @@ class CollaborationHubContentEditor extends EditPage {
 	/**
 	 * Converts input from the editing form into the text/x-collabkit
 	 * serialization used for processing the edit.
-	 * @param &$request WebRequest
+	 *
+	 * @param WebRequest &$request
 	 * @return string|null
 	 */
 	protected function importContentFormData( &$request ) {

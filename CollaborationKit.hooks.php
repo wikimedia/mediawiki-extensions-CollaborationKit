@@ -1,12 +1,18 @@
 <?php
 
-// Hooks and crap
+/**
+ * Hooks to modify the default behavior of MediaWiki.
+ *
+ * @file
+ */
+
 class CollaborationKitHooks {
 
 	/**
 	 * Some extra tabs for editing
-	 * @param &$sktemplate SkinTemplate
-	 * @param &$links array
+	 *
+	 * @param SkinTemplate &$sktemplate
+	 * @param array &$links
 	 * @return bool
 	 */
 	public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
@@ -51,7 +57,7 @@ class CollaborationKitHooks {
 	 * lists and have them work properly, since ContentHandler does not provide access
 	 * to the parser when doing plain wikitext transclusion.
 	 *
-	 * @param $parser Parser
+	 * @param Parser $parser
 	 */
 	public static function onParserFirstCallInit( $parser ) {
 		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
@@ -63,8 +69,8 @@ class CollaborationKitHooks {
 	 * Declares JSON as the code editor language for CollaborationKit pages.
 	 *
 	 * This hook only runs if the CodeEditor extension is enabled.
-	 * @param $title Title
-	 * @param &$lang string Page language.
+	 * @param Title $title
+	 * @param string &$lang Page language.
 	 * @return bool
 	 */
 	public static function onCodeEditorGetPageLanguage( $title, &$lang ) {
@@ -89,8 +95,8 @@ class CollaborationKitHooks {
 	/**
 	 * For the table of contents on subpages of a CollaborationHub
 	 *
-	 * @param $out OutputPage
-	 * @param $text string the HTML text to be added
+	 * @param OutputPage $out
+	 * @param string $text the HTML text to be added
 	 * @return bool
 	 */
 	public static function onOutputPageBeforeHTML( &$out, &$text ) {
@@ -132,8 +138,8 @@ class CollaborationKitHooks {
 	 * Eventually, the TOC will be output by onOutputPageBeforeHTML hook if this
 	 * hook signals it is ok.
 	 *
-	 * @param $out OutputPage
-	 * @param $pout ParserOutput
+	 * @param OutputPage $out
+	 * @param ParserOutput $pout
 	 */
 	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $pout ) {
 		if ( $out->getProperty( 'CollaborationHubSubpage' ) ) {
@@ -153,7 +159,7 @@ class CollaborationKitHooks {
 	/**
 	 * Register __NOCOLLABORATIONHUBTOC__ as a magic word.
 	 *
-	 * @param &$magickWords Array All double underscore magic ids
+	 * @param Array &$magicWords All double underscore magic ids
 	 */
 	public static function onGetDoubleUnderscoreIDs( array &$magicWords ) {
 		$magicWords[] = 'nocollaborationhubtoc';

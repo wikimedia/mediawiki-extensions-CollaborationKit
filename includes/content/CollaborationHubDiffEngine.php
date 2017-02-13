@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Custom diff engine for CollaborationHubContent. Not yet implemented.
+ *
+ * @file
+ */
+
 class CollaborationHubDiffEngine extends DifferenceEngine {
 
 	/**
 	 * Implement our own diff rendering.
-	 * @param $old Content Old content
-	 * @param $new Content New content
-	 *
+	 * @param Content $old Old content
+	 * @param Content $new New content
 	 * @throws Exception If old or new content is not an instance of CollaborationHubContent
 	 * @return bool|string
 	 */

@@ -93,6 +93,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	}
 
 	/**
+	 * The result of submitting the form
+	 *
 	 * @param array $data
 	 * @return Status
 	 */
@@ -232,11 +234,6 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		// No-op: We have already redirected.
 	}
 
-	/**
-	 * Set the form format to ooui for consistency with the rest of the ck stuff
-	 * @param HTMLForm $form
-	 *
-	 */
 	protected function getDisplayFormat() {
 		return 'ooui';
 	}

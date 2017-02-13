@@ -1,11 +1,18 @@
 ( function ( $, mw, OO ) {
 	var LE = require( 'ext.CollaborationKit.list.edit' );
 
+	/**
+	 * Adds a new item to a list
+	 *
+	 * @param {int} colId The ID number of the column
+	 */
 	addItem = function ( colId ) {
 		modifyItem( { itemColId: colId } );
 	};
 
 	/**
+	 * Opens a window to manage list item modification
+	 *
 	 * @param {Object} itemToEdit The name of the title to modify, or false to add new.
 	 */
 	modifyItem = function ( itemToEdit ) {

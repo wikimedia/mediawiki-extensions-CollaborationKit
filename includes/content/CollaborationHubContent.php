@@ -1,11 +1,18 @@
 <?php
 
 /**
- * Structured hub pages!
+ * A content model for group collaboration pages.
  *
- * Json structure is defined in CollaborationHubContentSchema.php.
+ * The principle behind CollaborationHubContent is to facilitate
+ * the development of "WikiProjects," called "Portals" on other
+ * wikis. CollaborationHubContent facilitates the development
+ * of these nodes of activity, consisting of header content, a
+ * table of contents, and several transcluded pages.
+ * Schema is found in CollaborationHubContentSchema.php.
  *
+ * @file
  */
+
 class CollaborationHubContent extends JsonContent {
 
 	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
@@ -36,6 +43,7 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * 23 preset colours; actual colour values are set in the extension.json and less modules
+	 *
 	 * @return array
 	 */
 	public static function getThemeColours() {
@@ -196,11 +204,12 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Fill $output with information derived from the content.
-	 * @param $title Title
-	 * @param $revId int
-	 * @param $options ParserOptions
-	 * @param $generateHtml bool
-	 * @param $output ParserOutput
+	 *
+	 * @param Title $title
+	 * @param int $revId
+	 * @param ParserOptions $options
+	 * @param bool $generateHtml
+	 * @param ParserOutput $output
 	 */
 	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
 		$generateHtml, ParserOutput &$output
@@ -304,6 +313,7 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput to get all the css classes for the page content
+	 *
 	 * @return array
 	 */
 	protected function getHubClasses() {
@@ -324,9 +334,10 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param $title Title
-	 * @param $options ParserOptions
-	 * @param $membersContent CollaborationListContent|null Force-fed member-list Content for testing purposes.
+	 *
+	 * @param Title $title
+	 * @param ParserOptions $options
+	 * @param CollaborationListContent|null $membersContent Force-fed member-list Content for testing purposes.
 	 * @return string
 	 */
 	protected function getMembersBlock( Title $title, ParserOptions $options, ParserOutput $output, $membersContent = null ) {
@@ -407,9 +418,10 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param $title Title
-	 * @param $options ParserOptions
-	 * @param $announcementsText string Force-fed announcements HTML for testing purposes
+	 *
+	 * @param Title $title
+	 * @param ParserOptions $options
+	 * @param string $announcementsText Force-fed announcements HTML for testing purposes
 	 * @return string
 	 */
 	protected function getParsedAnnouncements( Title $title, ParserOptions $options, $announcementsText = null ) {
@@ -442,8 +454,9 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param $title Title
-	 * @param $options ParserOptions
+	 *
+	 * @param Title $title
+	 * @param ParserOptions $options
 	 * @return string
 	 */
 	protected function getParsedFooter( Title $title, ParserOptions $options ) {
@@ -455,7 +468,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Get some extra buttons for another footer
-	 * @param $title Title
+	 *
+	 * @param Title $title
 	 * @return string
 	 */
 	protected function getSecondFooter( Title $title ) {
@@ -482,10 +496,11 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * Helper function for fillParserOutput; the bulk of the actual content
-	 * @param $title Title
-	 * @param $options ParserOptions
-	 * @param &$output ParserOutput
+	 * Helper function for fillParserOutput; the main body of the page
+	 *
+	 * @param Title $title
+	 * @param ParserOptions $options
+	 * @param ParserOutout &$output
 	 * @return string
 	 */
 	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput $output ) {
@@ -583,8 +598,10 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * Helper function for getParsedcontent for making subpage section headers
-	 * @param $contentItem array of data for the content item we're generating the header for
+	 * Helper function for getParsedContent for making subpage section headers
+	 *
+	 * @param Title $title
+	 * @param array $contentItem Data for the content item we're generating the header for
 	 * @return string html (NOTE THIS IS AN OPEN DIV)
 	 */
 	protected function makeHeader( Title $title, array $contentItem ) {
@@ -659,10 +676,11 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput for making editsection links in headers
-	 * @param $link Target URL
-	 * @param $message Message to display
-	 * @param $icon Icon to display alongside the message, based on OOjs UI definitions
-	 * @return string html
+	 *
+	 * @param string $link Target URL
+	 * @param string $message Message to display
+	 * @param string $icon Icon to display alongside the message, based on OOjs UI definitions
+	 * @return string HTML
 	 */
 	protected function makeEditSectionLink( $link, $message, $icon ) {
 		$html = new OOUI\ButtonWidget( [
@@ -678,8 +696,9 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput: the table of contents
-	 * @param $title Title
-	 * @param $options ParserOptions
+	 *
+	 * @param Title $title
+	 * @param ParserOptions $options
 	 * @return string
 	 */
 	protected function getTableOfContents( Title $title, ParserOptions $options ) {
@@ -689,10 +708,10 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Generate an image based on what's in 'image', be it an icon or a file
-	 * @param $fallback string for what to do for no icons - nothing, random, specific icon...
+	 *
+	 * @param string $image Filename or icon name
 	 * @param $size int for non-icon images
-	 * @param $seed string fallback seed for explicitly something somethinged ones
-	 * @return string
+	 * @return string HTML
 	 */
 	public function getParsedImage( $image, $size = 200 ) {
 		return CollaborationKitImage::makeImage( $image, $size, [ 'fallback' => 'puzzlepiece' ] );
@@ -700,12 +719,13 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Find the parent hub, if any.
+	 *
 	 * Returns the first CollaborationHub Title found, even if more are higher up, or null if none
-	 * @param $title Title to start looking from
-	 * @param $destination Title for testing purposes
-	 * @return Title|null
+	 *
+	 * @param Title $title Title to start looking from
+	 * @return Title|null Title of parent hub or null if none was found
 	 */
-	public static function getParentHub( Title $title, Title $destination = null ) {
+	public static function getParentHub( Title $title ) {
 		global $wgCollaborationHubAllowedNamespaces;
 
 		$namespace = $title->getNamespace();
@@ -731,8 +751,9 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Converts content between wikitext and JSON.
 	 *
-	 * @param $toModel string
-	 * @param $lossy string
+	 * @param string $toModel
+	 * @param string $lossy Flag, set to "lossy" to allow lossy conversion. If lossy conversion is not allowed, full round-trip conversion is expected to work without losing information.
+	 * @return Content
 	 */
 	public function convert( $toModel, $lossy = '' ) {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
@@ -752,6 +773,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Convert JSON to markup that's easier for humans.
+	 *
+	 * @return string
 	 */
 	public function convertToHumanEditable() {
 		$this->decode();
@@ -773,6 +796,7 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Get the list of items in human editable form.
 	 *
+	 * @return string
 	 * @todo Should this be i18n-ized?
 	 */
 	public function getHumanEditableContent() {
@@ -798,6 +822,8 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Escape characters used as separators in human editable mode.
 	 *
+	 * @param string $text
+	 * @return string Escaped text
 	 * @todo Unclear if this is best approach. Alternative might be
 	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
 	 */
@@ -821,8 +847,8 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Removes escape characters inserted in human editable mode.
 	 *
-	 * @param $text string
-	 * @return string
+	 * @param string $text
+	 * @return string Unescaped text
 	 */
 	private static function unescapeForHumanEditable( $text ) {
 		$text = strtr( $text, [
@@ -836,8 +862,8 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Convert from human editable form into a (php) array
 	 *
-	 * @param $text String text to convert
-	 * @return Array Result of converting it to native form
+	 * @param string $text Text to convert
+	 * @return array Result of converting it to native form
 	 */
 	public static function convertFromHumanEditable( $text ) {
 		$res = [];
@@ -863,7 +889,7 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Helper function that converts individual lines from convertFromHumanEditable.
 	 *
-	 * @param $line string
+	 * @param string $line
 	 * @return array
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
@@ -897,8 +923,8 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Hook to use custom edit page for lists
 	 *
-	 * @param $page Page
-	 * @param $user User
+	 * @param Page $page
+	 * @param User $user
 	 */
 	public static function onCustomEditor( Page $page, User $user ) {
 		if ( $page->getContentModel() === __CLASS__ ) {

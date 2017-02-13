@@ -1,7 +1,13 @@
 <?php
+
 /**
+ * Specialized editing interface for CollaborationListContent pages.
+ * Extends the notorious EditPage class.
+ *
  * @todo Unicode unsafe browsers?
+ * @file
  */
+
 class CollaborationListContentEditor extends EditPage {
 
 	function __construct( $page ) {
@@ -17,6 +23,9 @@ class CollaborationListContentEditor extends EditPage {
 		$out->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
 	}
 
+	/**
+	 * Prepares a modified edit form
+	 */
 	protected function showContentForm() {
 		if ( $this->contentFormat !== CollaborationListContentHandler::FORMAT_WIKI ) {
 			return parent::showContentForm();
@@ -63,6 +72,12 @@ class CollaborationListContentEditor extends EditPage {
 		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
 	}
 
+	/**
+	 * Takes contents of edit form and serializes it.
+	 *
+	 * @param WebRequest $request
+	 * @return string
+	 */
 	protected function importContentFormData( &$request ) {
 		$format = $request->getVal( 'format', CollaborationListContentHandler::FORMAT_WIKI );
 		if ( $format !== CollaborationListContentHandler::FORMAT_WIKI ) {

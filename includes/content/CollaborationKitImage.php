@@ -1,27 +1,29 @@
 <?php
 
 /**
- *
  * Helper class to produce HTML elements containing images for CollaborationKit purposes
  *
+ * @file
  */
+
 class CollaborationKitImage {
 	/**
 	 * Generate an image element from the wiki or the extension
-	 * @param $image string|null The filename (no namespace prefix) or CollaborationKit icon
+	 *
+	 * @param string|null $image The filename (no namespace prefix) or CollaborationKit icon
 	 *	identifier (or null to use fallback instead)
-	 * @param $width int The width of the image in pixels
-	 * @param $options array An array with optional parameters
-	 * @param $options['classes'] array Array of element classes to assign
-	 * @param $options['link'] Title|string|bool Internal link for the image; default is true (i.e.
+	 * @param int $width The width of the image in pixels
+	 * @param array $options An array with optional parameters
+	 * @param array $options['classes'] Array of element classes to assign
+	 * @param Title|string|bool $options['link'] Internal link for the image; default is true (i.e.
 	 *	link to its description page). Pass `false` for no link at all. Pass a string to link to a
 	 *	page in the manner of an internal wiki link.
-	 * @param $options['colour'] string The colour of the icon if using a canned icon
-	 * @param $options['css'] string In-line style parameters. Avoid if possible.
-	 * @param $options['renderAsWikitext'] bool Should the output be wikitext instead of HTML?
+	 * @param string $options['colour'] The colour of the icon if using a canned icon
+	 * @param string $options['css'] In-line style parameters. Avoid if possible.
+	 * @param bool $options['renderAsWikitext'] Should the output be wikitext instead of HTML?
 	 *	Defaults to false.
-	 * @param $options['label'] string Label to put under image; used for ToC icons
-	 * @param $options['fallback'] string If the specified image is null or doesn't exist. Valid
+	 * @param string $options['label'] Label to put under image; used for ToC icons
+	 * @param string $options['fallback'] If the specified image is null or doesn't exist. Valid
 	 *	options are none', a valid icon ID, or an arbitrary string to use a seed. (Note: if you
 	 *	specify a label, then that will serve as the fallback.)
 	 * @return string HTML elements or wikitext, depending on $options['renderAsWikitext']
@@ -83,6 +85,9 @@ class CollaborationKitImage {
 		return $imageBlock;
 	}
 
+	/**
+	 * @return string
+	 */
 	protected static function makeImageFromFile( $image, $classes, $width, $link,
 		$renderAsWikitext, $label ) {
 		// This assumes that colours cannot be assigned to images.
@@ -125,6 +130,9 @@ class CollaborationKitImage {
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	protected static function makeImageFromIcon( $image, $classes, $width, $colour, $link,
 		$renderAsWikitext, $label ) {
 		// Rendering as wikitext with link is not an option here due to unfortunate behavior from Tidy.
@@ -149,6 +157,9 @@ class CollaborationKitImage {
 		return $imageHtml;
 	}
 
+	/**
+	 * @return string
+	 */
 	protected static function linkFactory( $imageHtml, $link, $label, $imageObj = null ) {
 		// Important assumption: image is being rendered as HTML and not wikitext.
 

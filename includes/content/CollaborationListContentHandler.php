@@ -1,7 +1,14 @@
 <?php
 
-// We extend TextContentHandler instead of JsonContentHandler since
-// we do not display this as Json code.
+/**
+ * Content handler for CollaborationListContent.
+ *
+ * We extend TextContentHandler instead of JsonContentHandler since
+ * we do not display this as JSON code except upon request.
+ *
+ * @file
+ */
+
 class CollaborationListContentHandler extends TextContentHandler {
 
 	const FORMAT_WIKI = 'text/x-collabkit';
@@ -20,7 +27,9 @@ class CollaborationListContentHandler extends TextContentHandler {
 	}
 
 	/**
-	 * @param $title Title of page to check
+	 * Can this content handler be used on a given page?
+	 *
+	 * @param Title $title Page to check
 	 * @return bool
 	 */
 	public function canBeUsedOn( Title $title ) {
@@ -33,6 +42,10 @@ class CollaborationListContentHandler extends TextContentHandler {
 	}
 
 	/**
+	 * Takes JSON string and creates a new CollaborationListContent object.
+	 *
+	 * Validation is intentionally not done at this step, as it is done later.
+	 *
 	 * @param string $text
 	 * @param string $format
 	 * @return CollaborationListContent
@@ -45,10 +58,16 @@ class CollaborationListContentHandler extends TextContentHandler {
 			$text = FormatJson::encode( $data );
 		}
 		$content = new CollaborationListContent( $text );
-		// Deliberately not validating at this step; validation is done later.
 		return $content;
 	}
 
+	/**
+	 * Prepares a serialization of the content object.
+	 *
+	 * @param Content $content
+	 * @param string $format
+	 * @return string
+	 */
 	public function serializeContent( Content $content, $format = null ) {
 		if ( $format === self::FORMAT_WIKI ) {
 			return $content->convertToHumanEditable();
@@ -74,7 +93,10 @@ JSON;
 	}
 
 	/**
-	 * @param $username string
+	 * Spawns a new "members" list, using the project creator as initial member.
+	 *
+	 * @param string $username Username without "User:" prefix
+	 * @param string $initialDescription The initial description of the list
 	 * @return CollaborationListContent
 	 */
 	public static function makeMemberList( $username, $initialDescription ) {
@@ -130,9 +152,11 @@ JSON;
 	}
 
 	/**
-	 * @param $title Title
-	 * @param $summary string
-	 * @param $context IContextSource
+	 * Posts the newly created "members" list on-wiki.
+	 *
+	 * @param Title $title
+	 * @param string $summary
+	 * @param IContextSource $context
 	 * @todo rework this to use a generic CollaborationList editor function once it exists
 	 */
 	public static function postMemberList( Title $title, $summary, IContextSource $context ) {

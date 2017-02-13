@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Content handler for CollaborationHubContent.
+ *
+ * We extend TextContentHandler instead of JsonContentHandler since
+ * we do not display this as JSON code except upon request.
+ *
+ * @file
+ */
+
 class CollaborationHubContentHandler extends TextContentHandler {
 
 	const FORMAT_WIKI = 'text/x-collabkit';
@@ -18,7 +27,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	/**
-	 * @param $title Title of page to check
+	 * @param Title $title Page to check
 	 * @return bool
 	 */
 	public function canBeUsedOn( Title $title ) {
@@ -38,8 +47,8 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * as that is done at a later step (to allow for outputting of invalid content for
 	 * debugging purposes.)
 	 *
-	 * @param $text string
-	 * @param $format string|null
+	 * @param string $text
+	 * @param string|null $format
 	 * @return CollaborationHubContent
 	 */
 	public function unserializeContent( $text, $format = null ) {
@@ -56,8 +65,8 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	/**
 	 * Serializes the CollaborationHubContent object.
 	 *
-	 * @param $content Content
-	 * @param $format string|null
+	 * @param Content $content
+	 * @param string|null $format
 	 * @return mixed
 	 */
 	public function serializeContent( Content $content, $format = null ) {
@@ -97,15 +106,15 @@ class CollaborationHubContentHandler extends TextContentHandler {
 
 	/**
 	 * Edit a Collaboration Hub via the edit API
-	 * @param $title Title
-	 * @param $displayName string
-	 * @param $icon string
-	 * @param $colour string
-	 * @param $introduction string
-	 * @param $footer string
-	 * @param $content array
-	 * @param $summary string Message key for edit summary
-	 * @param $context IContextSource The calling context
+	 * @param Title $title
+	 * @param string $displayName
+	 * @param string $icon
+	 * @param string $colour
+	 * @param string $introduction
+	 * @param string $footer
+	 * @param array $content
+	 * @param string $summary Message key for edit summary
+	 * @param IContextSource $context The calling context
 	 * @return Status
 	 */
 	public static function edit( Title $title, $displayName, $image, $colour, $introduction, $footer, $content, $summary, IContextSource $context ) {
