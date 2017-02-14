@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Content handler for CollaborationListContent.
  *
@@ -8,24 +7,19 @@
  *
  * @file
  */
-
 class CollaborationListContentHandler extends TextContentHandler {
-
 	const FORMAT_WIKI = 'text/x-collabkit';
-
 	public function __construct(
 		$modelId = 'CollaborationListContent',
 		$formats = [ CONTENT_FORMAT_JSON, CONTENT_FORMAT_TEXT, self::FORMAT_WIKI ]
 	) {
 		// text/x-collabkit is a format for lists similar to <gallery>.
 		// CONTENT_FORMAT_TEXT is for back-compat with old revs. Could be removed.
-
 		// @todo Ideally, we'd have the preferred format for editing be self::FORMAT_WIKI
 		// and the preferred format for db be CONTENT_FORMAT_JSON. Unclear if that's
 		// possible.
 		parent::__construct( $modelId, $formats );
 	}
-
 	/**
 	 * Can this content handler be used on a given page?
 	 *
@@ -34,13 +28,11 @@ class CollaborationListContentHandler extends TextContentHandler {
 	 */
 	public function canBeUsedOn( Title $title ) {
 		global $wgCollaborationListAllowedNamespaces;
-
 		if ( in_array( $title->getNamespace(), array_keys( array_filter( $wgCollaborationListAllowedNamespaces ) ) ) ) {
 			return true;
 		}
 		return false;
 	}
-
 	/**
 	 * Takes JSON string and creates a new CollaborationListContent object.
 	 *
@@ -60,7 +52,6 @@ class CollaborationListContentHandler extends TextContentHandler {
 		$content = new CollaborationListContent( $text );
 		return $content;
 	}
-
 	/**
 	 * Prepares a serialization of the content object.
 	 *
@@ -74,7 +65,6 @@ class CollaborationListContentHandler extends TextContentHandler {
 		}
 		return parent::serializeContent( $content, $format );
 	}
-
 	/**
 	 * @return CollaborationListContent
 	 */
@@ -91,7 +81,6 @@ class CollaborationListContentHandler extends TextContentHandler {
 JSON;
 		return new CollaborationListContent( $empty );
 	}
-
 	/**
 	 * Spawns a new "members" list, using the project creator as initial member.
 	 *
@@ -113,26 +102,21 @@ JSON;
 			],
 			'description' => "$initialDescription"  // Do not take out these quote marks
 		];
-
 		$newMemberListJson = FormatJson::encode( $newMemberList, "\t", FormatJson::ALL_OK );
-
 		return new CollaborationListContent( $newMemberListJson );
 	}
-
 	/**
 	 * @return string
 	 */
 	protected function getContentClass() {
 		return 'CollaborationListContent';
 	}
-
 	/**
 	 * @return string
 	 */
 	/*protected function getDiffEngineClass() {
 		return 'CollaborationListDiffEngine';
 	}*/
-
 	/**
 	 * FIXME is this really true?
 	 * @return bool
@@ -140,17 +124,14 @@ JSON;
 	public function isParserCacheSupported() {
 		return true;
 	}
-
 /**** This disables Special:ChangeContentModel
 	public function supportsDirectEditing() {
 		return false;
 	}
 */
-
 	public function supportsDirectApiEditing() {
 		return true;
 	}
-
 	/**
 	 * Posts the newly created "members" list on-wiki.
 	 *
@@ -165,7 +146,6 @@ JSON;
 			$username,
 			$context->msg( 'collaborationkit-hub-members-description' )
 		);
-
 		// Ensure that a valid context is provided to the API in unit tests
 		$der = new DerivativeContext( $context );
 		$request = new DerivativeRequest(

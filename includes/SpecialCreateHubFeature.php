@@ -19,7 +19,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	public function execute( $par ) {
 		$output = $this->getContext()->getOutput();
 		$output->addModules( 'ext.CollaborationKit.iconbrowser' );
-		$output->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
+		$output->addModuleStyles( [
+			'ext.CollaborationKit.createhubfeature.styles',
+			'ext.CollaborationKit.edit.styles'
+		] );
 		$output->addJsConfigVars( 'wgCollaborationKitIconList', CollaborationKitImage::getCannedIcons() );
 		parent::execute( $par );
 	}
@@ -48,7 +51,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		$fields = [
 			'collaborationhub' => [
 				'type' => 'title',
-				'cssclass' => 'mw-ck-title-input',
+				'cssclass' => 'mw-ck-fulltitle-input',
 				'label-message' => 'collaborationkit-createhubfeature-collaborationhub',
 				'default' => $defaultCollabHub
 			],

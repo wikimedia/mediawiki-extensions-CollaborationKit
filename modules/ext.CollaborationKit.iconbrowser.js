@@ -1,13 +1,14 @@
 ( function ( $, mw, OO ) {
+	var ProcessDialog, openItUp, setupPage;
 
 	/**
 	 * Subclass ProcessDialog.
 	 *
 	 * @param {Object} config
 	 */
-	function ProcessDialog( config ) {
+	ProcessDialog = function ( config ) {
 		ProcessDialog.super.call( this, config );
-	}
+	};
 	OO.inheritClass( ProcessDialog, OO.ui.ProcessDialog );
 
 	// Specify a static title and actions.
@@ -64,7 +65,7 @@
 	 *
 	 */
 	ProcessDialog.prototype.getActionProcess = function ( action ) {
-		var dialog, toAppend, openItUp, windowManager, processDialog, iconBrowserButton;
+		var dialog, toAppend;
 
 		dialog = this;
 		if ( action ) {
@@ -99,6 +100,7 @@
 	 * Create and append the window manager
 	 */
 	openItUp = function () {
+		var processDialog;
 		windowManager = new OO.ui.WindowManager();
 		$( 'body' ).append( windowManager.$element );
 
@@ -114,13 +116,27 @@
 		windowManager.openWindow( processDialog );
 	};
 
-	iconBrowserButton = new OO.ui.ButtonWidget();
-	iconBrowserButton.setLabel( mw.msg( 'collaborationkit-icon-launchbutton' ) );
-	iconBrowserButton.on( 'click', openItUp );
+	setupPage = function () {
+		var iconBrowserButton, windowManager;
+		iconBrowserButton = new OO.ui.ButtonWidget();
+		iconBrowserButton.setLabel( mw.msg( 'collaborationkit-icon-launchbutton' ) );
+		iconBrowserButton.on( 'click', openItUp );
 
-	$( 'div.mw-ck-icon-input .oo-ui-comboBoxInputWidget' ).css( 'display', 'none' );
-	$( 'div.mw-ck-icon-input' )
-		.append( '<div class="iconPreview mw-ck-icon-circlestar"></div>' )
-		.append( iconBrowserButton.$element );
+		$( '.mw-ck-icon-input.oo-ui-comboBoxInputWidget' ).css( 'display', 'none' );
+		$( 'div.mw-ck-icon-input' )
+			.append( '<div class="iconPreview mw-ck-icon-circlestar"></div>' )
+			.append( iconBrowserButton.$element );
+
+		$( 'fieldset' )
+			.append( $( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' ) );
+
+		// Adding classes to trigger special styles
+		$( '.oo-ui-fieldsetLayout-group' ).addClass( 'mw-ck-iconbrowser-enabled' );
+		$( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' ).addClass( 'mw-ck-iconbrowser-enabled' );
+		$( '.mw-ck-icon-input .oo-ui-buttonElement' ).addClass( 'mw-ck-iconbrowser-enabled' );
+
+	};
+
+	$( setupPage );
 
 } )( jQuery, mediaWiki, OO );

@@ -95,6 +95,9 @@
 		"ext.CollaborationKit.edit.styles": {
 			"styles": "ext.CollaborationKit.edit.styles.less"
 		},
+		"ext.CollaborationKit.createhubfeature.styles": {
+			"styles": "ext.CollaborationKit.createhubfeature.styles.less"
+		},
 		"ext.CollaborationKit.iconbrowser": {
 			"scripts": "ext.CollaborationKit.iconbrowser.js",
 			"dependencies": [
