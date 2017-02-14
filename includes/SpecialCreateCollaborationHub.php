@@ -21,8 +21,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	public function execute( $par ) {
 		$out = $this->getContext()->getOutput();
 		$out->addModules( [
-			'ext.CollaborationKit.colourbrowser',
-			'ext.CollaborationKit.hubimagebrowser'
+			'ext.CollaborationKit.hubtheme'
 		] );
 		$out->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
 		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );

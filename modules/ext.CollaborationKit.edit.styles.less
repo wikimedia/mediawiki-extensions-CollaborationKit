@@ -10,18 +10,13 @@
 }
 .mw-htmlform-ooui-wrapper,
 .mw-collabkit-modifiededitform {
-	label .oo-ui-labelElement-label {
+	.oo-ui-fieldLayout-header label.oo-ui-labelElement-label {
 		font-weight: bold;
 	}
-	.mw-ck-title-input,
-	.mw-ck-display-input,
-	.mw-ck-icon-input,
-	.mw-ck-hub-image-input {
-		&.oo-ui-fieldLayout.oo-ui-labelElement.oo-ui-fieldLayout-align-top > .oo-ui-fieldLayout-body > .oo-ui-fieldLayout-header,
-		&.oo-ui-textInputWidget {
-			max-width: 40em;
-		}
-	}
+}
+
+.mw-ck-hub-topform {
+	max-width: 50em;
 }
 
 .ck-customeditor-borders( @color ) {
@@ -40,15 +35,28 @@
 }
 
 .mw-ck-namespace-input {
-	width: 15em;
+	width: 35.5%;
 	display: inline-table !important;
 }
 
+.mw-ck-namespace-input-js {
+	width: 100%;
+	display: flex !important;
+
+	.oo-ui-fieldLayout-body {
+		width: 35.5%;
+	}
+}
+
 .mw-ck-title-input {
-	width: 24.75em;
+	width: 64%;
 	display: inline-table !important;
 	padding-left: 0.25em;
 	margin-top: 0 !important;
+}
+
+.mw-ck-title-input .oo-ui-fieldLayout-body {
+	width: 100%;
 }
 
 .mw-ck-theme-darkred {

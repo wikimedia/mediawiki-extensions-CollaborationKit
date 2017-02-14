@@ -1,14 +1,98 @@
 @import "ext.CollaborationKit.mixins.less";
 
+.mw-ck-hub-topform {
+	display: flex;
+	width: 100%;
+	max-width: 50em;
+}
+
+.mw-ck-hubtheme-widget {
+	float: left;
+	display: inline-table;
+	padding-right: 2em;
+}
+
+.mw-collabkit-modifiededitform {
+	.mw-ck-hubtheme-widget .oo-ui-fieldLayout-header {
+		padding-bottom: 0.3125em;
+	}
+}
+
+.mw-ck-hubtheme-widget-help {
+	float: right;
+}
+
+.mw-ck-hubtheme-widget-inlinebutton {
+	width: 35px;
+	height: 35px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background: #fff;
+	opacity: 0.75;
+	border: solid 1px #a2a9b1;
+	border-right: none;
+	border-bottom: none;
+	border-radius: 0 2px 2px 0;
+
+	a span {
+		width: 35px !important;
+		height: 35px !important;
+	}
+
+	&:hover,
+	&:active {
+		border: solid 1px #72777d;
+		border-right: none;
+		border-bottom: none;
+		opacity: 0.9;
+	}
+}
+
+.hubimagePreview {
+	width: 150px;
+	height: 150px;
+	margin-bottom: 1.5em;
+	border: solid 1px #a2a9b1;
+	background-color: #f9f9f9;
+	border-radius: 3px;
+}
+
+.hubimagePreview .mw-ck-hubtheme-widget-inlinebutton {
+	border-radius: 3px 0 2px 0;
+}
+
+.hubimagePreview,
+.colourPreview {
+	position: relative;
+}
+
+.hubimagePreview:hover,
+.hubimagePreview:active,
+.mw-ck-colourblock-container:hover,
+.mw-ck-colourblock-container:active {
+	border: solid 1px #72777d;
+}
+
 .mw-ck-colourblock-container {
-	margin-top:10px;
-	margin-bottom:10px;
+	border: solid 1px #a2a9b1;
+	border-radius: 3px;
+	position: relative;
+}
+
+.mw-ck-hub-name {
+	flex-grow: 1;
+}
+
+.mw-ck-colourblock-container {
+	margin-top: .75em;
+	margin-bottom: .5em;
 }
 
 .oo-ui-optionWidget-selected .mw-ck-colourblock {
 	border: 2px solid #2a4b8d;
-	width: 46px;
-	height: 46px;
+	width: 146px;
+	height: 26px;
 	-webkit-box-shadow: 0 0 5px 0px rgba(42,75,141,1);
 	-moz-box-shadow: 0 0 5px 0px rgba(42,75,141,1);
 	box-shadow: 0 0 5px 0px rgba(42,75,141,1);
@@ -19,20 +103,21 @@
 }
 
 .mw-ck-colourblock {
-	width: 50px;
-	height: 50px;
+	margin: 0;
+	border-radius: 2px;
+	width: 150px;
+	height: 35px;
 }
 
 .mw-ck-colourchoice-container {
 	text-align: center;
-}
 
-.mw-ck-colourchoice-container .oo-ui-optionWidget {
-	display: inline-block;
-}
-
-.mw-ck-colourchoice-container .oo-ui-radioInputWidget.oo-ui-radioInputWidget {
-	display: none;
+	.oo-ui-optionWidget {
+		display: inline-block;
+	}
+	.oo-ui-radioInputWidget.oo-ui-radioInputWidget {
+		display: none;
+	}
 }
 
 .mw-ck-colour-darkred {

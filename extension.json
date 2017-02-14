@@ -96,7 +96,7 @@
 			"styles": "ext.CollaborationKit.edit.styles.less"
 		},
 		"ext.CollaborationKit.iconbrowser": {
-			"scripts": "ext.CollaborationKit.icon.js",
+			"scripts": "ext.CollaborationKit.iconbrowser.js",
 			"dependencies": [
 				"oojs-ui",
 				"oojs-ui.styles.icons-movement",
@@ -112,36 +112,26 @@
 			],
 			"styles": "ext.CollaborationKit.iconbrowser.styles.less"
 		},
-		"ext.CollaborationKit.hubimagebrowser": {
-			"scripts": "ext.CollaborationKit.hubimage.js",
+		"ext.CollaborationKit.hubtheme": {
+			"scripts": "ext.CollaborationKit.hubtheme.js",
 			"dependencies": [
 				"oojs-ui",
-				"oojs-ui.styles.icons-movement",
+				"oojs-ui.styles.icons-editing-core",
+				"oojs-ui.styles.icons-moderation",
 				"mediawiki.widgets",
 				"mediawiki.widgets.UserInputWidget",
 				"mediawiki.widgets.MediaSearch",
-				"mediawiki.api"
+				"mediawiki.api",
+				"ext.CollaborationKit.icons"
 			],
 			"messages": [
+				"collaborationkit-hubedit-hubtheme",
+				"collaborationkit-hubedit-hubtheme-help",
 				"collaborationkit-hubimage-browser",
 				"collaborationkit-hubimage-select",
-				"collaborationkit-hubimage-launchbutton",
-				"cancel"
-			]
-		},
-		"ext.CollaborationKit.colourbrowser": {
-			"scripts": "ext.CollaborationKit.colour.js",
-			"dependencies": [
-				"oojs-ui",
-				"oojs-ui.styles.icons-movement",
-				"mediawiki.widgets",
-				"mediawiki.widgets.UserInputWidget"
-			],
-			"messages": [
+				"cancel",
 				"collaborationkit-colour-browser",
 				"collaborationkit-colour-select",
-				"collaborationkit-colour-launchbutton",
-				"cancel",
 				"collaborationkit-darkred",
 				"collaborationkit-red",
 				"collaborationkit-darkgrey",
@@ -166,7 +156,9 @@
 				"collaborationkit-khaki",
 				"collaborationkit-black"
 			],
-			"styles": "ext.CollaborationKit.colourbrowser.styles.less"
+			"styles": [
+				"ext.CollaborationKit.hubtheme.styles.less"
+			]
 		},
 		"ext.CollaborationKit.list.edit": {
 			"scripts": "ext.CollaborationKit.list.edit.js",

@@ -22,8 +22,7 @@ class CollaborationHubContentEditor extends EditPage {
 		$out = $this->getContext()->getOutput();
 		$out->addModules( [
 			'mediawiki.htmlform',
-			'ext.CollaborationKit.colourbrowser',
-			'ext.CollaborationKit.hubimagebrowser'
+			'ext.CollaborationKit.hubtheme'
 		] );
 		$out->addModuleStyles( [
 			'ext.CollaborationKit.edit.styles',
