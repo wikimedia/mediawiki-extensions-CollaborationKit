@@ -31,29 +31,29 @@ class CollaborationKitImage {
 	public static function makeImage( $image, $width, $options = [] ) {
 
 		// Default options
-		if ( !isset( $options[ 'classes' ] ) ) {
-			$options[ 'classes' ] = [];
+		if ( !isset( $options['classes'] ) ) {
+			$options['classes'] = [];
 		}
-		if ( !isset( $options[ 'link' ] ) ) {
-			$options[ 'link' ] = true;
+		if ( !isset( $options['link'] ) ) {
+			$options['link'] = true;
 		}
-		if ( !isset( $options[ 'colour' ] ) ) {
-			$options[ 'colour' ] = '';
+		if ( !isset( $options['colour'] ) ) {
+			$options['colour'] = '';
 		}
-		if ( !isset( $options[ 'css' ] ) ) {
-			$options[ 'css' ] = '';
+		if ( !isset( $options['css'] ) ) {
+			$options['css'] = '';
 		}
-		if ( !isset( $options[ 'renderAsWikitext' ] ) ) {
-			$options[ 'renderAsWikitext' ] = false;
+		if ( !isset( $options['renderAsWikitext'] ) ) {
+			$options['renderAsWikitext'] = false;
 		}
-		if ( !isset( $options[ 'label' ] ) ) {
-			$options[ 'label' ] = '';
+		if ( !isset( $options['label'] ) ) {
+			$options['label'] = '';
 		}
-		if ( !isset( $options[ 'fallback' ] ) ) {
-			if ( isset( $options[ 'label' ] ) ) {
-				$options[ 'fallback' ] = $options[ 'label' ];
+		if ( !isset( $options['fallback'] ) ) {
+			if ( isset( $options['label'] ) ) {
+				$options['fallback'] = $options['label'];
 			} else {
-				$options[ 'fallback' ] = 'none';
+				$options['fallback'] = 'none';
 			}
 		}
 
@@ -61,26 +61,26 @@ class CollaborationKitImage {
 
 		// Use fallback icon or random icon if stated image doesn't exist
 		if ( $image === null || $image == '' || ( !wfFindFile( $image ) && !in_array( $image, $cannedIcons ) ) ) {
-			if ( $options[ 'fallback' ] == 'none' ) {
+			if ( $options['fallback'] == 'none' ) {
 				return '';
-			} elseif ( in_array( $options[ 'fallback' ], $cannedIcons ) ) {
-				$image = $options[ 'fallback' ];
+			} elseif ( in_array( $options['fallback'], $cannedIcons ) ) {
+				$image = $options['fallback'];
 			} else {
-				$image = $cannedIcons[ hexdec( sha1( $options[ 'fallback' ] )[0] ) % 27];
+				$image = $cannedIcons[hexdec( sha1( $options['fallback'] )[0] ) % 27];
 			}
 		}
 
 		// Are we loading an image file or constructing a div based on an icon class?
 		if ( wfFindFile( $image ) ) {
-			$imageCode = self::makeImageFromFile( $image, $options[ 'classes' ], $width, $options[ 'link' ],
-				$options[ 'renderAsWikitext' ], $options[ 'label' ] );
+			$imageCode = self::makeImageFromFile( $image, $options['classes'], $width, $options[ 'link' ],
+				$options['renderAsWikitext'], $options['label'] );
 		} elseif ( in_array( $image, $cannedIcons ) ) {
-			$imageCode = self::makeImageFromIcon( $image, $options[ 'classes' ], $width, $options[ 'colour' ],
-				$options[ 'link' ], $options[ 'renderAsWikitext' ], $options[ 'label' ] );
+			$imageCode = self::makeImageFromIcon( $image, $options['classes'], $width, $options[ 'colour' ],
+				$options['link'], $options['renderAsWikitext'], $options['label'] );
 		}
 
 		// Finishing up
-		$wrapperAttributes = [ 'class' => $options[ 'classes' ], 'style' => $options[ 'css' ] ];
+		$wrapperAttributes = [ 'class' => $options['classes'], 'style' => $options['css'] ];
 		$imageBlock = Html::rawElement( 'div', $wrapperAttributes, $imageCode );
 		return $imageBlock;
 	}
@@ -100,11 +100,11 @@ class CollaborationKitImage {
 			$wikitext = "[[{$imageFullName}|{$width}px";
 
 			if ( $link === false ) {
-				$wikitext .= "|nolink]]";
+				$wikitext .= '|nolink]]';
 			} elseif ( is_string( $link ) ) {
 				$wikitext .= "|link={$link}]]";
 			} else {
-				$wikitext .= "]]";
+				$wikitext .= ']]';
 			}
 
 			return $wikitext;
@@ -162,7 +162,6 @@ class CollaborationKitImage {
 	 */
 	protected static function linkFactory( $imageHtml, $link, $label, $imageObj = null ) {
 		// Important assumption: image is being rendered as HTML and not wikitext.
-
 		if ( $link instanceof Title ) {
 			$linkHref = $link->getLinkUrl();
 		} elseif ( is_string( $link ) ) {

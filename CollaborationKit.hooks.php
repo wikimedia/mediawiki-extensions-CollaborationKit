@@ -153,13 +153,14 @@ class CollaborationKitHooks {
 			// TOC disabled, mark as done.
 			$out->setProperty( 'CollaborationHubSubpage', true );
 		} elseif ( $pout->getLimitReportData() ) {
-			$out->setProperty( 'CollaborationHubSubpage', "in-progress" );
+			$out->setProperty( 'CollaborationHubSubpage', 'in-progress' );
 		}
 	}
+
 	/**
 	 * Register __NOCOLLABORATIONHUBTOC__ as a magic word.
 	 *
-	 * @param Array &$magicWords All double underscore magic ids
+	 * @param array &$magicWords All double underscore magic ids
 	 */
 	public static function onGetDoubleUnderscoreIDs( array &$magicWords ) {
 		$magicWords[] = 'nocollaborationhubtoc';

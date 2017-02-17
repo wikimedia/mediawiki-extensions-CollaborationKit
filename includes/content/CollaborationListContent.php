@@ -60,7 +60,11 @@ class CollaborationListContent extends JsonContent {
 		$data = $status->value;
 		// FIXME: The schema should be checking for required fields but for some reason that doesn't work
 		// This may be an issue with EventLogging
-		if ( !isset( $data->description ) || !isset( $data->columns ) || !isset( $data->options ) || !isset( $data->displaymode ) ) {
+		if (
+			!isset( $data->description ) || !isset( $data->columns ) ||
+			!isset( $data->options ) || !isset( $data->displaymode )
+		)
+		{
 			return false;
 		}
 
@@ -70,14 +74,14 @@ class CollaborationListContent extends JsonContent {
 			EventLogging::schemaValidate( $jsonAsArray, $listSchema );
 			// FIXME: The schema should be enforcing data type requirements, but it isn't.
 			// Again, this is probably EventLogging.
-			$numberOfColumns = count( $jsonAsArray[ "columns" ] );
+			$numberOfColumns = count( $jsonAsArray['columns'] );
 			for ( $i = 0; $i < $numberOfColumns; $i++ ) {
-				if ( !is_array( $jsonAsArray[ "columns" ][ $i ] ) ) {
+				if ( !is_array( $jsonAsArray['columns'][$i] ) ) {
 					return false;
 				} else {
-					$numberOfItems = count( $jsonAsArray[ "columns" ][ $i ][ "items" ] );
+					$numberOfItems = count( $jsonAsArray['columns'][$i]['items'] );
 					for ( $j = 0; $j < $numberOfItems; $j++ ) {
-						if ( !is_array( $jsonAsArray[ "columns" ][ $i ][ "items" ][ $j ] ) ) {
+						if ( !is_array( $jsonAsArray['columns'][$i]['items'][$j] ) ) {
 							return false;
 						}
 					}
@@ -109,7 +113,7 @@ class CollaborationListContent extends JsonContent {
 		}
 
 		// Force intrepretation as boolean for certain options
-		if ( $name == "includedesc" ) {
+		if ( $name == 'includedesc' ) {
 			$value = (bool)$value;
 		}
 
@@ -134,13 +138,13 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	* Beautifies JSON and does subst: prior to save.
-	*
-	* @param Title $title
-	* @param User $user
-	* @param ParserOptions $popts
-	* @return CollaborationListContent
-	*/
+	 * Beautifies JSON and does subst: prior to save.
+	 *
+	 * @param Title $title
+	 * @param User $user
+	 * @param ParserOptions $popts
+	 * @return CollaborationListContent
+	 */
 	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
 		global $wgParser;
 		// WikiPage::doEditContent invokes PST before validation. As such, native data
@@ -270,7 +274,7 @@ class CollaborationListContent extends JsonContent {
 		$iconWidth = $options['iconWidth'];
 
 		// Hack to force style loading even when we don't have a Parser reference.
-		$text = "<collaborationkitloadliststyles/>";
+		$text = '<collaborationkitloadliststyles/>';
 
 		// Ugly way to prevent unexpected column header TOCs and editsection links from showing up
 		$text .= "__NOTOC__ __NOEDITSECTION__\n";
@@ -340,8 +344,8 @@ class CollaborationListContent extends JsonContent {
 					$titleForItem = Title::newFromText( $item->link );
 				}
 				$text .= Html::openElement( 'div', [
-					"class" => "mw-ck-list-item",
-					"data-collabkit-item-title" => $item->title
+					'class' => 'mw-ck-list-item',
+					'data-collabkit-item-title' => $item->title
 				] );
 				if ( $options['mode'] !== 'no-img' ) {
 					if ( isset( $item->image ) ) {
@@ -365,8 +369,8 @@ class CollaborationListContent extends JsonContent {
 					} else {
 						$titleText = $item->title;
 					}
-					$text .= "[[:" . $titleForItem->getPrefixedDBkey() . "|"
-						. wfEscapeWikiText( $titleText ) . "]]";
+					$text .= '[[:' . $titleForItem->getPrefixedDBkey() . '|'
+						. wfEscapeWikiText( $titleText ) . ']]';
 				} else {
 					$text .=  wfEscapeWikiText( $item->title );
 				}
@@ -431,7 +435,7 @@ class CollaborationListContent extends JsonContent {
 
 		// Step 3: None of the above work? Time for fallback icons.
 		if ( $image === null ) {
-			$iconColour = "lightgrey";
+			$iconColour = 'lightgrey';
 			$linkOrNot = false;
 			if ( $displayMode == 'members' ) {
 				$image = 'user';
@@ -443,7 +447,12 @@ class CollaborationListContent extends JsonContent {
 		return CollaborationKitImage::makeImage(
 			$image,
 			$size,
-			[ 'classes' => [ 'mw-ck-list-image' ], 'colour' => $iconColour, 'link' => $linkOrNot, 'renderAsWikitext' => true ]
+			[
+				'classes' => [ 'mw-ck-list-image' ],
+				'colour' => $iconColour,
+				'link' => $linkOrNot,
+				'renderAsWikitext' => true
+			]
 		);
 	}
 
@@ -458,7 +467,7 @@ class CollaborationListContent extends JsonContent {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
 			global $wgContLang;
 			// using wgContLang is kind of icky. Maybe we should transclude
-			// from mediawiki namespace, or give up on not splitting the
+			// from MediaWiki namespace, or give up on not splitting the
 			// parser cache and just use {{int:... (?)
 			$renderOpts = $this->getFullRenderListOptions();
 			$text = $this->convertToWikitext( $wgContLang, $renderOpts );
@@ -512,7 +521,7 @@ class CollaborationListContent extends JsonContent {
 			case 'natural':
 				return $items;
 			default:
-				throw new UnexpectedValueException( "invalid sort mode" );
+				throw new UnexpectedValueException( 'invalid sort mode' );
 		}
 	}
 
@@ -652,34 +661,34 @@ class CollaborationListContent extends JsonContent {
 				$out .= 'column';
 			}
 			if ( isset( $column->notes ) ) {
-				$out .= "|notes=" . $this->escapeForHumanEditable( $column->notes );
+				$out .= '|notes=' . $this->escapeForHumanEditable( $column->notes );
 			}
 			$out .= self::HUMAN_COLUMN_SPLIT2;
 
 			foreach ( $column->items as $item ) {
 				$out .= $this->escapeForHumanEditable( $item->title );
 				if ( isset ( $item->notes ) ) {
-					$out .= "|" . $this->escapeForHumanEditable( $item->notes );
+					$out .= '|' . $this->escapeForHumanEditable( $item->notes );
 				} else {
-					$out .= "|";
+					$out .= '|';
 				}
 				if ( isset( $item->link ) ) {
 					if ( $item->link === false ) {
-						$out .= "|nolink";
+						$out .= '|nolink';
 					} else {
 						$out .= "|link=" . $this->escapeForHumanEditable( $item->link );
 					}
 				}
 				if ( isset( $item->image ) ) {
 					if ( $item->image === false ) {
-						$out .= "|noimage";
+						$out .= '|noimage';
 					} else {
-						$out .= "|image=" . $this->escapeForHumanEditable( $item->image );
+						$out .= '|image=' . $this->escapeForHumanEditable( $item->image );
 					}
 				}
 				if ( isset( $item->tags ) ) {
 					foreach ( (array)$item->tags as $tag ) {
-						$out .= "|tag=" . $this->escapeForHumanEditable( $tag );
+						$out .= '|tag=' . $this->escapeForHumanEditable( $tag );
 					}
 				}
 				if ( substr( $out, -1 ) === '|' ) {
@@ -760,12 +769,12 @@ class CollaborationListContent extends JsonContent {
 
 		$split2 = strrpos( $text, self::HUMAN_DESC_SPLIT );
 		if ( $split2 === false ) {
-			throw new MWContentSerializationException( "Missing list description" );
+			throw new MWContentSerializationException( 'Missing list description' );
 		}
 
 		$split1 = strrpos( $text, self::HUMAN_DESC_SPLIT, -strlen( $text ) + $split2 - 1 );
 		if ( $split1 === false ) {
-			throw new MWContentSerializationException( "Missing list description" );
+			throw new MWContentSerializationException( 'Missing list description' );
 		}
 		$dividerLength = strlen( self::HUMAN_DESC_SPLIT );
 
@@ -774,10 +783,10 @@ class CollaborationListContent extends JsonContent {
 		$res['options'] = self::parseHumanOptions( $optionString );
 
 		if ( isset ( $res['options']->DISPLAYMODE ) ) {
-			$res[ 'displaymode' ] = $res['options']->DISPLAYMODE;
+			$res['displaymode'] = $res['options']->DISPLAYMODE;
 			unset( $res['options']->DISPLAYMODE );
 		} else {
-			throw new MWContentSerializationException( "Missing list displaymode" );
+			throw new MWContentSerializationException( 'Missing list displaymode' );
 		}
 
 		$res['description'] = substr( $text, 0, $split1 );
@@ -807,12 +816,12 @@ class CollaborationListContent extends JsonContent {
 
 		$columnContent = explode( self::HUMAN_COLUMN_SPLIT2, $column );
 
-		$parts = explode( "|", $columnContent[0] );
+		$parts = explode( '|', $columnContent[0] );
 
 		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
 
 		if ( $parts[0] != 'column' ) {
-			$columnItem[ 'label' ] = $parts[0];
+			$columnItem['label'] = $parts[0];
 		}
 
 		$parts = array_slice( $parts, 1 );
@@ -825,18 +834,18 @@ class CollaborationListContent extends JsonContent {
 				list( $key, $value ) = explode( '=', $part );
 
 				switch ( $key ) {
-				case 'notes':
-					$columnItem[$key] = $value;
-					break;
-				default:
-					$context = wfEscapeWikiText( substr( $part, 30 ) );
-					if ( strlen( $context ) === 30 ) {
-						$context .= '...';
-					}
-					throw new MWContentSerializationException(
-						"Unrecognized option for column:" .
-						wfEscapeWikiText( $key )
-					);
+					case 'notes':
+						$columnItem[$key] = $value;
+						break;
+					default:
+						$context = wfEscapeWikiText( substr( $part, 30 ) );
+						if ( strlen( $context ) === 30 ) {
+							$context .= '...';
+						}
+						throw new MWContentSerializationException(
+							'Unrecognized option for column:' .
+							wfEscapeWikiText( $key )
+						);
 				}
 			}
 		}
@@ -860,15 +869,15 @@ class CollaborationListContent extends JsonContent {
 	 * @return array
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
-		$parts = explode( "|", $line );
+		$parts = explode( '|', $line );
 		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
 		$itemRes = [ 'title' => $parts[0] ];
 		if ( count( $parts ) > 1 ) {
 			// If people are using batch editor, they might define an image etc. despite lack of a note
 			// This is to catch that and prevent weirdness.
-			$testExplosion = explode( "=", $parts[1] );
+			$testExplosion = explode( '=', $parts[1] );
 			if ( in_array( $testExplosion[0], [ 'image', 'link', 'tags', 'sortkey' ] ) ) {
-				$itemRes[ $testExplosion[0] ] = $testExplosion[1];
+				$itemRes[$testExplosion[0]] = $testExplosion[1];
 				$itemRes['notes'] = '';
 			} else {
 				$itemRes['notes'] = $parts[1];
@@ -877,31 +886,31 @@ class CollaborationListContent extends JsonContent {
 			foreach ( $parts as $part ) {
 				list( $key, $value ) = explode( '=', $part );
 				switch ( $key ) {
-				case 'nolink':
-					$itemRes['link'] = false;
-					break;
-				case 'noimage':
-					$itemRes['image'] = false;
-					break;
-				case 'tag':
-					if ( !isset( $itemRes['tags'] ) ) {
-						$itemRes['tags'] = [];
-					}
-					$itemRes['tags'][] = $value;
-					break;
-				case 'image':
-				case 'link':
-					$itemRes[$key] = $value;
-					break;
-				default:
-					$context = wfEscapeWikiText( substr( $part, 30 ) );
-					if ( strlen( $context ) === 30 ) {
-						$context .= '...';
-					}
-					throw new MWContentSerializationException(
-						"Unrecognized option for list item:" .
-						wfEscapeWikiText( $key )
-					);
+					case 'nolink':
+						$itemRes['link'] = false;
+						break;
+					case 'noimage':
+						$itemRes['image'] = false;
+						break;
+					case 'tag':
+						if ( !isset( $itemRes['tags'] ) ) {
+							$itemRes['tags'] = [];
+						}
+						$itemRes['tags'][] = $value;
+						break;
+					case 'image':
+					case 'link':
+						$itemRes[$key] = $value;
+						break;
+					default:
+						$context = wfEscapeWikiText( substr( $part, 30 ) );
+						if ( strlen( $context ) === 30 ) {
+							$context .= '...';
+						}
+						throw new MWContentSerializationException(
+							'Unrecognized option for list item:' .
+							wfEscapeWikiText( $key )
+						);
 				}
 			}
 		} else {
@@ -1008,7 +1017,7 @@ class CollaborationListContent extends JsonContent {
 			) {
 				$nonUserItems[] = $item;
 			} else {
-				$userItems[ $title->getDBKey() ] = $item;
+				$userItems[$title->getDBKey()] = $item;
 			}
 		}
 		$res = $this->filterActiveUsers( $userItems );

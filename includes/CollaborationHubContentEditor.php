@@ -38,7 +38,6 @@ class CollaborationHubContentEditor extends EditPage {
 	 * @return string html
 	 */
 	protected function getFormFields( $parts ) {
-
 		$fields = [
 			'display_name' => [
 				'type' => 'text',
@@ -62,7 +61,7 @@ class CollaborationHubContentEditor extends EditPage {
 
 		$colours = [];
 		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
-			$colours[ 'collaborationkit-' . $colour ] = $colour;
+			$colours['collaborationkit-' . $colour] = $colour;
 		}
 		if ( $parts[4] == '' ) {
 			$selectedColour = 'lightgrey';
@@ -156,7 +155,7 @@ class CollaborationHubContentEditor extends EditPage {
 		$partFields = $this->getFormFields( $parts );
 		// See setCollabkitTheme for how the setProperty works.
 		$out->setProperty( 'collabkit-theme', $this->colour );
-		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
+		$out->addHTML( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
 	}
 
 	/**

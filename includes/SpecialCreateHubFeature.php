@@ -28,7 +28,6 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	 * @return array
 	 */
 	protected function getFormFields() {
-
 		// Allow the collaboration hub to be passed via parameter (full page title) ?collaborationhub=
 		// Allow the feature name to be passed via parameter (subpage title) ?feature=
 		if ( $this->getRequest()->getVal( 'collaborationhub' ) ) {
@@ -72,8 +71,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				'type' => 'radio',
 				'cssclass' => 'mw-ck-content-type-input',
 				'label-message' => 'collaborationkit-createhubfeature-contenttype',
-				'options' => [ $this->msg( 'collaborationkit-createhubfeature-freetext' )->text() => 'wikitext',
-					$this->msg( 'collaborationkit-createhubfeature-articlelist' )->text() => 'CollaborationListContent' ]
+				'options' => [
+					$this->msg( 'collaborationkit-createhubfeature-freetext' )->text() => 'wikitext',
+					$this->msg( 'collaborationkit-createhubfeature-articlelist' )->text() => 'CollaborationListContent'
+				]
 			]
 		];
 
@@ -99,8 +100,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	 * @return Status
 	 */
 	public function onSubmit( array $data ) {
-		$collaborationHub = $data[ 'collaborationhub' ];
-		$featureName = $data[ 'featurename' ];
+		$collaborationHub = $data['collaborationhub'];
+		$featureName = $data['featurename'];
 
 		$titleText = $collaborationHub . '/' . $featureName;
 
@@ -130,7 +131,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			return Status::newFatal( 'collaborationkit-createhubfeature-hubdoesnotexist' );
 		}
 
-		if ( $hubTitleObject->getContentModel() != "CollaborationHubContent" ) {
+		if ( $hubTitleObject->getContentModel() != 'CollaborationHubContent' ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-hubisnotahub' );
 		}
 
@@ -226,7 +227,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		$hubTitleObject->invalidateCache();
 
 		// Once all the pages we want to create are created, we send them to the first one
-		$this->getOutput()->redirect( $title->getFullUrl() );
+		$this->getOutput()->redirect( $title->getFullURL() );
+
 		return Status::newGood();
 	}
 

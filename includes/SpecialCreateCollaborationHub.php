@@ -38,7 +38,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		$namespaceNames = $this->getLanguage()->getNamespaces();
 		$namespaceChoices = [];
 		foreach ( $allowedNamespaces as $nsIndex => $nsCanBeUsed ) {
-			$namespaceChoices[ $namespaceNames[ $nsIndex ] ] = $nsIndex;
+			$namespaceChoices[$namespaceNames[$nsIndex]] = $nsIndex;
 		}
 
 		$fields = [
@@ -76,13 +76,13 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 		// Our preference is the Project namespace
 		if ( in_array( 4, $allowedNamespaces ) ) {
-			$fields[ 'namespace' ][ 'default' ] = 4;
+			$fields['namespace']['default'] = 4;
 		}
 
 		// Colours for the hub styles
 		$colours = [];
 		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
-			$colours[ 'collaborationkit-' . $colour ] = $colour;
+			$colours['collaborationkit-' . $colour] = $colour;
 		}
 		$fields['colour'] = [
 			'type' => 'select',
@@ -143,7 +143,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 */
 	public function onSubmit( array $data ) {
 		$namespaces = $this->getLanguage()->getNamespaces();
-		$pagename = $namespaces[ $data[ 'namespace' ] ] . ':' . $data['title'];
+		$pagename = $namespaces[$data['namespace']] . ':' . $data['title'];
 		$title = Title::newFromText( $pagename );
 		if ( !$title ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );

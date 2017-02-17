@@ -353,7 +353,6 @@ class CollaborationHubContent extends JsonContent {
 		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
 		$membersTitle = Title::newFromText( $membersPageName );
 		if ( $membersTitle->exists() || $membersContent !== null ) {
-
 			$membersPageID = $membersTitle->getArticleID();
 			$output->addJsConfigVars( 'wgCollaborationKitAssociatedMemberList', $membersPageID );
 
@@ -429,7 +428,6 @@ class CollaborationHubContent extends JsonContent {
 		$announcementsTitle = Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName );
 
 		if ( $announcementsTitle->exists() || $announcementsText !== null ) {
-
 			if ( $announcementsText === null ) {
 				$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
 				$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
@@ -486,7 +484,7 @@ class CollaborationHubContent extends JsonContent {
 			// TODO make sure they have create permission, too
 			$html .= new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-addpage' )->inContentLanguage()->text(),
-				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText() ] ),
+				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
 				'flags' => [ 'progressive' ],
 				'icon' => 'add'
 			] );
@@ -584,7 +582,7 @@ class CollaborationHubContent extends JsonContent {
 
 				$html .= new OOUI\ButtonWidget( [
 					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )->inContentLanguage()->text(),
-					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText(), 'feature' => $spTitle->getSubpageText() ] )
+					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL( [ 'collaborationhub' => $title->getFullText(), 'feature' => $spTitle->getSubpageText() ] )
 				] );
 
 				// register as template for stuff
@@ -634,18 +632,18 @@ class CollaborationHubContent extends JsonContent {
 		$sectionLinks = [];
 		$sectionLinksText = '';
 		if ( isset( $spRev ) ) {
-			$sectionLinks[ 'viewLink' ] = [];
-			$sectionLinks[ 'viewLink' ][ 'title' ] = $spTitle->getLinkURL();
-			$sectionLinks[ 'viewLink' ][ 'msg' ] = wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text();
-			$sectionLinks[ 'viewLink' ][ 'icon' ] = 'search';
+			$sectionLinks['viewLink'] = [];
+			$sectionLinks['viewLink']['title'] = $spTitle->getLinkURL();
+			$sectionLinks['viewLink']['msg'] = wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text();
+			$sectionLinks['viewLink']['icon'] = 'search';
 
-			$sectionLinks[ 'editLink' ] = [];
-			$sectionLinks[ 'editLink' ][ 'title' ] = $spTitle->getEditURL();
-			$sectionLinks[ 'editLink' ][ 'msg' ] = wfMessage( 'edit' )->inContentLanguage()->text();
-			$sectionLinks[ 'editLink' ][ 'icon' ] = 'edit';
+			$sectionLinks['editLink'] = [];
+			$sectionLinks['editLink']['title'] = $spTitle->getEditURL();
+			$sectionLinks['editLink']['msg'] = wfMessage( 'edit' )->inContentLanguage()->text();
+			$sectionLinks['editLink']['icon'] = 'edit';
 		}
 		foreach ( $sectionLinks as $sectionLink ) {
-			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink[ 'title' ], $sectionLink[ 'msg' ], $sectionLink[ 'icon' ] );
+			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink['title'], $sectionLink['msg'], $sectionLink['icon'] );
 		}
 
 		// Assemble header
@@ -806,10 +804,10 @@ class CollaborationHubContent extends JsonContent {
 		foreach ( $this->content as $item ) {
 			$out .= $this->escapeForHumanEditable( $item['title'] );
 			if ( isset ( $item['image'] ) ) {
-				$out .= "|image=" . $this->escapeForHumanEditable( $item['image'] );
+				$out .= '|image=' . $this->escapeForHumanEditable( $item['image'] );
 			}
 			if ( isset( $item['displayTitle'] ) ) {
-				$out .= "|display_title=" . $this->escapeForHumanEditable( $item['displayTitle'] );
+				$out .= '|display_title=' . $this->escapeForHumanEditable( $item['displayTitle'] );
 			}
 			if ( substr( $out, -1 ) === '|' ) {
 				$out = substr( $out, 0, strlen( $out ) - 1 );
@@ -893,7 +891,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @return array
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
-		$parts = explode( "|", $line );
+		$parts = explode( '|', $line );
 		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
 		$itemRes = [ 'title' => $parts[0] ];
 		if ( count( $parts ) > 1 ) {
@@ -901,19 +899,19 @@ class CollaborationHubContent extends JsonContent {
 			foreach ( $parts as $part ) {
 				list( $key, $value ) = explode( '=', $part );
 				switch ( $key ) {
-				case 'image':
-				case 'display_title':
-					$itemRes[$key] = $value;
-					break;
-				default:
-					$context = wfEscapeWikiText( substr( $part, 30 ) );
-					if ( strlen( $context ) === 30 ) {
-						$context .= '...';
-					}
-					throw new MWContentSerializationException(
-						"Unrecognized option for list item:" .
-						wfEscapeWikiText( $key )
-					);
+					case 'image':
+					case 'display_title':
+						$itemRes[$key] = $value;
+						break;
+					default:
+						$context = wfEscapeWikiText( substr( $part, 30 ) );
+						if ( strlen( $context ) === 30 ) {
+							$context .= '...';
+						}
+						throw new MWContentSerializationException(
+							'Unrecognized option for list item:' .
+							wfEscapeWikiText( $key )
+						);
 				}
 			}
 		}

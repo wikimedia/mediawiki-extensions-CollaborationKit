@@ -102,16 +102,16 @@ JSON;
 	public static function makeMemberList( $username, $initialDescription ) {
 		$linkToUserpage = Title::makeTitleSafe( NS_USER, $username )->getPrefixedText();
 		$newMemberList = [
-			"displaymode" => "members",
-			"columns" => [ [
-				"items" => [ [
-					"title" => $linkToUserpage
+			'displaymode' => 'members',
+			'columns' => [ [
+				'items' => [ [
+					'title' => $linkToUserpage
 				] ]
 			] ],
-			"options" => [
-				"mode" => "normal"
+			'options' => [
+				'mode' => 'normal'
 			],
-			"description" => "$initialDescription"
+			'description' => $initialDescription
 		];
 
 		$newMemberListJson = FormatJson::encode( $newMemberList, "\t", FormatJson::ALL_OK );
@@ -160,7 +160,6 @@ JSON;
 	 * @todo rework this to use a generic CollaborationList editor function once it exists
 	 */
 	public static function postMemberList( Title $title, $summary, IContextSource $context ) {
-
 		$username = $context->getUser()->getName();
 		$collabList = self::makeMemberList(
 			$username,

@@ -36,7 +36,7 @@ class CollaborationListContentEditor extends EditPage {
 			return parent::showContentForm();
 		}
 		$out = RequestContext::getMain()->getOutput();
-		$out->addHtml( Html::Hidden( 'wpCollaborationKitOptions', $parts[1] ) );
+		$out->addHTML( Html::hidden( 'wpCollaborationKitOptions', $parts[1] ) );
 
 		if ( $parts[2] == '' ) {
 			$includedContent = '';
@@ -69,7 +69,7 @@ class CollaborationListContentEditor extends EditPage {
 		$dummyForm = HTMLForm::factory( 'ooui', $fields, $this->getContext() );
 		$partFields = $dummyForm->prepareForm()->getBody();
 
-		$out->addHtml( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
+		$out->addHTML( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
 	}
 
 	/**
