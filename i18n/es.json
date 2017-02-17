@@ -54,6 +54,7 @@
 	"collaborationkit-black": "Negro",
 	"collaborationkit-column-active": "Miembros activos",
 	"collaborationkit-column-inactive": "Miembros inactivos",
+	"collaborationkit-createhub-title-placeholder": "Nuevo proyecto",
 	"collaborationkit-hubedit-introduction-placeholder": "¡Introduce aquí tu proyecto! Dinos lo que deseas hacer.",
 	"collaborationkit-listedit-description-placeholder": "Describe sobre qué o para qué es la lista."
 }

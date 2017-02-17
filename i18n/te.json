@@ -1,8 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chaduvari"
+			"Chaduvari",
+			"Veeven"
 		]
 	},
+	"collaborationkit-darkred": "ముదురు ఎరుపు",
+	"collaborationkit-red": "ఎరుపు",
+	"collaborationkit-skyblue": "ఆకాశ నీలం",
+	"collaborationkit-blue": "నీలం",
+	"collaborationkit-darkblue": "ముదురు నీలం",
+	"collaborationkit-yellow": "పసుపుపచ్చ",
+	"collaborationkit-gold": "బంగారు",
 	"collaborationkit-createhub-title-placeholder": "కొత్త ప్రాజెక్టు"
 }
