@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dgstranz",
-			"Macofe"
+			"Macofe",
+			"Fitoschido"
 		]
 	},
 	"collaborationkit-createhub-title": "Título de la página",
@@ -16,6 +17,10 @@
 	"collaborationkit-list-toomanytags": "No se te permite especificar más de {{PLURAL:$1|una etiqueta|$1 etiquetas}}.",
 	"collaborationkit-list-add-user": "Añadir un usuario a la lista",
 	"collaborationkit-list-alreadyadded": "Ya eres un miembro de este proyecto.",
+	"collaborationkit-list-error-editconflict": "Se produjo un conflicto de ediciones y no se guardó tu modificación. Actualiza la página e inténtalo de nuevo.",
+	"collaborationkit-list-error-couldnotgetpage": "No se pudo cargar la página. Actualízala e inténtalo de nuevo.",
+	"collaborationkit-list-error-generic": "Se produjo un error. Actualiza la página e inténtalo de nuevo.",
+	"collaborationkit-list-error-saving": "No se guardaron tus modificaciones a la lista. Actualiza la página e inténtalo de nuevo.",
 	"collaborationkit-list-newitem-label": "Añadir a la lista",
 	"collaborationkit-list-newitem-description": "Descripción (opcional)",
 	"collaborationkit-listedit-description": "Descripción",
@@ -54,7 +59,7 @@
 	"collaborationkit-black": "Negro",
 	"collaborationkit-column-active": "Miembros activos",
 	"collaborationkit-column-inactive": "Miembros inactivos",
-	"collaborationkit-createhub-title-placeholder": "Nuevo proyecto",
+	"collaborationkit-createhub-title-placeholder": "Proyecto nuevo",
 	"collaborationkit-hubedit-introduction-placeholder": "¡Introduce aquí tu proyecto! Dinos lo que deseas hacer.",
 	"collaborationkit-listedit-description-placeholder": "Describe sobre qué o para qué es la lista."
 }
