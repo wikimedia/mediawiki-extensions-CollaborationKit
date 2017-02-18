@@ -101,7 +101,7 @@ class CollaborationKitImage {
 		if ( $renderAsWikitext ) {
 			return $wikitext;
 		} else {
-			$imageHtml = $wgParser->parse( $wikitext, $imageTitle, $wgParser->getOptions() )->getText();
+			$imageHtml = $wgParser->parse( $wikitext, $imageTitle, new ParserOptions() )->getText();
 
 			if ( $label != '' ) {
 				$imageWrapperCss = "width:{$width}px; max-height:{$width}px; overflow:hidden;";
