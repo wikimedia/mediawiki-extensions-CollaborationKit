@@ -30,25 +30,16 @@ class CollaborationKitImage {
 	 */
 	public static function makeImage( $image, $width, $options = [] ) {
 
-		// Default options
-		if ( !isset( $options['classes'] ) ) {
-			$options['classes'] = [];
-		}
-		if ( !isset( $options['link'] ) ) {
-			$options['link'] = true;
-		}
-		if ( !isset( $options['colour'] ) ) {
-			$options['colour'] = '';
-		}
-		if ( !isset( $options['css'] ) ) {
-			$options['css'] = '';
-		}
-		if ( !isset( $options['renderAsWikitext'] ) ) {
-			$options['renderAsWikitext'] = false;
-		}
-		if ( !isset( $options['label'] ) ) {
-			$options['label'] = '';
-		}
+		$cannedIcons = self::getCannedIcons();
+
+		// Setting up options
+		$classes = isset( $options['classes'] ) ? $options['classes'] : [];
+		$link = isset( $options['link'] ) ? $options['link'] : true;
+		$colour = isset( $options['colour'] ) ? $options['colour'] : '';
+		$css = isset( $options['css'] ) ? $options['css'] : '';
+		$renderAsWikitext = isset( $options['renderAsWikitext'] ) ? $options['renderAsWikitext'] : false;
+		$label = isset( $options['label'] ) ? $options['label'] : '';
+
 		if ( !isset( $options['fallback'] ) ) {
 			if ( isset( $options['label'] ) ) {
 				$options['fallback'] = $options['label'];
@@ -56,8 +47,6 @@ class CollaborationKitImage {
 				$options['fallback'] = 'none';
 			}
 		}
-
-		$cannedIcons = self::getCannedIcons();
 
 		// Use fallback icon or random icon if stated image doesn't exist
 		if ( $image === null || $image == '' || ( !wfFindFile( $image ) && !in_array( $image, $cannedIcons ) ) ) {
@@ -72,15 +61,15 @@ class CollaborationKitImage {
 
 		// Are we loading an image file or constructing a div based on an icon class?
 		if ( wfFindFile( $image ) ) {
-			$imageCode = self::makeImageFromFile( $image, $options['classes'], $width, $options[ 'link' ],
-				$options['renderAsWikitext'], $options['label'] );
+			$imageCode = self::makeImageFromFile( $image, $classes, $width, $link,
+				$renderAsWikitext, $label );
 		} elseif ( in_array( $image, $cannedIcons ) ) {
-			$imageCode = self::makeImageFromIcon( $image, $options['classes'], $width, $options[ 'colour' ],
-				$options['link'], $options['renderAsWikitext'], $options['label'] );
+			$imageCode = self::makeImageFromIcon( $image, $classes, $width, $colour,
+				$link, $renderAsWikitext, $label );
 		}
 
 		// Finishing up
-		$wrapperAttributes = [ 'class' => $options['classes'], 'style' => $options['css'] ];
+		$wrapperAttributes = [ 'class' => $classes, 'style' => $css ];
 		$imageBlock = Html::rawElement( 'div', $wrapperAttributes, $imageCode );
 		return $imageBlock;
 	}
@@ -93,24 +82,26 @@ class CollaborationKitImage {
 		// This assumes that colours cannot be assigned to images.
 		// This is currently true, but who knows what the future might hold!
 
+		global $wgParser;
+
 		$imageObj = wfFindFile( $image );
-		$imageFullName = $imageObj->getTitle()->getFullText();
+		$imageTitle = $imageObj->getTitle();
+		$imageFullName = $imageTitle->getFullText();
+
+		$wikitext = "[[{$imageFullName}|{$width}px";
+
+		if ( $link === false || $label != '' ) {
+			$wikitext .= '|link=]]';
+		} elseif ( is_string( $link ) ) {
+			$wikitext .= "|link={$link}]]";
+		} else {
+			$wikitext .= ']]';
+		}
 
 		if ( $renderAsWikitext ) {
-			$wikitext = "[[{$imageFullName}|{$width}px";
-
-			if ( $link === false ) {
-				$wikitext .= '|nolink]]';
-			} elseif ( is_string( $link ) ) {
-				$wikitext .= "|link={$link}]]";
-			} else {
-				$wikitext .= ']]';
-			}
-
 			return $wikitext;
-
 		} else {
-			$imageHtml = $imageObj->transform( [ 'width' => $width ] )->toHtml();
+			$imageHtml = $wgParser->parse( $wikitext, $imageTitle, $wgParser->getOptions() )->getText();
 
 			if ( $label != '' ) {
 				$imageWrapperCss = "width:{$width}px; max-height:{$width}px; overflow:hidden;";
@@ -120,10 +111,9 @@ class CollaborationKitImage {
 					[ 'class' => 'mw-ck-file-image', 'style' => $imageWrapperCss ],
 					$imageHtml
 				);
-			}
-
-			if ( $link !== false ) {
-				$imageHtml = self::linkFactory( $imageHtml, $link, $label, $imageObj );
+				if ( $link !== false ) {
+					$imageHtml = self::linkFactory( $imageHtml, $link, $label, $imageObj );
+				}
 			}
 
 			return $imageHtml;
