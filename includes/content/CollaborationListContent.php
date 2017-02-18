@@ -453,7 +453,8 @@ class CollaborationListContent extends JsonContent {
 				'classes' => [ 'mw-ck-list-image' ],
 				'colour' => $iconColour,
 				'link' => $linkOrNot,
-				'renderAsWikitext' => true
+				'renderAsWikitext' => true,
+				'optimizeForSquare' => true
 			]
 		);
 	}

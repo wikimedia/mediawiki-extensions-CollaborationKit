@@ -26,6 +26,8 @@ class CollaborationKitImage {
 	 * @param string $options['fallback'] If the specified image is null or doesn't exist. Valid
 	 *	options are none', a valid icon ID, or an arbitrary string to use a seed. (Note: if you
 	 *	specify a label, then that will serve as the fallback.)
+	 * @param bool $options['optimizeForSquare'] Fetch an image such that it's ideal for shoving
+	 *	into a square frame. Default is false. Images with labels always get optimzed for squares.
 	 * @return string HTML elements or wikitext, depending on $options['renderAsWikitext']
 	 */
 	public static function makeImage( $image, $width, $options = [] ) {
@@ -38,6 +40,7 @@ class CollaborationKitImage {
 		$colour = isset( $options['colour'] ) ? $options['colour'] : '';
 		$css = isset( $options['css'] ) ? $options['css'] : '';
 		$renderAsWikitext = isset( $options['renderAsWikitext'] ) ? $options['renderAsWikitext'] : false;
+		$optimizeForSquare = isset( $options['optimizeForSquare'] ) ? $options['optimizeForSquare'] : false;
 		$label = isset( $options['label'] ) ? $options['label'] : '';
 
 		if ( !isset( $options['fallback'] ) ) {
@@ -48,25 +51,37 @@ class CollaborationKitImage {
 			}
 		}
 
+		// If image doesn't exist or is an icon, this will return false.
+		$imageObj = wfFindFile( $image );
+
 		// Use fallback icon or random icon if stated image doesn't exist
-		if ( $image === null || $image == '' || ( !wfFindFile( $image ) && !in_array( $image, $cannedIcons ) ) ) {
+		if ( $image === null || $image == '' || ( $imageObj === false && !in_array( $image, $cannedIcons ) ) ) {
 			if ( $options['fallback'] == 'none' ) {
 				return '';
 			} elseif ( in_array( $options['fallback'], $cannedIcons ) ) {
 				$image = $options['fallback'];
 			} else {
-				$image = $cannedIcons[hexdec( sha1( $options['fallback'] )[0] ) % 27];
+				$image = $cannedIcons[hexdec( sha1( $options['fallback'] )[0] ) % count( $cannedIcons )];
 			}
 		}
 
 		$imageCode = '';
 		// Are we loading an image file or constructing a div based on an icon class?
-		if ( wfFindFile( $image ) ) {
-			$imageCode = self::makeImageFromFile( $image, $classes, $width, $link,
-				$renderAsWikitext, $label );
+		if ( $imageObj !== false ) {
+			$squareAdjustmentAxis = null;
+			if ( $optimizeForSquare || $label != '' ) {
+				$fullHeight = $imageObj->getHeight();
+				$fullWidth = $imageObj->getWidth();
+				$ratio = $fullWidth / $fullHeight;  // get ratio of width to height
+				if ( $ratio > 1 ) {
+					$squareAdjustmentAxis = 'x';
+				} elseif ( $ratio < 1 ) {  // If image is a perfect square (ratio == 1) nothing needs to be done
+					$squareAdjustmentAxis = 'y';
+				}
+			}
+			$imageCode = self::makeImageFromFile( $imageObj, $width, $link, $renderAsWikitext, $label, $squareAdjustmentAxis );
 		} elseif ( in_array( $image, $cannedIcons ) ) {
-			$imageCode = self::makeImageFromIcon( $image, $classes, $width, $colour,
-				$link, $renderAsWikitext, $label );
+			$imageCode = self::makeImageFromIcon( $image, $width, $colour, $link, $renderAsWikitext, $label );
 		}
 
 		// Finishing up
@@ -76,26 +91,30 @@ class CollaborationKitImage {
 	}
 
 	/**
-	 * @param $image string
-	 * @param $classes
-	 * @param $width
-	 * @param $link
-	 * @param $renderAsWikitext
-	 * @param $label
+	 * @param File $imageObj
+	 * @param int $width
+	 * @param string $link
+	 * @param bool $renderAsWikitext
+	 * @param string $label
+	 * @param string $squareAdjustmentAxis x or y
 	 * @return string
 	 */
-	protected static function makeImageFromFile( $image, $classes, $width, $link,
-		$renderAsWikitext, $label ) {
+	protected static function makeImageFromFile( $imageObj, $width, $link, $renderAsWikitext, $label, $squareAdjustmentAxis ) {
 		// This assumes that colours cannot be assigned to images.
 		// This is currently true, but who knows what the future might hold!
 
 		global $wgParser;
 
-		$imageObj = wfFindFile( $image );
 		$imageTitle = $imageObj->getTitle();
 		$imageFullName = $imageTitle->getFullText();
 
-		$wikitext = "[[{$imageFullName}|{$width}px";
+		if ( $squareAdjustmentAxis == 'x' ) {
+			$widthText = $width;
+		} else {
+			$widthText = 'x' . $width;  // i.e. "x64px"
+		}
+
+		$wikitext = "[[{$imageFullName}|{$widthText}px";
 
 		if ( $link === false || $label != '' ) {
 			$wikitext .= '|link=]]';
@@ -106,16 +125,37 @@ class CollaborationKitImage {
 		}
 
 		if ( $renderAsWikitext ) {
+			if ( $squareAdjustmentAxis !== null ) {
+				// We need another <div> wrapper to add the margin offsets
+				// The main one is below
+
+				$fullHeight = $imageObj->getHeight();
+				$fullWidth = $imageObj->getWidth();
+
+				if ( $squareAdjustmentAxis == 'y' ) {
+					$adjustedWidth = ( $fullWidth * $width ) / $fullHeight;
+					$offset = ceil( -1 * ( ( $adjustedWidth ) - $width ) / 2 );
+					$squareWrapperCss = "margin-left:{$offset}px";
+				} elseif ( $squareAdjustmentAxis == 'x' ) {
+					$adjustedHeight = ( $fullHeight * $width ) / $fullWidth;
+					$offset = ceil( -1 * ( ( $adjustedHeight ) - $width ) / 2 );
+					$squareWrapperCss = "margin-top:{$offset}px";
+				}
+
+				$wikitext = Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-file-image-squareoptimized', 'style' => $squareWrapperCss ],
+					$wikitext
+				);
+			}
 			return $wikitext;
 		} else {
 			$imageHtml = $wgParser->parse( $wikitext, $imageTitle, new ParserOptions() )->getText();
 
 			if ( $label != '' ) {
-				$imageWrapperCss = "width:{$width}px; max-height:{$width}px; overflow:hidden;";
-
 				$imageHtml = Html::rawElement(
 					'div',
-					[ 'class' => 'mw-ck-file-image', 'style' => $imageWrapperCss ],
+					[ 'class' => 'mw-ck-file-image' ],
 					$imageHtml
 				);
 				if ( $link !== false ) {
@@ -129,16 +169,14 @@ class CollaborationKitImage {
 
 	/**
 	 * @param string $image
-	 * @param $classes
-	 * @param $width
-	 * @param $colour
-	 * @param $link
-	 * @param $renderAsWikitext
-	 * @param $label
+	 * @param int $width
+	 * @param string $colour
+	 * @param string $link
+	 * @param bool $renderAsWikitext
+	 * @param string $label
 	 * @return string
 	 */
-	protected static function makeImageFromIcon( $image, $classes, $width, $colour, $link,
-		$renderAsWikitext, $label ) {
+	protected static function makeImageFromIcon( $image, $width, $colour, $link, $renderAsWikitext, $label ) {
 		// Rendering as wikitext with link is not an option here due to unfortunate behavior from Tidy.
 
 		$imageClasses = [ 'mw-ck-icon' ];
@@ -162,9 +200,9 @@ class CollaborationKitImage {
 	}
 
 	/**
-	 * @param $imageHtml
-	 * @param $link
-	 * @param $label
+	 * @param string $imageHtml
+	 * @param Title|string $link
+	 * @param string $label
 	 * @param null|File $imageObj
 	 * @return string
 	 */
