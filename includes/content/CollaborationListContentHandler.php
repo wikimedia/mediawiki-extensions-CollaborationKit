@@ -111,7 +111,7 @@ JSON;
 			'options' => [
 				'mode' => 'normal'
 			],
-			'description' => $initialDescription
+			'description' => "$initialDescription"  // Do not take out these quote marks
 		];
 
 		$newMemberListJson = FormatJson::encode( $newMemberList, "\t", FormatJson::ALL_OK );
