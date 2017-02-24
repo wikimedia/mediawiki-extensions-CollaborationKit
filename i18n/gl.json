@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Banjo"
+			"Banjo",
+			"Fitoschido"
 		]
 	},
 	"collaborationkit-createhubfeature-icon": "Icona",
@@ -18,5 +19,5 @@
 	"collaborationkit-yellow": "Amarelo",
 	"collaborationkit-gold": "Ouro",
 	"collaborationkit-black": "Negro",
-	"collaborationkit-createhub-title-placeholder": "Proxecto:..."
+	"collaborationkit-createhub-title-placeholder": "Proxecto novo"
 }
