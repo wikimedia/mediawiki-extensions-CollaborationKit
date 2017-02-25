@@ -88,7 +88,10 @@
 	};
 
 	$( function () {
-		if ( mw.config.get( 'wgCollaborationKitAssociatedMemberList' ) ) {
+		// Workflow assumes existence of username, so we filter against it
+		// However, since !curUserIsInList, the button will still render. It will just use no-JS
+		// behavior instead.
+		if ( mw.config.get( 'wgCollaborationKitAssociatedMemberList' ) && !mw.user.isAnon() ) {
 			memberListPage = mw.config.get( 'wgCollaborationKitAssociatedMemberList' );
 			curUserIsInList( memberListPage ); // removes Join button if user already is member
 			new mw.Api().get( {
@@ -108,7 +111,7 @@
 		}
 
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) &&
-			!curUserIsInList()
+			!curUserIsInList() && !mw.user.isAnon()  // Workflow assumes existence of username
 		) {
 			$list = $( '.mw-ck-list' );
 			$list.before(
