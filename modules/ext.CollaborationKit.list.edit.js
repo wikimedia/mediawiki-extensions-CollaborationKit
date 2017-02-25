@@ -29,6 +29,11 @@
 			title = $item.data( 'collabkit-item-title' ),
 			colId = getColId( $item );
 
+		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
+			// Member lists' Column 1 is a pseudocolumn
+			colId = 0;
+		}
+
 		$spinner = $.createSpinner( {
 			size: 'small',
 			type: 'inline'
