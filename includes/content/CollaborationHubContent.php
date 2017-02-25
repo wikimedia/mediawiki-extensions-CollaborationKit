@@ -155,6 +155,24 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
+	 * Resolves the redirect of a Title if it is in fact a redirect.
+	 *
+	 * Consistent with general MediaWiki behavior, this function does
+	 * not resolve double redirects.
+	 *
+	 * @param Title $title Title which may or may not be a redirect
+	 * @return Title
+	 */
+	public function redirectProof( Title $title ) {
+		if ( $title->isRedirect() ) {
+			$articleID = $title->getArticleID();
+			$wikipage = WikiPage::newFromID( $articleID );
+			return $wikipage->getRedirectTarget();
+		}
+		return $title;
+	}
+
+	/**
 	 * @return string
 	 */
 	public function getIntroduction() {
@@ -351,7 +369,7 @@ class CollaborationHubContent extends JsonContent {
 		}
 
 		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
-		$membersTitle = Title::newFromText( $membersPageName );
+		$membersTitle = $this->redirectProof( Title::newFromText( $membersPageName ) );
 		if ( ( $membersTitle->exists() && $membersTitle->getContentModel() == 'CollaborationListContent' ) || $membersContent !== null ) {
 			$membersPageID = $membersTitle->getArticleID();
 			$output->addJsConfigVars( 'wgCollaborationKitAssociatedMemberList', $membersPageID );
@@ -425,7 +443,7 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	protected function getParsedAnnouncements( Title $title, ParserOptions $options, $announcementsText = null ) {
 		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->text();
-		$announcementsTitle = Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName );
+		$announcementsTitle = $this->redirectProof( Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName ) );
 
 		if ( $announcementsTitle->exists() || $announcementsText !== null ) {
 			if ( $announcementsText === null ) {
@@ -515,7 +533,7 @@ class CollaborationHubContent extends JsonContent {
 			if ( !isset( $item['title'] ) || $item['title'] == '' ) {
 				continue;
 			}
-			$spTitle = Title::newFromText( $item['title'] );
+			$spTitle = $this->redirectProof( Title::newFromText( $item['title'] ) );
 			$spRev = Revision::newFromTitle( $spTitle );
 
 			// open element and do header
@@ -607,7 +625,7 @@ class CollaborationHubContent extends JsonContent {
 		static $tocLinks = []; // All used ids for the sections for the toc
 		$linkRenderer = $wgParser->getLinkRenderer();
 
-		$spTitle = Title::newFromText( $contentItem['title'] );
+		$spTitle = $this->redirectProof( Title::newFromText( $contentItem['title'] ) );
 		$spRev = Revision::newFromTitle( $spTitle );
 
 		// Get display name
