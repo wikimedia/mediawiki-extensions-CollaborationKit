@@ -129,9 +129,37 @@ JSON;
 		return false;
 	}
 */
+
+	/**
+	 * @return bool
+	 */
 	public function supportsDirectApiEditing() {
 		return true;
 	}
+
+	/**
+	 * @return bool
+	 */
+	public function supportsRedirects() {
+		return true;
+	}
+
+	/**
+	 * Turns CollaborationListContent page into redirect
+	 *
+	 * Note that wikitext redirects are created, as generally, this content model
+	 * is used in namespaces that support wikitext, and wikitext redirects are
+	 * expected.
+	 *
+	 * @param Title $destination The page to redirect to
+	 * @param string $text Text to include in the redirect.
+	 * @return Content
+	 */
+	public function makeRedirectContent( Title $destination, $text = '' ) {
+		$handler = new WikitextContentHandler();
+		return $handler->makeRedirectContent( $destination, $text );
+	}
+
 	/**
 	 * Posts the newly created "members" list on-wiki.
 	 *

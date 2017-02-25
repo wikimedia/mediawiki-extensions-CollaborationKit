@@ -352,7 +352,7 @@ class CollaborationHubContent extends JsonContent {
 
 		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
 		$membersTitle = Title::newFromText( $membersPageName );
-		if ( $membersTitle->exists() || $membersContent !== null ) {
+		if ( ( $membersTitle->exists() && $membersTitle->getContentModel() == 'CollaborationListContent' ) || $membersContent !== null ) {
 			$membersPageID = $membersTitle->getArticleID();
 			$output->addJsConfigVars( 'wgCollaborationKitAssociatedMemberList', $membersPageID );
 
