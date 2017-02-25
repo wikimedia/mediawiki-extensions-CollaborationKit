@@ -105,6 +105,29 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function supportsRedirects() {
+		return true;
+	}
+
+	/**
+	 * Turns CollaborationHubContent page into redirect
+	 *
+	 * Note that wikitext redirects are created, as generally, this content model
+	 * is used in namespaces that support wikitext, and wikitext redirects are
+	 * expected.
+	 *
+	 * @param Title $destination The page to redirect to
+	 * @param string $text Text to include in the redirect.
+	 * @return Content
+	 */
+	public function makeRedirectContent( Title $destination, $text = '' ) {
+		$handler = new WikitextContentHandler();
+		return $handler->makeRedirectContent( $destination, $text );
+	}
+
+	/**
 	 * Edit a Collaboration Hub via the edit API
 	 * @param Title $title
 	 * @param string $displayName
