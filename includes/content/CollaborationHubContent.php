@@ -594,7 +594,7 @@ class CollaborationHubContent extends JsonContent {
 					$text = $contentOutput->getRawText();
 				}
 
-				$html .= $text;
+				$html .= Html::rawElement( 'div', [ 'class' => 'mw-ck-hub-section-main' ], $text );
 
 				// register as template for stuff
 				$output->addTemplate( $spTitle, $spTitle->getArticleID(), $spRev->getId() );
