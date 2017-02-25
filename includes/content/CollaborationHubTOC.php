@@ -56,8 +56,8 @@ class CollaborationHubTOC {
 				continue;
 			}
 			$title = Title::newFromText( $item['title'] );
-			if ( isset( $item['display_title'] ) ) {
-				$displayTitle = $item['display_title'];
+			if ( isset( $item['displayTitle'] ) ) {
+				$displayTitle = $item['displayTitle'];
 			} else {
 				$displayTitle = $title->getSubpageText();
 			}
