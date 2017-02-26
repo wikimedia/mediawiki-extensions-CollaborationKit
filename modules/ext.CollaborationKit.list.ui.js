@@ -1,5 +1,7 @@
 ( function ( $, mw, OO ) {
-	var LE = require( 'ext.CollaborationKit.list.edit' );
+	var addItem, modifyItem, modifyExistingItem, LE;
+
+	LE = require( 'ext.CollaborationKit.list.edit' );
 
 	/**
 	 * Adds a new item to a list
@@ -16,8 +18,8 @@
 	 * @param {Object} itemToEdit The name of the title to modify, or false to add new.
 	 */
 	modifyItem = function ( itemToEdit ) {
-		var dialog,
-			windowManager = new OO.ui.WindowManager();
+		var dialog, windowManager;
+		windowManager = new OO.ui.WindowManager();
 		$( 'body' ).append( windowManager.$element );
 		itemToEdit.size = 'medium';
 		dialog = new NewItemDialog( itemToEdit );
@@ -76,6 +78,7 @@
 		}
 		NewItemDialog.parent.call( this, config );
 	}
+
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
 	NewItemDialog.static.title = mw.msg( 'collaborationkit-list-newitem-title' );
 	NewItemDialog.static.name = 'collabkit-newitemdialog';
@@ -93,7 +96,7 @@
 	 * @param {Object} itemInfo info from json
 	 */
 	NewItemDialog.prototype.initialize = function ( itemInfo ) {
-		var titleWidget, fileToUse, description, itemTitleObj;
+		var description, itemTitleObj;
 
 		NewItemDialog.parent.prototype.initialize.apply( this, arguments );
 		this.panel1 = new OO.ui.PanelLayout( { padded: true, expanded: false } );
@@ -214,7 +217,7 @@
 	};
 
 	$( function () {
-		var $list, $column, buttonMsg, memberListPage;
+		var $list, column, buttonMsg;
 
 		if ( !mw.config.get( 'wgEnableCollaborationKitListEdit' ) ) {
 			// This page is not a list, or user does not have edit rights.
@@ -223,21 +226,21 @@
 
 		$list = $( '.mw-ck-list' );
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
-			$column = $( '.mw-ck-list-column[data-collabkit-column-id=0] .mw-ck-list-item:last-child' );
+			column = $( '.mw-ck-list-column[data-collabkit-column-id=0] .mw-ck-list-item:last-child' );
 		} else {
-			$column = $( '.mw-ck-list-item:last-child' );
+			column = $( '.mw-ck-list-item:last-child' );
 		}
 		$list.find( '.mw-ck-list-item' ).each( function () {
 				var deleteButton,
 					moveButton,
 					editButton,
-					$delWrapper,
-					$moveWrapper,
-					$editWrapper,
+					delWrapper,
+					moveWrapper,
+					editWrapper,
 					colId,
-					$item = $( this );
+					item = $( this );
 
-				colId = LE.getColId( $item );
+				colId = LE.getColId( item );
 				deleteButton = new OO.ui.ButtonWidget( {
 					framed: false,
 					icon: 'remove',
@@ -258,13 +261,13 @@
 					label: 'edit',
 					framed: false
 				} ).on( 'click', function () {
-					modifyExistingItem( $item.data( 'collabkit-item-title' ), colId );
+					modifyExistingItem( item.data( 'collabkit-item-title' ), colId );
 				} );
 
 				// FIXME, the <a> might make an extra target when tabbing
 				// through the document (Maybe also messing up screen readers).
 				// not sure. Its used so that jquery.confirmable makes a link.
-				$delWrapper = $( '<a></a>' )
+				delWrapper = $( '<a></a>' )
 					.attr( 'href', '#' )
 					.click( function ( e ) { e.preventDefault(); } )
 					.addClass( 'mw-ck-list-deletebutton' )
@@ -272,26 +275,26 @@
 					.append( deleteButton.$element )
 					.confirmable( {
 						handler: function () {
-							LE.deleteItem( $item );
+							LE.deleteItem( item );
 						}
 					} );
 
 				if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
-					$moveWrapper = $( '<div></div>' )
+					moveWrapper = $( '<div></div>' )
 						.addClass( 'mw-ck-list-movebutton' )
 						.addClass( 'mw-ck-list-button' )
 						.append( moveButton.$element );
 				}
 
-				$editWrapper = $( '<div></div>' )
+				editWrapper = $( '<div></div>' )
 					.addClass( 'mw-ck-list-editbutton' )
 					.addClass( 'mw-ck-list-button' )
 					.append( editButton.$element );
 
-				$item.find( '.mw-ck-list-title' )
-					.append( $delWrapper )
-					.append( $moveWrapper )
-					.append( $editWrapper );
+				item.find( '.mw-ck-list-title' )
+					.append( delWrapper )
+					.append( moveWrapper )
+					.append( editWrapper );
 			} );
 
 		if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
@@ -348,7 +351,7 @@
 		buttonMsg = mw.config.get( 'wgCollaborationKitIsMemberList' ) ?
 			'collaborationkit-list-add-user' :
 			'collaborationkit-list-add';
-		$column.after(
+		column.after(
 			$( '<div></div>' )
 				// FIXME There is probably a way to add the class without
 				// extra div.

@@ -24,7 +24,7 @@
 	 * to initialize widgets, and to set up event handlers.
 	 */
 	ProcessDialog.prototype.initialize = function () {
-		var iconList, radioChoices, className;
+		var iconList, radioChoices, divElm, i;
 
 		ProcessDialog.super.prototype.initialize.apply( this, arguments );
 
@@ -100,7 +100,8 @@
 	 * Create and append the window manager
 	 */
 	openItUp = function () {
-		var processDialog;
+		var processDialog, windowManager;
+
 		windowManager = new OO.ui.WindowManager();
 		$( 'body' ).append( windowManager.$element );
 
@@ -117,7 +118,7 @@
 	};
 
 	setupPage = function () {
-		var iconBrowserButton, windowManager;
+		var iconBrowserButton, mwCkIconInput;
 		iconBrowserButton = new OO.ui.ButtonWidget();
 		iconBrowserButton.setLabel( mw.msg( 'collaborationkit-icon-launchbutton' ) );
 		iconBrowserButton.on( 'click', openItUp );
@@ -127,12 +128,12 @@
 			.append( '<div class="iconPreview mw-ck-icon-circlestar"></div>' )
 			.append( iconBrowserButton.$element );
 
-		$( 'fieldset' )
-			.append( $( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' ) );
+		mwCkIconInput = $( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' );
+		$( 'fieldset' ).append( mwCkIconInput );
 
 		// Adding classes to trigger special styles
 		$( '.oo-ui-fieldsetLayout-group' ).addClass( 'mw-ck-iconbrowser-enabled' );
-		$( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' ).addClass( 'mw-ck-iconbrowser-enabled' );
+		mwCkIconInput.addClass( 'mw-ck-iconbrowser-enabled' );
 		$( '.mw-ck-icon-input .oo-ui-buttonElement' ).addClass( 'mw-ck-iconbrowser-enabled' );
 
 	};

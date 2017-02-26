@@ -1,5 +1,5 @@
-( function ( $, mw, OO ) {
-	var deleteItem, getCurrentJson, saveJson, addItem, reorderList, getListOfTitles, modifyItem, modifyExistingItem, addSelf, curUserIsInList, getCol;
+( function ( $, mw ) {
+	var deleteItem, getCurrentJson, saveJson, reorderList, getListOfTitles, getColId;
 
 	/**
 	 * Retrieves ID number of column
@@ -8,11 +8,11 @@
 	 * @return {int}
 	 */
 	getColId = function ( $item ) {
-		var $col, id;
+		var col, id;
 
-		$col = $item.closest( '.mw-ck-list-column' );
-		id = parseInt( $col.data( 'collabkit-column-id' ), 10 );
-		if ( $col.length === 0 || !isFinite( id ) ) {
+		col = $item.closest( '.mw-ck-list-column' );
+		id = parseInt( col.data( 'collabkit-column-id' ), 10 );
+		if ( col.length === 0 || !isFinite( id ) ) {
 			throw new Error( 'Cannot find column' );
 		}
 		return id;
@@ -25,7 +25,7 @@
 	 */
 	deleteItem = function ( $item ) {
 		var cur,
-			$spinner,
+			spinner,
 			title = $item.data( 'collabkit-item-title' ),
 			colId = getColId( $item );
 
@@ -34,13 +34,13 @@
 			colId = 0;
 		}
 
-		$spinner = $.createSpinner( {
+		spinner = $.createSpinner( {
 			size: 'small',
 			type: 'inline'
 		} );
 		$item.find( '.jquery-confirmable-wrapper' )
 			.empty()
-			.append( $spinner );
+			.append( spinner );
 
 		cur = getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var newItems = [];
@@ -110,7 +110,7 @@
 				j,
 				reorderedItem,
 				findItemInResArray,
-				resArray = [],
+				resArray,
 				isEditConflict = false;
 
 			reorderedItem = $item.data( 'collabkit-item-title' );
@@ -162,7 +162,7 @@
 					j,
 					resItems = res.content.columns[ colGuess ].items;
 
-				indexGuess = indexGuess % resItems.length;
+				indexGuess %= resItems.length;
 
 				if ( resItems[ indexGuess ].title === title ) {
 					return resItems[ indexGuess ];
@@ -297,4 +297,4 @@
 		saveJson: saveJson
 	};
 
-} )( jQuery, mediaWiki, OO );
+} )( jQuery, mediaWiki );

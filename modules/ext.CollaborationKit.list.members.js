@@ -1,6 +1,8 @@
 ( function ( $, mw, OO ) {
 
-	var LE = require( 'ext.CollaborationKit.list.edit' );
+	var addSelf, curUserIsInList, LE;
+
+	LE = require( 'ext.CollaborationKit.list.edit' );
 
 	/**
 	 * Find if the current user is already is in list.
@@ -9,7 +11,8 @@
 	 * @return {boolean}
 	 */
 	curUserIsInList = function ( destinationPage ) {
-		var titleObj, escapedText, currentUser, wrapper;
+		var titleObj, escapedText, query, currentUser, i;
+
 		currentUser = mw.config.get( 'wgUserName' );
 		if ( !currentUser ) {
 			return false;
@@ -30,7 +33,7 @@
 				rvprop: 'content'
 			} )
 				.done( function ( data ) {
-					newMemberList = data.query.pages[ destinationPage ].revisions[ 0 ][ '*' ];
+					var newMemberList = data.query.pages[ destinationPage ].revisions[ 0 ][ '*' ];
 					newMemberList = JSON.parse( newMemberList ).columns[ 0 ].items;
 					for ( i = 0; i < newMemberList.length; i++ ) {
 						if ( newMemberList[ i ].title == escapedText ) {
@@ -88,6 +91,7 @@
 	};
 
 	$( function () {
+		var memberListPage, list;
 		// Workflow assumes existence of username, so we filter against it
 		// However, since !curUserIsInList, the button will still render. It will just use no-JS
 		// behavior instead.
@@ -100,7 +104,7 @@
 				inprop: 'url',
 				pageids: memberListPage
 			} ).done( function ( data ) {
-				memberListUrl = data.query.pages[ memberListPage ].fullurl;
+				var memberListUrl = data.query.pages[ memberListPage ].fullurl;
 				$( '.mw-ck-members-join a' )
 					.attr( 'href', memberListUrl );
 
@@ -113,8 +117,8 @@
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) &&
 			!curUserIsInList() && !mw.user.isAnon()  // Workflow assumes existence of username
 		) {
-			$list = $( '.mw-ck-list' );
-			$list.before(
+			list = $( '.mw-ck-list' );
+			list.before(
 				$( '<div></div>' )
 					.addClass( 'mw-ck-list-addself' )
 					.append(

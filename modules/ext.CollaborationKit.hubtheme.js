@@ -1,5 +1,5 @@
 ( function ( $, mw, OO ) {
-	var getColourBlock, getThumbnail, ImageProcessDialog, ColourProcessDialog, openColourBrowser;
+	var getColourBlock, getThumbnail, ImageProcessDialog, ColourProcessDialog, openColourBrowser, openImageBrowser, setupPage;
 
 	/**
 	 * Get a colour block for inserting into page
@@ -21,16 +21,14 @@
 	 * @return {jQuery} promise
 	 */
 	getThumbnail = function ( filename ) {
-		return new mw.Api()
-		.get( {
+		return new mw.Api().get( {
 			action: 'query',
 			titles: filename,
 			prop: 'imageinfo',
 			iiprop: 'url',
 			formatversion: 2,
 			iiurlwidth: 150
-		}
-	);
+		} );
 	};
 
 	/**
@@ -56,7 +54,7 @@
 	 * to initialize widgets, and to set up event handlers.
 	 */
 	ColourProcessDialog.prototype.initialize = function () {
-		var colourList, radioChoices, className;
+		var colourList, radioChoices, i;
 
 		ColourProcessDialog.super.prototype.initialize.apply( this, arguments );
 
@@ -90,13 +88,13 @@
 	 *
 	 */
 	ColourProcessDialog.prototype.getActionProcess = function ( action ) {
-		var dialog, toAppend, openColourBrowser, windowManager, colourBrowserButton, oldColour;
+		var dialog, oldColour;
 
 		oldColour = $( 'div.mw-ck-colour-input select option:selected' ).val();
 		dialog = this;
 		if ( action ) {
 			return new OO.ui.Process( function () {
-				var toAppend, $newColour;
+				var toAppend;
 				toAppend = dialog.radioSelect.getSelectedItem().getData();
 
 				// Generate preview
@@ -136,13 +134,15 @@
 	 * Create and append the window manager.
 	 */
 	openColourBrowser = function () {
-		windowManager = new OO.ui.WindowManager();
-		$( 'body' ).append( windowManager.$element );
+		var processDialog, windowManager;
 
 		// Create a new dialog window.
 		processDialog = new ColourProcessDialog( {
 			size: 'medium'
 		} );
+
+		windowManager = new OO.ui.WindowManager();
+		$( 'body' ).append( windowManager.$element );
 
 		// Add windows to window manager using the addWindows() method.
 		windowManager.addWindows( [ processDialog ] );
@@ -174,9 +174,7 @@
 	 * to initialize widgets, and to set up event handlers.
 	 */
 	ImageProcessDialog.prototype.initialize = function () {
-		var defaultSearchTerm, nsPrefix;
-
-		nsPrefix = mw.config.get( 'wgFormattedNamespaces' )[ 6 ] + ':';
+		var defaultSearchTerm, wpTitle, wpDisplay, wpCollabHub;
 
 		ImageProcessDialog.super.prototype.initialize.apply( this, arguments );
 
@@ -188,14 +186,17 @@
 		if ( mw.config.get( 'wgTitle' ) !== undefined ) {
 			defaultSearchTerm = mw.config.get( 'wgTitle' );
 		}
-		if ( $( 'input[name=wptitle]' ).val() !== '' && $( 'input[name=wptitle]' ).val() !== undefined ) {
-			defaultSearchTerm = $( 'input[name=wptitle]' ).val();
+		wpTitle = $( 'input[name=wptitle]' ).val();
+		if ( wpTitle !== '' && wpTitle !== undefined ) {
+			defaultSearchTerm = wpTitle;
 		}
-		if ( $( 'input[name=wpdisplay_name]' ).val() !== '' && $( 'input[name=wpdisplay_name]' ).val() !== undefined ) {
-			defaultSearchTerm = $( 'input[name=wpdisplay_name]' ).val();
+		wpDisplay = $( 'input[name=wpdisplay_name]' ).val();
+		if ( wpDisplay !== '' && wpDisplay !== undefined ) {
+			defaultSearchTerm = wpDisplay;
 		}
-		if ( $( 'input[name=wpCollabHubDisplayName]' ).val() !== '' && $( 'input[name=wpCollabHubDisplayName]' ).val() !== undefined ) {
-			defaultSearchTerm = $( 'input[name=wpCollabHubDisplayName]' ).val();
+		wpCollabHub = $( 'input[name=wpCollabHubDisplayName]' ).val();
+		if ( wpCollabHub !== '' && wpCollabHub !== undefined ) {
+			defaultSearchTerm = wpCollabHub;
 		}
 
 		this.content = new mw.widgets.MediaSearchWidget();
@@ -208,12 +209,13 @@
 	 *
 	 */
 	ImageProcessDialog.prototype.getActionProcess = function ( action ) {
-		var dialog, openImageBrowser, windowManager, processDialog, fileTitle,
-			currentImageFilename, currentImage, hubimageBrowserButton;
+		var dialog, fileTitle;
 
 		dialog = this;
 		if ( action ) {
 			return new OO.ui.Process( function () {
+				var fileObj, fileUrl, fileHeight, fileTitleObj;
+
 				fileObj = dialog.content.getResults().getSelectedItem();
 				if ( fileObj === null ) {
 					return dialog.close();
@@ -244,13 +246,15 @@
 	 * Get dialog height.
 	 */
 	ImageProcessDialog.prototype.getBodyHeight = function () {
-			return 600;
-		};
+		return 600;
+	};
 
 	/**
 	 * Create and append the window manager.
 	 */
 	openImageBrowser = function () {
+		var windowManager, processDialog;
+
 		windowManager = new OO.ui.WindowManager();
 		$( 'body' ).append( windowManager.$element );
 
@@ -270,7 +274,7 @@
 	 * Initial setup function run when DOM loaded.
 	 */
 	setupPage = function () {
-		var curColour, colourBrowserButton, currentImage, currentImageFilename, $hubthemeWidget;
+		var curColour, colourBrowserButton, currentImageFilename, hubthemeWidget, hubimageBrowserButton, hubImageInput;
 
 		// Defining buttons
 		colourBrowserButton = new OO.ui.ButtonWidget( {
@@ -290,8 +294,9 @@
 		// Ascertaining default/pre-selected values
 		curColour = $( 'div.mw-ck-colour-input select option:selected' ).val();
 
-		if ( $( 'div.mw-ck-hub-image-input input' ).val() !== '' ) {
-			currentImageFilename = 'File:' + $( 'div.mw-ck-hub-image-input input' ).val();
+		hubImageInput = $( 'div.mw-ck-hub-image-input input' ).val();
+		if ( hubImageInput !== '' ) {
+			currentImageFilename = 'File:' + hubImageInput;
 			getThumbnail( currentImageFilename )
 				.done( function ( data ) {
 					$( 'div.hubimagePreview' )
@@ -308,7 +313,7 @@
 		$( '.mw-htmlform-ooui-header' ).append( '<div class="mw-ck-hub-topform"></div>' );
 		$( '.mw-collabkit-modifiededitform' ).prepend( '<div class="mw-ck-hub-topform"></div>' );
 
-		$hubthemeWidget = $( '<div class="mw-ck-hubtheme-widget"></div>' )
+		hubthemeWidget = $( '<div class="mw-ck-hubtheme-widget"></div>' )
 			.append( $( '<div class="oo-ui-fieldLayout-header"></div>' )
 				.append( new OO.ui.LabelWidget( {
 					label: mw.msg( 'collaborationkit-hubedit-hubtheme' )
@@ -333,7 +338,7 @@
 				)
 			);
 
-		$( '.mw-ck-hub-topform' ).append( $hubthemeWidget );
+		$( '.mw-ck-hub-topform' ).append( hubthemeWidget );
 		$( '.mw-ck-hub-topform' ).append( '<div class="mw-ck-hub-name"></div>' );
 		$( '.mw-htmlform-field-HTMLSelectField.mw-ck-namespace-input' )
 			.attr( 'class', 'mw-htmlform-field-HTMLSelectField mw-ck-namespace-input-js' )
