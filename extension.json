@@ -6,6 +6,12 @@
 	"descriptionmsg": "collaborationkit-desc",
 	"type": "other",
 	"license-name": "GPL-2.0+",
+	"requires": {
+		"MediaWiki": ">= 1.29",
+		"extensions": {
+			"EventLogging": "*"
+		}
+	},
 	"MessagesDirs": {
 		"CollaborationKit": [
 			"i18n"
