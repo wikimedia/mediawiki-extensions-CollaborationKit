@@ -2,6 +2,9 @@
 
 class CollaborationHubContentHandlerTest extends MediaWikiTestCase {
 
+	/**
+	 * @var CollaborationHubContentHandler
+	 */
 	private $handler;
 
 	public function setUp() {

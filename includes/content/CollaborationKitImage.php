@@ -76,6 +76,12 @@ class CollaborationKitImage {
 	}
 
 	/**
+	 * @param $image string
+	 * @param $classes
+	 * @param $width
+	 * @param $link
+	 * @param $renderAsWikitext
+	 * @param $label
 	 * @return string
 	 */
 	protected static function makeImageFromFile( $image, $classes, $width, $link,
@@ -122,6 +128,13 @@ class CollaborationKitImage {
 	}
 
 	/**
+	 * @param string $image
+	 * @param $classes
+	 * @param $width
+	 * @param $colour
+	 * @param $link
+	 * @param $renderAsWikitext
+	 * @param $label
 	 * @return string
 	 */
 	protected static function makeImageFromIcon( $image, $classes, $width, $colour, $link,
@@ -149,6 +162,10 @@ class CollaborationKitImage {
 	}
 
 	/**
+	 * @param $imageHtml
+	 * @param $link
+	 * @param $label
+	 * @param null|File $imageObj
 	 * @return string
 	 */
 	protected static function linkFactory( $imageHtml, $link, $label, $imageObj = null ) {
@@ -158,7 +175,7 @@ class CollaborationKitImage {
 		} elseif ( is_string( $link ) ) {
 			$linkHref = Title::newFromText( $link )->getLinkURL();
 		} elseif ( $imageObj !== null ) {
-			$linkHref = $imageObj->getTitle()->getLinkUrl();
+			$linkHref = $imageObj->getTitle()->getLinkURL();
 		} else {
 			$linkHref = '#';
 		}

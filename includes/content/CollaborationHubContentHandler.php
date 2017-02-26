@@ -65,7 +65,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	/**
 	 * Serializes the CollaborationHubContent object.
 	 *
-	 * @param Content $content
+	 * @param Content|CollaborationHubContent $content
 	 * @param string|null $format
 	 * @return mixed
 	 */

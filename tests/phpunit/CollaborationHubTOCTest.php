@@ -2,6 +2,9 @@
 
 class CollaborationHubTOCTest extends MediaWikiTestCase {
 
+	/**
+	 * @var CollaborationHubTOC
+	 */
 	private $content;
 
 	public function setUp() {

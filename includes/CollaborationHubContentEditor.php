@@ -141,12 +141,14 @@ class CollaborationHubContentEditor extends EditPage {
 	 */
 	protected function showContentForm() {
 		if ( $this->contentFormat !== CollaborationHubContentHandler::FORMAT_WIKI ) {
-			return parent::showContentForm();
+			parent::showContentForm();
+			return;
 		}
 
 		$parts = explode( CollaborationHubContent::HUMAN_DESC_SPLIT, $this->textbox1, 6 );
 		if ( count( $parts ) !== 6 ) {
-			return parent::showContentForm();
+			parent::showContentForm();
+			return;
 		}
 
 		$out = RequestContext::getMain()->getOutput();

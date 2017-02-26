@@ -9,6 +9,7 @@
  */
 class CollaborationListContentHandler extends TextContentHandler {
 	const FORMAT_WIKI = 'text/x-collabkit';
+
 	public function __construct(
 		$modelId = 'CollaborationListContent',
 		$formats = [ CONTENT_FORMAT_JSON, CONTENT_FORMAT_TEXT, self::FORMAT_WIKI ]
@@ -20,6 +21,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 		// possible.
 		parent::__construct( $modelId, $formats );
 	}
+
 	/**
 	 * Can this content handler be used on a given page?
 	 *
@@ -33,6 +35,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 		}
 		return false;
 	}
+
 	/**
 	 * Takes JSON string and creates a new CollaborationListContent object.
 	 *
@@ -52,10 +55,11 @@ class CollaborationListContentHandler extends TextContentHandler {
 		$content = new CollaborationListContent( $text );
 		return $content;
 	}
+
 	/**
-	 * Prepares a serialization of the content object.
+	 * Serializes the CollaborationListContent object.
 	 *
-	 * @param Content $content
+	 * @param Content|CollaborationListContent $content
 	 * @param string $format
 	 * @return string
 	 */
@@ -65,6 +69,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 		}
 		return parent::serializeContent( $content, $format );
 	}
+
 	/**
 	 * @return CollaborationListContent
 	 */
@@ -81,6 +86,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 JSON;
 		return new CollaborationListContent( $empty );
 	}
+
 	/**
 	 * Spawns a new "members" list, using the project creator as initial member.
 	 *
@@ -105,18 +111,21 @@ JSON;
 		$newMemberListJson = FormatJson::encode( $newMemberList, "\t", FormatJson::ALL_OK );
 		return new CollaborationListContent( $newMemberListJson );
 	}
+
 	/**
 	 * @return string
 	 */
 	protected function getContentClass() {
 		return 'CollaborationListContent';
 	}
+
 	/**
 	 * @return string
 	 */
 	/*protected function getDiffEngineClass() {
 		return 'CollaborationListDiffEngine';
 	}*/
+
 	/**
 	 * FIXME is this really true?
 	 * @return bool
@@ -124,6 +133,7 @@ JSON;
 	public function isParserCacheSupported() {
 		return true;
 	}
+
 /**** This disables Special:ChangeContentModel
 	public function supportsDirectEditing() {
 		return false;

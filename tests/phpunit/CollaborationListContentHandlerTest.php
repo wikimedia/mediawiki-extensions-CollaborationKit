@@ -2,6 +2,9 @@
 
 class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 
+	/**
+	 * @var CollaborationListContentHandler
+	 */
 	private $handler;
 
 	public function setUp() {
@@ -19,7 +22,7 @@ class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 	public function testMakeMemberList() {
 		$user = "User:Willy on Wheels";
 		$description = "lol";
-		$members = $this->handler->makeMemberList( $user, $description );
+		$members = CollaborationListContentHandler::makeMemberList( $user, $description );
 		static::assertTrue( $members->isValid() );
 	}
 

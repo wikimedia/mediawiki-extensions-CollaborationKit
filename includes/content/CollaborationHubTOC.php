@@ -87,6 +87,7 @@ class CollaborationHubTOC {
 	public function renderSubpageToC( Title $title ) {
 		// We assume $title is sane. This is supposed to be called with a $title gotten from CollaborationHubContent::getParentHub, which already checks if it is.
 		$rev = Revision::newFromTitle( $title );
+		/** @var CollaborationHubContent $content */
 		$content = $rev->getContent();
 		$colour = $content->getThemeColour();
 		$image = $content->getImage();

@@ -103,14 +103,19 @@ class CollaborationKitHooks {
 		$title = $out->getTitle();
 		$parentHub = CollaborationHubContent::getParentHub( $title );
 
-		if ( $parentHub
-			&& $out->getProperty( 'CollaborationHubSubpage' ) === 'in-progress'
-			&& count( Revision::newFromTitle( $parentHub )->getContent()->getContent() ) > 0
+		if ( !$parentHub
+			|| $out->getProperty( 'CollaborationHubSubpage' ) !== 'in-progress'
 		) {
+			return true;
+		}
+
+		/** @var CollaborationHubContent $revisionContent */
+		$revisionContent = Revision::newFromTitle( $parentHub )->getContent();
+		if ( count( $revisionContent->getContent() ) > 0 ) {
 			$toc = new CollaborationHubTOC();
 			$out->prependHTML( $toc->renderSubpageToC( $parentHub ) );
 
-			$colour = Revision::newFromTitle( $parentHub )->getContent()->getThemeColour();
+			$colour = $revisionContent->getThemeColour();
 			$text = Html::rawElement( 'div', [ 'class' => "mw-cklist-square-$colour" ], $text );
 
 			$out->addModuleStyles( [

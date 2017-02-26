@@ -1,5 +1,4 @@
 ( function ( $, mw, OO ) {
-
 	var getColourBlock, getThumbnail, ImageProcessDialog, ColourProcessDialog, openColourBrowser;
 
 	/**

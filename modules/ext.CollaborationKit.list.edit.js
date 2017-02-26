@@ -99,11 +99,11 @@
 	 * @param {Array} originalOrder Original order of all items as 2-D list
 	 */
 	reorderList = function ( $item, newOrder, originalOrder ) {
-		var $spinner = $.createSpinner( {
+		var spinner = $.createSpinner( {
 			size: 'small',
 			type: 'inline'
 		} );
-		$item.find( '.mw-ck-list-title' ).append( $spinner );
+		$item.find( '.mw-ck-list-title' ).append( spinner );
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var i,
@@ -206,7 +206,7 @@
 
 			res.summary = mw.msg( 'collaborationkit-list-move-summary', reorderedItem );
 			saveJson( res, function () {
-				$spinner.remove();
+				spinner.remove();
 				mw.notify(
 					mw.msg( 'collaborationkit-list-move-popup', reorderedItem ),
 					{

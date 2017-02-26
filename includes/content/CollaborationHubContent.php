@@ -77,6 +77,9 @@ class CollaborationHubContent extends JsonContent {
 		];
 	}
 
+	/**
+	 * @param $text string
+	 */
 	function __construct( $text ) {
 		parent::__construct( $text, 'CollaborationHubContent' );
 	}
@@ -544,6 +547,7 @@ class CollaborationHubContent extends JsonContent {
 
 			if ( isset( $spRev ) ) {
 				// DO CONTENT FROM PAGE
+				/** @var CollaborationHubContent $spContent */
 				$spContent = $spRev->getContent();
 				$spContentModel = $spRev->getContentModel();
 
@@ -557,6 +561,7 @@ class CollaborationHubContent extends JsonContent {
 					$text .= $spContent->getParsedIntroduction( $spTitle, $options );
 				} elseif ( $spContentModel == 'CollaborationListContent' ) {
 					// convert to wikitext with maxItems limit in place
+					/** @var CollaborationListContent $spContent */
 					$wikitext = $spContent->convertToWikitext(
 						$lang,
 						[
@@ -697,18 +702,16 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $link Target URL
 	 * @param string $message Message to display
 	 * @param string $icon Icon to display alongside the message, based on OOjs UI definitions
-	 * @return string HTML
+	 * @return OOUI\ButtonWidget
 	 */
 	protected function makeEditSectionLink( $link, $message, $icon ) {
-		$html = new OOUI\ButtonWidget( [
+		return new OOUI\ButtonWidget( [
 			'classes' => [ 'mw-ck-hub-section-button' ],
 			'label' => $message,
 			'href' => $link,
 			'framed' => false,
 			'icon' => $icon
 			] );
-
-		return $html;
 	}
 
 	/**
@@ -942,7 +945,7 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Hook to use custom edit page for lists
 	 *
-	 * @param Article $page
+	 * @param WikiPage|Article|ImagePage|CategoryPage|Page $page
 	 * @param User $user
 	 * @return bool
 	 */

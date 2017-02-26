@@ -730,6 +730,7 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * @param $text string
 	 * @return string
 	 */
 	private static function unescapeForHumanEditable( $text ) {
@@ -1135,7 +1136,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Hook to use custom edit page for lists
 	 *
-	 * @param Page $page
+	 * @param WikiPage|Article|ImagePage|CategoryPage|Page $page
 	 * @param User $user
 	 * @return bool
 	 */
