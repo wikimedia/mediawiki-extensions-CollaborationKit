@@ -250,7 +250,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		}
 
 		// Once all the pages we want to create are created, we send them to the first one
-		$this->getOutput()->redirect( $title->getFullUrl() );
+		$this->getOutput()->redirect( $title->getFullURL() );
 		return Status::newGood();
 	}
 
@@ -260,8 +260,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 	/**
 	 * Set the form format to ooui for consistency with the rest of the ck stuff
-	 * @param $form HTMLForm
-	 *
 	 */
 	protected function getDisplayFormat() {
 		return 'ooui';

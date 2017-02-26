@@ -41,6 +41,9 @@ class CollaborationHubContent extends JsonContent {
 	/** @var bool Whether contents have been populated */
 	protected $decoded = false;
 
+	/** @var string Error message text */
+	protected $errortext;
+
 	/**
 	 * 23 preset colours; actual colour values are set in the extension.json and less modules
 	 *
@@ -98,7 +101,6 @@ class CollaborationHubContent extends JsonContent {
 			} catch ( JsonSchemaException $e ) {
 				return false;
 			}
-			return false;
 		}
 		return false;
 	}
@@ -355,6 +357,7 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param Title $title
 	 * @param ParserOptions $options
+	 * @param ParserOutput $output
 	 * @param CollaborationListContent|null $membersContent Force-fed member-list Content for testing purposes.
 	 * @return string
 	 */
@@ -516,7 +519,7 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param Title $title
 	 * @param ParserOptions $options
-	 * @param ParserOutout &$output
+	 * @param ParserOutput &$output
 	 * @return string
 	 */
 	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput $output ) {
@@ -589,7 +592,7 @@ class CollaborationHubContent extends JsonContent {
 				$html .= $text;
 
 				// register as template for stuff
-				$output->addTemplate( $spTitle, $spTitle->getArticleId(), $spRev->getId() );
+				$output->addTemplate( $spTitle, $spTitle->getArticleID(), $spRev->getId() );
 			} else {
 				// DO CONTENT FOR NOT YET MADE PAGE
 				$html .= Html::rawElement(
@@ -604,7 +607,7 @@ class CollaborationHubContent extends JsonContent {
 				] );
 
 				// register as template for stuff
-				$output->addTemplate( $spTitle, $spTitle->getArticleId(), null );
+				$output->addTemplate( $spTitle, $spTitle->getArticleID(), null );
 			}
 
 			$html .= Html::closeElement( 'div' );
@@ -621,9 +624,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string html (NOTE THIS IS AN OPEN DIV)
 	 */
 	protected function makeHeader( Title $title, array $contentItem ) {
-		global $wgParser;
 		static $tocLinks = []; // All used ids for the sections for the toc
-		$linkRenderer = $wgParser->getLinkRenderer();
 
 		$spTitle = $this->redirectProof( Title::newFromText( $contentItem['title'] ) );
 		$spRev = Revision::newFromTitle( $spTitle );
@@ -840,6 +841,7 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param string $text
 	 * @return string Escaped text
+	 * @throws MWContentSerializationException
 	 * @todo Unclear if this is best approach. Alternative might be
 	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
 	 */
@@ -907,6 +909,7 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param string $line
 	 * @return array
+	 * @throws MWContentSerializationException
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
 		$parts = explode( '|', $line );
@@ -939,8 +942,9 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Hook to use custom edit page for lists
 	 *
-	 * @param Page $page
+	 * @param Article $page
 	 * @param User $user
+	 * @return bool
 	 */
 	public static function onCustomEditor( Page $page, User $user ) {
 		if ( $page->getContentModel() === __CLASS__ ) {

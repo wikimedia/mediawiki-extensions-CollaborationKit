@@ -28,12 +28,14 @@ class CollaborationListContentEditor extends EditPage {
 	 */
 	protected function showContentForm() {
 		if ( $this->contentFormat !== CollaborationListContentHandler::FORMAT_WIKI ) {
-			return parent::showContentForm();
+			parent::showContentForm();
+			return;
 		}
 
 		$parts = explode( CollaborationListContent::HUMAN_DESC_SPLIT, $this->textbox1, 3 );
 		if ( count( $parts ) !== 3 ) {
-			return parent::showContentForm();
+			parent::showContentForm();
+			return;
 		}
 		$out = RequestContext::getMain()->getOutput();
 		$out->addHTML( Html::hidden( 'wpCollaborationKitOptions', $parts[1] ) );

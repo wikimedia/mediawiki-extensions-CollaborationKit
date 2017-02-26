@@ -17,6 +17,8 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 
 	/**
 	 * Helper function to shorten lines
+	 * @param $text string
+	 * @return CollaborationHubContent
 	 */
 	private function m( $text ) {
 		return new CollaborationHubContent( $text );
@@ -39,7 +41,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testIsValid( CollaborationHubContent $content, $id ) {
-		$this->assertTrue( $content->isValid(), $id );
+		static::assertTrue( $content->isValid(), $id );
 	}
 
 	public function provideInvalid() {
@@ -60,7 +62,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 */
 	public function testIsNotValid( $contentText ) {
 		$content = new CollaborationHubContent( $contentText );
-		$this->assertFalse( $content->isValid() );
+		static::assertFalse( $content->isValid() );
 	}
 
 	/**
@@ -73,7 +75,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'',
 		];
 		$actual = $content->getIntroduction();
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -86,7 +88,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'',
 		];
 		$actual = $content->getFooter();
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -99,7 +101,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			[],
 		];
 		$actual = $content->getContent();
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -113,7 +115,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedIntroduction( Title::newMainPage(), new ParserOptions );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -127,7 +129,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedFooter( Title::newMainPage(), new ParserOptions );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -142,7 +144,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedContent( Title::newMainPage(), new ParserOptions, new ParserOutput );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -156,7 +158,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getHubClasses();
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -169,7 +171,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getMembersBlock( Title::newMainPage(), new ParserOptions, new ParserOutput, $testMemberList );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 
 	}
 
@@ -183,7 +185,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedAnnouncements( Title::newMainPage(), new ParserOptions, $testAnnouncement );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 
 	}
 
@@ -196,7 +198,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getSecondFooter( Title::newMainPage() );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 
 	}
 
@@ -212,7 +214,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->makeHeader( Title::newMainPage(), $testContentArray );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 
 	}
 
@@ -228,7 +230,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->makeHeader( Title::newMainPage(), $testContentArray );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -243,7 +245,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToHumanEditable();
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -274,7 +276,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = FormatJson::encode( $wc->convertFromHumanEditable( $testCases[ $id ] ), true, FormatJson::ALL_OK );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 }

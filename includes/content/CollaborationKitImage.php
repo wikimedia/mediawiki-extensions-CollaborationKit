@@ -59,6 +59,7 @@ class CollaborationKitImage {
 			}
 		}
 
+		$imageCode = '';
 		// Are we loading an image file or constructing a div based on an icon class?
 		if ( wfFindFile( $image ) ) {
 			$imageCode = self::makeImageFromFile( $image, $classes, $width, $link,
@@ -153,9 +154,9 @@ class CollaborationKitImage {
 	protected static function linkFactory( $imageHtml, $link, $label, $imageObj = null ) {
 		// Important assumption: image is being rendered as HTML and not wikitext.
 		if ( $link instanceof Title ) {
-			$linkHref = $link->getLinkUrl();
+			$linkHref = $link->getLinkURL();
 		} elseif ( is_string( $link ) ) {
-			$linkHref = Title::newFromText( $link )->getLinkUrl();
+			$linkHref = Title::newFromText( $link )->getLinkURL();
 		} elseif ( $imageObj !== null ) {
 			$linkHref = $imageObj->getTitle()->getLinkUrl();
 		} else {

@@ -131,7 +131,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * Edit a Collaboration Hub via the edit API
 	 * @param Title $title
 	 * @param string $displayName
-	 * @param string $icon
+	 * @param string $image
 	 * @param string $colour
 	 * @param string $introduction
 	 * @param string $footer

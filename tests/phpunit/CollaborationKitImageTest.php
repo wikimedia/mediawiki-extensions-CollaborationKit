@@ -35,7 +35,7 @@ class CollaborationKitImageTest extends MediaWikiTestCase {
 	 * @dataProvider provideTestConfigs
 	 */
 	public function testMakeImage( $testImage, $testConfig, $id ) {
-		$this->markTestIncomplete(); // pending fix to issues regarding images and tests
+		static::markTestIncomplete(); // pending fix to issues regarding images and tests
 
 		$expected = [
 			'<div class="test1 test2" style=""><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div></div>',
@@ -57,7 +57,7 @@ class CollaborationKitImageTest extends MediaWikiTestCase {
 		];
 
 		$actual = CollaborationKitImage::makeImage( $testImage, 76, $testConfig );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 }

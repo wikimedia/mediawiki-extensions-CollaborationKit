@@ -40,7 +40,7 @@ class CollaborationKitHooks {
 				// Add feature
 				$links['actions']['addnewfeature'] = [
 					'class' => '',
-					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullUrl( [ 'collaborationhub' => $title->getFullText() ] ),
+					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
 					'text' => wfMessage( 'collaborationkit-hub-addpage' )->text()
 				];
 			}
@@ -108,7 +108,7 @@ class CollaborationKitHooks {
 			&& count( Revision::newFromTitle( $parentHub )->getContent()->getContent() ) > 0
 		) {
 			$toc = new CollaborationHubTOC();
-			$out->prependHtml( $toc->renderSubpageToC( $parentHub ) );
+			$out->prependHTML( $toc->renderSubpageToC( $parentHub ) );
 
 			$colour = Revision::newFromTitle( $parentHub )->getContent()->getThemeColour();
 			$text = Html::rawElement( 'div', [ 'class' => "mw-cklist-square-$colour" ], $text );

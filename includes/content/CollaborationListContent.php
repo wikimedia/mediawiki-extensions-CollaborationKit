@@ -34,10 +34,13 @@ class CollaborationListContent extends JsonContent {
 	protected $description;
 	/** @var $options StdClass Options for page */
 	protected $options;
-	/** @var $items Array List of columns */
+	/** @var $items array List of columns */
 	protected $columns;
 	/** @var $displaymode String The variety of list */
 	protected $displaymode;
+
+	/** @var string Error message text */
+	protected $errortext;
 
 	function __construct( $text, $type = 'CollaborationListContent' ) {
 		parent::__construct( $text, $type );
@@ -54,7 +57,7 @@ class CollaborationListContent extends JsonContent {
 			return false;
 		}
 		$status = $this->getData();
-		if ( !is_object( $status ) || !$status->isOk() ) {
+		if ( !is_object( $status ) || !$status->isOK() ) {
 			return false;
 		}
 		$data = $status->value;
@@ -91,7 +94,6 @@ class CollaborationListContent extends JsonContent {
 		} catch ( JsonSchemaException $e ) {
 			return false;
 		}
-		return false;
 	}
 
 	/**
@@ -349,10 +351,10 @@ class CollaborationListContent extends JsonContent {
 				] );
 				if ( $options['mode'] !== 'no-img' ) {
 					if ( isset( $item->image ) ) {
-						$text .= $this->generateImage( $item->image, $this->displaymode, $titleForItem, $iconWidth );
+						$text .= static::generateImage( $item->image, $this->displaymode, $titleForItem, $iconWidth );
 					} else {
 						// Use fallback mechanisms
-						$text .= $this->generateImage( null, $this->displaymode, $titleForItem, $iconWidth );
+						$text .= static::generateImage( null, $this->displaymode, $titleForItem, $iconWidth );
 					}
 				}
 
@@ -511,7 +513,7 @@ class CollaborationListContent extends JsonContent {
 	 *
 	 * @param array &$items List to sort (sorted in-place)
 	 * @param string $mode sort method
-	 * @return Array sorted list
+	 * @return array sorted list
 	 * @throws UnexpectedValueException on unrecognized mode
 	 */
 	private function sortList( &$items, $mode ) {
@@ -704,7 +706,9 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Escape characters used as separators in human editable mode.
 	 *
+	 * @param $text
 	 * @return string Escaped text
+	 * @throws MWContentSerializationException
 	 * @todo Unclear if this is best approach. Alternative might be
 	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
 	 */
@@ -763,6 +767,7 @@ class CollaborationListContent extends JsonContent {
 	 *
 	 * @param string $text text to convert
 	 * @return array Result of converting it to native form
+	 * @throws MWContentSerializationException
 	 */
 	public static function convertFromHumanEditable( $text ) {
 		$res = [ 'columns' => [] ];
@@ -806,7 +811,9 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * @param $column
 	 * @return array
+	 * @throws MWContentSerializationException
 	 */
 	private static function convertFromHumanEditableColumn( $column ) {
 		// Adding newline so that HUMAN_COLUMN_SPLIT2 correctly triggers
@@ -866,7 +873,9 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
+	 * @param $line
 	 * @return array
+	 * @throws MWContentSerializationException
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
 		$parts = explode( '|', $line );
@@ -973,7 +982,7 @@ class CollaborationListContent extends JsonContent {
 			);
 		}
 
-		$wikipage = WikiPage::Factory( $title );
+		$wikipage = WikiPage::factory( $title );
 		$content = $wikipage->getContent();
 		if ( !$content instanceof CollaborationListContent ) {
 			// We already checked this, so this should not happen...
@@ -1017,7 +1026,7 @@ class CollaborationListContent extends JsonContent {
 			) {
 				$nonUserItems[] = $item;
 			} else {
-				$userItems[$title->getDBKey()] = $item;
+				$userItems[$title->getDBkey()] = $item;
 			}
 		}
 		$res = $this->filterActiveUsers( $userItems );
@@ -1080,7 +1089,7 @@ class CollaborationListContent extends JsonContent {
 	 * calls this.
 	 *
 	 * @param string $content Input to parser hook
-	 * @param array $attribs
+	 * @param array $attributes
 	 * @param Parser $parser
 	 * @return string Empty string
 	 */
@@ -1112,7 +1121,7 @@ class CollaborationListContent extends JsonContent {
 		//  not sure if that's a desired behaviour or not.
 		if ( $title->getContentModel() === __CLASS__
 			&& $action === 'view'
-			&& $title->getArticleId() !== 0
+			&& $title->getArticleID() !== 0
 			&& $article->getOldID() === 0 /* current rev */
 			&& $title->userCan( 'edit', $user, 'quick' )
 		) {

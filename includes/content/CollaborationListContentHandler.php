@@ -167,6 +167,7 @@ JSON;
 	 * @param string $summary
 	 * @param IContextSource $context
 	 * @todo rework this to use a generic CollaborationList editor function once it exists
+	 * @return Status
 	 */
 	public static function postMemberList( Title $title, $summary, IContextSource $context ) {
 		$username = $context->getUser()->getName();

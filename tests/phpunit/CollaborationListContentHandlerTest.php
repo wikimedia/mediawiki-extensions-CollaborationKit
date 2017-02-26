@@ -13,14 +13,14 @@ class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 
 	public function testMakeEmptyContent() {
 		$empty = $this->handler->makeEmptyContent();
-		$this->assertTrue( $empty->isValid() );
+		static::assertTrue( $empty->isValid() );
 	}
 
 	public function testMakeMemberList() {
 		$user = "User:Willy on Wheels";
 		$description = "lol";
 		$members = $this->handler->makeMemberList( $user, $description );
-		$this->assertTrue( $members->isValid() );
+		static::assertTrue( $members->isValid() );
 	}
 
 }

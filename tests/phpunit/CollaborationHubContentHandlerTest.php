@@ -13,6 +13,6 @@ class CollaborationHubContentHandlerTest extends MediaWikiTestCase {
 
 	public function testMakeEmptyContent() {
 		$empty = $this->handler->makeEmptyContent();
-		$this->assertTrue( $empty->isValid() );
+		self::assertTrue( $empty->isValid() );
 	}
 }

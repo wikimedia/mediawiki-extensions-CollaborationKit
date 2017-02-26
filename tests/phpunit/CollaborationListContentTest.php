@@ -31,7 +31,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 		// Empty list tests
 		$test0 = ( new CollaborationListContentHandler )->makeEmptyContent();
-		$test1 = ( new CollaborationListContentHandler )->makeMemberList( 'Test', '' );
+		$test1 = CollaborationListContentHandler::makeMemberList( 'Test', '' );
 
 		// Single column tests
 		$test2 = [
@@ -100,7 +100,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testIsValid( CollaborationListContent $content, $id ) {
-		$this->assertTrue( $content->isValid(), $id );
+		static::assertTrue( $content->isValid(), $id );
 	}
 
 	public function provideInvalid() {
@@ -122,14 +122,14 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	 */
 	public function testIsNotValid( $contentText ) {
 		$content = new CollaborationListContent( $contentText );
-		$this->assertFalse( $content->isValid() );
+		static::assertFalse( $content->isValid() );
 	}
 
 	/**
 	 * @dataProvider provideContentObjs
 	 */
 	public function testConvertToWikitextVanilla( CollaborationListContent $content, $id ) {
-		$this->markTestIncomplete(); // pending fix to issues regarding images and tests
+		static::markTestIncomplete(); // pending fix to issues regarding images and tests
 
 		$expected = [
 			"<collaborationkitloadliststyles/>__NOTOC__ __NOEDITSECTION__\n\n<div class=\"mw-ck-list mw-ck-singlelist\">\n<div class=\"mw-ck-list-column\" data-collabkit-column-id=\"0\">\n<div class=\"mw-ck-list-column-header\">\n</div>\n\n{{mediawiki:collaborationkit-list-emptycolumn}}</div>\n\n</div>",
@@ -155,14 +155,14 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToWikitext( Language::factory( 'en' ), [ 'includeDesc' => true, 'maxItems' => false, 'defaultSort' => 'natural' ] );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
 	 * @dataProvider provideContentObjs
 	 */
 	public function testConvertToWikitextWithVariants( CollaborationListContent $content, $id ) {
-		$this->markTestIncomplete(); // pending fix to issues regarding images and tests
+		static::markTestIncomplete(); // pending fix to issues regarding images and tests
 
 		$expected = [
 			"<collaborationkitloadliststyles/>__NOTOC__ __NOEDITSECTION__\n<div class=\"mw-ck-list mw-ck-singlelist\">\n<div class=\"mw-ck-list-column\" data-collabkit-column-id=\"0\">\n<div class=\"mw-ck-list-column-header\">\n</div>\n\n{{mediawiki:collaborationkit-list-emptycolumn}}</div>\n\n</div>",
@@ -173,7 +173,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToWikitext( Language::factory( 'en' ), [ 'includeDesc' => false, 'maxItems' => 1, 'defaultSort' => 'natural', 'iconWidth' => 32 ] );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -192,7 +192,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToHumanEditable();
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 	/**
@@ -283,7 +283,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertFromHumanEditable( $testCases[ $id ] );
-		$this->assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
 }
