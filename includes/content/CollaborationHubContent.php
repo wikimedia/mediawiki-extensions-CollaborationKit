@@ -824,12 +824,12 @@ class CollaborationHubContent extends JsonContent {
 
 		$out = '';
 		foreach ( $this->content as $item ) {
-			$out .= $this->escapeForHumanEditable( $item['title'] );
+			$out .= self::escapeForHumanEditable( $item['title'] );
 			if ( isset ( $item['image'] ) ) {
-				$out .= '|image=' . $this->escapeForHumanEditable( $item['image'] );
+				$out .= '|image=' . self::escapeForHumanEditable( $item['image'] );
 			}
 			if ( isset( $item['displayTitle'] ) ) {
-				$out .= '|display_title=' . $this->escapeForHumanEditable( $item['displayTitle'] );
+				$out .= '|display_title=' . self::escapeForHumanEditable( $item['displayTitle'] );
 			}
 			if ( substr( $out, -1 ) === '|' ) {
 				$out = substr( $out, 0, strlen( $out ) - 1 );
@@ -848,7 +848,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @todo Unclear if this is best approach. Alternative might be
 	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
 	 */
-	private function escapeForHumanEditable( $text ) {
+	public static function escapeForHumanEditable( $text ) {
 		if ( strpos( $text, '{{!}}' ) !== false ) {
 			// Maybe we should use \| too, but that's not MW like.
 			throw new MWContentSerializationException( "{{!}} in content" );
@@ -871,7 +871,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $text
 	 * @return string Unescaped text
 	 */
-	private static function unescapeForHumanEditable( $text ) {
+	public static function unescapeForHumanEditable( $text ) {
 		$text = strtr( $text, [
 			'\\\\n'=> "\\n",
 			'\n' => "\n",

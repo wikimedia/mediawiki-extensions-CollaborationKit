@@ -656,19 +656,19 @@ class CollaborationListContent extends JsonContent {
 			// Use two to separate columns
 			$out .= self::HUMAN_COLUMN_SPLIT;
 			if ( isset( $column->label ) ) {
-				$out .= $this->escapeForHumanEditable( $column->label );
+				$out .= CollaborationHubContent::escapeForHumanEditable( $column->label );
 			} else {
 				$out .= 'column';
 			}
 			if ( isset( $column->notes ) ) {
-				$out .= '|notes=' . $this->escapeForHumanEditable( $column->notes );
+				$out .= '|notes=' . CollaborationHubContent::escapeForHumanEditable( $column->notes );
 			}
 			$out .= self::HUMAN_COLUMN_SPLIT2;
 
 			foreach ( $column->items as $item ) {
-				$out .= $this->escapeForHumanEditable( $item->title );
+				$out .= CollaborationHubContent::escapeForHumanEditable( $item->title );
 				if ( isset ( $item->notes ) ) {
-					$out .= '|' . $this->escapeForHumanEditable( $item->notes );
+					$out .= '|' . CollaborationHubContent::escapeForHumanEditable( $item->notes );
 				} else {
 					$out .= '|';
 				}
@@ -676,19 +676,19 @@ class CollaborationListContent extends JsonContent {
 					if ( $item->link === false ) {
 						$out .= '|nolink';
 					} else {
-						$out .= "|link=" . $this->escapeForHumanEditable( $item->link );
+						$out .= "|link=" . CollaborationHubContent::escapeForHumanEditable( $item->link );
 					}
 				}
 				if ( isset( $item->image ) ) {
 					if ( $item->image === false ) {
 						$out .= '|noimage';
 					} else {
-						$out .= '|image=' . $this->escapeForHumanEditable( $item->image );
+						$out .= '|image=' . CollaborationHubContent::escapeForHumanEditable( $item->image );
 					}
 				}
 				if ( isset( $item->tags ) ) {
 					foreach ( (array)$item->tags as $tag ) {
-						$out .= '|tag=' . $this->escapeForHumanEditable( $tag );
+						$out .= '|tag=' . CollaborationHubContent::escapeForHumanEditable( $tag );
 					}
 				}
 				if ( substr( $out, -1 ) === '|' ) {
@@ -699,45 +699,6 @@ class CollaborationListContent extends JsonContent {
 			}
 		}
 		return $out;
-	}
-
-	/**
-	 * Escape characters used as separators in human editable mode.
-	 *
-	 * @param $text
-	 * @return string Escaped text
-	 * @throws MWContentSerializationException
-	 * @todo Unclear if this is best approach. Alternative might be
-	 *  to use &#xA; Or an obscure unicode character like ␊ (U+240A).
-	 */
-	private function escapeForHumanEditable( $text ) {
-		if ( strpos( $text, '{{!}}' ) !== false ) {
-			// Maybe we should use \| too, but that's not MW like.
-			throw new MWContentSerializationException( "{{!}} in content" );
-		}
-		if ( strpos( $text, "\\\n" ) !== false ) {
-			// @todo We don't currently handle this properly.
-			throw new MWContentSerializationException( "Line ending with a \\" );
-		}
-		$text = strtr( $text, [
-			"\n" => '\n',
-			'\n'=> '\\\\n',
-			'|' => '{{!}}'
-		] );
-		return $text;
-	}
-
-	/**
-	 * @param $text string
-	 * @return string
-	 */
-	private static function unescapeForHumanEditable( $text ) {
-		$text = strtr( $text, [
-			'\\\\n'=> "\\n",
-			'\n' => "\n",
-			'{{!}}' => '|'
-		] );
-		return $text;
 	}
 
 	/**
@@ -824,7 +785,7 @@ class CollaborationListContent extends JsonContent {
 
 		$parts = explode( '|', $columnContent[0] );
 
-		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
+		$parts = array_map( [ 'CollaborationHubContent', 'unescapeForHumanEditable' ], $parts );
 
 		if ( $parts[0] != 'column' ) {
 			$columnItem['label'] = $parts[0];
@@ -878,7 +839,7 @@ class CollaborationListContent extends JsonContent {
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
 		$parts = explode( '|', $line );
-		$parts = array_map( [ __CLASS__, 'unescapeForHumanEditable' ], $parts );
+		$parts = array_map( [ 'CollaborationHubContent', 'unescapeForHumanEditable' ], $parts );
 		$itemRes = [ 'title' => $parts[0] ];
 		if ( count( $parts ) > 1 ) {
 			// If people are using batch editor, they might define an image etc. despite lack of a note
