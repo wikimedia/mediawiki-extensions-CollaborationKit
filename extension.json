@@ -22,7 +22,6 @@
 		"CollaborationKitMagic": "CollaborationKit.i18n.magic.php"
 	},
 	"AutoloadClasses": {
-		"ApiEditCollaborationHub": "includes/ApiEditCollaborationHub.php",
 		"CollaborationKitHooks": "CollaborationKit.hooks.php",
 		"CollaborationHubContent": "includes/content/CollaborationHubContent.php",
 		"CollaborationHubContentHandler": "includes/content/CollaborationHubContentHandler.php",

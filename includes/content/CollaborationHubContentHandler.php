@@ -91,13 +91,6 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	/**
-	 * @return string
-	 */
-	/*protected function getDiffEngineClass() {
-		return 'CollaborationHubDiffEngine';
-	}*/
-
-	/**
 	 * @return bool
 	 */
 	public function isParserCacheSupported() {
