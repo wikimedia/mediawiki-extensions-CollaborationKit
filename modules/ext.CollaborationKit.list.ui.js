@@ -300,7 +300,6 @@
 		if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
 			$list.sortable( {
 				placeholder: 'mw-ck-list-dragplaceholder',
-				axis: 'y',
 				forcePlaceholderSize: true,
 				handle: '.mw-ck-list-movebutton',
 				opacity: 0.6,
