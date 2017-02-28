@@ -928,10 +928,6 @@ class CollaborationHubContent extends JsonContent {
 						$itemRes[$key] = $value;
 						break;
 					default:
-						$context = wfEscapeWikiText( substr( $part, 30 ) );
-						if ( strlen( $context ) === 30 ) {
-							$context .= '...';
-						}
 						throw new MWContentSerializationException(
 							'Unrecognized option for list item:' .
 							wfEscapeWikiText( $key )
