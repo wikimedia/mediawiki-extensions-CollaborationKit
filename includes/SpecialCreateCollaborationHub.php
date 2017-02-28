@@ -91,27 +91,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'default' => 'lightgrey'
 		];
 
-		/* Comment this out until it's actually implemented (T135408)
-		// Content source options
-		$fields['content_source'] = [
-			'type' => 'select',
-			'options' => $this->getOptions( [
-				'collaborationkit-createhub-new' => 'new',
-				'collaborationkit-createhub-import' => 'import',
-				'collaborationkit-createhub-clone' => 'clone',
-			] ),
-			'default' => 'new', // might want to change default to clone from the default? (TODO add a canned default as example and stuff: T136470)
-			'label-message' => 'collaborationkit-createhub-content',
-			'cssclass' => 'mw-ck-source-options-input'
-		];
-		$fields['source'] = [
-			'type' => 'text',
-			'label-message' => 'collaborationkit-createhub-source',
-			'hide-if' => [ '===', 'wpcontent_source', 'new' ],
-			'cssclass' => 'mw-ck-source-input'
-		];
-		*/
-
 		$fields['introduction'] = [
 			'type' => 'textarea',
 			'rows' => 5,
@@ -159,33 +138,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		) {
 			return Status::newFatal( 'collaborationkit-createhub-nopermission' );
 		}
-
-		/* Comment this out until it's actually implemented (T135408)
-		// ACTUAL STUFF HERE
-		if ( $data['content_source'] !== 'new' ) { // Importing from wikitext
-			$source = Title::newFromText( $data['source'] );
-			if ( !$source ) {
-				return Status::newFatal( 'collaborationkit-createhub-invalidsource' );
-			}
-
-			if ( $data['content_source'] === 'clone' ) {
-				// Copy another hub
-				// Just copy some of the bits...
-
-				// TODO prefill the actual content
-			} elseif ( $data['content_source'] === 'import' ) {
-				// Do some magic based on the source:
-				// If wikiproject x project: get module list, recreate modules
-				// If regular page: pull headers
-
-				// TODO prefill the actual content
-			}
-			// Render preview?
-		} else {
-
-			// ...?
-		}
-		*/
 
 		$title = Title::newFromText( $pagename );
 		if ( !$title ) {
