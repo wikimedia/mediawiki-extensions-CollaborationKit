@@ -24,8 +24,7 @@
 	 * @param {jQuery} $item
 	 */
 	deleteItem = function ( $item ) {
-		var cur,
-			spinner,
+		var spinner,
 			title = $item.data( 'collabkit-item-title' ),
 			colId = getColId( $item );
 
@@ -42,7 +41,7 @@
 			.empty()
 			.append( spinner );
 
-		cur = getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
+		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var newItems = [];
 			$.each( res.content.columns[ colId ].items, function ( index ) {
 				if ( this.title === title ) {
