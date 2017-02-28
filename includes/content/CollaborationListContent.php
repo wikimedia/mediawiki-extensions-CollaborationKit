@@ -25,7 +25,7 @@ class CollaborationListContent extends JsonContent {
 	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
 	// Splitter denoting the beginning of a list column
 	const HUMAN_COLUMN_SPLIT = "\n---------~-~---------\n";
-	// Splitter denoting the beginning og the list itself within the column
+	// Splitter denoting the beginning of the list itself within the column
 	const HUMAN_COLUMN_SPLIT2 = "\n---------------------\n";
 
 	/** @var $decoded boolean Have we decoded the data yet */
@@ -108,10 +108,7 @@ class CollaborationListContent extends JsonContent {
 
 		// Special handling for DISPLAYMODE
 		if ( $name == 'DISPLAYMODE' ) {
-			if ( $value == 'members' || $value == 'normal' || $value == 'error' ) {
-				return true;
-			}
-			return false;
+			return ( $value == 'members' || $value == 'normal' || $value == 'error' );
 		}
 
 		// Force intrepretation as boolean for certain options
