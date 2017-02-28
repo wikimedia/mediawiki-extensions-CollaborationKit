@@ -1,4 +1,5 @@
 ( function ( $, mw, OO ) {
+	'use strict';
 
 	var addSelf, curUserIsInList, LE;
 

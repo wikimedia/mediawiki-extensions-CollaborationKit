@@ -1,4 +1,6 @@
 ( function ( $, mw ) {
+	'use strict';
+
 	var deleteItem, getCurrentJson, saveJson, reorderList, getListOfTitles, getColId;
 
 	/**

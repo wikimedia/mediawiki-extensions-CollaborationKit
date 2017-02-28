@@ -1,4 +1,6 @@
 ( function ( $, mw, OO ) {
+	'use strict';
+
 	var getColourBlock, getThumbnail, ImageProcessDialog, ColourProcessDialog, openColourBrowser, openImageBrowser, setupPage;
 
 	/**

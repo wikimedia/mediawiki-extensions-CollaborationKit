@@ -1,4 +1,6 @@
 ( function ( $, mw, OO ) {
+	'use strict';
+
 	var addItem, modifyItem, modifyExistingItem, LE;
 
 	LE = require( 'ext.CollaborationKit.list.edit' );
