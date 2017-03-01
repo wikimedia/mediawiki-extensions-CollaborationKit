@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"烈羽"
 		]
 	},
 	"collaborationkit-createhub-title": "頁面標題",
-	"collaborationkit-createhubfeature-icon": "圖示"
+	"collaborationkit-createhubfeature-icon": "圖示",
+	"collaborationkit-createhub-title-placeholder": "新專案"
 }

@@ -38,11 +38,10 @@
 	"collaborationkit-icon-launchbutton": "아이콘 찾아보기",
 	"collaborationkit-icon-browser": "아이콘 탐색기",
 	"collaborationkit-icon-select": "선택",
-	"collaborationkit-colour-launchbutton": "색 찾기",
 	"collaborationkit-colour-select": "선택",
-	"collaborationkit-hubimage-launchbutton": "그림 찾아보기",
 	"collaborationkit-hubimage-browser": "미디어 탐색기",
 	"collaborationkit-hubimage-select": "선택",
 	"collaborationkit-subpage-toc-label": "프로젝트의 일부:",
-	"collaborationkit-createhub-title-placeholder": "새 프로젝트"
+	"collaborationkit-createhub-title-placeholder": "새 프로젝트",
+	"collaborationkit-hubedit-hubtheme": "허브 테마"
 }
