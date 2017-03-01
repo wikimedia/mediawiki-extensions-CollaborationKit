@@ -1,4 +1,6 @@
 ( function ( $, mw, OO ) {
+	'use strict';
+
 	var ProcessDialog, openItUp, setupPage;
 
 	/**
