@@ -927,7 +927,7 @@ class CollaborationListContent extends JsonContent {
 				$options['tags'][] = $tagList;
 				$tagCount += count( $tagList );
 			} elseif ( $name === 'column' ) {
-				$options['columns'][] = $column;
+				$options['columns'][] = $value;
 			} elseif ( self::validateOption( $name, $value ) ) {
 				$options[$name] = $value;
 			}
