@@ -589,23 +589,27 @@ class CollaborationListContent extends JsonContent {
 	 */
 	private function matchesTag( array $tagSpecifier, array $itemTags ) {
 		if ( !$tagSpecifier ) {
+			// We want the empty case to be considered a match.
 			return true;
 		}
-		$matchesAllGroups = true;
+		// We first want to find if there exists a group that matches.
+		$matchesOneGroup = false;
 		foreach ( $tagSpecifier as $tagGroups ) {
+			// Inside the group, we want to verify for all group
+			// members, the group matches
+			$matchesAllAlternatives = true;
 			foreach ( $tagGroups as $tagAlt ) {
-				$matchesOneAlternative = false;
-				if ( in_array( $tagAlt, $itemTags ) ) {
-					$matchesOneAlternative = true;
+				if ( !in_array( $tagAlt, $itemTags ) ) {
+					$matchesAllAlternatives = false;
 					break;
 				}
 			}
-			if ( !$matchesOneAlternative ) {
-				$matchesAllGroups = false;
+			if ( $matchesAllAlternatives ) {
+				$matchesOneGroup = true;
 				break;
 			}
 		}
-		return $matchesAllGroups;
+		return $matchesOneGroup;
 	}
 
 	/**

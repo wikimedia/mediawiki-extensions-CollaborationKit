@@ -286,4 +286,46 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
+	public function provideMatchesTag() {
+		return [
+			[
+				[ [ 'a' ] ],
+				[ 'a' ],
+				true,
+			],
+			[
+				[ [ 'a' ] ],
+				[ 'b' ],
+				false,
+			],
+			[
+				[ [ 'a', 'b' ] ],
+				[ 'a' ],
+				false,
+			],
+			[
+				[ [ 'a', 'b' ] ],
+				[ 'a', 'b', 'c' ],
+				true,
+			],
+			[
+				[ [ 'a', 'b' ], [ 'a', 'c' ] ],
+				[ 'a', 'c' ],
+				true,
+			],
+			[
+				[ [ 'a' ], [ 'b' ] ],
+				[ 'b' ],
+				true,
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideMatchesTag
+	 */
+	public function testMatchesTag( $tagSpecifier, $itemTags, $expected ) {
+		$actual = $this->content->matchesTag( $tagSpecifier, $itemTags );
+		$this->assertEquals( $expected, $actual );
+	}
 }
