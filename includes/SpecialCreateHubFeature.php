@@ -23,7 +23,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			'ext.CollaborationKit.createhubfeature.styles',
 			'ext.CollaborationKit.edit.styles'
 		] );
-		$output->addJsConfigVars( 'wgCollaborationKitIconList', CollaborationKitImage::getCannedIcons() );
+		$output->addJsConfigVars(
+			'wgCollaborationKitIconList',
+			CollaborationKitImage::getCannedIcons()
+		);
 		parent::execute( $par );
 	}
 
@@ -31,8 +34,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	 * @return array
 	 */
 	protected function getFormFields() {
-		// Allow the collaboration hub to be passed via parameter (full page title) ?collaborationhub=
-		// Allow the feature name to be passed via parameter (subpage title) ?feature=
+		// Allow collaboration hub to be passed via parameter (full page title) ?collaborationhub=
+		// Allow feature name to be passed via parameter (subpage title) ?feature=
 		if ( $this->getRequest()->getVal( 'collaborationhub' ) ) {
 			$defaultCollabHub = $this->getRequest()->getVal( 'collaborationhub' );
 		} else {
@@ -75,17 +78,22 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				'cssclass' => 'mw-ck-content-type-input',
 				'label-message' => 'collaborationkit-createhubfeature-contenttype',
 				'options' => [
-					$this->msg( 'collaborationkit-createhubfeature-freetext' )->text() => 'wikitext',
-					$this->msg( 'collaborationkit-createhubfeature-articlelist' )->text() => 'CollaborationListContent'
+					$this
+						->msg( 'collaborationkit-createhubfeature-freetext' )
+						->text() => 'wikitext',
+					$this
+						->msg( 'collaborationkit-createhubfeature-articlelist' )
+						->text() => 'CollaborationListContent'
 				]
 			]
 		];
 
-		// If either of these fields is set, that means the user came to the special page
-		// by way of a special workflow, meaning that the name of the hub and/or the feature
-		// is already known. Changing it would cause problems (e.g. the hub saying the feature
-		// is called one thing and then the user changes their mind) so we disable further edits
-		// in the middle of the workflow.
+		// If either of these fields is set, that means the user came to the
+		// special page by way of a special workflow, meaning that the name of
+		// the hub and/or the feature is already known. Changing it would cause
+		// problems (e.g. the hub saying the feature is called one thing and
+		// then the user changes their mind) so we disable further edits in the
+		// middle of the workflow.
 		if ( $defaultCollabHub != '' ) {
 			$fields['collaborationhub']['readonly'] = true;
 		}
@@ -154,7 +162,9 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		if ( !$found ) {
 			$hubContent['content'][] = $newFeature;
 			$newHubRawContent = json_encode( $hubContent );
-			$editHubSummary = $this->msg( 'collaborationkit-createhubfeature-hubeditsummary', $featureName )->plain();
+			$editHubSummary = $this
+				->msg( 'collaborationkit-createhubfeature-hubeditsummary', $featureName )
+				->plain();
 
 			$context = $this->getContext();
 			$der = new DerivativeContext( $context );
@@ -175,14 +185,20 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				$api = new ApiMain( $der, true );
 				$api->execute();
 			} catch ( UsageException $e ) {
-				return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
-					$e->getCodeString() ) );
+				return Status::newFatal(
+					$context->msg(
+						'collaborationkit-hub-edit-apierror',
+						$e->getCodeString()
+					)
+				);
 			}
 		}
 
 		// Create feature
 		$contentModel = $data[ 'contenttype' ];
-		if ( $contentModel != 'wikitext' && $contentModel != 'CollaborationListContent' ) {
+		if ( $contentModel != 'wikitext'
+			&& $contentModel != 'CollaborationListContent' )
+		{
 			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
 		}
 
@@ -194,13 +210,23 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
 		}
 
-		$initialContent = ''; // Create empty page by default; exception is if there needs to be something such as JSON.
+		// Create empty page by default; exception is if there needs to be
+		// something such as JSON.
+		$initialContent = '';
 		if ( $contentModel == 'CollaborationListContent' ) {
-			// FIXME why are we redefining this here? Can't we reuse something from collaborationlistcontenthandler, which already has default content?
-			$initialContent = '{ "displaymode": "normal", "columns": [ { "items":[] } ], "options":{}, "description":"" }';
+			// FIXME why are we redefining this here? Can't we reuse something
+			// from collaborationlistcontenthandler, which already has default
+			// content?
+			$initialContent = '{ "displaymode": "normal",
+				"columns": [ { "items":[] } ],
+				"options":{},
+				"description":""
+				}';
 		}
 
-		$summary = $this->msg( 'collaborationkit-createhubfeature-editsummary' )->plain();
+		$summary = $this
+			->msg( 'collaborationkit-createhubfeature-editsummary' )
+			->plain();
 
 		$context = $this->getContext();
 		$der = new DerivativeContext( $context );
@@ -222,14 +248,19 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			$api = new ApiMain( $der, true );
 			$api->execute();
 		} catch ( UsageException $e ) {
-			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
-				$e->getCodeString() ) );
+			return Status::newFatal(
+				$context->msg(
+					'collaborationkit-hub-edit-apierror',
+					$e->getCodeString()
+				)
+			);
 		}
 
 		// Purge the hub's cache so that it doesn't say "feature does not exist"
 		$hubTitleObject->invalidateCache();
 
-		// Once all the pages we want to create are created, we send them to the first one
+		// Once all the pages we want to create are created, we send them to the
+		// first one
 		$this->getOutput()->redirect( $title->getFullURL() );
 
 		return Status::newGood();

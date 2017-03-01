@@ -16,9 +16,9 @@ class CollaborationListContentHandler extends TextContentHandler {
 	) {
 		// text/x-collabkit is a format for lists similar to <gallery>.
 		// CONTENT_FORMAT_TEXT is for back-compat with old revs. Could be removed.
-		// @todo Ideally, we'd have the preferred format for editing be self::FORMAT_WIKI
-		// and the preferred format for db be CONTENT_FORMAT_JSON. Unclear if that's
-		// possible.
+		// @todo Ideally, we'd have the preferred format for editing be
+		// self::FORMAT_WIKI and the preferred format for db be
+		// CONTENT_FORMAT_JSON. Unclear if that's possible.
 		parent::__construct( $modelId, $formats );
 	}
 
@@ -30,7 +30,11 @@ class CollaborationListContentHandler extends TextContentHandler {
 	 */
 	public function canBeUsedOn( Title $title ) {
 		global $wgCollaborationListAllowedNamespaces;
-		if ( in_array( $title->getNamespace(), array_keys( array_filter( $wgCollaborationListAllowedNamespaces ) ) ) ) {
+		if ( in_array(
+			$title->getNamespace(),
+			array_keys( array_filter( $wgCollaborationListAllowedNamespaces ) )
+			)
+		) {
 			return true;
 		}
 		return false;
@@ -95,7 +99,8 @@ JSON;
 	 * @return CollaborationListContent
 	 */
 	public static function makeMemberList( $username, $initialDescription ) {
-		$linkToUserpage = Title::makeTitleSafe( NS_USER, $username )->getPrefixedText();
+		$linkToUserpage = Title::makeTitleSafe( NS_USER, $username )
+			->getPrefixedText();
 		$newMemberList = [
 			'displaymode' => 'members',
 			'columns' => [ [
@@ -108,7 +113,11 @@ JSON;
 			],
 			'description' => "$initialDescription"  // Do not take out these quote marks
 		];
-		$newMemberListJson = FormatJson::encode( $newMemberList, "\t", FormatJson::ALL_OK );
+		$newMemberListJson = FormatJson::encode(
+			$newMemberList,
+			"\t",
+			FormatJson::ALL_OK
+		);
 		return new CollaborationListContent( $newMemberListJson );
 	}
 
@@ -163,10 +172,13 @@ JSON;
 	 * @param Title $title
 	 * @param string $summary
 	 * @param IContextSource $context
-	 * @todo rework this to use a generic CollaborationList editor function once it exists
+	 * @todo rework this to use a generic CollaborationList editor function once
+	 *  it exists
 	 * @return Status
 	 */
-	public static function postMemberList( Title $title, $summary, IContextSource $context ) {
+	public static function postMemberList( Title $title, $summary,
+		IContextSource $context
+	) {
 		$username = $context->getUser()->getName();
 		$collabList = self::makeMemberList(
 			$username,
@@ -192,8 +204,10 @@ JSON;
 			$api = new ApiMain( $der, true );
 			$api->execute();
 		} catch ( UsageException $e ) {
-			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
-				$e->getCodeString() ) );
+			return Status::newFatal(
+				$context->msg( 'collaborationkit-hub-edit-apierror',
+				$e->getCodeString() )
+			);
 		}
 		return Status::newGood();
 	}

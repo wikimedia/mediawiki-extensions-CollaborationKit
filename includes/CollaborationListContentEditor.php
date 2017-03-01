@@ -32,7 +32,11 @@ class CollaborationListContentEditor extends EditPage {
 			return;
 		}
 
-		$parts = explode( CollaborationListContent::HUMAN_DESC_SPLIT, $this->textbox1, 3 );
+		$parts = explode(
+			CollaborationListContent::HUMAN_DESC_SPLIT,
+			$this->textbox1,
+			3
+		);
 		if ( count( $parts ) !== 3 ) {
 			parent::showContentForm();
 			return;
@@ -71,7 +75,11 @@ class CollaborationListContentEditor extends EditPage {
 		$dummyForm = HTMLForm::factory( 'ooui', $fields, $this->getContext() );
 		$partFields = $dummyForm->prepareForm()->getBody();
 
-		$out->addHTML( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
+		$out->addHTML( Html::rawElement(
+			'div',
+			[ 'class' => 'mw-collabkit-modifiededitform' ],
+			$partFields
+		) );
 	}
 
 	/**
@@ -81,7 +89,10 @@ class CollaborationListContentEditor extends EditPage {
 	 * @return string
 	 */
 	protected function importContentFormData( &$request ) {
-		$format = $request->getVal( 'format', CollaborationListContentHandler::FORMAT_WIKI );
+		$format = $request->getVal(
+			'format',
+			CollaborationListContentHandler::FORMAT_WIKI
+		);
 		if ( $format !== CollaborationListContentHandler::FORMAT_WIKI ) {
 			return parent::importContentFormData( $request );
 		}

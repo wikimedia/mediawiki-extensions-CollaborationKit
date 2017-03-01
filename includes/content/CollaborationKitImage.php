@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Helper class to produce HTML elements containing images for CollaborationKit purposes
+ * Helper class to produce HTML elements containing images for CollaborationKit
+ * purposes.
  *
  * @file
  */
@@ -10,25 +11,29 @@ class CollaborationKitImage {
 	/**
 	 * Generate an image element from the wiki or the extension
 	 *
-	 * @param string|null $image The filename (no namespace prefix) or CollaborationKit icon
-	 *	identifier (or null to use fallback instead)
+	 * @param string|null $image The filename (no namespace prefix) or
+	 *  CollaborationKit icon identifier (or null to use fallback instead)
 	 * @param int $width The width of the image in pixels
 	 * @param array $options An array with optional parameters
 	 * @param array $options['classes'] Array of element classes to assign
-	 * @param Title|string|bool $options['link'] Internal link for the image; default is true (i.e.
-	 *	link to its description page). Pass `false` for no link at all. Pass a string to link to a
-	 *	page in the manner of an internal wiki link.
+	 * @param Title|string|bool $options['link'] Internal link for the image;
+	 *  default is true (i.e. link to its description page). Pass `false` for no
+	 *  link at all. Pass a string to link to a page in the manner of an
+	 *  internal wiki link.
 	 * @param string $options['colour'] The colour of the icon if using a canned icon
 	 * @param string $options['css'] In-line style parameters. Avoid if possible.
-	 * @param bool $options['renderAsWikitext'] Should the output be wikitext instead of HTML?
-	 *	Defaults to false.
+	 * @param bool $options['renderAsWikitext'] Should the output be wikitext
+	 *  instead of HTML? Defaults to false.
 	 * @param string $options['label'] Label to put under image; used for ToC icons
-	 * @param string $options['fallback'] If the specified image is null or doesn't exist. Valid
-	 *	options are none', a valid icon ID, or an arbitrary string to use a seed. (Note: if you
-	 *	specify a label, then that will serve as the fallback.)
-	 * @param bool $options['optimizeForSquare'] Fetch an image such that it's ideal for shoving
-	 *	into a square frame. Default is false. Images with labels always get optimzed for squares.
-	 * @return string HTML elements or wikitext, depending on $options['renderAsWikitext']
+	 * @param string $options['fallback'] If the specified image is null or
+	 *  doesn't exist. Validoptions are none', a valid icon ID, or an arbitrary
+	 *  string to use a seed. (Note: if you specify a label, then that will
+	 *  serve as the fallback.)
+	 * @param bool $options['optimizeForSquare'] Fetch an image such that it's
+	 *  ideal for shoving into a square frame. Default is false. Images with
+	 *  labels always get optimzed for squares.
+	 * @return string HTML elements or wikitext, depending on
+	 *  $options['renderAsWikitext']
 	 */
 	public static function makeImage( $image, $width, $options = [] ) {
 
@@ -39,8 +44,10 @@ class CollaborationKitImage {
 		$link = isset( $options['link'] ) ? $options['link'] : true;
 		$colour = isset( $options['colour'] ) ? $options['colour'] : '';
 		$css = isset( $options['css'] ) ? $options['css'] : '';
-		$renderAsWikitext = isset( $options['renderAsWikitext'] ) ? $options['renderAsWikitext'] : false;
-		$optimizeForSquare = isset( $options['optimizeForSquare'] ) ? $options['optimizeForSquare'] : false;
+		$renderAsWikitext = isset( $options['renderAsWikitext'] ) ?
+			$options['renderAsWikitext'] : false;
+		$optimizeForSquare = isset( $options['optimizeForSquare'] ) ?
+			$options['optimizeForSquare'] : false;
 		$label = isset( $options['label'] ) ? $options['label'] : '';
 
 		if ( !isset( $options['fallback'] ) ) {
@@ -55,13 +62,17 @@ class CollaborationKitImage {
 		$imageObj = wfFindFile( $image );
 
 		// Use fallback icon or random icon if stated image doesn't exist
-		if ( $image === null || $image == '' || ( $imageObj === false && !in_array( $image, $cannedIcons ) ) ) {
+		if ( $image === null
+			|| $image == ''
+			|| ( $imageObj === false && !in_array( $image, $cannedIcons ) )
+		) {
 			if ( $options['fallback'] == 'none' ) {
 				return '';
 			} elseif ( in_array( $options['fallback'], $cannedIcons ) ) {
 				$image = $options['fallback'];
 			} else {
-				$image = $cannedIcons[hexdec( sha1( $options['fallback'] )[0] ) % count( $cannedIcons )];
+				$image = $cannedIcons[hexdec( sha1( $options['fallback'] )[0] )
+					% count( $cannedIcons )];
 			}
 		}
 
@@ -75,13 +86,16 @@ class CollaborationKitImage {
 				$ratio = $fullWidth / $fullHeight;  // get ratio of width to height
 				if ( $ratio > 1 ) {
 					$squareAdjustmentAxis = 'x';
-				} elseif ( $ratio < 1 ) {  // If image is a perfect square (ratio == 1) nothing needs to be done
+				} elseif ( $ratio < 1 ) {
 					$squareAdjustmentAxis = 'y';
 				}
+				// If image is a perfect square (ratio == 1) nothing needs to be done
 			}
-			$imageCode = self::makeImageFromFile( $imageObj, $width, $link, $renderAsWikitext, $label, $squareAdjustmentAxis );
+			$imageCode = self::makeImageFromFile( $imageObj, $width, $link,
+				$renderAsWikitext, $label, $squareAdjustmentAxis );
 		} elseif ( in_array( $image, $cannedIcons ) ) {
-			$imageCode = self::makeImageFromIcon( $image, $width, $colour, $link, $renderAsWikitext, $label );
+			$imageCode = self::makeImageFromIcon( $image, $width, $colour, $link,
+				$renderAsWikitext, $label );
 		}
 
 		// Finishing up
@@ -99,7 +113,9 @@ class CollaborationKitImage {
 	 * @param string $squareAdjustmentAxis x or y
 	 * @return string
 	 */
-	protected static function makeImageFromFile( $imageObj, $width, $link, $renderAsWikitext, $label, $squareAdjustmentAxis ) {
+	protected static function makeImageFromFile( $imageObj, $width, $link,
+		$renderAsWikitext, $label, $squareAdjustmentAxis
+	) {
 		// This assumes that colours cannot be assigned to images.
 		// This is currently true, but who knows what the future might hold!
 
@@ -144,13 +160,17 @@ class CollaborationKitImage {
 
 				$wikitext = Html::rawElement(
 					'div',
-					[ 'class' => 'mw-ck-file-image-squareoptimized', 'style' => $squareWrapperCss ],
+					[
+						'class' => 'mw-ck-file-image-squareoptimized',
+						'style' => $squareWrapperCss
+					],
 					$wikitext
 				);
 			}
 			return $wikitext;
 		} else {
-			$imageHtml = $wgParser->parse( $wikitext, $imageTitle, new ParserOptions() )->getText();
+			$imageHtml = $wgParser->parse( $wikitext, $imageTitle,
+				new ParserOptions() )->getText();
 
 			if ( $label != '' ) {
 				$imageHtml = Html::rawElement(
@@ -159,7 +179,9 @@ class CollaborationKitImage {
 					$imageHtml
 				);
 				if ( $link !== false ) {
-					$imageHtml = self::linkFactory( $imageHtml, $link, $label, $imageObj );
+					$imageHtml = self::linkFactory( $imageHtml, $link, $label,
+						$imageObj
+					);
 				}
 			}
 
@@ -176,8 +198,10 @@ class CollaborationKitImage {
 	 * @param string $label
 	 * @return string
 	 */
-	protected static function makeImageFromIcon( $image, $width, $colour, $link, $renderAsWikitext, $label ) {
-		// Rendering as wikitext with link is not an option here due to unfortunate behavior from Tidy.
+	protected static function makeImageFromIcon( $image, $width, $colour, $link,
+		$renderAsWikitext, $label
+	) {
+		// Rendering as wikitext with link is not an option here due to Tidy.
 
 		$imageClasses = [ 'mw-ck-icon' ];
 		if ( $colour != '' && $colour != 'black' ) {
@@ -188,7 +212,10 @@ class CollaborationKitImage {
 
 		$imageHtml = Html::rawElement(
 			'div',
-			[ 'class' => $imageClasses, 'style' => "width: {$width}px; height: {$width}px;" ],
+			[
+				'class' => $imageClasses,
+				'style' => "width: {$width}px; height: {$width}px;"
+			],
 			''
 		);
 
@@ -206,7 +233,9 @@ class CollaborationKitImage {
 	 * @param null|File $imageObj
 	 * @return string
 	 */
-	protected static function linkFactory( $imageHtml, $link, $label, $imageObj = null ) {
+	protected static function linkFactory( $imageHtml, $link, $label,
+		$imageObj = null
+	) {
 		// Important assumption: image is being rendered as HTML and not wikitext.
 		if ( $link instanceof Title ) {
 			$linkHref = $link->getLinkURL();
@@ -219,7 +248,11 @@ class CollaborationKitImage {
 		}
 
 		if ( $label != '' ) {
-			$imageHtml .= Html::rawElement( 'span', [ 'class' => 'mw-ck-toc-item-label' ], $label );
+			$imageHtml .= Html::rawElement(
+				'span',
+				[ 'class' => 'mw-ck-toc-item-label' ],
+				$label
+			);
 		}
 		return Html::rawElement( 'a', [ 'href' => $linkHref ], $imageHtml );
 	}

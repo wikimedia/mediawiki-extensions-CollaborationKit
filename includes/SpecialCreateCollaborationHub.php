@@ -9,7 +9,9 @@
 
 class SpecialCreateCollaborationHub extends FormSpecialPage {
 
-	public function __construct( $name = 'CreateCollaborationHub', $right = 'createpage' ) {
+	public function __construct( $name = 'CreateCollaborationHub',
+		$right = 'createpage'
+	) {
 		// Note: The right check is primarily for UI. There are
 		// additional checks later on.
 		parent::__construct( $name, $right );
@@ -24,7 +26,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'ext.CollaborationKit.hubtheme'
 		] );
 		$out->addModuleStyles( 'ext.CollaborationKit.edit.styles' );
-		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
+		$out->addJsConfigVars(
+			'wgCollaborationKitColourList',
+			CollaborationHubContent::getThemeColours()
+		);
 
 		parent::execute( $par );
 	}
@@ -33,7 +38,9 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @return array
 	 */
 	protected function getFormFields() {
-		$allowedNamespaces = $this->getConfig()->get( 'CollaborationListAllowedNamespaces' );
+		$allowedNamespaces = $this
+			->getConfig()
+			->get( 'CollaborationListAllowedNamespaces' );
 		$namespaceNames = $this->getLanguage()->getNamespaces();
 		$namespaceChoices = [];
 		foreach ( $allowedNamespaces as $nsIndex => $nsCanBeUsed ) {
@@ -144,13 +151,19 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
 
-		$memberListTitle = Title::newFromText( $pagename . '/' . $this->msg( 'collaborationkit-hub-pagetitle-members' ) );
+		$memberListTitle = Title::newFromText(
+			$pagename
+			. '/'
+			. $this->msg( 'collaborationkit-hub-pagetitle-members' )
+		);
 		if ( !$memberListTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
 		$memberResult = CollaborationListContentHandler::postMemberList(
 			$memberListTitle,
-			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
+			$this->msg( 'collaborationkit-createhub-editsummary' )
+				->inContentLanguage()
+				->plain(),
 			$this->getContext()
 		);
 
@@ -158,7 +171,12 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return $memberResult;
 		}
 
-		$announcementsTitle = Title::newFromText( $pagename . '/' . $this->msg( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->plain() );
+		$announcementsTitle = Title::newFromText( $pagename
+			. '/'
+			. $this->msg( 'collaborationkit-hub-pagetitle-announcements' )
+			->inContentLanguage()
+			->plain()
+		);
 		if ( !$announcementsTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
@@ -170,8 +188,15 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			[
 				'action' => 'edit',
 				'title' => $announcementsTitle->getFullText(),
-				'text' => "* " . $context->msg( 'collaborationkit-hub-announcements-initial' )->inContentLanguage()->plain() . " ~~~~~",
-				'summary' => $context->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
+				'text' => "* " . $context
+					->msg( 'collaborationkit-hub-announcements-initial' )
+					->inContentLanguage()
+					->plain()
+					. " ~~~~~",
+				'summary' => $context
+					->msg( 'collaborationkit-createhub-editsummary' )
+					->inContentLanguage()
+					->plain(),
 				'token' => $context->getUser()->getEditToken(),
 			],
 			true // Treat data as POSTed
@@ -181,8 +206,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			$api = new ApiMain( $der, true );
 			$api->execute();
 		} catch ( UsageException $e ) {
-			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
-				$e->getCodeString() ) );
+			return Status::newFatal(
+				$context->msg( 'collaborationkit-hub-edit-apierror',
+				$e->getCodeString() )
+			);
 		}
 
 		$result = CollaborationHubContentHandler::edit(
@@ -193,7 +220,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			$data['introduction'],
 			'',
 			[],
-			$this->msg( 'collaborationkit-createhub-editsummary' )->inContentLanguage()->plain(),
+			$this
+				->msg( 'collaborationkit-createhub-editsummary' )
+				->inContentLanguage()
+				->plain(),
 			$this->getContext()
 		);
 
@@ -201,7 +231,8 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return $result;
 		}
 
-		// Once all the pages we want to create are created, we send them to the first one
+		// Once all the pages we want to create are created, we send them to
+		// the first one
 		$this->getOutput()->redirect( $title->getFullURL() );
 		return Status::newGood();
 	}

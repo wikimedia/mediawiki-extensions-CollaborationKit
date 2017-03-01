@@ -47,7 +47,9 @@ class CollaborationHubTOC {
 		$html .= Html::rawElement(
 			'div',
 			[ 'class' => 'mw-ck-toc-label' ],
-			wfMessage( 'collaborationkit-hub-toc-label' )->inContentLanguage()->text()
+			wfMessage( 'collaborationkit-hub-toc-label' )
+				->inContentLanguage()
+				->text()
 		);
 		$html .= Html::openElement( 'ul' );
 
@@ -61,10 +63,16 @@ class CollaborationHubTOC {
 			} else {
 				$displayTitle = $title->getSubpageText();
 			}
-			$linkTarget = Title::newFromText( '#' . $this->getToCLinkID( $displayTitle ) );
+			$linkTarget = Title::newFromText( '#'
+				. $this->getToCLinkID( $displayTitle )
+			);
 			$image = isset( $item['image'] ) ? $item['image'] : null;
 
-			$link = CollaborationKitImage::makeImage( $image, 50, [ 'link' => $linkTarget, 'label' => $displayTitle ] );
+			$link = CollaborationKitImage::makeImage(
+				$image,
+				50,
+				[ 'link' => $linkTarget, 'label' => $displayTitle ]
+			);
 
 			$html .= Html::rawElement(
 				'li',
@@ -85,7 +93,9 @@ class CollaborationHubTOC {
 	 * @return string html
 	 */
 	public function renderSubpageToC( Title $title ) {
-		// We assume $title is sane. This is supposed to be called with a $title gotten from CollaborationHubContent::getParentHub, which already checks if it is.
+		// We assume $title is sane. This is supposed to be called with a $title
+		// gotten from CollaborationHubContent::getParentHub, which already
+		// checks if it is.
 		$rev = Revision::newFromTitle( $title );
 		/** @var CollaborationHubContent $content */
 		$content = $rev->getContent();
@@ -102,14 +112,21 @@ class CollaborationHubTOC {
 			Html::rawElement(
 				'span',
 				[],
-				wfMessage( 'collaborationkit-subpage-toc-label' )->inContentLanguage()->text()
+				wfMessage( 'collaborationkit-subpage-toc-label' )
+					->inContentLanguage()
+					->text()
 			)
 		);
 
 		// hubpage
 
-		$name = $content->getDisplayName() == '' ? $title->getText() : $content->getDisplayName();
-		$link = CollaborationKitImage::makeImage( $image, 16, [ 'link' => $title, 'label' => $name ] );
+		$name = $content->getDisplayName() == '' ?
+			$title->getText() : $content->getDisplayName();
+		$link = CollaborationKitImage::makeImage(
+			$image,
+			16,
+			[ 'link' => $title, 'label' => $name ]
+		);
 
 		$html .= Html::rawElement(
 			'div',
@@ -128,7 +145,8 @@ class CollaborationHubTOC {
 			} else {
 				$itemDisplayTitle = $itemTitle->getSubpageText();
 			}
-			$itemImage = isset( $item['image'] ) ? $item['image'] : $itemDisplayTitle;
+			$itemImage = isset( $item['image'] ) ?
+				$item['image'] : $itemDisplayTitle;
 
 			$itemLink = CollaborationKitImage::makeImage(
 				$itemImage,

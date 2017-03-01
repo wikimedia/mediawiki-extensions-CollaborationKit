@@ -20,9 +20,9 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		// text/x-collabkit is a format for lists similar to <gallery>.
 		// CONTENT_FORMAT_TEXT is for back-compat with old revs. Could be removed.
 
-		// @todo Ideally, we'd have the preferred format for editing be self::FORMAT_WIKI
-		// and the preferred format for db be CONTENT_FORMAT_JSON. Unclear if that's
-		// possible.
+		// @todo Ideally, we'd have the preferred format for editing be
+		// self::FORMAT_WIKI and the preferred format for db be
+		// CONTENT_FORMAT_JSON. Unclear if that's possible.
 		parent::__construct( $modelId, $formats );
 	}
 
@@ -34,8 +34,12 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		global $wgCollaborationHubAllowedNamespaces;
 
 		$namespace = $title->getNamespace();
-		if ( in_array( $namespace, array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) ) )
-			&& MWNamespace::hasSubpages( $namespace ) ) {
+		if ( in_array(
+			$namespace,
+			array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) )
+			)
+			&& MWNamespace::hasSubpages( $namespace )
+		) {
 
 			return true;
 		}
@@ -43,9 +47,9 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	}
 
 	/**
-	 * Constructs a CollaborationHubContent object. Does not perform any validation,
-	 * as that is done at a later step (to allow for outputting of invalid content for
-	 * debugging purposes.)
+	 * Constructs a CollaborationHubContent object. Does not perform any
+	 * validation, as that is done at a later step (to allow for outputting of
+	 * invalid content for debugging purposes.)
 	 *
 	 * @param string $text
 	 * @param string|null $format
@@ -80,7 +84,9 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @return CollaborationHubContent
 	 */
 	public function makeEmptyContent() {
-		return new CollaborationHubContent( '{ "display_name": "", "introduction": "", "footer": "", "content": [] }' );
+		return new CollaborationHubContent(
+			'{ "display_name": "", "introduction": "", "footer": "", "content": [] }'
+		);
 	}
 
 	/**
@@ -133,7 +139,9 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @param IContextSource $context The calling context
 	 * @return Status
 	 */
-	public static function edit( Title $title, $displayName, $image, $colour, $introduction, $footer, $content, $summary, IContextSource $context ) {
+	public static function edit( Title $title, $displayName, $image, $colour,
+		$introduction, $footer, $content, $summary, IContextSource $context
+	) {
 		$contentBlock = [
 			'display_name' => $displayName,
 			'introduction' => $introduction,
@@ -170,7 +178,8 @@ class CollaborationHubContentHandler extends TextContentHandler {
 			$api = new ApiMain( $der, true );
 			$api->execute();
 		} catch ( UsageException $e ) {
-			return Status::newFatal( $context->msg( 'collaborationkit-hub-edit-apierror',
+			return Status::newFatal(
+				$context->msg( 'collaborationkit-hub-edit-apierror',
 				$e->getCodeString() ) );
 		}
 		return Status::newGood();

@@ -2,7 +2,7 @@
 <ruleset>
 	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki"/>
 	<rule ref="Generic.Files.LineLength.TooLong">
-		<severity>0</severity>
+		<exclude-pattern>*/tests/*</exclude-pattern>
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php,php5,inc"/>

@@ -61,13 +61,14 @@ class CollaborationListContent extends JsonContent {
 			return false;
 		}
 		$data = $status->value;
-		// FIXME: The schema should be checking for required fields but for some reason that doesn't work
-		// This may be an issue with EventLogging
+		// FIXME: The schema should be checking for required fields but for some
+		// reason that doesn't work. This may be an issue with EventLogging
 		if (
-			!isset( $data->description ) || !isset( $data->columns ) ||
-			!isset( $data->options ) || !isset( $data->displaymode )
-		)
-		{
+			!isset( $data->description )
+			|| !isset( $data->columns )
+			|| !isset( $data->options )
+			|| !isset( $data->displaymode )
+		) {
 			return false;
 		}
 
@@ -75,8 +76,8 @@ class CollaborationListContent extends JsonContent {
 
 		try {
 			EventLogging::schemaValidate( $jsonAsArray, $listSchema );
-			// FIXME: The schema should be enforcing data type requirements, but it isn't.
-			// Again, this is probably EventLogging.
+			// FIXME: The schema should be enforcing data type requirements, but
+			// it isn't. Again, this is probably EventLogging.
 			$numberOfColumns = count( $jsonAsArray['columns'] );
 			for ( $i = 0; $i < $numberOfColumns; $i++ ) {
 				if ( !is_array( $jsonAsArray['columns'][$i] ) ) {
@@ -116,7 +117,8 @@ class CollaborationListContent extends JsonContent {
 			$value = (bool)$value;
 		}
 
-		// Set up a dummy CollaborationListContent array featuring the options being validated
+		// Set up a dummy CollaborationListContent array featuring the options
+		// being validated.
 		$toValidate = [
 			'displaymode' => 'normal',
 			'description' => '',
@@ -133,7 +135,11 @@ class CollaborationListContent extends JsonContent {
 	 * @return string
 	 */
 	public function beautifyJSON() {
-		return FormatJson::encode( $this->getData()->getValue(), true, FormatJson::ALL_OK );
+		return FormatJson::encode(
+			$this->getData()->getValue(),
+			true,
+			FormatJson::ALL_OK
+		);
 	}
 
 	/**
@@ -146,8 +152,9 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
 		global $wgParser;
-		// WikiPage::doEditContent invokes PST before validation. As such, native data
-		// may be invalid (though PST result is discarded later in that case).
+		// WikiPage::doEditContent invokes PST before validation. As such,
+		// native data may be invalid (though PST result is discarded later in
+		// that case).
 		$text = $this->getNativeData();
 		// pst will hopefully not make json invalid. Def should not.
 		$pst = $wgParser->preSaveTransform( $text, $title, $user, $popts );
@@ -174,7 +181,11 @@ class CollaborationListContent extends JsonContent {
 				// It's not even valid json
 				$this->errortext = htmlspecialchars( $this->getNativeData() );
 			} else {
-				$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+				$this->errortext = FormatJson::encode(
+					$data,
+					true,
+					FormatJson::ALL_OK
+				);
 			}
 		} else {
 			$this->displaymode = $data->displaymode;
@@ -202,8 +213,8 @@ class CollaborationListContent extends JsonContent {
 	 * @param bool $generateHtml
 	 * @param ParserOutput $output
 	 */
-	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
-		$generateHtml, ParserOutput &$output
+	protected function fillParserOutput( Title $title, $revId,
+		ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
 		global $wgParser;
 		$this->decode();
@@ -213,14 +224,18 @@ class CollaborationListContent extends JsonContent {
 			$lang = $title->getPageLanguage();
 		}
 
-		// If this is an error-type list (i.e. a schema-violating blob), just return the plain JSON.
+		// If this is an error-type list (i.e. a schema-violating blob),
+		// just return the plain JSON.
 		if ( $this->displaymode == 'error' ) {
 			$errorText = '<div class=errorbox>' .
-				wfMessage( 'collaborationkit-list-invalid' )->inLanguage( $lang )->plain() .
+				wfMessage( 'collaborationkit-list-invalid' )
+					->inLanguage( $lang )
+					->plain() .
 				"</div>\n<pre>" .
 				$this->errortext .
 				'</pre>';
-			$output = $wgParser->parse( $errorText, $title, $options, true, true, $revId );
+			$output = $wgParser->parse( $errorText, $title, $options, true, true,
+				$revId );
 			return;
 		}
 
@@ -275,7 +290,8 @@ class CollaborationListContent extends JsonContent {
 		// Hack to force style loading even when we don't have a Parser reference.
 		$text = '<collaborationkitloadliststyles/>';
 
-		// Ugly way to prevent unexpected column header TOCs and editsection links from showing up
+		// Ugly way to prevent unexpected column header TOCs and editsection
+		// links from showing up
 		$text .= "__NOTOC__ __NOEDITSECTION__\n";
 
 		if ( $includeDesc ) {
@@ -303,7 +319,9 @@ class CollaborationListContent extends JsonContent {
 				'data-collabkit-column-id' => $colId
 			] ) . "\n";
 			$text .= '<div class="mw-ck-list-column-header">' . "\n";
-			if ( $options['showColumnHeaders'] && isset( $column->label ) && $column->label !== '' ) {
+			if ( $options['showColumnHeaders'] && isset( $column->label )
+				&& $column->label !== ''
+			) {
 				$text .= "=== {$column->label} ===\n";
 			}
 			if ( isset( $column->notes ) && $column->notes !== '' ) {
@@ -348,16 +366,26 @@ class CollaborationListContent extends JsonContent {
 				] );
 				if ( $options['mode'] !== 'no-img' ) {
 					if ( isset( $item->image ) ) {
-						$text .= static::generateImage( $item->image, $this->displaymode, $titleForItem, $iconWidth );
+						$text .= static::generateImage(
+							$item->image,
+							$this->displaymode,
+							$titleForItem,
+							$iconWidth
+						);
 					} else {
 						// Use fallback mechanisms
-						$text .= static::generateImage( null, $this->displaymode, $titleForItem, $iconWidth );
+						$text .= static::generateImage(
+							null,
+							$this->displaymode,
+							$titleForItem,
+							$iconWidth
+						);
 					}
 				}
 
 				$text .= '<div class="mw-ck-list-container">';
-				// Question: Arguably it would be more semantically correct to use
-				// an <Hn> element for this. Would that be better? Unclear.
+				// Question: Arguably it would be more semantically correct to
+				// use an <Hn> element for this. Would that be better? Unclear.
 				$text .= '<div class="mw-ck-list-title">';
 				if ( $titleForItem ) {
 					if ( $this->displaymode == 'members'
@@ -379,7 +407,9 @@ class CollaborationListContent extends JsonContent {
 					$text .= $item->notes . "\n";
 				}
 
-				if ( isset( $item->tags ) && is_array( $item->tags ) && count( $item->tags ) ) {
+				if ( isset( $item->tags ) && is_array( $item->tags )
+					&& count( $item->tags )
+				) {
 					$text .= "\n<div class='toccolours mw-ck-list-tags'>" .
 						wfMessage( 'collaborationkit-list-taglist' )
 							->inLanguage( $lang )
@@ -408,7 +438,9 @@ class CollaborationListContent extends JsonContent {
 	 * @param int $size The width of the icon image. Default is 64px;
 	 * @return string HTML
 	 */
-	protected static function generateImage( $definedImage, $displayMode, $title, $size = 64 ) {
+	protected static function generateImage( $definedImage, $displayMode, $title,
+		$size = 64
+	) {
 		$image = null;
 		$iconColour = '';
 		$linkOrNot = true;
@@ -459,8 +491,11 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Converts between different text-based content models
 	 *
-	 * @param string $toModel The desired content model, use the CONTENT_MODEL_XXX flags.
-	 * @param string $lossy Flag, set to "lossy" to allow lossy conversion. If lossy conversion is not allowed, full round-trip conversion is expected to work without losing information.
+	 * @param string $toModel The desired content model, use the
+	 *  CONTENT_MODEL_XXX flags.
+	 * @param string $lossy Flag, set to "lossy" to allow lossy conversion.
+	 *  If lossy conversion is not allowed, full round-trip conversion is expected
+	 *  to work without losing information.
 	 * @return Content|bool A content object with the content model $toModel.
 	 */
 	public function convert( $toModel, $lossy = '' ) {
@@ -473,7 +508,11 @@ class CollaborationListContent extends JsonContent {
 			$text = $this->convertToWikitext( $wgContLang, $renderOpts );
 			return ContentHandler::makeContent( $text, null, $toModel );
 		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
-			return ContentHandler::makeContent( $this->getNativeData(), null, $toModel );
+			return ContentHandler::makeContent(
+				$this->getNativeData(),
+				null,
+				$toModel
+			);
 		}
 		return parent::convert( $toModel, $lossy );
 	}
@@ -555,7 +594,8 @@ class CollaborationListContent extends JsonContent {
 	 */
 	private function sortRandomly( &$items ) {
 		$totItems = count( $items );
-		if ( count( $items ) > 1 ) { // No point in randomizing if only one item
+		// No point in randomizing if only one item
+		if ( count( $items ) > 1 ) {
 			$rand1 = mt_rand( 1, $totItems - 1 );
 			$rand2 = mt_rand( 0, $totItems - 1 );
 
@@ -664,14 +704,16 @@ class CollaborationListContent extends JsonContent {
 				$out .= 'column';
 			}
 			if ( isset( $column->notes ) ) {
-				$out .= '|notes=' . CollaborationHubContent::escapeForHumanEditable( $column->notes );
+				$out .= '|notes='
+					. CollaborationHubContent::escapeForHumanEditable( $column->notes );
 			}
 			$out .= self::HUMAN_COLUMN_SPLIT2;
 
 			foreach ( $column->items as $item ) {
 				$out .= CollaborationHubContent::escapeForHumanEditable( $item->title );
 				if ( isset ( $item->notes ) ) {
-					$out .= '|' . CollaborationHubContent::escapeForHumanEditable( $item->notes );
+					$out .= '|'
+					. CollaborationHubContent::escapeForHumanEditable( $item->notes );
 				} else {
 					$out .= '|';
 				}
@@ -679,19 +721,22 @@ class CollaborationListContent extends JsonContent {
 					if ( $item->link === false ) {
 						$out .= '|nolink';
 					} else {
-						$out .= "|link=" . CollaborationHubContent::escapeForHumanEditable( $item->link );
+						$out .= "|link="
+							. CollaborationHubContent::escapeForHumanEditable( $item->link );
 					}
 				}
 				if ( isset( $item->image ) ) {
 					if ( $item->image === false ) {
 						$out .= '|noimage';
 					} else {
-						$out .= '|image=' . CollaborationHubContent::escapeForHumanEditable( $item->image );
+						$out .= '|image='
+							. CollaborationHubContent::escapeForHumanEditable( $item->image );
 					}
 				}
 				if ( isset( $item->tags ) ) {
 					foreach ( (array)$item->tags as $tag ) {
-						$out .= '|tag=' . CollaborationHubContent::escapeForHumanEditable( $tag );
+						$out .= '|tag='
+							. CollaborationHubContent::escapeForHumanEditable( $tag );
 					}
 				}
 				if ( substr( $out, -1 ) === '|' ) {
@@ -788,7 +833,10 @@ class CollaborationListContent extends JsonContent {
 
 		$parts = explode( '|', $columnContent[0] );
 
-		$parts = array_map( [ 'CollaborationHubContent', 'unescapeForHumanEditable' ], $parts );
+		$parts = array_map(
+			[ 'CollaborationHubContent', 'unescapeForHumanEditable' ],
+			$parts
+		);
 
 		if ( $parts[0] != 'column' ) {
 			$columnItem['label'] = $parts[0];
@@ -842,11 +890,14 @@ class CollaborationListContent extends JsonContent {
 	 */
 	private static function convertFromHumanEditableItemLine( $line ) {
 		$parts = explode( '|', $line );
-		$parts = array_map( [ 'CollaborationHubContent', 'unescapeForHumanEditable' ], $parts );
+		$parts = array_map(
+			[ 'CollaborationHubContent', 'unescapeForHumanEditable' ],
+			$parts
+		);
 		$itemRes = [ 'title' => $parts[0] ];
 		if ( count( $parts ) > 1 ) {
-			// If people are using batch editor, they might define an image etc. despite lack of a note
-			// This is to catch that and prevent weirdness.
+			// If people are using batch editor, they might define an image etc.
+			// despite lack of a note. This is to catch that and prevent weirdness.
 			$testExplosion = explode( '=', $parts[1] );
 			if ( in_array( $testExplosion[0], [ 'image', 'link', 'tags', 'sortkey' ] ) ) {
 				$itemRes[$testExplosion[0]] = $testExplosion[1];
@@ -963,7 +1014,11 @@ class CollaborationListContent extends JsonContent {
 		) {
 			$parser->getOutput()->updateCacheExpiry( self::RANDOM_CACHE_EXPIRY );
 		}
-		$parser->getOutput()->addTemplate( $title, $wikipage->getId(), $wikipage->getLatest() );
+		$parser->getOutput()->addTemplate(
+			$title,
+			$wikipage->getId(),
+			$wikipage->getLatest()
+		);
 		$res = $content->convertToWikitext( $lang, $options );
 		return [ $res, 'noparse' => false ];
 	}
@@ -993,18 +1048,25 @@ class CollaborationListContent extends JsonContent {
 			}
 		}
 		$res = $this->filterActiveUsers( $userItems );
-		$inactiveFlatList = array_merge( array_values( $res['inactive'] ), $nonUserItems );
+		$inactiveFlatList = array_merge(
+			array_values( $res['inactive'] ),
+			$nonUserItems
+		);
 
 		// So currently, columns can be selected based on their names,
 		// which is based on a Message object, which is not the nicest
 		// for the autogenerated active/inactive columns.
 		$activeColumn = (object)[
 			'items' => array_values( $res['active'] ),
-			'label' => wfMessage( 'collaborationkit-column-active' )->inContentLanguage()->plain(),
+			'label' => wfMessage( 'collaborationkit-column-active' )
+				->inContentLanguage()
+				->plain(),
 		];
 		$inactiveColumn = (object)[
 			'items' => $inactiveFlatList,
-			'label' => wfMessage( 'collaborationkit-column-inactive' )->inContentLanguage()->plain(),
+			'label' => wfMessage( 'collaborationkit-column-inactive' )
+				->inContentLanguage()
+				->plain(),
 		];
 
 		return [ $activeColumn, $inactiveColumn ];
@@ -1089,8 +1151,12 @@ class CollaborationListContent extends JsonContent {
 			&& $title->userCan( 'edit', $user, 'quick' )
 		) {
 			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
-			// FIXME: only load .list.members if the list is a member list (displaymode = members)
-			$output->addModules( [ 'ext.CollaborationKit.list.ui', 'ext.CollaborationKit.list.members' ] );
+			// FIXME: only load .list.members if the list is a member list
+			// (displaymode = members)
+			$output->addModules( [
+				'ext.CollaborationKit.list.ui',
+				'ext.CollaborationKit.list.members'
+			] );
 			$output->preventClickjacking();
 		}
 	}

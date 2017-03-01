@@ -27,7 +27,10 @@ class CollaborationHubContentEditor extends EditPage {
 		$out->addModuleStyles( [
 			'ext.CollaborationKit.edit.styles',
 		] );
-		$out->addJsConfigVars( 'wgCollaborationKitColourList', CollaborationHubContent::getThemeColours() );
+		$out->addJsConfigVars(
+			'wgCollaborationKitColourList',
+			CollaborationHubContent::getThemeColours()
+		);
 	}
 
 	/**
@@ -145,7 +148,11 @@ class CollaborationHubContentEditor extends EditPage {
 			return;
 		}
 
-		$parts = explode( CollaborationHubContent::HUMAN_DESC_SPLIT, $this->textbox1, 6 );
+		$parts = explode(
+			CollaborationHubContent::HUMAN_DESC_SPLIT,
+			$this->textbox1,
+			6
+		);
 		if ( count( $parts ) !== 6 ) {
 			parent::showContentForm();
 			return;
@@ -156,7 +163,11 @@ class CollaborationHubContentEditor extends EditPage {
 		$partFields = $this->getFormFields( $parts );
 		// See setCollabkitTheme for how the setProperty works.
 		$out->setProperty( 'collabkit-theme', $this->colour );
-		$out->addHTML( Html::rawElement( 'div', [ 'class' => 'mw-collabkit-modifiededitform' ], $partFields ) );
+		$out->addHTML( Html::rawElement(
+			'div',
+			[ 'class' => 'mw-collabkit-modifiededitform' ],
+			$partFields
+		) );
 	}
 
 	/**
@@ -168,7 +179,9 @@ class CollaborationHubContentEditor extends EditPage {
 	 * @param Skin $skin
 	 * @param array $bodyAttribs Attributes for the <body> element
 	 */
-	public static function setCollabkitTheme( OutputPage $out, $skin, &$bodyAttribs ) {
+	public static function setCollabkitTheme( OutputPage $out, $skin,
+		&$bodyAttribs
+	) {
 		$theme = $out->getProperty( 'collabkit-theme' );
 		if ( $theme ) {
 			$themeClass = 'mw-ck-theme-' . $theme;

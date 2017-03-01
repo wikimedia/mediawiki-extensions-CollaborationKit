@@ -45,7 +45,8 @@ class CollaborationHubContent extends JsonContent {
 	protected $errortext;
 
 	/**
-	 * 23 preset colours; actual colour values are set in the extension.json and less modules
+	 * 23 preset colours; actual colour values are set in the extension.json and
+	 * less modules
 	 *
 	 * @return array
 	 */
@@ -92,12 +93,14 @@ class CollaborationHubContent extends JsonContent {
 		$hubSchema = include __DIR__ . '/CollaborationHubContentSchema.php';
 		$jsonParse = $this->getData();
 		if ( $jsonParse->isGood() ) {
-			// TODO: The schema should be checking for required fields but for some reason that doesn't work
+			// TODO: The schema should be checking for required fields but for
+			// some reason that doesn't work
 			if ( !isset( $jsonParse->value->content ) ) {
 				return false;
 			}
 			// Forcing the object to become an array
-			$jsonAsArray = json_decode( json_encode( $jsonParse->getValue() ), true );
+			$jsonAsArray = json_decode(
+				json_encode( $jsonParse->getValue() ), true );
 			try {
 				EventLogging::schemaValidate( $jsonAsArray, $hubSchema );
 				return true;
@@ -122,15 +125,25 @@ class CollaborationHubContent extends JsonContent {
 				$this->displaymode = 'error';
 				if ( !parent::isValid() ) {
 					// It's not even valid json
-					$this->errortext = htmlspecialchars( $this->getNativeData() );
+					$this->errortext = htmlspecialchars(
+						$this->getNativeData()
+					);
 				} else {
-					$this->errortext = FormatJson::encode( $data, true, FormatJson::ALL_OK );
+					$this->errortext = FormatJson::encode(
+						$data,
+						true,
+						FormatJson::ALL_OK
+					);
 				}
 			} else {
-				$this->displayName = isset( $data->display_name ) ? $data->display_name : '';
-				$this->introduction = isset( $data->introduction ) ? $data->introduction : '';
-				$this->footer = isset( $data->footer ) ? $data->footer : '';
-				$this->image = isset( $data->image ) ? $data->image : 'none';
+				$this->displayName = isset( $data->display_name ) ?
+					$data->display_name : '';
+				$this->introduction = isset( $data->introduction ) ?
+					$data->introduction : '';
+				$this->footer = isset( $data->footer ) ?
+					$data->footer : '';
+				$this->image = isset( $data->image ) ?
+					$data->image : 'none';
 
 				// Set colour to default if empty or missing
 				if ( !isset( $data->colour ) || $data->colour == '' ) {
@@ -147,9 +160,12 @@ class CollaborationHubContent extends JsonContent {
 							break;
 						}
 						$item = [];
-						$item['title'] = isset( $itemObject->title ) ? $itemObject->title : null;
-						$item['image'] = isset( $itemObject->image ) ? $itemObject->image : null;
-						$item['displayTitle'] = isset( $itemObject->display_title ) ? $itemObject->display_title : null;
+						$item['title'] = isset( $itemObject->title ) ?
+							$itemObject->title : null;
+						$item['image'] = isset( $itemObject->image ) ?
+							$itemObject->image : null;
+						$item['displayTitle'] = isset( $itemObject->display_title ) ?
+							$itemObject->display_title : null;
 
 						$this->content[] = $item;
 					}
@@ -234,8 +250,8 @@ class CollaborationHubContent extends JsonContent {
 	 * @param bool $generateHtml
 	 * @param ParserOutput $output
 	 */
-	protected function fillParserOutput( Title $title, $revId, ParserOptions $options,
-		$generateHtml, ParserOutput &$output
+	protected function fillParserOutput( Title $title, $revId,
+		ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
 		global $wgParser;
 		$this->decode();
@@ -243,13 +259,24 @@ class CollaborationHubContent extends JsonContent {
 		OutputPage::setupOOUI();
 
 		// Dummy parse intro and footer to get categories and whatnot
-		$output = $wgParser->parse( $this->getIntroduction() . $this->getFooter(), $title, $options, true, true, $revId );
+		$output = $wgParser->parse(
+			$this->getIntroduction() . $this->getFooter(),
+			$title,
+			$options,
+			true,
+			true,
+			$revId
+		);
 		$html = '';
 
 		// If error, then bypass all this and just show the offending JSON
 
 		if ( $this->displaymode == 'error' ) {
-			$html = '<div class=errorbox>' . wfMessage( 'collaborationkit-hub-invalid' ) . "</div>\n<pre>" . $this->errortext . '</pre>';
+			$html = '<div class=errorbox>'
+			. wfMessage( 'collaborationkit-hub-invalid' )
+			. "</div>\n<pre>"
+			. $this->errortext
+			. '</pre>';
 			$output->setText( $html );
 		} else {
 			// set up hub with theme stuff
@@ -335,7 +362,8 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * Helper function for fillParserOutput to get all the css classes for the page content
+	 * Helper function for fillParserOutput to get all the css classes for the
+	 * page content
 	 *
 	 * @return array
 	 */
@@ -361,10 +389,13 @@ class CollaborationHubContent extends JsonContent {
 	 * @param Title $title
 	 * @param ParserOptions $options
 	 * @param ParserOutput $output
-	 * @param CollaborationListContent|null $membersContent Force-fed member-list Content for testing purposes.
+	 * @param CollaborationListContent|null $membersContent Member list Content
+	 *  for testing purposes
 	 * @return string
 	 */
-	protected function getMembersBlock( Title $title, ParserOptions $options, ParserOutput $output, $membersContent = null ) {
+	protected function getMembersBlock( Title $title, ParserOptions $options,
+		ParserOutput $output, $membersContent = null
+	) {
 		global $wgParser;
 
 		$html = '';
@@ -374,13 +405,25 @@ class CollaborationHubContent extends JsonContent {
 			$lang = $title->getPageLanguage();
 		}
 
-		$membersPageName = $title->getFullText() . '/' . wfMessage( 'collaborationkit-hub-pagetitle-members' )->inContentLanguage()->text();
-		$membersTitle = $this->redirectProof( Title::newFromText( $membersPageName ) );
-		if ( ( $membersTitle->exists() && $membersTitle->getContentModel() == 'CollaborationListContent' ) || $membersContent !== null ) {
+		$membersPageName = $title->getFullText()
+			. '/'
+			. wfMessage( 'collaborationkit-hub-pagetitle-members' )
+				->inContentLanguage()
+				->text();
+		$membersTitle = Title::newFromText( $membersPageName );
+		$membersTitle = $this->redirectProof( $membersTitle );
+		if ( ( $membersTitle->exists()
+			&& $membersTitle->getContentModel() == 'CollaborationListContent' )
+			|| $membersContent !== null
+		) {
 			$membersPageID = $membersTitle->getArticleID();
-			$output->addJsConfigVars( 'wgCollaborationKitAssociatedMemberList', $membersPageID );
+			$output->addJsConfigVars(
+				'wgCollaborationKitAssociatedMemberList',
+				$membersPageID
+			);
 
-			// rawElement is used because we don't want [edit] links or usual header behavior
+			// rawElement is used because we don't want [edit] links or usual
+			// header behavior
 			$html .= Html::rawElement(
 				'h3',
 				[],
@@ -388,9 +431,12 @@ class CollaborationHubContent extends JsonContent {
 			);
 
 			if ( $membersContent === null ) {
-				$membersContent = Revision::newFromTitle( $membersTitle )->getContent();
+				$membersContent = Revision::newFromTitle( $membersTitle )
+					->getContent();
 			}
-			$activeCol = wfMessage( 'collaborationkit-column-active' )->inContentLanguage()->plain();
+			$activeCol = wfMessage( 'collaborationkit-column-active' )
+				->inContentLanguage()
+				->plain();
 			$wikitext = $membersContent->convertToWikitext(
 				$lang,
 				[
@@ -403,15 +449,22 @@ class CollaborationHubContent extends JsonContent {
 				]
 			);
 
-			$html .= $wgParser->parse( $wikitext, $membersTitle, $options )->getText();
+			$html .= $wgParser
+				->parse( $wikitext, $membersTitle, $options )
+				->getText();
 
 			$membersViewButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-members-view' )->inContentLanguage()->text(),
+				'label' => wfMessage( 'collaborationkit-hub-members-view' )
+					->inContentLanguage()
+					->text(),
 				'href' => $membersTitle->getLinkURL()
 			] );
 			$membersJoinButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-members-signup' )->inContentLanguage()->text(),
-				'href' => $membersTitle->getEditURL(), // Going through editor is non-JS fallback
+				'label' => wfMessage( 'collaborationkit-hub-members-signup' )
+					->inContentLanguage()
+					->text(),
+				// Going through editor is non-JS fallback
+				'href' => $membersTitle->getEditURL(),
 				'flags' => [ 'primary', 'progressive' ],
 				'classes' => [ 'mw-ck-members-join' ]
 			] );
@@ -447,14 +500,26 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string $announcementsText Force-fed announcements HTML for testing purposes
 	 * @return string
 	 */
-	protected function getParsedAnnouncements( Title $title, ParserOptions $options, $announcementsText = null ) {
-		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )->inContentLanguage()->text();
-		$announcementsTitle = $this->redirectProof( Title::newFromText( $title->getFullText() . '/' . $announcementsSubpageName ) );
+	protected function getParsedAnnouncements( Title $title, ParserOptions $options,
+		$announcementsText = null
+	) {
+		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )
+			->inContentLanguage()
+			->text();
+		$announcementsTitle = Title::newFromText(
+			$title->getFullText()
+			. '/'
+			. $announcementsSubpageName
+		);
+		$announcementsTitle = $this->redirectProof( $announcementsTitle );
 
 		if ( $announcementsTitle->exists() || $announcementsText !== null ) {
 			if ( $announcementsText === null ) {
 				$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
-				$announcementsText = $announcementsWikiPage->getContent()->getParserOutput( $announcementsTitle )->getText();
+				$announcementsText = $announcementsWikiPage
+					->getContent()
+					->getParserOutput( $announcementsTitle )
+					->getText();
 			}
 
 			$announcementsEditButton = $this->makeEditSectionLink(
@@ -470,7 +535,9 @@ class CollaborationHubContent extends JsonContent {
 				$announcementsSubpageName
 			);
 
-			return $announcementsHeader . $announcementsEditButton . $announcementsText;
+			return $announcementsHeader
+				. $announcementsEditButton
+				. $announcementsText;
 		}
 	}
 
@@ -499,7 +566,9 @@ class CollaborationHubContent extends JsonContent {
 
 		if ( $title->userCan( 'edit' ) ) {
 			$html .= new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-manage' )->inContentLanguage()->text(),
+				'label' => wfMessage( 'collaborationkit-hub-manage' )
+					->inContentLanguage()
+					->text(),
 				'href' => $title->getLocalURL( [ 'action' => 'edit' ] ),
 				'flags' => [ 'progressive' ],
 				'icon' => 'edit'
@@ -507,8 +576,11 @@ class CollaborationHubContent extends JsonContent {
 
 			// TODO make sure they have create permission, too
 			$html .= new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-addpage' )->inContentLanguage()->text(),
-				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
+				'label' => wfMessage( 'collaborationkit-hub-addpage' )
+					->inContentLanguage()
+					->text(),
+				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
+					->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
 				'flags' => [ 'progressive' ],
 				'icon' => 'add'
 			] );
@@ -525,7 +597,9 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOutput &$output
 	 * @return string
 	 */
-	protected function getParsedContent( Title $title, ParserOptions $options, ParserOutput $output ) {
+	protected function getParsedContent( Title $title, ParserOptions $options,
+		ParserOutput $output
+	) {
 		global $wgParser;
 
 		$lang = $options->getTargetLanguage();
@@ -583,7 +657,10 @@ class CollaborationHubContent extends JsonContent {
 					$wgParser->startExternalParse( $title, $options, Parser::OT_WIKI );
 					$frame = $wgParser->getPreprocessor()->newFrame()->newChild( [], $spTitle );
 					$node = $wgParser->preprocessToDom( $rawText, Parser::PTD_FOR_INCLUSION );
-					$processedText = $frame->expand( $node, PPFrame::RECOVER_ORIG & ( ~PPFrame::NO_IGNORE ) );
+					$processedText = $frame->expand(
+						$node,
+						PPFrame::RECOVER_ORIG & ( ~PPFrame::NO_IGNORE )
+					);
 					$parsedWikitext = $wgParser->parse( $processedText, $title, $options );
 					$text = $parsedWikitext->getText();
 					$output->addModuleStyles( $parsedWikitext->getModuleStyles() );
@@ -594,21 +671,37 @@ class CollaborationHubContent extends JsonContent {
 					$text = $contentOutput->getRawText();
 				}
 
-				$html .= Html::rawElement( 'div', [ 'class' => 'mw-ck-hub-section-main' ], $text );
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-hub-section-main' ],
+					$text
+				);
 
 				// register as template for stuff
-				$output->addTemplate( $spTitle, $spTitle->getArticleID(), $spRev->getId() );
+				$output->addTemplate(
+					$spTitle,
+					$spTitle->getArticleID(),
+					$spRev->getId()
+				);
 			} else {
 				// DO CONTENT FOR NOT YET MADE PAGE
 				$html .= Html::rawElement(
 					'p',
 					[ 'class' => 'mw-ck-hub-missingfeature-note' ],
-					wfMessage( 'collaborationkit-hub-missingpage-note' )->inContentLanguage()->parse()
+					wfMessage( 'collaborationkit-hub-missingpage-note' )
+						->inContentLanguage()
+						->parse()
 				);
 
 				$html .= new OOUI\ButtonWidget( [
-					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )->inContentLanguage()->text(),
-					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL( [ 'collaborationhub' => $title->getFullText(), 'feature' => $spTitle->getSubpageText() ] )
+					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )
+						->inContentLanguage()
+						->text(),
+					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
+						->getFullURL( [
+							'collaborationhub' => $title->getFullText(),
+							'feature' => $spTitle->getSubpageText()
+						] )
 				] );
 
 				// register as template for stuff
@@ -625,13 +718,15 @@ class CollaborationHubContent extends JsonContent {
 	 * Helper function for getParsedContent for making subpage section headers
 	 *
 	 * @param Title $title
-	 * @param array $contentItem Data for the content item we're generating the header for
+	 * @param array $contentItem Data for the content item we're generating the
+	 *  header for
 	 * @return string html (NOTE THIS IS AN OPEN DIV)
 	 */
 	protected function makeHeader( Title $title, array $contentItem ) {
 		static $tocLinks = []; // All used ids for the sections for the toc
 
-		$spTitle = $this->redirectProof( Title::newFromText( $contentItem['title'] ) );
+		$spTitle = Title::newFromText( $contentItem['title'] );
+		$spTitle = $this->redirectProof( $spTitle );
 		$spRev = Revision::newFromTitle( $spTitle );
 
 		// Get display name
@@ -658,16 +753,24 @@ class CollaborationHubContent extends JsonContent {
 		if ( isset( $spRev ) ) {
 			$sectionLinks['viewLink'] = [];
 			$sectionLinks['viewLink']['title'] = $spTitle->getLinkURL();
-			$sectionLinks['viewLink']['msg'] = wfMessage( 'collaborationkit-hub-subpage-view' )->inContentLanguage()->text();
+			$sectionLinks['viewLink']['msg'] = wfMessage( 'collaborationkit-hub-subpage-view' )
+				->inContentLanguage()
+				->text();
 			$sectionLinks['viewLink']['icon'] = 'search';
 
 			$sectionLinks['editLink'] = [];
 			$sectionLinks['editLink']['title'] = $spTitle->getEditURL();
-			$sectionLinks['editLink']['msg'] = wfMessage( 'edit' )->inContentLanguage()->text();
+			$sectionLinks['editLink']['msg'] = wfMessage( 'edit' )
+				->inContentLanguage()
+				->text();
 			$sectionLinks['editLink']['icon'] = 'edit';
 		}
 		foreach ( $sectionLinks as $sectionLink ) {
-			$sectionLinksText .= $this->makeEditSectionLink( $sectionLink['title'], $sectionLink['msg'], $sectionLink['icon'] );
+			$sectionLinksText .= $this->makeEditSectionLink(
+				$sectionLink['title'],
+				$sectionLink['msg'],
+				$sectionLink['icon']
+			);
 		}
 
 		// Assemble header
@@ -689,7 +792,11 @@ class CollaborationHubContent extends JsonContent {
 			)
 		);
 		if ( $sectionLinksText !== '' ) {
-			$html .= Html::rawElement( 'div', [ 'class' => 'mw-ck-hub-section-buttons' ], $sectionLinksText );
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-section-buttons' ],
+				$sectionLinksText
+			);
 		}
 
 		OutputPage::setupOOUI();
@@ -697,11 +804,13 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * Helper function for fillParserOutput for making editsection links in headers
+	 * Helper function for fillParserOutput for making editsection links in
+	 *  headers
 	 *
 	 * @param string $link Target URL
 	 * @param string $message Message to display
-	 * @param string $icon Icon to display alongside the message, based on OOjs UI definitions
+	 * @param string $icon Icon to display alongside the message, based on OOjs
+	 *  UI definitions
 	 * @return OOUI\ButtonWidget
 	 */
 	protected function makeEditSectionLink( $link, $message, $icon ) {
@@ -734,13 +843,18 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string HTML
 	 */
 	public function getParsedImage( $image, $size = 200 ) {
-		return CollaborationKitImage::makeImage( $image, $size, [ 'fallback' => 'puzzlepiece' ] );
+		return CollaborationKitImage::makeImage(
+			$image,
+			$size,
+			[ 'fallback' => 'puzzlepiece' ]
+		);
 	}
 
 	/**
 	 * Find the parent hub, if any.
 	 *
-	 * Returns the first CollaborationHub Title found, even if more are higher up, or null if none
+	 * Returns the first CollaborationHub Title found, even if more are higher
+	 * up, or null if none
 	 *
 	 * @param Title $title Title to start looking from
 	 * @return Title|null Title of parent hub or null if none was found
@@ -750,12 +864,18 @@ class CollaborationHubContent extends JsonContent {
 
 		$namespace = $title->getNamespace();
 		if ( MWNamespace::hasSubpages( $namespace ) &&
-			in_array( $namespace, array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) ) ) ) {
+			in_array(
+				$namespace,
+				array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) )
+			)
+		) {
 
 			$parentTitle = $title->getBaseTitle();
 			while ( !$title->equals( $parentTitle ) ) {
 				$parentRev = Revision::newFromTitle( $parentTitle );
-				if ( $parentTitle->getContentModel() == 'CollaborationHubContent' && isset( $parentRev ) ) {
+				if ( $parentTitle->getContentModel() == 'CollaborationHubContent'
+					&& isset( $parentRev )
+				) {
 					return $parentTitle;
 				}
 
@@ -772,21 +892,28 @@ class CollaborationHubContent extends JsonContent {
 	 * Converts content between wikitext and JSON.
 	 *
 	 * @param string $toModel
-	 * @param string $lossy Flag, set to "lossy" to allow lossy conversion. If lossy conversion is not allowed, full round-trip conversion is expected to work without losing information.
+	 * @param string $lossy Flag, set to "lossy" to allow lossy conversion.
+	 *  If lossy conversion is not allowed, full round-trip conversion is
+	 *  expected to work without losing information.
 	 * @return Content
 	 */
 	public function convert( $toModel, $lossy = '' ) {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
-			// Not ideal at all, but without access to the name of the page being transcluded, we
-			// can't embed the rest of the page. This is just a holdover to prevent the thing from
-			// throwing an exception.
+			// Not ideal at all, but without access to the name of the page
+			// being transcluded, we can't embed the rest of the page. This is
+			// just a holdover to prevent the thing from throwing an exception.
 			$this->decode();
 			$image = $this->getImage();
 			$intro = $this->getIntroduction();
-			$text = "<div style='margin:0 2em 2em 0;'>[[File:$image|200px|left]]</div>\n<div style='font-size:115%;'>$intro</div>";
+			$text = "<div style='margin:0 2em 2em 0;'>[[File:$image|200px|left]]</div>
+				\n<div style='font-size:115%;'>$intro</div>";
 			return ContentHandler::makeContent( $text, null, $toModel );
 		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
-			return ContentHandler::makeContent( $this->getNativeData(), null, $toModel );
+			return ContentHandler::makeContent(
+				$this->getNativeData(),
+				null,
+				$toModel
+			);
 		}
 		return parent::convert( $toModel, $lossy );
 	}
@@ -826,10 +953,12 @@ class CollaborationHubContent extends JsonContent {
 		foreach ( $this->content as $item ) {
 			$out .= self::escapeForHumanEditable( $item['title'] );
 			if ( isset ( $item['image'] ) ) {
-				$out .= '|image=' . self::escapeForHumanEditable( $item['image'] );
+				$out .= '|image='
+					. self::escapeForHumanEditable( $item['image'] );
 			}
 			if ( isset( $item['displayTitle'] ) ) {
-				$out .= '|display_title=' . self::escapeForHumanEditable( $item['displayTitle'] );
+				$out .= '|display_title='
+					. self::escapeForHumanEditable( $item['displayTitle'] );
 			}
 			if ( substr( $out, -1 ) === '|' ) {
 				$out = substr( $out, 0, strlen( $out ) - 1 );

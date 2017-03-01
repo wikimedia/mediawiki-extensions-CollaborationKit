@@ -19,28 +19,36 @@ class CollaborationKitHooks {
 		$title = $sktemplate->getTitle();
 		$request = $sktemplate->getRequest();
 		if ( isset( $links['views']['edit'] ) ) {
-			if ( $title->hasContentModel( 'CollaborationListContent' ) || $title->hasContentModel( 'CollaborationHubContent' ) ) {
+			if ( $title->hasContentModel( 'CollaborationListContent' )
+				|| $title->hasContentModel( 'CollaborationHubContent' )
+			) {
 				// Edit as JSON
-				$active = in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] )
-					&& $request->getVal( 'format' ) === 'application/json';
+				$active = in_array(
+					$request->getVal( 'action' ),
+					[ 'edit', 'submit' ]
+				) && $request->getVal( 'format' ) === 'application/json';
 				$links['actions']['editasjson'] = [
 					'class' => $active ? 'selected' : false,
 					'href' => wfAppendQuery(
 						$links['views']['edit']['href'],
 						[ 'format' => 'application/json' ]
 					),
-					'text' => wfMessage( 'collaborationkit-editjsontab' )->text()
+					'text' => wfMessage( 'collaborationkit-editjsontab' )
+						->text()
 				];
 				if ( $active ) {
 					// Make it not be selected when editing json.
 					$links['views']['edit']['class'] = false;
 				}
 			}
-			if ( !in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] ) && $title->hasContentModel( 'CollaborationHubContent' ) ) {
+			if ( !in_array( $request->getVal( 'action' ), [ 'edit', 'submit' ] )
+				&& $title->hasContentModel( 'CollaborationHubContent' )
+			) {
 				// Add feature
 				$links['actions']['addnewfeature'] = [
 					'class' => '',
-					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
+					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
+						->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
 					'text' => wfMessage( 'collaborationkit-hub-addpage' )->text()
 				];
 			}
@@ -49,7 +57,8 @@ class CollaborationKitHooks {
 	}
 
 	/**
-	 * Register the {{#transcludelist:...}} and <collaborationkitloadliststyles> hooks
+	 * Register the {{#transcludelist:...}} and <collaborationkitloadliststyles>
+	 * hooks
 	 *
 	 * #transcludelist is to allow users to transclude a CollaborationList with
 	 * custom options. <collaborationkitloadliststyles> allows enabling our style
@@ -60,9 +69,15 @@ class CollaborationKitHooks {
 	 * @param Parser $parser
 	 */
 	public static function onParserFirstCallInit( $parser ) {
-		$parser->setFunctionHook( 'transcludelist', 'CollaborationListContent::transcludeHook' );
+		$parser->setFunctionHook(
+			'transcludelist',
+			'CollaborationListContent::transcludeHook'
+		);
 		// Hack for transclusion.
-		$parser->setHook( 'collaborationkitloadliststyles', 'CollaborationListContent::loadStyles' );
+		$parser->setHook(
+			'collaborationkitloadliststyles',
+			'CollaborationListContent::loadStyles'
+		);
 	}
 
 	/**
@@ -116,7 +131,11 @@ class CollaborationKitHooks {
 			$out->prependHTML( $toc->renderSubpageToC( $parentHub ) );
 
 			$colour = $revisionContent->getThemeColour();
-			$text = Html::rawElement( 'div', [ 'class' => "mw-cklist-square-$colour" ], $text );
+			$text = Html::rawElement(
+				'div',
+				[ 'class' => "mw-cklist-square-$colour" ],
+				$text
+			);
 
 			$out->addModuleStyles( [
 				'ext.CollaborationKit.hubsubpage.styles',
@@ -124,7 +143,9 @@ class CollaborationKitHooks {
 				'ext.CollaborationKit.blots'
 			] );
 
-			// Set this mostly just so we can make sure this entire thing hasn't already been done, because otherwise the ToC is added twice on edit for some reason
+			// Set this mostly just so we can make sure this entire thing hasn't
+			// already been done, because otherwise the ToC is added twice on
+			// edit for some reason
 			$out->setProperty( 'CollaborationHubSubpage', true );
 		}
 		return true;
@@ -146,7 +167,9 @@ class CollaborationKitHooks {
 	 * @param OutputPage $out
 	 * @param ParserOutput $pout
 	 */
-	public static function onOutputPageParserOutput( OutputPage $out, ParserOutput $pout ) {
+	public static function onOutputPageParserOutput( OutputPage $out,
+		ParserOutput $pout
+	) {
 		if ( $out->getProperty( 'CollaborationHubSubpage' ) ) {
 			// We've already been here, so we can't abort
 			// outputting the TOC at this stage.
