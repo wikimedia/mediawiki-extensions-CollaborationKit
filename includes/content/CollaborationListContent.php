@@ -595,7 +595,6 @@ class CollaborationListContent extends JsonContent {
 		foreach ( $tagSpecifier as $tagGroups ) {
 			foreach ( $tagGroups as $tagAlt ) {
 				$matchesOneAlternative = false;
-				$itemTags;
 				if ( in_array( $tagAlt, $itemTags ) ) {
 					$matchesOneAlternative = true;
 					break;
