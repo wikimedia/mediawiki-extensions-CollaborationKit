@@ -120,25 +120,12 @@ JSON;
 	}
 
 	/**
-	 * @return string
-	 */
-	/*protected function getDiffEngineClass() {
-		return 'CollaborationListDiffEngine';
-	}*/
-
-	/**
 	 * FIXME is this really true?
 	 * @return bool
 	 */
 	public function isParserCacheSupported() {
 		return true;
 	}
-
-/**** This disables Special:ChangeContentModel
-	public function supportsDirectEditing() {
-		return false;
-	}
-*/
 
 	/**
 	 * @return bool
