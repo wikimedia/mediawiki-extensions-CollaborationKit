@@ -177,7 +177,7 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		try {
 			$api = new ApiMain( $der, true );
 			$api->execute();
-		} catch ( UsageException $e ) {
+		} catch ( ApiUsageException $e ) {
 			return Status::newFatal(
 				$context->msg( 'collaborationkit-hub-edit-apierror',
 				$e->getCodeString() ) );
