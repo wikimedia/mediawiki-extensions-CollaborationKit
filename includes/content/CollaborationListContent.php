@@ -1026,10 +1026,11 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Sort users into active/inactive column
 	 *
-	 * @param array $column An array containing key items, which
-	 *  is an array of stdClass's representing each list item.
-	 *  Each of these has a key named title which contains
-	 *  a user name (including namespace). May have non-users too.
+	 * @param stdClass $column An object representing the one column containing
+	 *  the list of members of a given project. The object contains an attribute
+	 *  "items" with a value of an array of objects representing individual list
+	 *  items. Each of these has a key named title which contains a user name
+	 *  (including namespace). May have non-users too.
 	 * @return array Two column structure sorted active/inactive.
 	 * @todo Should link property be taken into account as actual name?
 	 */
