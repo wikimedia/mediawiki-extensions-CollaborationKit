@@ -84,9 +84,15 @@ class CollaborationHubContentHandler extends TextContentHandler {
 	 * @return CollaborationHubContent
 	 */
 	public function makeEmptyContent() {
-		return new CollaborationHubContent(
-			'{ "display_name": "", "introduction": "", "footer": "", "content": [] }'
-		);
+		$empty = <<<JSON
+			{
+				"display_name": "",
+				"introduction": "",
+				"footer": "",
+				"content": []
+			}
+JSON;
+		return new CollaborationHubContent( $empty );
 	}
 
 	/**

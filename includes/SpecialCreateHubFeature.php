@@ -214,14 +214,9 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		// something such as JSON.
 		$initialContent = '';
 		if ( $contentModel == 'CollaborationListContent' ) {
-			// FIXME why are we redefining this here? Can't we reuse something
-			// from collaborationlistcontenthandler, which already has default
-			// content?
-			$initialContent = '{ "displaymode": "normal",
-				"columns": [ { "items":[] } ],
-				"options":{},
-				"description":""
-				}';
+			$initialContent = CollaborationListContentHandler::serializeContent(
+				CollaborationListContentHandler::makeEmptyContent()
+			);
 		}
 
 		$summary = $this
