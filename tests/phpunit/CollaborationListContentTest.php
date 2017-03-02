@@ -180,7 +180,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testConvertToHumanEditable( CollaborationListContent $content, $id ) {
-		$spl1 = CollaborationListContent::HUMAN_DESC_SPLIT;
+		$spl1 = CollaborationKitSerialization::SERIALIZATION_SPLIT;
 		$spl2 = CollaborationListContent::HUMAN_COLUMN_SPLIT;
 		$spl3 = CollaborationListContent::HUMAN_COLUMN_SPLIT2;
 		$expected = [
@@ -199,7 +199,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testConvertFromHumanEditable( CollaborationListContent $content, $id ) {
-		$spl1 = CollaborationListContent::HUMAN_DESC_SPLIT;
+		$spl1 = CollaborationKitSerialization::SERIALIZATION_SPLIT;
 		$spl2 = CollaborationListContent::HUMAN_COLUMN_SPLIT;
 		$spl3 = CollaborationListContent::HUMAN_COLUMN_SPLIT2;
 

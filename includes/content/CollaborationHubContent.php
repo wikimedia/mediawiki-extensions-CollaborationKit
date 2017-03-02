@@ -15,8 +15,6 @@
 
 class CollaborationHubContent extends JsonContent {
 
-	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
-
 	/** @var string */
 	protected $displayName;
 
@@ -925,19 +923,14 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public function convertToHumanEditable() {
 		$this->decode();
-
-		$output = $this->displayName;
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->introduction;
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->footer;
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->image;
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->themeColour;
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->getHumanEditableContent();
-		return $output;
+		return CollaborationKitSerialization::getSerialization( [
+			$this->displayName,
+			$this->introduction,
+			$this->footer,
+			$this->image,
+			$this->themeColour,
+			$this->getHumanEditableContent()
+		] );
 	}
 
 	/**
@@ -1017,7 +1010,7 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public static function convertFromHumanEditable( $text ) {
 		$res = [];
-		$split = explode( self::HUMAN_DESC_SPLIT, $text );
+		$split = explode( CollaborationKitSerialization::SERIALIZATION_SPLIT, $text );
 
 		$res['display_name'] = $split[0];
 		$res['introduction'] = $split[1];

@@ -149,7 +149,7 @@ class CollaborationHubContentEditor extends EditPage {
 		}
 
 		$parts = explode(
-			CollaborationHubContent::HUMAN_DESC_SPLIT,
+			CollaborationKitSerialization::SERIALIZATION_SPLIT,
 			$this->textbox1,
 			6
 		);
@@ -217,16 +217,13 @@ class CollaborationHubContentEditor extends EditPage {
 		$colour = trim( $request->getText( 'wpCollabHubColour', '' ) );
 		$content = trim( $request->getText( 'wpCollabHubContent', '' ) );
 
-		return $displayname
-			. CollaborationHubContent::HUMAN_DESC_SPLIT
-			. $introduction
-			. CollaborationHubContent::HUMAN_DESC_SPLIT
-			. $footer
-			. CollaborationHubContent::HUMAN_DESC_SPLIT
-			. $image
-			. CollaborationHubContent::HUMAN_DESC_SPLIT
-			. $colour
-			. CollaborationHubContent::HUMAN_DESC_SPLIT
-			. $content;
+		return CollaborationKitSerialization::getSerialization( [
+			$displayname,
+			$introduction,
+			$footer,
+			$image,
+			$colour,
+			$content
+		] );
 	}
 }

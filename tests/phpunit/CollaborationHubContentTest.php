@@ -237,7 +237,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testConvertToHumanEditable( CollaborationHubContent $content, $id ) {
-		$spl = CollaborationHubContent::HUMAN_DESC_SPLIT;
+		$spl = CollaborationKitSerialization::SERIALIZATION_SPLIT;
 		$expected = [
 			"foo" . $spl . "''Test'' content" . $spl . "'''Test''' content footer" . $spl . "none" . $spl . "khaki" . $spl . "Project:Wow|image=cool.png|display_title=Wow!\n",
 			$spl . $spl . $spl . "none" . $spl . "lightgrey" . $spl,
@@ -252,7 +252,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testConvertFromHumanEditable( CollaborationHubContent $content, $id ) {
-		$spl = CollaborationHubContent::HUMAN_DESC_SPLIT;
+		$spl = CollaborationKitSerialization::SERIALIZATION_SPLIT;
 		$expected = [
 			FormatJson::encode( [
 				'display_name' => "foo",
