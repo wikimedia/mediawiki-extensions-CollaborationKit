@@ -1,5 +1,4 @@
 <?php
-
 /**
  * A content model for group collaboration pages.
  *
@@ -13,6 +12,9 @@
  * @file
  */
 
+/**
+ * @class CollaborationHubContent
+ */
 class CollaborationHubContent extends JsonContent {
 
 	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
@@ -594,7 +596,7 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param Title $title
 	 * @param ParserOptions $options
-	 * @param ParserOutput &$output
+	 * @param ParserOutput $output
 	 * @return string
 	 */
 	protected function getParsedContent( Title $title, ParserOptions $options,

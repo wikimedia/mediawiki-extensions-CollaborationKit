@@ -111,10 +111,10 @@ class CollaborationKitHooks {
 	 * For the table of contents on subpages of a CollaborationHub
 	 *
 	 * @param OutputPage $out
-	 * @param string $text the HTML text to be added
+	 * @param string &$text the HTML text to be added
 	 * @return bool
 	 */
-	public static function onOutputPageBeforeHTML( &$out, &$text ) {
+	public static function onOutputPageBeforeHTML( OutputPage $out, &$text ) {
 		$title = $out->getTitle();
 		$parentHub = CollaborationHubContent::getParentHub( $title );
 
