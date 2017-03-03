@@ -3,14 +3,15 @@
 PROJECT_NAME           = CollaborationKit
 PROJECT_BRIEF          = "MediaWiki CollaborationKit extension"
 
-OUTPUT_DIRECTORY       = docs/php
+OUTPUT_DIRECTORY       = docs
+HTML_OUTPUT            = php
 
 JAVADOC_AUTOBRIEF      = YES
 QT_AUTOBRIEF           = NO
 
 QUIET                  = YES
 WARNINGS               = YES
-WARN_IF_UNDOCUMENTED   = NO
+WARN_IF_UNDOCUMENTED   = YES
 WARN_IF_DOC_ERROR      = NO
 WARN_NO_PARAMDOC       = NO
 
