@@ -1,3 +1,6 @@
+/**
+ * @class ext.CollaborationKit.list.ui
+ */
 ( function ( $, mw, OO ) {
 	'use strict';
 
@@ -8,7 +11,7 @@
 	/**
 	 * Adds a new item to a list
 	 *
-	 * @param {int} colId The ID number of the column
+	 * @param {number} colId The ID number of the column
 	 */
 	addItem = function ( colId ) {
 		modifyItem( { itemColId: colId } );
@@ -33,7 +36,7 @@
 	 * Edit an existing item.
 	 *
 	 * @param {string} itemName The title of the item in question
-	 * @param {int} colId Which column the item is in
+	 * @param {number} colId Which column the item is in
 	 */
 	modifyExistingItem = function ( itemName, colId ) {
 		LE.getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
@@ -65,6 +68,13 @@
 		} );
 	};
 
+	/**
+	 * @class NewItemDialog
+	 * @extends OO.ui.ProcessDialog
+	 *
+	 * @constructor
+	 * @param {Object} config Configuration object
+	 */
 	// There's probably an easier way to do this.
 	function NewItemDialog( config ) {
 		if ( config.itemTitle ) {

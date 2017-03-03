@@ -1,3 +1,6 @@
+/**
+ * @class ext.CollaborationKit.hubtheme
+ */
 ( function ( $, mw, OO ) {
 	'use strict';
 
@@ -36,6 +39,10 @@
 	/**
 	 * Subclass ProcessDialog for selecting a colour.
 	 *
+	 * @class ColourProcessDialog
+	 * @extends OO.ui.ProcessDialog
+	 *
+	 * @constructor
 	 * @param {Object} config
 	 */
 	ColourProcessDialog = function ( config ) {
@@ -126,7 +133,7 @@
 	/**
 	 * Get dialog height.
 	 *
-	 * @return {int} Dialog height
+	 * @return {number} Dialog height
 	 */
 	ColourProcessDialog.prototype.getBodyHeight = function () {
 		return this.content.$element.outerHeight( true );
@@ -156,6 +163,10 @@
 	/**
 	 * Subclass ProcessDialog.
 	 *
+	 * @class ImageProcessDialog
+	 * @extends OO.ui.ProcessDialog
+	 *
+	 * @constructor
 	 * @param {Object} config
 	 */
 	ImageProcessDialog = function ( config ) {

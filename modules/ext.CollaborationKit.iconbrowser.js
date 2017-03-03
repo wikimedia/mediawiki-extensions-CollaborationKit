@@ -6,6 +6,10 @@
 	/**
 	 * Subclass ProcessDialog.
 	 *
+	 * @class
+	 * @extends OO.ui.ProcessDialog
+	 *
+	 * @constructor
 	 * @param {Object} config
 	 */
 	ProcessDialog = function ( config ) {
@@ -92,7 +96,7 @@
 	/**
 	 * Get dialog height.
 	 *
-	 * @return {int} Dialog height
+	 * @return {number} Dialog height
 	 */
 	ProcessDialog.prototype.getBodyHeight = function () {
 		return this.content.$element.outerHeight( true );

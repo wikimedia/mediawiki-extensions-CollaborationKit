@@ -1,3 +1,6 @@
+/**
+ * @class ext.CollaborationKit.list.members
+ */
 ( function ( $, mw, OO ) {
 	'use strict';
 
@@ -8,7 +11,7 @@
 	/**
 	 * Find if the current user is already is in list.
 	 *
-	 * @param {int} destinationPage The Page ID of the list if not the current page.
+	 * @param {number} destinationPage The Page ID of the list if not the current page.
 	 * @return {boolean}
 	 */
 	curUserIsInList = function ( destinationPage ) {
@@ -49,7 +52,7 @@
 	/**
 	 * One-click project-joining button
 	 *
-	 * @param {int} destinationPage Page ID of member list, if different from current page
+	 * @param {number} destinationPage Page ID of member list, if different from current page
 	 * @param {string} destinationUrl Full URL of member list, if different from current page
 	 */
 	addSelf = function ( destinationPage, destinationUrl ) {

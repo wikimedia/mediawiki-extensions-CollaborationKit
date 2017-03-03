@@ -1,3 +1,6 @@
+/**
+ * @class ext.CollaborationKit.list.edit
+ */
 ( function ( $, mw ) {
 	'use strict';
 
@@ -7,7 +10,7 @@
 	 * Retrieves ID number of column
 	 *
 	 * @param {jQuery} $item
-	 * @return {int}
+	 * @return {number}
 	 */
 	getColId = function ( $item ) {
 		var col, id;
@@ -152,8 +155,8 @@
 			 * Assumes that titles must be unique in a list.
 			 *
 			 * @param {string} title Title of list item to find
-			 * @param {int} indexGuess Where we think it might be
-			 * @param {int} colGuess Which column we think its in
+			 * @param {number} indexGuess Where we think it might be
+			 * @param {number} colGuess Which column we think its in
 			 * @return {Object} The item object for the given title
 			 */
 			findItemInResArray = function ( title, indexGuess, colGuess ) {
@@ -223,7 +226,7 @@
 	/**
 	 * Retrieves JSON form of the list content
 	 *
-	 * @param {int} pageId
+	 * @param {number} pageId
 	 * @param {Object} callback
 	 */
 	getCurrentJson = function ( pageId, callback ) {
