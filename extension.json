@@ -28,6 +28,7 @@
 		"CollaborationHubContentEditor": "includes/CollaborationHubContentEditor.php",
 		"CollaborationHubTOC": "includes/content/CollaborationHubTOC.php",
 		"CollaborationKitImage": "includes/content/CollaborationKitImage.php",
+		"CollaborationKitSerialization": "includes/content/CollaborationKitSerialization.php",
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
 		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",

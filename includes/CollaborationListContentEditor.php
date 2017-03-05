@@ -33,7 +33,7 @@ class CollaborationListContentEditor extends EditPage {
 		}
 
 		$parts = explode(
-			CollaborationListContent::HUMAN_DESC_SPLIT,
+			CollaborationKitSerialization::SERIALIZATION_SPLIT,
 			$this->textbox1,
 			3
 		);
@@ -103,10 +103,11 @@ class CollaborationListContentEditor extends EditPage {
 		}
 		$main = trim( $request->getText( 'wpCollabListContent', '' ) );
 		$options = $request->getText( 'wpCollaborationKitOptions', '' );
-		return $desc
-			. CollaborationListContent::HUMAN_DESC_SPLIT
-			. $options
-			. CollaborationListContent::HUMAN_DESC_SPLIT
-			. $main;
+
+		return CollaborationKitSerialization::getSerialization( [
+			$desc,
+			$options,
+			$main
+		] );
 	}
 }

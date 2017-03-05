@@ -21,8 +21,6 @@ class CollaborationListContent extends JsonContent {
 	const RANDOM_CACHE_EXPIRY = 28800; // 8 hours
 	const MAX_TAGS = 50;
 
-	// Splitter for description and options
-	const HUMAN_DESC_SPLIT = "\n-----------------------\n";
 	// Splitter denoting the beginning of a list column
 	const HUMAN_COLUMN_SPLIT = "\n---------~-~---------\n";
 	// Splitter denoting the beginning of the list itself within the column
@@ -658,13 +656,11 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public function convertToHumanEditable() {
 		$this->decode();
-
-		$output = $this->description;
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->getHumanOptions();
-		$output .= self::HUMAN_DESC_SPLIT;
-		$output .= $this->getHumanEditableList();
-		return $output;
+		return CollaborationKitSerialization::getSerialization( [
+			$this->description,
+			$this->getHumanOptions(),
+			$this->getHumanEditableList()
+		] );
 	}
 
 	/**
@@ -780,16 +776,22 @@ class CollaborationListContent extends JsonContent {
 	public static function convertFromHumanEditable( $text ) {
 		$res = [ 'columns' => [] ];
 
-		$split2 = strrpos( $text, self::HUMAN_DESC_SPLIT );
+		$split2 = strrpos(
+			$text,
+			CollaborationKitSerialization::SERIALIZATION_SPLIT
+		);
 		if ( $split2 === false ) {
 			throw new MWContentSerializationException( 'Missing list description' );
 		}
 
-		$split1 = strrpos( $text, self::HUMAN_DESC_SPLIT, -strlen( $text ) + $split2 - 1 );
+		$split1 = strrpos(
+			$text, CollaborationKitSerialization::SERIALIZATION_SPLIT,
+			-strlen( $text ) + $split2 - 1
+		);
 		if ( $split1 === false ) {
 			throw new MWContentSerializationException( 'Missing list description' );
 		}
-		$dividerLength = strlen( self::HUMAN_DESC_SPLIT );
+		$dividerLength = strlen( CollaborationKitSerialization::SERIALIZATION_SPLIT );
 
 		$optionLength = $split2 - ( $split1 + $dividerLength );
 		$optionString = substr( $text, $split1 + $dividerLength, $optionLength );
