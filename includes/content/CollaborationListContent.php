@@ -283,7 +283,7 @@ class CollaborationListContent extends JsonContent {
 		$options = $options + $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
-		$iconWidth = $options['iconWidth'];
+		$iconWidth = (int)$options['iconWidth'];
 
 		// Hack to force style loading even when we don't have a Parser reference.
 		$text = '<collaborationkitloadliststyles/>';
@@ -310,8 +310,9 @@ class CollaborationListContent extends JsonContent {
 
 		$listclass = count( $columns ) > 1 ? 'mw-ck-multilist' : 'mw-ck-singlelist';
 		$text .= '<div class="mw-ck-list ' . $listclass . '">' . "\n";
-		$offset = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
+		$offsetRule = $options['defaultSort'] === 'random' ? 0 : $options['offset'];
 		foreach ( $columns as $colId => $column ) {
+			$offset = $offsetRule;  // Resetting value after each column is processed
 			$text .= Html::openElement( 'div', [
 				'class' => 'mw-ck-list-column',
 				'data-collabkit-column-id' => $colId
@@ -322,7 +323,11 @@ class CollaborationListContent extends JsonContent {
 			) {
 				$text .= "=== {$column->label} ===\n";
 			}
-			if ( isset( $column->notes ) && $column->notes !== '' ) {
+			if (
+				isset( $column->notes ) &&
+				$column->notes !== '' &&
+				$options['showColumnHeaders']
+			) {
 				$text .= "<div class=\"mw-ck-list-notes\">{$column->notes}</div>\n";
 			}
 			$text .= "</div>\n";
@@ -359,6 +364,7 @@ class CollaborationListContent extends JsonContent {
 					$titleForItem = Title::newFromText( $item->link );
 				}
 				$text .= Html::openElement( 'div', [
+					'style' => "min-height:{$iconWidth}px",
 					'class' => 'mw-ck-list-item',
 					'data-collabkit-item-title' => $item->title
 				] );
@@ -439,6 +445,7 @@ class CollaborationListContent extends JsonContent {
 	protected static function generateImage( $definedImage, $displayMode, $title,
 		$size = 64
 	) {
+		$size = (int)$size;  // Just in case
 		$image = null;
 		$iconColour = '';
 		$linkOrNot = true;
@@ -477,6 +484,7 @@ class CollaborationListContent extends JsonContent {
 			$image,
 			$size,
 			[
+				'css' => "width:{$size}px; height:{$size}px;",
 				'classes' => [ 'mw-ck-list-image' ],
 				'colour' => $iconColour,
 				'link' => $linkOrNot,
@@ -984,6 +992,31 @@ class CollaborationListContent extends JsonContent {
 				$tagCount += count( $tagList );
 			} elseif ( $name === 'column' ) {
 				$options['columns'][] = $value;
+			} elseif ( $name === 'columns' ) {
+				// No-op. The preferred parameter name is the singular "column"
+				// but "columns" is still a valid option name. But without special
+				// handling, it causes an exception since all of these parameters
+				// are coming in as strings even though "columns" is an array.
+				continue;
+			} elseif (
+				$name === 'offset' ||
+				$name === 'iconWidth'
+			) {
+				$options[$name] = (int)$value;
+			} elseif (
+				$name === 'includeDesc' ||
+				$name === 'showColumnHeaders'
+			) {
+				// (bool)'false' evaluates to true? What a country!
+				if (
+					$value === 'false' ||
+					$value === 'no' ||
+					$value === 0
+				) {
+					$options[$name] = false;
+				} else {
+					$options[$name] = (bool)$value;
+				}
 			} elseif ( self::validateOption( $name, $value ) ) {
 				$options[$name] = $value;
 			}
