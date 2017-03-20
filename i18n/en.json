@@ -129,6 +129,6 @@
 	"collaborationkit-hubedit-footer-help": "Appears beneath the included features. Recommended location for categories, navigation templates, etc.",
 	"collaborationkit-hubedit-content-help": "list of (sub)pages to include in the project, delineated by linebreaks. Use the full page name.",
 	"collaborationkit-listedit-description-placeholder": "Describe what the list is about or for.",
-	"collaborationkit-listedit-list-help": "Custom syntax is used for bulk editing. Essentially, one item for line, with different columns marked by several hyphens. See [[Help:CollaborationLists]] for more information.",
-	"collaborationkit-createhubfeature-icon-help": "Icon can be one of the included icons, or any image on-wiki."
+	"collaborationkit-listedit-list-help": "Custom syntax is used for bulk editing. Essentially, one item for line, with different columns marked by several hyphens. See [[Help:Extension:CollaborationKit]] for more information.",
+	"collaborationkit-createhubfeature-icon-help": "Please choose from the included icons."
 }
