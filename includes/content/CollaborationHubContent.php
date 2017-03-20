@@ -431,8 +431,11 @@ class CollaborationHubContent extends JsonContent {
 			);
 
 			if ( $membersContent === null ) {
-				$membersContent = Revision::newFromTitle( $membersTitle )
-					->getContent();
+				$membersContent = Revision::newFromTitle(
+					$membersTitle,
+					0,
+					Revision::READ_LATEST
+				)->getContent();
 			}
 			$activeCol = wfMessage( 'collaborationkit-column-active' )
 				->inContentLanguage()
