@@ -7,6 +7,7 @@
 		]
 	},
 	"collaborationkit-desc": "Tools for building WikiProjects and on-wiki collaborative workspaces",
+	"collaborationkiticons": "CollaborationKit icon directory",
 	"createcollaborationhub": "Create new Collaboration Hub",
 	"createhubfeature": "Create a new Collaboration Hub feature",
 	"collaborationkit-createhub-title": "Page title",
@@ -28,6 +29,9 @@
 	"collaborationkit-createhubfeature-editsummary": "Creating new feature",
 	"collaborationkit-createhubfeature-freetext": "Generic wiki page",
 	"collaborationkit-createhubfeature-articlelist": "List of pages",
+	"collaborationkit-iconlist-intro": "These are the pre-packaged icons that can be used on Collaboration Hubs. Each icon name in the table corresponds to the keyword used in the Collaboration Hub editing interface to select the icon.",
+	"collaborationkit-iconlist-columnheader-icon": "Icon",
+	"collaborationkit-iconlist-columnheader-iconname": "Icon name",
 	"collaborationkit-list-isempty": "This list has no columns or items.",
 	"collaborationkit-list-emptycolumn": "This column has no items in it.",
 	"collaborationkit-list-invalid": "This content does not meet the requirements of the CollaborationListContent schema. This may happen as a result of a software update. The content is reproduced below.",

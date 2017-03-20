@@ -34,6 +34,7 @@
 		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",
 		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",
 		"SpecialCreateHubFeature": "includes/SpecialCreateHubFeature.php",
+		"SpecialCollaborationKitIcons": "includes/SpecialCollaborationKitIcons.php",
 		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php"
 	},
 	"ContentHandlers": {
@@ -53,6 +54,7 @@
 		}
 	},
 	"SpecialPages": {
+		"CollaborationKitIcons": "SpecialCollaborationKitIcons",
 		"CreateCollaborationHub": "SpecialCreateCollaborationHub",
 		"CreateHubFeature": "SpecialCreateHubFeature"
 	},

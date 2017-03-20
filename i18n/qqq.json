@@ -10,6 +10,7 @@
 		]
 	},
 	"collaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
+	"collaborationkiticons": "Header for Special:CollaborationKitIcons",
 	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
 	"createhubfeature": "Header for Special:CreateHubFeature. Hubs are the WikiProject pages as a whole, and \"features\" are the sections inside them.",
 	"collaborationkit-createhub-title": "Label for target page title input on Special:CreateCollaborationHub\n{{Identical|Page title}}",
@@ -31,6 +32,9 @@
 	"collaborationkit-createhubfeature-editsummary": "Edit summary used by Special:CreateHubFeature when creating a new feature",
 	"collaborationkit-createhubfeature-freetext": "Label for selecting content type in the Create Hub Feature form corresponding to freeform text (i.e. wikitext)",
 	"collaborationkit-createhubfeature-articlelist": "Label for selecting content type in the Create Hub Feature form corresponding to CollaborationListContent",
+	"collaborationkit-iconlist-intro": "Introductory text on Special:CollaborationKitIcons",
+	"collaborationkit-iconlist-columnheader-icon": "Column header in the table on Special:CollaborationKitIcons",
+	"collaborationkit-iconlist-columnheader-iconname": "Column header in the table on Special:CollaborationKitIcons",
 	"collaborationkit-list-isempty": "Shown on lists that are empty immediately after the description",
 	"collaborationkit-list-emptycolumn": "Shown on lists with empty columns in lieu of column content",
 	"collaborationkit-list-invalid": "Message shown on lists that do not comply with the JSON Schema; shown before displaying the offending content",
