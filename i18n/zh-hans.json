@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-desc": "用于构建维基专题和wiki上协作工作区的工具",
+	"collaborationkiticons": "CollaborationKit图标目录",
 	"createcollaborationhub": "创建新的协作中心",
 	"createhubfeature": "创建新的协作中心功能",
 	"collaborationkit-createhub-title": "页面标题",
@@ -26,6 +27,9 @@
 	"collaborationkit-createhubfeature-editsummary": "创建新的功能",
 	"collaborationkit-createhubfeature-freetext": "生成wiki页面",
 	"collaborationkit-createhubfeature-articlelist": "页面列表",
+	"collaborationkit-iconlist-intro": "这些是可用于协作中心的预包装图标。表中的每个图标名都对应用于协作中心编辑界面的关键词，以便选择图标。",
+	"collaborationkit-iconlist-columnheader-icon": "图标",
+	"collaborationkit-iconlist-columnheader-iconname": "图标名",
 	"collaborationkit-list-isempty": "该列表没有列或项目。",
 	"collaborationkit-list-emptycolumn": "此列中没有项目。",
 	"collaborationkit-list-invalid": "此内容不符合CollaborationListContent架构的要求。这可能作为软件更新的结果而发生。内容已在下方重现。",
@@ -127,6 +131,6 @@
 	"collaborationkit-hubedit-footer-help": "出现在包含的功能下。推荐作为分类、导航模板等的位置。",
 	"collaborationkit-hubedit-content-help": "包含在专题中的（子）页面的列表，由换行符划定。使用完整页面名称。",
 	"collaborationkit-listedit-description-placeholder": "描述列表有关或用于什么。",
-	"collaborationkit-listedit-list-help": "自定义语法用于大量编辑。本质上每行一个项目，并用多个连字符标记不同列。参见[[Help:CollaborationLists]]以获取更多信息。",
-	"collaborationkit-createhubfeature-icon-help": "图标可以是已包含图标中的一个，或wiki上的任意图片。"
+	"collaborationkit-listedit-list-help": "自定义语法用于大量编辑。本质上每行一个项目，并用多个连字符标记不同列。参见[[Help:Extension:CollaborationKit]]以获取更多信息。",
+	"collaborationkit-createhubfeature-icon-help": "请在包含的图标中选择。"
 }

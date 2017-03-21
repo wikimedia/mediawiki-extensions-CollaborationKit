@@ -11,6 +11,8 @@
 	"collaborationkit-createhubfeature-icon": "Icona",
 	"collaborationkit-createhubfeature-contenttype": "Che tipo di pagina è questa?",
 	"collaborationkit-createhubfeature-articlelist": "Elenco di pagine",
+	"collaborationkit-iconlist-columnheader-icon": "Icona",
+	"collaborationkit-iconlist-columnheader-iconname": "Nome icona",
 	"collaborationkit-list-emptycolumn": "Questa colonna non ha voci.",
 	"collaborationkit-list-notlist": "[[$1]] non è una pagina di elenco di collaborazione",
 	"collaborationkit-list-delete": "Rimuovi elemento",
@@ -63,5 +65,5 @@
 	"collaborationkit-column-inactive": "Membri inattivi",
 	"collaborationkit-createhub-title-help": "Dove creare il fulcro della collaborazione",
 	"collaborationkit-createhub-title-placeholder": "Nuovo progetto",
-	"collaborationkit-listedit-list-help": "La sintassi personalizzata viene usata per la modifica di massa. In sostanza, un elemento per riga, con diverse colonne segnata da vari trattini. Vedi [[Help:CollaborationLists]] per ulteriori informazioni."
+	"collaborationkit-listedit-list-help": "La sintassi personalizzata viene usata per la modifica di massa. In sostanza, un elemento per riga, con diverse colonne segnata da vari trattini. Vedi [[Help:Extension:CollaborationKit]] per ulteriori informazioni."
 }

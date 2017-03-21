@@ -7,6 +7,7 @@
 		]
 	},
 	"collaborationkit-desc": "Outils pour la construction de projets Wiki et d'espaces de travail collaboratifs wiki.",
+	"collaborationkiticons": "Répertoire de l’icône CollaborationKit",
 	"createcollaborationhub": "Créer un nouveau hub de collaboration",
 	"createhubfeature": "Créer une nouvelle fonctionnalité de Centre de Collaboration",
 	"collaborationkit-createhub-title": "Titre de la page",
@@ -28,6 +29,9 @@
 	"collaborationkit-createhubfeature-editsummary": "Créer une nouvelle fonctionalité",
 	"collaborationkit-createhubfeature-freetext": "Page wiki générique",
 	"collaborationkit-createhubfeature-articlelist": "Liste des pages",
+	"collaborationkit-iconlist-intro": "Ce sont les icônes pré-packagées qui peuvent être utilisées dans les Centres de Collaboration. Chaque nom d’icône dans la table correspond au clavier utilisé dans l’interface de modification du Centre de Collaboration pour sélectionner l’icône.",
+	"collaborationkit-iconlist-columnheader-icon": "Icône",
+	"collaborationkit-iconlist-columnheader-iconname": "Nom de l’icône",
 	"collaborationkit-list-isempty": "Cette liste n'a ni colonnes ni éléments.",
 	"collaborationkit-list-emptycolumn": "Cette colonne n'a aucun élément.",
 	"collaborationkit-list-invalid": "Ce contenu ne répond pas aux exigences du schéma CollaborationListContent. Cela peut être la conséquence d’une mise à jour logicielle. Le contenu est reproduit ci-dessous.",
@@ -129,6 +133,6 @@
 	"collaborationkit-hubedit-footer-help": "Apparaît sous les fonctionnalités inclues. Emplacement recommandé pour les catégories, les modèles de navigation, etc.",
 	"collaborationkit-hubedit-content-help": "liste de (sous-)pages à inclure au projet, séparées par des sauts de ligne. Utiliser le nom de page complet.",
 	"collaborationkit-listedit-description-placeholder": "Décrire à propos de quoi ou pour quoi est la liste.",
-	"collaborationkit-listedit-list-help": "La syntaxe personnalisée est utilisée pour la modification en masse. Schématiquement, un élément par ligne, avec différentes colonnes marquées par plusieurs tirets. Voir [[Help:CollaborationLists]] pour plus d’information.",
-	"collaborationkit-createhubfeature-icon-help": "L’icône peut être une des icônes incluses, ou n’importe quelle image sur le wiki."
+	"collaborationkit-listedit-list-help": "La syntaxe personnalisée est utilisée pour la modification en masse. Schématiquement, un élément par ligne, avec différentes colonnes marquées par plusieurs tirets. Voir [[Help:Extension:CollaborationKit]] pour plus d’information.",
+	"collaborationkit-createhubfeature-icon-help": "Veuillez choisir parmi les icônes incluses."
 }

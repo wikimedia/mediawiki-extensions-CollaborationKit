@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-desc": "Werkzeuge zur Erstellung von WikiProjekten und kollaborativen Arbeitsräumen auf dem Wiki",
+	"collaborationkiticons": "CollaborationKit-Symbolverzeichnis",
 	"createcollaborationhub": "Neuen Kollaborationsknoten erstellen",
 	"createhubfeature": "Eine neue Kollaborationsknoten-Funktion erstellen",
 	"collaborationkit-createhub-title": "Seitentitel",
@@ -26,6 +27,9 @@
 	"collaborationkit-createhubfeature-editsummary": "Neue Funktion erstellen",
 	"collaborationkit-createhubfeature-freetext": "Allgemeine Wikiseite",
 	"collaborationkit-createhubfeature-articlelist": "Liste von Seiten",
+	"collaborationkit-iconlist-intro": "Dies sind die vorgepackten Symbole, die für Kollaborationsknoten verwendet werden können. Jeder Symbolname in der Tabelle entspricht dem in der Bearbeitungsoberfläche des Kollaborationsknotens verwendeten Schlüsselwort, um das Symbol auszuwählen.",
+	"collaborationkit-iconlist-columnheader-icon": "Symbol",
+	"collaborationkit-iconlist-columnheader-iconname": "Symbolname",
 	"collaborationkit-list-isempty": "Diese Liste hat keine Spalten oder Objekte.",
 	"collaborationkit-list-emptycolumn": "Diese Spalte enthält keine Objekte.",
 	"collaborationkit-list-invalid": "Dieser Inhalt entspricht nicht den Anforderungen des CollaborationListContent-Schemas. Dieser Fehler kann als Folge eines Softwareupdates auftreten. Der Inhalt wird unten wiedergegeben.",
@@ -127,6 +131,6 @@
 	"collaborationkit-hubedit-footer-help": "Erscheint unterhalb der inbegriffenen Funktionen. Empfohlener Ort für Kategorien, Navigationsvorlagen etc.",
 	"collaborationkit-hubedit-content-help": "Liste der (Unter-)Seiten, die in das Projekt mit einbezogen werden sollen, getrennt durch Zeilenumbrüche. Verwende die vollständigen Seitennamen.",
 	"collaborationkit-listedit-description-placeholder": "Beschreibe, für was die Liste ist.",
-	"collaborationkit-listedit-list-help": "Die für die Massenbearbeitung verwendete benutzerdefinierte Syntax. Im Wesentlichen ein Objekt pro Zeile, mit unterschiedlichen Spalten, die durch mehrere Bindestriche markiert sind. Siehe [[Help:CollaborationLists]] für weitere Informationen.",
-	"collaborationkit-createhubfeature-icon-help": "Das Symbol kann eines der enthaltenen Symbole sein oder ein Bild auf dem Wiki."
+	"collaborationkit-listedit-list-help": "Die für die Massenbearbeitung verwendete benutzerdefinierte Syntax. Im Wesentlichen ein Objekt pro Zeile, mit unterschiedlichen Spalten, die durch mehrere Bindestriche markiert sind. Siehe [[Help:Extension:CollaborationKit]] für weitere Informationen.",
+	"collaborationkit-createhubfeature-icon-help": "Bitte wähle aus den enthaltenen Symbolen aus."
 }

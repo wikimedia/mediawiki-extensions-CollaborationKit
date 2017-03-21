@@ -6,6 +6,8 @@
 			"Aboulouei1"
 		]
 	},
+	"collaborationkit-iconlist-columnheader-icon": "الأيقونة",
+	"collaborationkit-iconlist-columnheader-iconname": "اسم الأيقونة",
 	"collaborationkit-list-error-editconflict": "حدث تضارب في التحرير، ولم تُحفظ تغييراتك. رجاءً أعد تحميل الصفحة وحاول مرة أخرى.",
 	"collaborationkit-list-error-couldnotgetpage": "تعذر تحميل الصفحة. برجاء إعادة التحميل والمحاولة مرة أخرى.",
 	"collaborationkit-list-error-generic": "هنالك خلل ما. برجاء إعادة تحميل الصفحة والمحاولة مرة أخرى.",

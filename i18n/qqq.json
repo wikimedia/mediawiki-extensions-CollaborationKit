@@ -33,7 +33,7 @@
 	"collaborationkit-createhubfeature-freetext": "Label for selecting content type in the Create Hub Feature form corresponding to freeform text (i.e. wikitext)",
 	"collaborationkit-createhubfeature-articlelist": "Label for selecting content type in the Create Hub Feature form corresponding to CollaborationListContent",
 	"collaborationkit-iconlist-intro": "Introductory text on Special:CollaborationKitIcons",
-	"collaborationkit-iconlist-columnheader-icon": "Column header in the table on Special:CollaborationKitIcons",
+	"collaborationkit-iconlist-columnheader-icon": "Column header in the table on Special:CollaborationKitIcons\n{{Identical|Icon}}",
 	"collaborationkit-iconlist-columnheader-iconname": "Column header in the table on Special:CollaborationKitIcons",
 	"collaborationkit-list-isempty": "Shown on lists that are empty immediately after the description",
 	"collaborationkit-list-emptycolumn": "Shown on lists with empty columns in lieu of column content",
