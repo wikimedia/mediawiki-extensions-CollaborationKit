@@ -13,6 +13,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		parent::__construct( 'CreateHubFeature' );
 	}
 
+	public function doesWrites() {
+		return true;
+	}
+
 	/**
 	 * @param string $par
 	 */

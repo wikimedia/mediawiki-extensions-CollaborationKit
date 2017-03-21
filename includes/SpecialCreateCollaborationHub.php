@@ -17,6 +17,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		parent::__construct( $name, $right );
 	}
 
+	public function doesWrites() {
+		return true;
+	}
+
 	/**
 	 * @param $par string
 	 */
