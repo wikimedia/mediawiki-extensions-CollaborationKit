@@ -81,6 +81,7 @@
 	"collaborationkit-hub-members-view": "Label for the 'view all' button in the members block",
 	"collaborationkit-hub-missingpage-note": "Note and helpt text for missing feature sections (subpages) on a collaboration hub mainpage",
 	"collaborationkit-hub-missingpage-create": "Button label for creating a new feature (subpage)",
+	"collaborationkit-hub-missingpage-purgecache": "Button for purging page cache",
 	"collaborationkit-hub-pagetitle-members": "The title of the /Members subpage for a Collaboration Hub (without the leading slash)\n{{Identical|Member}}",
 	"collaborationkit-hub-pagetitle-announcements": "The title of the /Announcements subpage for a Collaboration Hub (without the leading slash)\n{{Identical|Announcement}}",
 	"collaborationkit-hub-subpage-view": "View link label for subpages on Collaboration Hub mainpages\n{{Identical|View page}}",

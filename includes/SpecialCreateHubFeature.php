@@ -133,6 +133,63 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			return Status::newFatal( 'collaborationkit-createhubfeature-nopermission' );
 		}
 
+		// Create feature
+		$contentModel = $data[ 'contenttype' ];
+		if ( $contentModel != 'wikitext'
+			&& $contentModel != 'CollaborationListContent' )
+		{
+			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
+		}
+
+		if ( $contentModel == 'wikitext' ) {
+			$contentFormat = 'text/x-wiki';
+		} elseif ( $contentModel == 'CollaborationListContent' ) {
+			$contentFormat = 'application/json';
+		} else {
+			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
+		}
+
+		// Create empty page by default; exception is if there needs to be
+		// something such as JSON.
+		$initialContent = '';
+		if ( $contentModel == 'CollaborationListContent' ) {
+			$initialContent = CollaborationListContentHandler::serializeContent(
+				CollaborationListContentHandler::makeEmptyContent()
+			);
+		}
+
+		$summary = $this
+			->msg( 'collaborationkit-createhubfeature-editsummary' )
+			->plain();
+
+		$context = $this->getContext();
+		$der = new DerivativeContext( $context );
+		$request = new DerivativeRequest(
+			$context->getRequest(),
+			[
+				'action' => 'edit',
+				'title' => $title->getFullText(),
+				'contentmodel' => $contentModel,
+				'contentformat' => $contentFormat,
+				'text' => $initialContent,
+				'summary' => $summary,
+				'token' => $context->getUser()->getEditToken(),
+			],
+			true // Treat data as POSTed
+		);
+		$der->setRequest( $request );
+		try {
+			$api = new ApiMain( $der, true );
+			$api->execute();
+		} catch ( ApiUsageException $e ) {
+			return Status::newFatal(
+				$context->msg(
+					'collaborationkit-hub-edit-apierror',
+					$e->getCodeString()
+				)
+			);
+		}
+
 		// Update hub with link to new feature
 		$newFeature = [ 'title' => $titleText, 'display_title' => $featureName ];
 
@@ -198,68 +255,9 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			}
 		}
 
-		// Create feature
-		$contentModel = $data[ 'contenttype' ];
-		if ( $contentModel != 'wikitext'
-			&& $contentModel != 'CollaborationListContent' )
-		{
-			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
-		}
-
-		if ( $contentModel == 'wikitext' ) {
-			$contentFormat = 'text/x-wiki';
-		} elseif ( $contentModel == 'CollaborationListContent' ) {
-			$contentFormat = 'application/json';
-		} else {
-			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
-		}
-
-		// Create empty page by default; exception is if there needs to be
-		// something such as JSON.
-		$initialContent = '';
-		if ( $contentModel == 'CollaborationListContent' ) {
-			$initialContent = CollaborationListContentHandler::serializeContent(
-				CollaborationListContentHandler::makeEmptyContent()
-			);
-		}
-
-		$summary = $this
-			->msg( 'collaborationkit-createhubfeature-editsummary' )
-			->plain();
-
-		$context = $this->getContext();
-		$der = new DerivativeContext( $context );
-		$request = new DerivativeRequest(
-			$context->getRequest(),
-			[
-				'action' => 'edit',
-				'title' => $title->getFullText(),
-				'contentmodel' => $contentModel,
-				'contentformat' => $contentFormat,
-				'text' => $initialContent,
-				'summary' => $summary,
-				'token' => $context->getUser()->getEditToken(),
-			],
-			true // Treat data as POSTed
-		);
-		$der->setRequest( $request );
-		try {
-			$api = new ApiMain( $der, true );
-			$api->execute();
-		} catch ( ApiUsageException $e ) {
-			return Status::newFatal(
-				$context->msg(
-					'collaborationkit-hub-edit-apierror',
-					$e->getCodeString()
-				)
-			);
-		}
-
 		// Purge the hub's cache so that it doesn't say "feature does not exist"
 		$hubTitleObject->invalidateCache();
 
-		// Once all the pages we want to create are created, we send them to the
-		// first one
 		$this->getOutput()->redirect( $title->getFullURL() );
 
 		return Status::newGood();

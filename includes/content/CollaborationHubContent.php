@@ -715,7 +715,15 @@ class CollaborationHubContent extends JsonContent {
 						->getFullURL( [
 							'collaborationhub' => $title->getFullText(),
 							'feature' => $spTitle->getSubpageText()
-						] )
+						] ),
+					'flags' => [ 'progressive' ]
+				] );
+
+				$html .= new OOUI\ButtonWidget( [
+					'label' => wfMessage( 'collaborationkit-hub-missingpage-purgecache' )
+						->inContentLanguage()
+						->text(),
+					'href' => $title->getFullURL( [ 'action' => 'purge' ] )
 				] );
 
 				// register as template for stuff
