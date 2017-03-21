@@ -431,26 +431,37 @@ class CollaborationHubContent extends JsonContent {
 			);
 
 			if ( $membersContent === null ) {
-				$membersContent = Revision::newFromTitle(
+				$membersRevision = Revision::newFromTitle(
 					$membersTitle,
 					0,
 					Revision::READ_LATEST
-				)->getContent();
+				);
+				if ( $membersRevision ) {
+					$membersContent = $membersRevision->getContent();
+				}
 			}
-			$activeCol = wfMessage( 'collaborationkit-column-active' )
-				->inContentLanguage()
-				->plain();
-			$wikitext = $membersContent->convertToWikitext(
-				$lang,
-				[
-					'includeDesc' => false,
-					'maxItems' => 3,
-					'defaultSort' => 'random',
-					'columns' => [ $activeCol ],
-					'showColumnHeaders' => false,
-					'iconWidth' => 32
-				]
-			);
+			if ( $membersContent && $membersContent instanceof CollaborationListContent ) {
+				$activeCol = wfMessage( 'collaborationkit-column-active' )
+					->inContentLanguage()
+					->plain();
+				$wikitext = $membersContent->convertToWikitext(
+					$lang,
+					[
+						'includeDesc' => false,
+						'maxItems' => 3,
+						'defaultSort' => 'random',
+						'columns' => [ $activeCol ],
+						'showColumnHeaders' => false,
+						'iconWidth' => 32
+					]
+				);
+			} else {
+				// Some sort of error occured. Probably
+				// a race condition.
+				// No i18n for this error message, since
+				// it should never happen.
+				$wikitext = '<span class="error">Cannot include member list</span>';
+			}
 
 			$html .= $wgParser
 				->parse( $wikitext, $membersTitle, $options )
