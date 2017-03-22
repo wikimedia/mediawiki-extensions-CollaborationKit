@@ -16,6 +16,8 @@
 	"collaborationkit-createhubfeature-editsummary": "নতুন বৈশিষ্ট্য তৈরি",
 	"collaborationkit-createhubfeature-freetext": "জেনেরিক উইকি পাতা",
 	"collaborationkit-createhubfeature-articlelist": "পাতাসমূহের তালিকা",
+	"collaborationkit-iconlist-columnheader-icon": "আইকন",
+	"collaborationkit-iconlist-columnheader-iconname": "আইকনের নাম",
 	"collaborationkit-list-emptycolumn": "এই কলামে কোন আইটেম নেই।",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|ট্যাগকৃত:|ট্যাগ:}}''' $1",
 	"collaborationkit-list-delete": "আইটেম অপসারণ",

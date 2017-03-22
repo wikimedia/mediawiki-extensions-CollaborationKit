@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-desc": "Алатки за градење на википроекти и соработни простори на викија",
+	"collaborationkiticons": "Папка на Соработен прибор",
 	"createcollaborationhub": "Создај нов центар за соработка",
 	"createhubfeature": "Можност за создавање на нови соработки",
 	"collaborationkit-createhub-title": "Наслов на страницата",
@@ -127,6 +128,6 @@
 	"collaborationkit-hubedit-footer-help": "Стои под вклучените можности. Препорачано место за категории, навигациони шаблони и тн.",
 	"collaborationkit-hubedit-content-help": "список на (пот)страници што ги вклучувате во проектот, одделени во нови редови. Користете полно име на страниците.",
 	"collaborationkit-listedit-description-placeholder": "Опишете на што се однесува списокот.",
-	"collaborationkit-listedit-list-help": "Прилагодена синтакса за масовно уредување. Накратко, една ставка за ред, разни столбови означени со неколку цртички. Повеќе ќе дознаете на [[Help:CollaborationLists|Помош:Соработни списоци]].",
-	"collaborationkit-createhubfeature-icon-help": "Иконата може да биде една од постоечките, или било која слика на вики."
+	"collaborationkit-listedit-list-help": "Прилагодена синтакса за масовно уредување. Накратко, една ставка за ред, разни столбови означени со неколку цртички. Повеќе ќе дознаете на [[Help:Extension:CollaborationKit|Помош:Соработен прибор]].",
+	"collaborationkit-createhubfeature-icon-help": "Изберете некоја од приложените икони."
 }

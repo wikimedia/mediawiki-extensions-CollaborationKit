@@ -8,6 +8,8 @@
 	"collaborationkit-createhub-exists": "Strona o podanym tytule już istnieje.",
 	"collaborationkit-createhubfeature-icon": "Ikona",
 	"collaborationkit-createhubfeature-articlelist": "Lista stron",
+	"collaborationkit-iconlist-columnheader-icon": "Ikona",
+	"collaborationkit-iconlist-columnheader-iconname": "Nazwa ikony",
 	"collaborationkit-list-delete": "Usuń element",
 	"collaborationkit-list-add": "Dodaj nowy element do listy",
 	"collaborationkit-list-add-user": "Dodaj użytkownika do listy",

@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-desc": "כלים לבניית מיזמי ויקי ומרחבי עבודה על ויקי",
+	"collaborationkiticons": "תיקיית סמלים של CollaborationKit",
 	"createcollaborationhub": "יצירת מרכז שיתוף חדש",
 	"createhubfeature": "יצירת מדור חדש במרכז שיתוף",
 	"collaborationkit-createhub-title": "כותרת דף",
@@ -26,8 +27,9 @@
 	"collaborationkit-createhubfeature-editsummary": "יצירת מדור חדש",
 	"collaborationkit-createhubfeature-freetext": "דף ויקי כללי",
 	"collaborationkit-createhubfeature-articlelist": "רשימת דפים",
+	"collaborationkit-iconlist-columnheader-icon": "סמל",
 	"collaborationkit-list-isempty": "ברשימה הזאת אין עמודות או פריטים.",
-	"collaborationkit-list-emptycolumn": "ברשימה הזאת אין פריטים.",
+	"collaborationkit-list-emptycolumn": "בעמודה הזאת אין פריטים.",
 	"collaborationkit-list-invalid": "התוכן הזה אינו מתאים לדרישות של סכמת CollaborationListContent. זה יכול לקרות כתוצאה מעדכון תכנה. התוכן מוצג להלן.",
 	"collaborationkit-list-notlist": "[[$1]] אינו דף CollaborationKit תקין",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|תג:|תגים:}}''' $1",
