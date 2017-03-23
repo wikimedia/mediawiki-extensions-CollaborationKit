@@ -11,6 +11,8 @@
 	"collaborationkit-createhubfeature-icon": "아이콘",
 	"collaborationkit-createhubfeature-invalidtitle": "유효하지 않은 페이지 제목을 선택했습니다.",
 	"collaborationkit-createhubfeature-exists": "지정한 제목의 문서가 이미 존재합니다.",
+	"collaborationkit-iconlist-columnheader-icon": "아이콘",
+	"collaborationkit-iconlist-columnheader-iconname": "아이콘 이름",
 	"collaborationkit-list-isempty": "이 목록에 컬럼이나 항목이 없습니다.",
 	"collaborationkit-list-emptycolumn": "이 열에 항목이 없습니다.",
 	"collaborationkit-list-toomanytags": "{{PLURAL:$1|한 개|$1개}} 이상의 태그 지정이 허용되지 않았습니다.",
