@@ -131,7 +131,7 @@
 	"collaborationkit-hubedit-image-help": "An image or icon to represent the project",
 	"collaborationkit-hubedit-introduction-placeholder": "Introduce your project here! Tell us what you want to do.",
 	"collaborationkit-hubedit-footer-help": "Appears beneath the included features. Recommended location for categories, navigation templates, etc.",
-	"collaborationkit-hubedit-content-help": "list of (sub)pages to include in the project, delineated by linebreaks. Use the full page name.",
+	"collaborationkit-hubedit-content-help": "A list of pages or subpages to include in the project. One page name per line. Use the full page titles.",
 	"collaborationkit-listedit-description-placeholder": "Describe what the list is about or for.",
 	"collaborationkit-listedit-list-help": "Custom syntax is used for bulk editing. Essentially, one item for line, with different columns marked by several hyphens. See [[Help:Extension:CollaborationKit]] for more information.",
 	"collaborationkit-createhubfeature-icon-help": "Please choose from the included icons."
