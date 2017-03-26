@@ -4,6 +4,7 @@
 			"Eitvys200"
 		]
 	},
+	"collaborationkiticons": "CollaborationKit ikonų katalogas",
 	"collaborationkit-createhub-title": "Puslapio pavadinimas",
 	"collaborationkit-createhub-invalidtitle": "Nurodyta pavadinimas yra neteisingas.",
 	"collaborationkit-createhub-exists": "Puslapis su nurodytu pavadinimu jau egzistuoja.",
@@ -13,6 +14,8 @@
 	"collaborationkit-createhubfeature-invalidtitle": "Pasirinkote negalimą puslapio pavadinimą.",
 	"collaborationkit-createhubfeature-exists": "Puslapis su jūsų nurodytu pavadinimu jau egzistuoja.",
 	"collaborationkit-createhubfeature-articlelist": "Puslapių sąrašas",
+	"collaborationkit-iconlist-columnheader-icon": "Ikona",
+	"collaborationkit-iconlist-columnheader-iconname": "Ikonos pavadinimas",
 	"collaborationkit-list-isempty": "Šis sąrašas neturi stulpelių ar elementų.",
 	"collaborationkit-list-emptycolumn": "Šiame stulpelyje nėra elementų.",
 	"collaborationkit-list-notlist": "[[$1]] nėra CollaborationKit sąrašo puslapis",
@@ -48,10 +51,8 @@
 	"collaborationkit-icon-launchbutton": "Naršyti ikonas",
 	"collaborationkit-icon-browser": "Ikonų naršyklė",
 	"collaborationkit-icon-select": "Pasirinkti",
-	"collaborationkit-colour-launchbutton": "Naršyti spalvas",
 	"collaborationkit-colour-browser": "Spalvų naršyklė",
 	"collaborationkit-colour-select": "Pasirinkti",
-	"collaborationkit-hubimage-launchbutton": "Naršyti paveikslėlius",
 	"collaborationkit-hubimage-browser": "Medijos naršyklė",
 	"collaborationkit-hubimage-select": "Pasirinkti",
 	"collaborationkit-subpage-toc-label": "Dalis projekto:",
@@ -79,5 +80,5 @@
 	"collaborationkit-hubedit-image-help": "Paveikslėlis ar ikona šio projekto pristatymui",
 	"collaborationkit-hubedit-introduction-placeholder": "Čia pristatykite savo projektą! Pasakykite ką norite padaryti.",
 	"collaborationkit-listedit-description-placeholder": "Apibūdinkite apie ką yra sąrašas arba kam jis skirtas.",
-	"collaborationkit-createhubfeature-icon-help": "Ikona gali būti viena iš egzistuojančių ikonų arba bet kuris viki paveikslėlis."
+	"collaborationkit-createhubfeature-icon-help": "Prašome pasirinkti iš įtraukų ikonų."
 }
