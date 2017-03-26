@@ -51,7 +51,7 @@
 	"collaborationkit-list-error-editconflict": "There was an edit conflict, and your change was not saved. Please refresh the page and try again.",
 	"collaborationkit-list-error-couldnotgetpage": "The page failed to load. Please refresh the page and try again.",
 	"collaborationkit-list-error-generic": "There was an error. Please refresh the page and try again.",
-	"collaborationkit-list-error-saving": "Your edits to the list did not save. Please refresh the page and try again.",
+	"collaborationkit-list-error-saving": "Your edits to the list were not saved. Please refresh the page and try again.",
 	"collaborationkit-list-move": "Re-order this item",
 	"collaborationkit-list-move-summary": "/* $1 */ Reordering item [[$1]]",
 	"collaborationkit-list-move-popup": "Successfully saved: $1 was re-ordered.",
