@@ -5,9 +5,12 @@
 		]
 	},
 	"collaborationkit-createhub-exists": "En sida finns redan med angiven titel.",
+	"collaborationkit-iconlist-columnheader-icon": "Ikon",
+	"collaborationkit-iconlist-columnheader-iconname": "Ikonnamn",
 	"collaborationkit-list-error-editconflict": "En redigeringskonflikt uppstod och din ändring sparades inte. Uppdatera sidan och försök igen.",
 	"collaborationkit-list-error-couldnotgetpage": "Sidan misslyckades att läsas in. Uppdatera sidan och försök igen.",
 	"collaborationkit-list-error-generic": "Ett fel uppstod. Uppdatera sidan och försök igen.",
 	"collaborationkit-list-error-saving": "Dina redigeringar i listan sparades inte. Uppdatera sidan och försök igen.",
-	"collaborationkit-createhub-title-placeholder": "Nytt projekt"
+	"collaborationkit-createhub-title-placeholder": "Nytt projekt",
+	"collaborationkit-createhubfeature-icon-help": "Välj från de inkluderade ikonerna."
 }
