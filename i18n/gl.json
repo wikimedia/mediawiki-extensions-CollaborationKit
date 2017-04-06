@@ -98,8 +98,10 @@
 	"collaborationkit-pastelyellow": "Amarelo pastel",
 	"collaborationkit-forestgreen": "Verde bosque",
 	"collaborationkit-brightgreen": "Verde brillante",
+	"collaborationkit-khaki": "Caqui",
 	"collaborationkit-black": "Negro",
 	"collaborationkit-column-active": "Membros activos",
 	"collaborationkit-column-inactive": "Membros inactivos",
-	"collaborationkit-createhub-title-placeholder": "Proxecto novo"
+	"collaborationkit-createhub-title-placeholder": "Proxecto novo",
+	"collaborationkit-listedit-description-placeholder": "Describa sobre que ou para que é a lista."
 }
