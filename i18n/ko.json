@@ -5,6 +5,7 @@
 			"Ellif"
 		]
 	},
+	"collaborationkiticons": "CollaborationKit 아이콘 디렉터리",
 	"collaborationkit-createhub-title": "페이지 제목",
 	"collaborationkit-createhub-invalidtitle": "지정된 제목이 올바르지 않습니다.",
 	"collaborationkit-createhub-exists": "이미 지정한 제목의 문서가 존재합니다.",
@@ -45,5 +46,7 @@
 	"collaborationkit-hubimage-select": "선택",
 	"collaborationkit-subpage-toc-label": "프로젝트의 일부:",
 	"collaborationkit-createhub-title-placeholder": "새 프로젝트",
-	"collaborationkit-hubedit-hubtheme": "허브 테마"
+	"collaborationkit-hubedit-hubtheme": "허브 테마",
+	"collaborationkit-listedit-list-help": "사용자 지정 문법은 대량 편집을 위해 사용됩니다. 한 줄에 한 항목이어야 하며, 여러 개의 하이픈을 사용하여 각기 다른 컬럼을 사용할 수 있습니다. 더 많은 정보를 보려면 [[Help:Extension:CollaborationKit]]을 참고하십시오.",
+	"collaborationkit-createhubfeature-icon-help": "포함된 아이콘 중에 선택하십시오."
 }

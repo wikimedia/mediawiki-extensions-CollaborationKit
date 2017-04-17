@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-desc": "Інструменти для створення вікіпроектів та робочих просторів для співпраці в межах вікі",
+	"collaborationkiticons": "Каталог іконок CollaborationKit",
 	"createcollaborationhub": "Створити новий центр співпраці",
 	"createhubfeature": "Створити нову функцію центру співпраці",
 	"collaborationkit-createhub-title": "Назва сторінки",
@@ -26,6 +27,9 @@
 	"collaborationkit-createhubfeature-editsummary": "Створення нової функції",
 	"collaborationkit-createhubfeature-freetext": "Загальна вікісторінка",
 	"collaborationkit-createhubfeature-articlelist": "Список сторінок",
+	"collaborationkit-iconlist-intro": "Тут зібрані попередньо підготовлені іконки, які можна використовувати в Центрах співпраці. Кожна назва іконки в таблиці відповідає ключовому слову в редакторському інтерфейсі Центру співпраці для вибору іконки.",
+	"collaborationkit-iconlist-columnheader-icon": "Іконка",
+	"collaborationkit-iconlist-columnheader-iconname": "Назва іконки",
 	"collaborationkit-list-isempty": "Цей список не має стовпців чи елементів.",
 	"collaborationkit-list-emptycolumn": "Цей список не має жодних елементів.",
 	"collaborationkit-list-invalid": "Цей вміст не відповідає вимогам схеми CollaborationListContent. Таке може траплятись у результаті оновлення програмного забезпечення. Вміст відтворено нижче.",
@@ -128,5 +132,5 @@
 	"collaborationkit-hubedit-content-help": "список (під)сторінок, які слід включити в проект, відокремлені переносами рядків. Використовуйте повну назву сторінки.",
 	"collaborationkit-listedit-description-placeholder": "Опишіть, про що чи для чого цей список.",
 	"collaborationkit-listedit-list-help": "Користувацький синтаксис використовується для масових редагувань. Загалом, один елемент на рядок, різні стовпці позначені декількома дефісами. Див. [[Help:Extension:CollaborationKit]], щоб дізнатися більше.",
-	"collaborationkit-createhubfeature-icon-help": "Іконка може бути однією із включених іконок, або будь-яким зображенням у межах вікі."
+	"collaborationkit-createhubfeature-icon-help": "Будь ласка, виберіть одну з включених іконок."
 }
