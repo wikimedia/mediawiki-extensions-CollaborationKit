@@ -5,7 +5,13 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	private $content;
 
 	public function setUp() {
-		parent::setUp();
+		$this->setMwGlobals( [
+			'wgServer' => 'http://localhost',
+			'wgScriptPath' => '/wiki',
+			'wgScript' => '/wiki/index.php',
+			'wgArticlePath' => '/wiki/index.php/$1',
+			'wgActionPaths' => [],
+		] );
 		$content = new CollaborationHubContent(
 			'{ "introduction": "Test content", "display_name": "foo",'
 			. '"footer": "More test content", "colour": "khaki", "content": ['
@@ -13,6 +19,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			. '] }'
 		);
 		$this->content = TestingAccessWrapper::newFromObject( $content );
+		parent::setUp();
 	}
 
 	/**
@@ -138,7 +145,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	public function testGetParsedContent( CollaborationHubContent $content, $id ) {
 		global $wgServer;
 		$expected = [
-			"<div class=\"mw-ck-hub-section\" id=\"Wow.21\"><h2><span class=\"mw-headline\">Wow!</span></h2><p class=\"mw-ck-hub-missingfeature-note\">" . wfMessage( "collaborationkit-hub-missingpage-note" ) . "</p><div aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='" . $wgServer . "/wiki/index.php?title=Special:CreateHubFeature&amp;collaborationhub=Main+Page&amp;feature=Wow' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon'></span><span class='oo-ui-labelElement-label'>Create feature</span><span class='oo-ui-indicatorElement-indicator'></span></a></div></div>",
+			"<div class=\"mw-ck-hub-section\" id=\"Wow.21\"><h2><span class=\"mw-headline\">Wow!</span></h2><p class=\"mw-ck-hub-missingfeature-note\">" . wfMessage( "collaborationkit-hub-missingpage-note" ) . "</p><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='" . $wgServer . "/wiki/index.php?title=Special:CreateHubFeature&amp;collaborationhub=Main+Page&amp;feature=Wow' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon'></span><span class='oo-ui-labelElement-label'>Create feature</span><span class='oo-ui-indicatorElement-indicator'></span></a></span></div>",
 			'',
 			''
 		];
@@ -167,7 +174,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	public function testGetMembersBlock( CollaborationHubContent $content, $id ) {
 		$testMemberList = new CollaborationListContent( '{"columns":[{"items":[{"title":"User:X"}]}]}' );
 
-		$block = "<h3>Meet our members!</h3><p><br />\n" . wfMessage( 'collaborationkit-list-isempty' ) . "\n</p><div class=\"mw-ck-members-buttons\"><div aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php/Main_Page/Members' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon'></span><span class='oo-ui-labelElement-label'>". wfMessage( 'collaborationkit-hub-members-view' ) . "</span><span class='oo-ui-indicatorElement-indicator'></span></a></div><div aria-disabled='false' class='mw-ck-members-join oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-flaggedElement-primary oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page/Members&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-image-invert'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-members-signup' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-image-invert'></span></a></div></div>";
+		$block = "<h3>Meet our members!</h3><p><br />\n" . wfMessage( 'collaborationkit-list-isempty' ) . "\n</p><div class=\"mw-ck-members-buttons\"><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php/Main_Page/Members' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon'></span><span class='oo-ui-labelElement-label'>". wfMessage( 'collaborationkit-hub-members-view' ) . "</span><span class='oo-ui-indicatorElement-indicator'></span></a></span><span aria-disabled='false' class='mw-ck-members-join oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-flaggedElement-primary oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page/Members&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-image-invert'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-members-signup' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-image-invert'></span></a></span></div>";
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getMembersBlock( Title::newMainPage(), new ParserOptions, new ParserOutput, $testMemberList );
@@ -181,7 +188,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	public function testGetParsedAnnouncements( CollaborationHubContent $content, $id ) {
 		$testAnnouncement = "* The cafeteria is out of empanadas. We apologize for the inconvenience.";
 
-		$block = "<h3>" . wfMessage( 'collaborationkit-hub-pagetitle-announcements' ) . "</h3><div aria-disabled='false' style='display:block;' class='mw-ck-hub-section-button oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-frameless oo-ui-iconElement oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page/Announcements&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-icon-edit'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'Edit' ) . "</span><span class='oo-ui-indicatorElement-indicator'></span></a></div>* The cafeteria is out of empanadas. We apologize for the inconvenience.";
+		$block = "<h3>" . wfMessage( 'collaborationkit-hub-pagetitle-announcements' ) . "</h3><span aria-disabled='false' style='display:block;' class='mw-ck-hub-section-button oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-frameless oo-ui-iconElement oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page/Announcements&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-icon-edit'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'Edit' ) . "</span><span class='oo-ui-indicatorElement-indicator'></span></a></span>* The cafeteria is out of empanadas. We apologize for the inconvenience.";
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedAnnouncements( Title::newMainPage(), new ParserOptions, $testAnnouncement );
@@ -194,7 +201,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 */
 	public function testGetSecondFooter( CollaborationHubContent $content, $id ) {
 		global $wgServer;
-		$block = "<div aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-icon-edit oo-ui-image-progressive'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-manage' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-image-progressive'></span></a></div><div aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='" . $wgServer . "/wiki/index.php?title=Special:CreateHubFeature&amp;collaborationhub=Main+Page' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-icon-add oo-ui-image-progressive'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-addpage' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-image-progressive'></span></a></div>";
+		$block = "<span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-icon-edit oo-ui-image-progressive'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-manage' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-image-progressive'></span></a></span><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-iconElement oo-ui-labelElement oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='" . $wgServer . "/wiki/index.php?title=Special:CreateHubFeature&amp;collaborationhub=Main+Page' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-icon-add oo-ui-image-progressive'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-addpage' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-image-progressive'></span></a></span>";
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getSecondFooter( Title::newMainPage() );
