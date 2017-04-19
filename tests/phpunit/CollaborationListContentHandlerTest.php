@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\TestingAccessWrapper;
+
 class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 
 	/**

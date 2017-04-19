@@ -1,5 +1,7 @@
 <?php
 
+use Wikimedia\TestingAccessWrapper;
+
 class CollaborationKitImageTest extends MediaWikiTestCase {
 
 	private $str;
