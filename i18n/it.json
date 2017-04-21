@@ -38,7 +38,7 @@
 	"collaborationkit-editjsontab": "Modifica come JSON",
 	"collaborationkit-hub-announcements-initial": "E' stato impostato un nuovo centro di collaborazione!",
 	"collaborationkit-hub-members-view": "Visualizza elenco completo",
-	"collaborationkit-hub-missingpage-note": "Questa configurazione non esiste. Puoi creare una nuova configurazione usando il tasto qui sotto.",
+	"collaborationkit-hub-missingpage-note": "Questa configurazione non esiste. Puoi creare una nuova configurazione usando il tasto qui sotto. Se hai appena creato una configurazione e stai ancora vedendo questo messaggio, pulisci la cache.",
 	"collaborationkit-hub-pagetitle-members": "Membri",
 	"collaborationkit-hub-toc-label": "Caratteristiche del progetto",
 	"collaborationkit-hub-manage": "Centro di gestione",

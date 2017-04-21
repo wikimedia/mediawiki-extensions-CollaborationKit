@@ -132,7 +132,7 @@
 	"collaborationkit-hubedit-image-help": "Une image ou une icône pour représenter le projet",
 	"collaborationkit-hubedit-introduction-placeholder": "Présentez votre projet ici ! Dites-nous ce que vous voulez faire.",
 	"collaborationkit-hubedit-footer-help": "Apparaît sous les fonctionnalités inclues. Emplacement recommandé pour les catégories, les modèles de navigation, etc.",
-	"collaborationkit-hubedit-content-help": "Une liste de pages ou sous-pages à inclure au projet. Une page par ligne. Utiliser le titre complet de la page.",
+	"collaborationkit-hubedit-content-help": "Une liste de pages ou de sous-pages à inclure dans le projet. Un nom de page par ligne. Utiliser les titres complets des pages.",
 	"collaborationkit-listedit-description-placeholder": "Décrire à propos de quoi ou pour quoi est la liste.",
 	"collaborationkit-listedit-list-help": "La syntaxe personnalisée est utilisée pour la modification en masse. Schématiquement, un élément par ligne, avec différentes colonnes marquées par plusieurs tirets. Voir [[Help:Extension:CollaborationKit]] pour plus d’information.",
 	"collaborationkit-createhubfeature-icon-help": "Veuillez choisir parmi les icônes incluses."
