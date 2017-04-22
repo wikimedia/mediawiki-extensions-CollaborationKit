@@ -21,7 +21,7 @@
 	"collaborationkit-list-toomanytags": "No se te permite especificar más de {{PLURAL:$1|una etiqueta|$1 etiquetas}}.",
 	"collaborationkit-list-delete": "Eliminar elemento",
 	"collaborationkit-list-delete-summary": "/* $1 */ Eliminar de la lista.",
-	"collaborationkit-list-delete-popup": "Guardado correctamente: $1 fue eliminado de la lista.",
+	"collaborationkit-list-delete-popup": "Guardado: $1 fue eliminado de la lista.",
 	"collaborationkit-list-delete-popup-title": "Elemento eliminado",
 	"collaborationkit-list-add": "Añadir nuevo elemento a la lista",
 	"collaborationkit-list-add-user": "Añadir un usuario a la lista",
