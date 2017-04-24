@@ -4,6 +4,10 @@
 			"Obsuser"
 		]
 	},
+	"collaborationkiticons": "Директоријум икона CollaborationKit",
+	"collaborationkit-iconlist-intro": "Ово су припремљени пакети икона које се могу користити на сарадничким хабовима. Свако име иконе у табели одговара кључној речи на интерфејсу уређивачког сарадничког хаба где се бира икона.",
+	"collaborationkit-iconlist-columnheader-icon": "Икона",
+	"collaborationkit-iconlist-columnheader-iconname": "Назив иконе",
 	"collaborationkit-list-delete-popup": "Спремљено: Ставка $1 је обрисана са списка.",
 	"collaborationkit-list-error-saving": "Ваше измене на овом списку нису спремљене. Молимо да поново учитате страницу и покушате поново.",
 	"collaborationkit-list-move-popup": "Спремљено: Ставка $1 је прераспоређена.",
@@ -13,5 +17,7 @@
 	"collaborationkit-lightgrey": "Светлосива",
 	"collaborationkit-bluegrey": "Плаво-сива",
 	"collaborationkit-hubedit-hubtheme-help": "Визуелни идентитет хаба, укључујући слику за идентификацију и основну боју.",
-	"collaborationkit-hubedit-content-help": "Списак страница или подстраница за укључивање у пројекат. Једно име странице за један ред. Користити пуни назив странице."
+	"collaborationkit-hubedit-content-help": "Списак страница или подстраница за укључивање у пројекат. Једно име странице за један ред. Користити пуни назив странице.",
+	"collaborationkit-listedit-list-help": "Измењена синтакса се користи за већину уређивања. У коначници, једна ставка за линију, са различитим колонама означеним са неколико цртица. Погледајте [[Help:Extension:CollaborationKit|CollaborationKit]] за више информација.",
+	"collaborationkit-createhubfeature-icon-help": "Молимо одаберите од понуђених икона."
 }
