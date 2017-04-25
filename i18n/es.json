@@ -3,7 +3,8 @@
 		"authors": [
 			"Dgstranz",
 			"Macofe",
-			"Fitoschido"
+			"Fitoschido",
+			"Luzcaru"
 		]
 	},
 	"collaborationkit-createhub-title": "Título de la página",
@@ -30,6 +31,7 @@
 	"collaborationkit-list-error-couldnotgetpage": "No se pudo cargar la página. Actualízala e inténtalo de nuevo.",
 	"collaborationkit-list-error-generic": "Se produjo un error. Actualiza la página e inténtalo de nuevo.",
 	"collaborationkit-list-error-saving": "No se guardaron tus modificaciones a la lista. Actualiza la página e inténtalo de nuevo.",
+	"collaborationkit-list-move-popup": "Guardado: $1 fue trasladado.",
 	"collaborationkit-list-move-popup-title": "Página guardada",
 	"collaborationkit-list-newitem-title": "Añadir elemento a la lista",
 	"collaborationkit-list-newitem-label": "Añadir a la lista",

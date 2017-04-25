@@ -27,6 +27,7 @@
 	"collaborationkit-list-add-self": "প্রকল্প যোগদান",
 	"collaborationkit-list-add-summary": "/* $1 */ তালিকায় যোগ হচ্ছে।",
 	"collaborationkit-list-add-self-summary": "/* $1 */ প্রকল্পে যোগদান হচ্ছে।",
+	"collaborationkit-list-move-popup": "সংরক্ষিত: $1 পুনঃ-ক্রমায়ন করা হয়েছে।",
 	"collaborationkit-list-move-popup-title": "পাতা সংরক্ষিত হয়েছে",
 	"collaborationkit-list-newitem-title": "আইটেম তালিকাতে যোগ করুন",
 	"collaborationkit-list-newitem-label": "তালিকায় যোগ করুন",
