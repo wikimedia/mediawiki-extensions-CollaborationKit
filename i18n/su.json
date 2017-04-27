@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Uchup19"
+			"Uchup19",
+			"Dipusparaga"
 		]
 	},
 	"collaborationkit-iconlist-columnheader-icon": "Ikon",
+	"collaborationkit-list-delete-popup": "Disimpen: $1 geus dipupus tina daptar",
+	"collaborationkit-hub-missingpage-purgecache": "Sindangan parser",
 	"collaborationkit-darkgrey": "Awu kolot"
 }
