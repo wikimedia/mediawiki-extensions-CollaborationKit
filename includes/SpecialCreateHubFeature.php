@@ -153,8 +153,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		// something such as JSON.
 		$initialContent = '';
 		if ( $contentModel == 'CollaborationListContent' ) {
-			$initialContent = CollaborationListContentHandler::serializeContent(
-				CollaborationListContentHandler::makeEmptyContent()
+			$contentModelObj = ContentHandler::getForModelID( $contentModel );
+			 // ^ Roan recommends renaming $contentModel to $contentModelID
+			$initialContent = $contentModelObj->serializeContent(
+				$contentModelObj->makeEmptyContent()
 			);
 		}
 
