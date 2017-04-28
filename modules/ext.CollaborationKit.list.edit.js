@@ -288,7 +288,7 @@
 			basetimestamp: params.timestamp
 		} ).done( callback ).fail( function () {
 			// FIXME proper error handling.
-			alert( 'collaborationkit-list-error-saving' );
+			alert( mw.msg( 'collaborationkit-list-error-saving' ) );
 		} );
 	};
 
