@@ -95,7 +95,7 @@ class CollaborationHubContentEditor extends EditPage {
 			'type' => 'textarea',
 			'cssclass' => 'mw-ck-introduction-input',
 			'label-message' => 'collaborationkit-hubedit-introduction',
-			'placeholder' => 'collaborationkit-hubedit-introduction-placeholder',
+			'placeholder-message' => 'collaborationkit-hubedit-introduction-placeholder',
 			'name' => 'wpCollabHubIntroduction',
 			'default' => $parts[1],
 			'rows' => 8,

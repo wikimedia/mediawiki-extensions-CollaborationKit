@@ -54,7 +54,7 @@ class CollaborationListContentEditor extends EditPage {
 				'type' => 'textarea',
 				'cssclass' => 'mw-ck-introduction-input',
 				'label-message' => 'collaborationkit-listedit-description',
-				'placeholder' => 'collaborationkit-listedit-description-placeholder',
+				'placeholder-message' => 'collaborationkit-listedit-description-placeholder',
 				'name' => 'wpCollabListDescription',
 				'default' => $parts[0],
 				'rows' => 4,
