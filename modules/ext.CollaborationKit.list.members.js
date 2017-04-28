@@ -53,9 +53,8 @@
 	 * One-click project-joining button
 	 *
 	 * @param {number} destinationPage Page ID of member list, if different from current page
-	 * @param {string} destinationUrl Full URL of member list, if different from current page
 	 */
-	addSelf = function ( destinationPage, destinationUrl ) {
+	addSelf = function ( destinationPage ) {
 		if ( destinationPage === undefined ) {
 			destinationPage = mw.config.get( 'wgArticleId' );
 		}
@@ -84,37 +83,29 @@
 			res.content.columns[ 0 ].items[ index ] = itemToAdd;
 			res.summary = mw.msg( 'collaborationkit-list-add-self-summary', itemToAdd.title );
 			LE.saveJson( res, function () {
-				if ( destinationUrl === undefined ) {
-					location.reload();
-				} else {
-					window.location = destinationUrl;
-				}
+				window.location.href = mw.config.get( 'wgScriptPath' ) + '?curid=' + destinationPage;
 			} );
 		} );
 
 	};
 
 	$( function () {
-		var memberListPage, list;
+		var memberListPage, memberListUrl, list;
 		// Workflow assumes existence of username, so we filter against it
 		// However, since !curUserIsInList, the button will still render. It will just use no-JS
 		// behavior instead.
 		if ( mw.config.get( 'wgCollaborationKitAssociatedMemberList' ) && !mw.user.isAnon() ) {
 			memberListPage = mw.config.get( 'wgCollaborationKitAssociatedMemberList' );
 			curUserIsInList( memberListPage ); // removes Join button if user already is member
-			new mw.Api().get( {
-				action: 'query',
-				prop: 'info',
-				inprop: 'url',
-				pageids: memberListPage
-			} ).done( function ( data ) {
-				var memberListUrl = data.query.pages[ memberListPage ].fullurl;
-				$( '.mw-ck-members-join a' )
-					.attr( 'href', memberListUrl );
 
-				$( '.mw-ck-members-join' ).on( 'click', function () {
-					addSelf( memberListPage, memberListUrl );
-				} );
+			memberListUrl = mw.config.get( 'wgScriptPath' ) + '?curid=' + memberListPage;
+
+			$( '.mw-ck-members-join a' )
+				.attr( 'href', memberListUrl );
+
+			$( '.mw-ck-members-join' ).on( 'click', function () {
+				event.preventDefault();
+				addSelf( memberListPage );
 			} );
 		}
 
