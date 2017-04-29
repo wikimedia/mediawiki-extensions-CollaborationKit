@@ -7,7 +7,7 @@
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajem",
 	"collaborationkit-list-delete": "Ukloni stavku",
 	"collaborationkit-list-delete-summary": "/* $1 */ Brišem sa spiska.",
-	"collaborationkit-list-delete-popup": "Uspješno sačuvano: $1 je uklonjena sa spiska.",
+	"collaborationkit-list-delete-popup": "Sačuvano: $1 je uklonjena sa spiska.",
 	"collaborationkit-list-delete-popup-title": "Stavka obrisana",
 	"collaborationkit-list-add": "Dodaj novu stavku na spisak",
 	"collaborationkit-list-add-user": "Dodaj korisnika na spisak",
