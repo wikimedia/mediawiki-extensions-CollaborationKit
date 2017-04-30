@@ -21,6 +21,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	 * @param string $par
 	 */
 	public function execute( $par ) {
+		if ( !$this->getUser()->isAllowed( 'createpage' ) ) {
+			throw new PermissionsError( 'createpage' );
+		}
+
 		$output = $this->getContext()->getOutput();
 		$output->addModules( 'ext.CollaborationKit.iconbrowser' );
 		$output->addModuleStyles( [
@@ -116,10 +120,21 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	 */
 	public function onSubmit( array $data ) {
 		$collaborationHub = $data['collaborationhub'];
+		$hubTitleObject = Title::newFromText( $collaborationHub );
+
+		// This special page can only be used to create subpages of Collaboration
+		// Hubs. This checks if the parent page is one.
+
+		if ( !$hubTitleObject->exists() ) {
+			return Status::newFatal( 'collaborationkit-createhubfeature-hubdoesnotexist' );
+		}
+
+		if ( $hubTitleObject->getContentModel() != 'CollaborationHubContent' ) {
+			return Status::newFatal( 'collaborationkit-createhubfeature-hubisnotahub' );
+		}
+
 		$featureName = $data['featurename'];
-
 		$titleText = $collaborationHub . '/' . $featureName;
-
 		$title = Title::newFromText( $titleText );
 		if ( !$title ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-invalidtitle' );
@@ -197,16 +212,6 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 
 		if ( $data[ 'icon' ] ) {
 			$newFeature['image'] = $data[ 'icon' ];
-		}
-
-		$hubTitleObject = Title::newFromText( $collaborationHub );
-
-		if ( !$hubTitleObject->exists() ) {
-			return Status::newFatal( 'collaborationkit-createhubfeature-hubdoesnotexist' );
-		}
-
-		if ( $hubTitleObject->getContentModel() != 'CollaborationHubContent' ) {
-			return Status::newFatal( 'collaborationkit-createhubfeature-hubisnotahub' );
 		}
 
 		$hubWikiPageObject = WikiPage::factory( $hubTitleObject );
