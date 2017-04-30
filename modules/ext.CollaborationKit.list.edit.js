@@ -4,7 +4,7 @@
 ( function ( $, mw ) {
 	'use strict';
 
-	var deleteItem, getCurrentJson, saveJson, reorderList, getListOfTitles, getColId;
+	var deleteItem, getCurrentJson, saveJson, reorderList, getListOfItems, getColId, renumberElements;
 
 	/**
 	 * Retrieves ID number of column
@@ -24,13 +24,28 @@
 	};
 
 	/**
+	 * Renumbers the item IDs within a column following a re-ordering or a deletion
+	 *
+	 * @param {number} colId the column in which to re-number the items
+	 */
+	renumberElements = function ( colId ) {
+		$( '.mw-ck-list-column[ data-collabkit-column-id=' + colId + ' ] .mw-ck-list-item' )
+			.each( function ( index ) {
+				$( this ).data( 'collabkit-item-id', colId + '-' + index );
+			} );
+	};
+
+	/**
 	 * Deletes an item from the list
 	 *
 	 * @param {jQuery} $item
 	 */
 	deleteItem = function ( $item ) {
-		var spinner,
+		var i,
+			oldItems,
+			spinner,
 			title = $item.data( 'collabkit-item-title' ),
+			itemId = $item.data( 'collabkit-item-id' ),
 			colId = getColId( $item );
 
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
@@ -48,12 +63,13 @@
 
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var newItems = [];
-			$.each( res.content.columns[ colId ].items, function ( index ) {
-				if ( this.title === title ) {
-					return;
+			oldItems = res.content.columns[ colId ].items;
+			for ( i = 0; i < oldItems.length; i++ ) {
+				if ( colId + '-' + i === itemId ) {
+					continue;
 				}
-				newItems[ newItems.length ] = this;
-			} );
+				newItems[ newItems.length ] = oldItems[ i ];
+			}
 			res.content.columns[ colId ].items = newItems;
 			// Interface for extension defined tags lacking...
 			// res.tags = 'collabkit-list-delete';
@@ -61,6 +77,7 @@
 			res.summary = mw.msg( 'collaborationkit-list-delete-summary', title );
 			saveJson( res, function () {
 				$item.remove();
+				renumberElements( colId );
 				mw.notify(
 					mw.msg( 'collaborationkit-list-delete-popup', title ),
 					{
@@ -69,7 +86,6 @@
 						type: 'info'
 					}
 				);
-
 			} );
 		} );
 	};
@@ -77,19 +93,18 @@
 	/**
 	 * Helper function to get ordered list of all items in list
 	 *
-	 * @param {jQuery} $elm The list of items - $( '.mw-ck-list' )
+	 * @param {jQuery} $elm The list of items
 	 * @return {Array} 2D array of all items in all columns.
 	 */
-	getListOfTitles = function ( $elm ) {
+	getListOfItems = function ( $elm ) {
 		var list = [];
-		// FIXME must be changed for multilist.
 		$elm.children( '.mw-ck-list-column' ).each( function () {
 			var $this, colId;
 			$this = $( this );
 			colId = $this.data( 'collabkit-column-id' );
 			list[ colId ] = [];
 			$this.children( '.mw-ck-list-item' ).each( function () {
-				list[ colId ][ list[ colId ].length ] = $( this ).data( 'collabkit-item-title' );
+				list[ colId ][ list[ colId ].length ] = $( this ).data( 'collabkit-item-id' );
 			} );
 		} );
 		return list;
@@ -112,19 +127,24 @@
 		getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var i,
 				j,
+				moveFrom,
+				moveTo,
+				movingItem,
+				newPosition,
+				oldPosition = $item.data( 'collabkit-item-id' ),
 				reorderedItem,
-				findItemInResArray,
-				resArray,
+				resColumns,
 				isEditConflict = false;
 
 			reorderedItem = $item.data( 'collabkit-item-title' );
 
+			// Edit conflict detection
 			outer: for ( i = 0; i < originalOrder.length; i++ ) {
 				if ( res.content.columns[ i ].items.length !== originalOrder[ i ].length ) {
 					isEditConflict = true;
 				} else {
 					for ( j = 0; j < originalOrder[ i ].length; j++ ) {
-						if ( res.content.columns[ i ].items[ j ].title !== originalOrder[ i ][ j ] ) {
+						if ( i + '-' + j !== originalOrder[ i ][ j ] ) {
 							isEditConflict = true;
 							break outer;
 						}
@@ -134,7 +154,7 @@
 
 			if ( isEditConflict ) {
 				// FIXME sane error handling.
-				alert( 'Edit conflict detected. Rearrangement not saved.' );
+				alert( mw.msg( 'collaborationkit-list-error-editconflict' ) );
 				location.reload();
 				throw new Error( 'Edit conflict' );
 			}
@@ -148,69 +168,36 @@
 				throw new Error( 'Lost an item in the list?!' );
 			}
 
-			/**
-			 * Find an item in the result array.
-			 *
-			 * Optimized to first look in the most likely spots.
-			 * Assumes that titles must be unique in a list.
-			 *
-			 * @param {string} title Title of list item to find
-			 * @param {number} indexGuess Where we think it might be
-			 * @param {number} colGuess Which column we think its in
-			 * @return {Object} The item object for the given title
-			 */
-			findItemInResArray = function ( title, indexGuess, colGuess ) {
-				var oneLess,
-					oneMore,
-					i,
-					j,
-					resItems = res.content.columns[ colGuess ].items;
-
-				indexGuess %= resItems.length;
-
-				if ( resItems[ indexGuess ].title === title ) {
-					return resItems[ indexGuess ];
-				}
-
-				oneMore = ( indexGuess + 1 ) % resItems.length;
-				oneLess = indexGuess - 1 < 0 ? resItems.length - 1 : indexGuess - 1;
-				if ( resItems[ oneMore ].title === title ) {
-					return resItems[ oneMore ];
-				}
-
-				if ( resItems[ oneLess ].title === title ) {
-					return resItems[ oneLess ];
-				}
-
-				// Still here, check entire array.
-				for ( i = 0; i < res.content.columns.length; i++ ) {
-					for ( j = 0; j < res.content.columns[ i ].items.length; j++ ) {
-						if ( res.content.columns[ i ].items[ j ].title === title ) {
-							return res.content.columns[ i ].items[ j ];
-						}
+			outer2: for ( i = 0; i < newOrder.length; i++ ) {
+				for ( j = 0; j < newOrder[ i ].length; j++ ) {
+					if ( newOrder[ i ][ j ] === oldPosition ) {
+						newPosition = i + '-' + j;
+						break outer2;
 					}
 				}
-
-				// Must be missing.
-				// FIXME sane error handling.
-				alert( mw.msg( 'collaborationkit-list-error-editconflict' ) );
-				location.reload();
-				throw new Error( 'Item ' + title + ' is missing' );
-			};
-			resArray = [];
-			for ( i = 0; i < newOrder.length; i++ ) {
-				resArray[ i ] = [];
-				for ( j = 0; j < newOrder[ i ].length; j++ ) {
-					resArray[ i ][ j ] = findItemInResArray( newOrder[ i ][ j ], j, i );
-				}
 			}
-			for ( i = 0; i < resArray.length; i++ ) {
-				res.content.columns[ i ].items = resArray[ i ];
+
+			resColumns = [];
+			for ( i = 0; i < res.content.columns.length; i++ ) {
+				resColumns[ i ] = res.content.columns[ i ].items;
+			}
+
+			moveFrom = oldPosition.split( '-' );  // 0 = column; 1 = item
+			moveTo = newPosition.split( '-' );  // 0 = column; 1 = item
+
+			movingItem = resColumns[ moveFrom[ 0 ] ][ moveFrom[ 1 ] ];
+			resColumns[ moveFrom[ 0 ] ].splice( moveFrom[ 1 ], 1 );
+			resColumns[ moveTo[ 0 ] ].splice( moveTo[ 1 ], 0, movingItem );
+
+			for ( i = 0; i < res.content.columns.length; i++ ) {
+				res.content.columns[ i ].items = resColumns[ i ];
 			}
 
 			res.summary = mw.msg( 'collaborationkit-list-move-summary', reorderedItem );
 			saveJson( res, function () {
 				spinner.remove();
+				renumberElements( moveFrom[ 0 ] );
+				renumberElements( moveTo[ 0 ] );
 				mw.notify(
 					mw.msg( 'collaborationkit-list-move-popup', reorderedItem ),
 					{
@@ -295,10 +282,11 @@
 	module.exports = {
 		getColId: getColId,
 		deleteItem: deleteItem,
-		getListOfTitles: getListOfTitles,
+		getListOfItems: getListOfItems,
 		reorderList: reorderList,
 		getCurrentJson: getCurrentJson,
-		saveJson: saveJson
+		saveJson: saveJson,
+		renumberElements: renumberElements
 	};
 
 } )( jQuery, mediaWiki );
