@@ -25,6 +25,10 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	 * @param $par string
 	 */
 	public function execute( $par ) {
+		if ( !$this->getUser()->isAllowed( 'createpage' ) ) {
+			throw new PermissionsError( 'createpage' );
+		}
+
 		$out = $this->getContext()->getOutput();
 		$out->addModules( [
 			'ext.CollaborationKit.hubtheme'
@@ -35,6 +39,12 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			CollaborationHubContent::getThemeColours()
 		);
 
+		if ( $this->getRequest()->getVal( 'confirm' ) ) {
+			$out->wrapWikiMsg(
+				"<div class=\"warningbox\">\n$1\n</div>",
+				'collaborationkit-createhub-confirmheader'
+			);
+		}
 		parent::execute( $par );
 	}
 
@@ -52,8 +62,6 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		}
 
 		$fields = [
-			// autofilled from how they got here, hopefully
-
 			'namespace' => [
 				'type' => 'select',
 				'options' => $namespaceChoices,
@@ -110,6 +118,36 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'placeholder-message' => 'collaborationkit-hubedit-introduction-placeholder'
 		];
 
+		// If these fields are included in GET parameter, have them as default
+		// values on the form.
+		foreach ( [
+			'namespace',
+			'icon',
+			'display_name',
+			'icon',
+			'colour',
+			'introduction' ]
+			as $fieldName )
+		{
+			if ( $this->getRequest()->getVal( $fieldName ) ) {
+				$fields[ $fieldName ][ 'default' ] = $this->getRequest()->getVal( $fieldName );
+			}
+		}
+
+		// "title" is special because it's already taken by MediaWiki.
+		if ( $this->getRequest()->getVal( 'hubtitle' ) ) {
+			$fields[ 'title' ][ 'default' ] = $this->getRequest()->getVal( 'hubtitle' );
+		}
+
+		// This form can be used to overwrite existing pages, but the user must
+		// confirm first.
+		if ( $this->getRequest()->getVal( 'confirm' ) ) {
+			$fields['do_overwrite'] = [
+				'type' => 'check',
+				'label-message' => 'collaborationkit-createhub-confirm',
+				'cssclass' => 'mw-ck-confirm-input'
+			];
+		}
 		return $fields;
 	}
 
@@ -150,11 +188,28 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			return Status::newFatal( 'collaborationkit-createhub-nopermission' );
 		}
 
-		$title = Title::newFromText( $pagename );
-		if ( !$title ) {
-			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
+		$context = $this->getContext();
+
+		$do_overwrite = $context->getRequest()->getBool( 'wpdo_overwrite' );
+
+		// If a page already exists at the title, ask the user before over-
+		// writing the page.
+		if ( $title->exists() && !$do_overwrite ) {
+			$this->getOutput()->redirect(
+				SpecialPage::getTitleFor( 'CreateCollaborationHub' )->getFullURL( [
+					'namespace' => $data['namespace'],
+					'hubtitle' => $data['title'],
+					'display_name' => $data['display_name'],
+					'icon' => $data['icon'],
+					'colour' => $data['colour'],
+					'introduction' => $data['introduction'],
+					'confirm' => 1
+				] )
+			);
+			return;
 		}
 
+		// Create member list
 		$memberListTitle = Title::newFromText(
 			$pagename
 			. '/'
@@ -168,13 +223,14 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			$this->msg( 'collaborationkit-createhub-editsummary' )
 				->inContentLanguage()
 				->plain(),
-			$this->getContext()
+			$context
 		);
 
 		if ( !$memberResult->isGood() ) {
 			return $memberResult;
 		}
 
+		// Create announcements page
 		$announcementsTitle = Title::newFromText( $pagename
 			. '/'
 			. $this->msg( 'collaborationkit-hub-pagetitle-announcements' )
@@ -184,8 +240,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		if ( !$announcementsTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );
 		}
-		// Ensure that a valid context is provided to the API in unit tests
-		$context = $this->getContext();
+
 		$der = new DerivativeContext( $context );
 		$request = new DerivativeRequest(
 			$context->getRequest(),
@@ -216,6 +271,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			);
 		}
 
+		// Now, to create the hub itself
 		$result = CollaborationHubContentHandler::edit(
 			$title,
 			$data['display_name'],
@@ -228,7 +284,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 				->msg( 'collaborationkit-createhub-editsummary' )
 				->inContentLanguage()
 				->plain(),
-			$this->getContext()
+			$context
 		);
 
 		if ( !$result->isGood() ) {

@@ -18,6 +18,8 @@
 	"collaborationkit-createhub-exists": "Error message for attempting to create a page that already exists",
 	"collaborationkit-createhub-nopermission": "Error message for no permission to edit/create/whatever",
 	"collaborationkit-createhub-editsummary": "Edit summary for creating a new Collaboration Hub via Special:CreateCollaborationHub",
+	"collaborationkit-createhub-confirm": "Checkbox message to confirm overwriting an existing page when creating a Collaboration Hub",
+	"collaborationkit-createhub-confirmheader": "Warning box that shows at the top of Special:CreateCollaborationHub when a page already exists at the given title",
 	"collaborationkit-createhubfeature-collaborationhub": "Label for form field for specifying the Collaboration Hub on Special:CreateHubFeature",
 	"collaborationkit-createhubfeature-featurename": "Label for form field for specifying the name of the feature to be created on Special:CreateHubFeature",
 	"collaborationkit-createhubfeature-icon": "Label for form field for specifying the feature's icon on Special:CreateHubFeature\n{{Identical|Icon}}",
