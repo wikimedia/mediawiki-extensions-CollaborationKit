@@ -1080,7 +1080,7 @@ class CollaborationListContent extends JsonContent {
 			) {
 				$nonUserItems[] = $item;
 			} else {
-				$userItems[$title->getDBkey()] = $item;
+				$userItems[$title->getText()] = $item;
 			}
 		}
 		$res = $this->filterActiveUsers( $userItems );
