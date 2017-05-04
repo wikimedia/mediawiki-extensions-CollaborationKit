@@ -333,7 +333,9 @@ class CollaborationListContent extends JsonContent {
 			$text .= "</div>\n";
 
 			if ( count( $column->items ) === 0 ) {
-				$text .= "\n{{mediawiki:collaborationkit-list-emptycolumn}}</div>\n";
+				$text .= "\n<div class=\"mw-ck-list-item\">";
+				$text .= "{{mediawiki:collaborationkit-list-emptycolumn}}</div>\n";
+				$text .= "</div>\n";
 				continue;
 			}
 
