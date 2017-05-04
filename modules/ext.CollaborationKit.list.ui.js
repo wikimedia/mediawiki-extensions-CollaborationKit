@@ -187,6 +187,8 @@
 			dialog = this,
 			titleObj;
 
+		dialog.pushPending();
+
 		if ( this.titleWidget instanceof mw.widgets.UserInputWidget ) {
 			titleObj = mw.Title.newFromText( 'User:' + title );
 			if ( titleObj ) {

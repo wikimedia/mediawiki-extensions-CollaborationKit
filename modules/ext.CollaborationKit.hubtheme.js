@@ -223,8 +223,8 @@
 	 */
 	ImageProcessDialog.prototype.getActionProcess = function ( action ) {
 		var dialog, fileTitle;
-
 		dialog = this;
+		dialog.pushPending();
 		if ( action ) {
 			return new OO.ui.Process( function () {
 				var fileObj, fileUrl, fileHeight, fileTitleObj;
