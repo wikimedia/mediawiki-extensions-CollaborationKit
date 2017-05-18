@@ -13,6 +13,8 @@
 	"collaborationkit-createhub-exists": "Eine Seite ist bereits mit dem angegebenen Titel vorhanden.",
 	"collaborationkit-createhub-nopermission": "Du hast keine Berechtigung, einen Kollaborationsknoten mit diesem Titel zu erstellen.",
 	"collaborationkit-createhub-editsummary": "Neuen Kollaborationsknoten erstellt",
+	"collaborationkit-createhub-confirm": "Ja, die aktuellen Seiteninhalte überschreiben",
+	"collaborationkit-createhub-confirmheader": "Es gibt bereits eine Seite mit diesem Titel. Wenn du unten bestätigst, werden die Inhalte dieser Seite überschrieben. Möchtest du fortfahren?",
 	"collaborationkit-createhubfeature-collaborationhub": "Übergeordneter Kollaborationsknoten",
 	"collaborationkit-createhubfeature-featurename": "Funktionsname",
 	"collaborationkit-createhubfeature-icon": "Symbol",

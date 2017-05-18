@@ -11,6 +11,8 @@
 	"collaborationkit-createhubfeature-exists": "Et gëtt schonn eng Säit mam Titel deen Dir uginn hutt.",
 	"collaborationkit-createhubfeature-freetext": "Allgemeng Wikisäit",
 	"collaborationkit-createhubfeature-articlelist": "Säitelëscht",
+	"collaborationkit-iconlist-columnheader-icon": "Symbol",
+	"collaborationkit-iconlist-columnheader-iconname": "Numm vum Symbol",
 	"collaborationkit-list-isempty": "Dës Lëscht huet keng Kolonnen oder Elementer.",
 	"collaborationkit-list-emptycolumn": "An dëser Kolonn si keng Elementer.",
 	"collaborationkit-list-delete": "Element ewechhuelen",
@@ -69,5 +71,6 @@
 	"collaborationkit-column-active": "Aktiv Memberen",
 	"collaborationkit-column-inactive": "Inaktiv Memberen",
 	"collaborationkit-createhub-title-placeholder": "Neie Projet",
+	"collaborationkit-hubedit-image-help": "E Bild oder e Symbol fir de Projet duerzestellen",
 	"collaborationkit-listedit-description-placeholder": "Beschreift woufir oder wouriwwer dës Lëscht ass."
 }

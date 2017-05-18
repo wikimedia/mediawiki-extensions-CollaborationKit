@@ -22,7 +22,7 @@
 	"collaborationkit-list-add-summary": "/* $1 */ добавление в список.",
 	"collaborationkit-list-error-couldnotgetpage": "Не удалось загрузить страницу. Пожалуйста, обновите страницу и попробуйте снова.",
 	"collaborationkit-list-error-generic": "Произошла ошибка. Пожалуйста, обновите страницу и попробуйте снова.",
-	"collaborationkit-list-error-saving": "Ваши правки списка не сохранены. Пожалуйста, обновите страницу и попробуйте снова.",
+	"collaborationkit-list-error-saving": "Ваши правки списка не были сохранены. Пожалуйста, обновите страницу и попробуйте снова.",
 	"collaborationkit-list-move-popup-title": "Страница сохранена",
 	"collaborationkit-list-newitem-title": "Добавить элемент в список",
 	"collaborationkit-list-newitem-label": "Добавить в список",
