@@ -344,6 +344,7 @@ class CollaborationListContent extends JsonContent {
 			$sortedItems = $column->items;
 			$this->sortList( $sortedItems, $options['defaultSort'] );
 
+			$itemCounter = 0;
 			foreach ( $sortedItems as $item ) {
 				if ( $offset !== 0 ) {
 					$offset--;
@@ -368,8 +369,10 @@ class CollaborationListContent extends JsonContent {
 				$text .= Html::openElement( 'div', [
 					'style' => "min-height:{$iconWidth}px",
 					'class' => 'mw-ck-list-item',
-					'data-collabkit-item-title' => $item->title
+					'data-collabkit-item-title' => $item->title,
+					'data-collabkit-item-id' => $colId . '-' . $itemCounter
 				] );
+				$itemCounter++;
 				if ( $options['mode'] !== 'no-img' ) {
 					if ( isset( $item->image ) ) {
 						$text .= static::generateImage(

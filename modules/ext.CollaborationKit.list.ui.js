@@ -36,30 +36,31 @@
 	 * Edit an existing item.
 	 *
 	 * @param {string} itemName The title of the item in question
+	 * @param {string} itemId ID string corresponding to the column/item index
 	 * @param {number} colId Which column the item is in
 	 */
-	modifyExistingItem = function ( itemName, colId ) {
+	modifyExistingItem = function ( itemName, itemId, colId ) {
 		LE.getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
-			var done = false;
+			var done, itemIdNumber, toEdit;
+			done = false;
 			// Member lists pretend to have two columns (active and inactive),
 			// but in the source code, it's only one column. This forces one column
 			// for the purposes of the JS editor.
 			if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
 				colId = 0;
 			}
-			$.each( res.content.columns[ colId ].items, function ( index ) {
-				if ( this.title === itemName ) {
-					done = true;
-					modifyItem( {
-						itemTitle: this.title,
-						itemImage: this.image,
-						itemDescription: this.notes,
-						itemIndex: index,
-						itemColId: colId
-					} );
-					return false;
-				}
+
+			itemIdNumber = parseInt( itemId.split( '-' )[ 1 ] );
+			toEdit = res.content.columns[ colId ].items[ itemIdNumber ];
+			done = true;
+			modifyItem( {
+				itemTitle: toEdit.title,
+				itemImage: toEdit.image,
+				itemDescription: toEdit.notes,
+				itemIndex: itemIdNumber,
+				itemColId: colId
 			} );
+
 			if ( !done ) {
 				// FIXME error handling
 				alert( mw.msg( 'collaborationkit-list-error-edit' ) );
@@ -273,7 +274,10 @@
 					label: 'edit',
 					framed: false
 				} ).on( 'click', function () {
-					modifyExistingItem( item.data( 'collabkit-item-title' ), colId );
+					modifyExistingItem(
+						item.data( 'collabkit-item-title' ),
+						item.data( 'collabkit-item-id' ),
+						colId );
 				} );
 
 				// FIXME, the <a> might make an extra target when tabbing
@@ -321,28 +325,36 @@
 				start: function ( e ) {
 					$( e.target )
 						.addClass( 'mw-ck-dragging' )
-						.data( 'startTitleList', LE.getListOfTitles( $list ) );
+						.data( 'startItemList', LE.getListOfItems( $list ) );
 				},
 				stop: function ( e, ui ) {
-					var oldListTitles, newListTitles, $target, i, j, changed, count;
+					var oldListItems,
+						newListItems,
+						oldPosition,
+						newPosition,
+						$target,
+						i,
+						j,
+						changed,
+						count;
 
 					$target = $( e.target );
 					$target.removeClass( 'mw-ck-dragging' );
-					oldListTitles = $target.data( 'startTitleList' );
-					newListTitles = LE.getListOfTitles( $list );
-					$target.data( 'startTitleList', null );
+					oldListItems = $target.data( 'startItemList' );
+					newListItems = LE.getListOfItems( $list );
+					$target.data( 'startItemList', null );
 					// FIXME better error handling
-					if ( oldListTitles.length !== newListTitles.length ) {
+					if ( oldListItems.length !== newListItems.length ) {
 						throw new Error( 'We somehow lost a column?!' );
 					}
 
 					changed = false;
 					count = 0;
-					for ( i = 0; i < oldListTitles.length; i++ ) {
-						count += oldListTitles.length;
-						count -= newListTitles.length;
-						for ( j = 0; j < oldListTitles[ i ].length; j++ ) {
-							if ( oldListTitles[ i ][ j ] !== newListTitles[ i ][ j ] ) {
+					for ( i = 0; i < oldListItems.length; i++ ) {
+						count += oldListItems.length;
+						count -= newListItems.length;
+						for ( j = 0; j < oldListItems[ i ].length; j++ ) {
+							if ( oldListItems[ i ][ j ] !== newListItems[ i ][ j ] ) {
 								changed = true;
 								break;
 							}
@@ -353,7 +365,7 @@
 						throw new Error( 'List item has disappeared?' );
 					}
 					if ( changed ) {
-						LE.reorderList( ui.item, newListTitles, oldListTitles );
+						LE.reorderList( ui.item, newListItems, oldListItems );
 					}
 				}
 			} );
