@@ -1206,6 +1206,7 @@ class CollaborationListContent extends JsonContent {
 			&& $title->userCan( 'edit', $user, 'quick' )
 		) {
 			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
+
 			// FIXME: only load .list.members if the list is a member list
 			// (displaymode = members)
 			$output->addModules( [
@@ -1214,6 +1215,18 @@ class CollaborationListContent extends JsonContent {
 			] );
 			$output->preventClickjacking();
 		}
+	}
+
+	/**
+	 * Hook to add timestamp for edit conflict detection
+	 *
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function onBeforePageDisplay( OutputPage $out, $skin ) {
+		// Used for edit conflict detection in lists.
+		$revTS = (int)$out->getRevisionTimestamp();
+		$out->addJsConfigVars( 'wgCollabkitLastEdit', $revTS );
 	}
 
 	/**

@@ -86,6 +86,9 @@
 		],
 		"OutputPageBodyAttributes": [
 			"CollaborationHubContentEditor::setCollabkitTheme"
+		],
+		"BeforePageDisplay": [
+			"CollaborationListContent::onBeforePageDisplay"
 		]
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",

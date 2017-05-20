@@ -279,7 +279,9 @@
 	saveJson = function ( params, callback ) {
 		var api = new mw.Api(),
 			i,
-			j;
+			j,
+			lastRevTS,
+			baseTimestamp = params.timestamp;
 
 		// Strip out UID; we don't want to save it.
 		for ( i = 0; i < params.content.columns.length; i++ ) {
@@ -288,6 +290,14 @@
 			}
 		}
 
+		// Since we depend on things in the DOM, make our base timestamp
+		// for edit conflict the earlier of the last edit + 1 second and
+		// the time data was fetched.
+		lastRevTS = mw.config.get( 'wgCollabkitLastEdit' );
+		if ( lastRevTS ) {
+			lastRevTS += 1; // 1 second after last rev timestamp
+			baseTimestamp = Math.min( lastRevTS, +( params.timestamp.replace( /\D/g, '' ) ) );
+		}
 		// This will explode if we hit a captcha
 		api.postWithEditToken( {
 			action: 'edit',
@@ -298,7 +308,7 @@
 			summary: params.summary,
 			pageid: params.pageid,
 			text: JSON.stringify( params.content ),
-			basetimestamp: params.timestamp
+			basetimestamp: baseTimestamp
 		} ).done( callback ).fail( function () {
 			// FIXME proper error handling.
 			alert( mw.msg( 'collaborationkit-list-error-saving' ) );
