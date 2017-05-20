@@ -4,9 +4,37 @@
 ( function ( $, mw, OO ) {
 	'use strict';
 
-	var addItem, modifyItem, modifyExistingItem, LE;
+	var getItemFromUid, addItem, modifyItem, modifyExistingItem, LE;
 
 	LE = require( 'ext.CollaborationKit.list.edit' );
+
+	/**
+	 * Finds item object based on a UID.
+	 *
+	 * @param {number} uid The relevant unique ID
+	 * @param {Object} columns The columns object from the content object
+	 * @return {Object} An object with keys relevantItem, relevantColumn, relevantRow
+	 */
+	getItemFromUid = function ( uid, columns ) {
+		var i, j, relevantItem, relevantColumn, relevantRow;
+
+		outer: for ( i = 0; i < columns.length; i++ ) {
+			for ( j = 0; j < columns[ i ].items.length; j++ ) {
+				if ( columns[ i ].items[ j ].uid === uid ) {
+					relevantItem = columns[ i ].items[ j ];
+					relevantColumn = i;
+					relevantRow = j;
+					break outer;
+				}
+			}
+		}
+
+		return {
+			relevantItem: relevantItem,
+			relevantColumn: relevantColumn,
+			relevantRow: relevantRow
+		};
+	};
 
 	/**
 	 * Adds a new item to a list
@@ -20,7 +48,8 @@
 	/**
 	 * Opens a window to manage list item modification
 	 *
-	 * @param {Object} itemToEdit The name of the title to modify, or false to add new.
+	 * @param {Object} itemToEdit Data concerning the item to edit/add. At
+	 *    minimum you need an itemColId attribute with the column ID.
 	 */
 	modifyItem = function ( itemToEdit ) {
 		var dialog, windowManager;
@@ -36,29 +65,22 @@
 	 * Edit an existing item.
 	 *
 	 * @param {string} itemName The title of the item in question
-	 * @param {string} itemId ID string corresponding to the column/item index
-	 * @param {number} colId Which column the item is in
+	 * @param {string} uid Unique identifier based on order in native JSON representation
 	 */
-	modifyExistingItem = function ( itemName, itemId, colId ) {
+	modifyExistingItem = function ( itemName, uid ) {
 		LE.getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
 			var done, itemIdNumber, toEdit;
 			done = false;
-			// Member lists pretend to have two columns (active and inactive),
-			// but in the source code, it's only one column. This forces one column
-			// for the purposes of the JS editor.
-			if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
-				colId = 0;
-			}
 
-			itemIdNumber = parseInt( itemId.split( '-' )[ 1 ] );
-			toEdit = res.content.columns[ colId ].items[ itemIdNumber ];
+			toEdit = getItemFromUid( uid, res.content.columns );
+
 			done = true;
 			modifyItem( {
-				itemTitle: toEdit.title,
-				itemImage: toEdit.image,
-				itemDescription: toEdit.notes,
-				itemIndex: itemIdNumber,
-				itemColId: colId
+				itemTitle: toEdit.relevantItem.title,
+				itemImage: toEdit.relevantItem.image,
+				itemDescription: toEdit.relevantItem.notes,
+				itemColId: toEdit.relevantColumn,
+				itemUid: uid
 			} );
 
 			if ( !done ) {
@@ -82,7 +104,7 @@
 			this.itemTitle = config.itemTitle;
 			this.itemDescription = config.itemDescription;
 			this.itemImage = config.itemImage;
-			this.itemIndex = config.itemIndex;
+			this.itemUid = config.itemUid;
 		}
 		if ( config.itemColId ) {
 			this.itemColId = config.itemColId;
@@ -109,7 +131,7 @@
 	 * @param {Object} itemInfo info from json
 	 */
 	NewItemDialog.prototype.initialize = function ( itemInfo ) {
-		var description, itemTitleObj;
+		var description, itemTitleObj, i, j;
 
 		NewItemDialog.parent.prototype.initialize.apply( this, arguments );
 		this.panel1 = new OO.ui.PanelLayout( { padded: true, expanded: false } );
@@ -200,27 +222,38 @@
 		}
 
 		LE.getCurrentJson( mw.config.get( 'wgArticleId' ), function ( res ) {
-			var index, itemToAdd = {
-				title: title,
-				notes: notes
-			};
+			var index,
+				itemToAdd = {
+					title: title,
+					notes: notes
+				},
+				relevantItem,
+				relevantRow;
 
 			if ( file ) {
 				itemToAdd.image = file;
 			}
-			if ( dialog.itemIndex !== undefined ) {
-				if (	res.content.columns[ dialog.itemColId ].items <= dialog.itemIndex ||
-					res.content.columns[ dialog.itemColId ].items[ dialog.itemIndex ].title !== dialog.itemTitle
-				) {
+			if ( dialog.itemUid !== undefined ) {
+				// We are editing an existing item
+
+				relevantItem = getItemFromUid( dialog.itemUid, res.content.columns );
+
+				relevantRow = relevantItem.relevantRow;
+				relevantItem = relevantItem.relevantItem;
+
+				// Edit conflict detection
+				if ( relevantItem.title !== dialog.itemTitle ) {
 					alert( mw.msg( 'collaborationkit-list-error-editconflict' ) );
 					location.reload();
 					// fixme proper handling.
 					throw new Error( 'edit conflict' );
 				}
-				index = dialog.itemIndex;
+
+				index = relevantRow;
 			} else {
 				index = res.content.columns[ dialog.itemColId ].items.length;
 			}
+
 			res.content.columns[ dialog.itemColId ].items[ index ] = itemToAdd;
 			res.summary = mw.msg( 'collaborationkit-list-add-summary', title );
 			LE.saveJson( res, function () {
@@ -240,11 +273,7 @@
 		}
 
 		$list = $( '.mw-ck-list' );
-		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
-			column = $( '.mw-ck-list-column[data-collabkit-column-id=0] .mw-ck-list-item:last-child' );
-		} else {
-			column = $( '.mw-ck-list-item:last-child' );
-		}
+
 		$list.find( '.mw-ck-list-item' ).each( function () {
 				var deleteButton,
 					moveButton,
@@ -278,8 +307,7 @@
 				} ).on( 'click', function () {
 					modifyExistingItem(
 						item.data( 'collabkit-item-title' ),
-						item.data( 'collabkit-item-id' ),
-						colId );
+						item.data( 'collabkit-item-uid' ) );
 				} );
 
 				// FIXME, the <a> might make an extra target when tabbing
@@ -376,22 +404,25 @@
 		buttonMsg = mw.config.get( 'wgCollaborationKitIsMemberList' ) ?
 			'collaborationkit-list-add-user' :
 			'collaborationkit-list-add';
-		column.after(
-			$( '<div></div>' )
-				// FIXME There is probably a way to add the class without
-				// extra div.
-				.addClass( 'mw-ck-list-additem' )
-				.append(
-					new OO.ui.ButtonWidget( {
-						label: mw.msg( buttonMsg ),
-						icon: 'add',
-						flags: 'constructive'
-					} ).on( 'click', function () {
-						addItem( $( event.target ).closest( '.mw-ck-list-column' ).data( 'collabkit-column-id' ) );
-					} )
-					.$element
-				)
-		);
+		$( '.mw-ck-list-additem-container' ).each( function () {
+			var $addButton = $( this );
+			$addButton.append(
+				$( '<div></div>' )
+					// FIXME There is probably a way to add the class without
+					// extra div.
+					.addClass( 'mw-ck-list-additem' )
+					.append(
+						new OO.ui.ButtonWidget( {
+							label: mw.msg( buttonMsg ),
+							icon: 'add',
+							flags: 'constructive'
+						} ).on( 'click', function ( event ) {
+							addItem( $addButton.closest( '.mw-ck-list-column' ).data( 'collabkit-column-id' ) );
+						} )
+						.$element
+					)
+			);
+		} );
 	} );
 
 } )( jQuery, mediaWiki, OO );

@@ -46,6 +46,7 @@
 			spinner,
 			title = $item.data( 'collabkit-item-title' ),
 			itemId = $item.data( 'collabkit-item-id' ),
+			uid = $item.data( 'collabkit-item-uid' ),
 			colId = getColId( $item );
 
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
@@ -65,7 +66,7 @@
 			var newItems = [];
 			oldItems = res.content.columns[ colId ].items;
 			for ( i = 0; i < oldItems.length; i++ ) {
-				if ( colId + '-' + i === itemId ) {
+				if ( oldItems[ i ].uid === uid ) {
 					continue;
 				}
 				newItems[ newItems.length ] = oldItems[ i ];
@@ -97,14 +98,18 @@
 	 * @return {Array} 2D array of all items in all columns.
 	 */
 	getListOfItems = function ( $elm ) {
-		var list = [];
+		var list = [],
+			relevantItem;
 		$elm.children( '.mw-ck-list-column' ).each( function () {
 			var $this, colId;
 			$this = $( this );
 			colId = $this.data( 'collabkit-column-id' );
 			list[ colId ] = [];
 			$this.children( '.mw-ck-list-item' ).each( function () {
-				list[ colId ][ list[ colId ].length ] = $( this ).data( 'collabkit-item-id' );
+				relevantItem = $( this ).data( 'collabkit-item-id' );
+				if ( relevantItem ) {
+					list[ colId ][ list[ colId ].length ] = relevantItem;
+				}
 			} );
 		} );
 		return list;
@@ -217,7 +222,10 @@
 	 * @param {Object} callback
 	 */
 	getCurrentJson = function ( pageId, callback ) {
-		var api = new mw.Api();
+		var api = new mw.Api(),
+			i,
+			j,
+			uidCounter = 0;
 
 		api.get( {
 			action: 'query',
@@ -247,6 +255,15 @@
 			res.pageid = pageId;
 			res.timestamp = rev.timestamp;
 			res.content = JSON.parse( rev[ '*' ] );
+
+			// Assigning UID to each list entry
+			for ( i = 0; i < res.content.columns.length; i++ ) {
+				for ( j = 0; j < res.content.columns[ i ].items.length; j++ ) {
+					res.content.columns[ i ].items[ j ].uid = uidCounter;
+					uidCounter++;
+				}
+			}
+
 			callback( res );
 		} ).fail(
 			function () { alert( mw.msg( 'collaborationkit-list-error-generic' ) ); }
@@ -260,7 +277,16 @@
 	 * @param {Object} callback
 	 */
 	saveJson = function ( params, callback ) {
-		var api = new mw.Api();
+		var api = new mw.Api(),
+			i,
+			j;
+
+		// Strip out UID; we don't want to save it.
+		for ( i = 0; i < params.content.columns.length; i++ ) {
+			for ( j = 0; j < params.content.columns[ i ].items.length; j++ ) {
+				delete params.content.columns[ i ].items[ j ].uid;
+			}
+		}
 
 		// This will explode if we hit a captcha
 		api.postWithEditToken( {

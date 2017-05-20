@@ -300,10 +300,19 @@ class CollaborationListContent extends JsonContent {
 			return $text;
 		}
 
+		$columns = $this->columns;
+
+		// Assign a UID to each list entry.
+		$uidCounter = 0;
+		foreach ( $columns as $colId => $column ) {
+			foreach ( $column->items as $rowId => $row ) {
+				$columns[$colId]->items[$rowId]->uid = $uidCounter;
+				$uidCounter++;
+			}
+		}
+
 		if ( $this->displaymode === 'members' && count( $this->columns ) === 1 ) {
-			$columns = $this->sortUsersIntoColumns( $this->columns[0] );
-		} else {
-			$columns = $this->columns;
+			$columns = $this->sortUsersIntoColumns( $columns[0] );
 		}
 
 		$columns = $this->filterColumns( $columns, $options['columns'] );
@@ -335,106 +344,111 @@ class CollaborationListContent extends JsonContent {
 			if ( count( $column->items ) === 0 ) {
 				$text .= "\n<div class=\"mw-ck-list-item\">";
 				$text .= "{{mediawiki:collaborationkit-list-emptycolumn}}</div>\n";
-				$text .= "</div>\n";
-				continue;
-			}
+			} else {
+				$curItem = 0;
 
-			$curItem = 0;
+				$sortedItems = $column->items;
+				$this->sortList( $sortedItems, $options['defaultSort'] );
 
-			$sortedItems = $column->items;
-			$this->sortList( $sortedItems, $options['defaultSort'] );
-
-			$itemCounter = 0;
-			foreach ( $sortedItems as $item ) {
-				if ( $offset !== 0 ) {
-					$offset--;
-					continue;
-				}
-				$curItem++;
-				if ( $maxItems !== false && $maxItems < $curItem ) {
-					break;
-				}
-
-				$itemTags = isset( $item->tags ) ? $item->tags : [];
-				if ( !$this->matchesTag( $options['tags'], $itemTags ) ) {
-					continue;
-				}
-
-				$titleForItem = null;
-				if ( !isset( $item->link ) ) {
-					$titleForItem = Title::newFromText( $item->title );
-				} elseif ( $item->link !== false ) {
-					$titleForItem = Title::newFromText( $item->link );
-				}
-				$text .= Html::openElement( 'div', [
-					'style' => "min-height:{$iconWidth}px",
-					'class' => 'mw-ck-list-item',
-					'data-collabkit-item-title' => $item->title,
-					'data-collabkit-item-id' => $colId . '-' . $itemCounter
-				] );
-				$itemCounter++;
-				if ( $options['mode'] !== 'no-img' ) {
-					if ( isset( $item->image ) ) {
-						$text .= static::generateImage(
-							$item->image,
-							$this->displaymode,
-							$titleForItem,
-							$iconWidth
-						);
-					} else {
-						// Use fallback mechanisms
-						$text .= static::generateImage(
-							null,
-							$this->displaymode,
-							$titleForItem,
-							$iconWidth
-						);
+				$itemCounter = 0;
+				foreach ( $sortedItems as $item ) {
+					if ( $offset !== 0 ) {
+						$offset--;
+						continue;
 					}
-				}
+					$curItem++;
+					if ( $maxItems !== false && $maxItems < $curItem ) {
+						break;
+					}
 
-				$text .= '<div class="mw-ck-list-container">';
-				// Question: Arguably it would be more semantically correct to
-				// use an <Hn> element for this. Would that be better? Unclear.
-				$text .= '<div class="mw-ck-list-title">';
-				if ( $titleForItem ) {
-					if ( $this->displaymode == 'members'
-						&& !isset( $item->link )
-						&& $titleForItem->inNamespace( NS_USER )
+					$itemTags = isset( $item->tags ) ? $item->tags : [];
+					if ( !$this->matchesTag( $options['tags'], $itemTags ) ) {
+						continue;
+					}
+
+					$titleForItem = null;
+					if ( !isset( $item->link ) ) {
+						$titleForItem = Title::newFromText( $item->title );
+					} elseif ( $item->link !== false ) {
+						$titleForItem = Title::newFromText( $item->link );
+					}
+					$text .= Html::openElement( 'div', [
+						'style' => "min-height:{$iconWidth}px",
+						'class' => 'mw-ck-list-item',
+						'data-collabkit-item-title' => $item->title,
+						'data-collabkit-item-id' => $colId . '-' . $itemCounter,
+						'data-collabkit-item-uid' => $item->uid
+					] );
+					$itemCounter++;
+					if ( $options['mode'] !== 'no-img' ) {
+						if ( isset( $item->image ) ) {
+							$text .= static::generateImage(
+								$item->image,
+								$this->displaymode,
+								$titleForItem,
+								$iconWidth
+							);
+						} else {
+							// Use fallback mechanisms
+							$text .= static::generateImage(
+								null,
+								$this->displaymode,
+								$titleForItem,
+								$iconWidth
+							);
+						}
+					}
+
+					$text .= '<div class="mw-ck-list-container">';
+					// Question: Arguably it would be more semantically correct to
+					// use an <Hn> element for this. Would that be better? Unclear.
+					$text .= '<div class="mw-ck-list-title">';
+					if ( $titleForItem ) {
+						if ( $this->displaymode == 'members'
+							&& !isset( $item->link )
+							&& $titleForItem->inNamespace( NS_USER )
+						) {
+							$titleText = $titleForItem->getText();
+						} else {
+							$titleText = $item->title;
+						}
+						$text .= '[[:' . $titleForItem->getPrefixedDBkey() . '|'
+							. wfEscapeWikiText( $titleText ) . ']]';
+					} else {
+						$text .=  wfEscapeWikiText( $item->title );
+					}
+					$text .= "</div>\n";
+					$text .= '<div class="mw-ck-list-notes">' . "\n";
+					if ( isset( $item->notes ) && is_string( $item->notes ) ) {
+						$text .= $item->notes . "\n";
+					}
+
+					if ( isset( $item->tags ) && is_array( $item->tags )
+						&& count( $item->tags )
 					) {
-						$titleText = $titleForItem->getText();
-					} else {
-						$titleText = $item->title;
+						$text .= "\n<div class='toccolours mw-ck-list-tags'>" .
+							wfMessage( 'collaborationkit-list-taglist' )
+								->inLanguage( $lang )
+								->params(
+									$lang->commaList(
+										array_map( 'wfEscapeWikiText', $item->tags )
+									)
+								)->numParams( count( $item->tags ) )
+								->text() .
+							"</div>\n";
 					}
-					$text .= '[[:' . $titleForItem->getPrefixedDBkey() . '|'
-						. wfEscapeWikiText( $titleText ) . ']]';
-				} else {
-					$text .=  wfEscapeWikiText( $item->title );
+					$text .= '</div></div></div>' . "\n";
 				}
-				$text .= "</div>\n";
-				$text .= '<div class="mw-ck-list-notes">' . "\n";
-				if ( isset( $item->notes ) && is_string( $item->notes ) ) {
-					$text .= $item->notes . "\n";
-				}
-
-				if ( isset( $item->tags ) && is_array( $item->tags )
-					&& count( $item->tags )
-				) {
-					$text .= "\n<div class='toccolours mw-ck-list-tags'>" .
-						wfMessage( 'collaborationkit-list-taglist' )
-							->inLanguage( $lang )
-							->params(
-								$lang->commaList(
-									array_map( 'wfEscapeWikiText', $item->tags )
-								)
-							)->numParams( count( $item->tags ) )
-							->text() .
-						"</div>\n";
-				}
-				$text .= '</div></div></div>' . "\n";
+			}
+			if ( $this->displaymode != 'members' ) {
+				$text .= "\n<div class=\"mw-ck-list-additem-container\"></div>";
 			}
 			$text .= "\n</div>";
 		}
 		$text .= "\n</div>";
+		if ( $this->displaymode == 'members' ) {
+			$text .= "\n<div class=\"mw-ck-list-additem-container\"></div>";
+		}
 		return $text;
 	}
 
@@ -1117,7 +1131,7 @@ class CollaborationListContent extends JsonContent {
 	 * Filter users into active and inactive.
 	 *
 	 * @note The results of this function get stored in parser cache.
-	 * @param array $userList Array of user dbkeys => stdClass
+	 * @param array $userList Array of usernames => stdClass
 	 * @return array [ 'active' => [..], 'inactive' => '[..]' ]
 	 */
 	private function filterActiveUsers( $userList ) {
