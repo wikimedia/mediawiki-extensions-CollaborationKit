@@ -13,6 +13,8 @@
 	"collaborationkit-createhub-exists": "已存在指定标题的页面。",
 	"collaborationkit-createhub-nopermission": "您没有权限使用此标题创建协作中心",
 	"collaborationkit-createhub-editsummary": "创建新的协作中心",
+	"collaborationkit-createhub-confirm": "是的，覆盖当前页面内容",
+	"collaborationkit-createhub-confirmheader": "这里已经有此标题的页面。如果您在下方确认，该页面的内容将被覆盖。您是否要继续？",
 	"collaborationkit-createhubfeature-collaborationhub": "父协作中心",
 	"collaborationkit-createhubfeature-featurename": "功能名称",
 	"collaborationkit-createhubfeature-icon": "图标",

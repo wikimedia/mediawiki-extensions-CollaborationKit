@@ -7,6 +7,8 @@
 	"collaborationkit-createhub-title": "Titel vun der Säit",
 	"collaborationkit-createhub-invalidtitle": "De spezifizéierten Titel ass net valabel.",
 	"collaborationkit-createhub-exists": "Et gëtt schonn eng Säit mam spezifizéierten Titel.",
+	"collaborationkit-createhub-confirm": "Jo, den aktuellen Inhalt vun der säit iwwerschreiwen",
+	"collaborationkit-createhub-confirmheader": "Et gëtt schonn eng Säit ma dësem Titel. Wann Dir hei drënner confirméiert, da gëtt den Inhalt vun där Säit iwwerschriwwen. Wëllt Dir virufueren?",
 	"collaborationkit-createhubfeature-invalidtitle": "Dir hutt e Säitentitel erausgesicht deeen net valabel ass.",
 	"collaborationkit-createhubfeature-exists": "Et gëtt schonn eng Säit mam Titel deen Dir uginn hutt.",
 	"collaborationkit-createhubfeature-freetext": "Allgemeng Wikisäit",

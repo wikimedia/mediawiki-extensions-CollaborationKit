@@ -13,6 +13,8 @@
 	"collaborationkit-createhub-exists": "Веќе постои страница со укажаниот наслов.",
 	"collaborationkit-createhub-nopermission": "Немате дозвола да создадете центар за соработка со овој наслов.",
 	"collaborationkit-createhub-editsummary": "Создаден нов центар за соработка",
+	"collaborationkit-createhub-confirm": "Да, презапиши врз тековната страница",
+	"collaborationkit-createhub-confirmheader": "Веќе има страница со овој наслов. Ако потврдите подолу, содржината на страницава ќе биде заменета. Дали сакате да продолжите?",
 	"collaborationkit-createhubfeature-collaborationhub": "Матичен центар за соработка",
 	"collaborationkit-createhubfeature-featurename": "Назив на можноста",
 	"collaborationkit-createhubfeature-icon": "Икона",

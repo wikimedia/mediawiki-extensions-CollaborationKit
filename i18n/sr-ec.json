@@ -5,6 +5,8 @@
 		]
 	},
 	"collaborationkiticons": "Директоријум икона CollaborationKit",
+	"collaborationkit-createhub-confirm": "Да, препиши садржај тренутне странице",
+	"collaborationkit-createhub-confirmheader": "Већ постоји страница са овим насловом. Ако потврдите испод, садржај те странице може да буде преписан. Желите ли наставити?",
 	"collaborationkit-iconlist-intro": "Ово су припремљени пакети икона које се могу користити на сарадничким хабовима. Свако име иконе у табели одговара кључној речи на интерфејсу уређивачког сарадничког хаба где се бира икона.",
 	"collaborationkit-iconlist-columnheader-icon": "Икона",
 	"collaborationkit-iconlist-columnheader-iconname": "Назив иконе",

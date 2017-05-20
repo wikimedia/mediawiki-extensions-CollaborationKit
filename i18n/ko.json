@@ -9,6 +9,8 @@
 	"collaborationkit-createhub-title": "페이지 제목",
 	"collaborationkit-createhub-invalidtitle": "지정된 제목이 올바르지 않습니다.",
 	"collaborationkit-createhub-exists": "이미 지정한 제목의 문서가 존재합니다.",
+	"collaborationkit-createhub-confirm": "예, 현재 문서의 내용을 덮어씁니다",
+	"collaborationkit-createhub-confirmheader": "이 제목으로 된 문서가 이미 있습니다. 아래에 대해 수긍하면 문서의 내용을 덮어쓰게 됩니다. 계속 진행하시겠습니까?",
 	"collaborationkit-createhubfeature-icon": "아이콘",
 	"collaborationkit-createhubfeature-invalidtitle": "유효하지 않은 페이지 제목을 선택했습니다.",
 	"collaborationkit-createhubfeature-exists": "지정한 제목의 문서가 이미 존재합니다.",

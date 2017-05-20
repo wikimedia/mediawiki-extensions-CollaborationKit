@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Pyscowicz"
+			"Pyscowicz",
+			"Nike"
 		]
 	},
+	"collaborationkit-createhub-confirm": "Korvaa sivun nykyinen sisältö",
 	"collaborationkit-createhubfeature-contenttype": "Minkä tyyppinen sivu tämä on?",
 	"collaborationkit-createhubfeature-articlelist": "Luettelo sivuista",
 	"collaborationkit-list-delete": "Poista kohde",
@@ -17,9 +19,7 @@
 	"collaborationkit-hub-subpage-view": "Näytä sivu",
 	"collaborationkit-hub-addpage": "Lisää ominaisuus",
 	"collaborationkit-icon-select": "Valitse",
-	"collaborationkit-colour-launchbutton": "Selaa värejä",
 	"collaborationkit-colour-select": "Valitse",
-	"collaborationkit-hubimage-launchbutton": "Selaa kuvia",
 	"collaborationkit-hubimage-select": "Valitse",
 	"collaborationkit-darkred": "Tummanpunainen",
 	"collaborationkit-red": "Punainen",
