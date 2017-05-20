@@ -541,17 +541,14 @@ class CollaborationHubContent extends JsonContent {
 				wfMessage( 'edit' )->inContentLanguage()->text(),
 				'edit'
 			);
-			$announcementsEditButton->setAttributes( [ 'style' => 'display:block;' ] );
 
 			$announcementsHeader = Html::rawElement(
 				'h3',
 				[],
-				$announcementsSubpageName
+				$announcementsSubpageName . $announcementsEditButton
 			);
 
-			return $announcementsHeader
-				. $announcementsEditButton
-				. $announcementsText;
+			return $announcementsHeader . $announcementsText;
 		}
 	}
 
@@ -758,6 +755,18 @@ class CollaborationHubContent extends JsonContent {
 			$spPage = $spTitle->getSubpageText();
 		}
 
+		// Get icon
+		$image = isset( $contentItem['image'] ) ? $contentItem['image'] : null;
+		$imageHtml = CollaborationKitImage::makeImage(
+			$image,
+			35,
+			[
+				'link' => $spTitle->getText(),
+				'fallback' => $spPage,
+				'classes' => [ 'mw-ck-section-image' ]
+			]
+		);
+
 		// Generate an id for the section for anchors
 		// Make sure this matches the ToC anchor generation
 		$spPageLink = Sanitizer::escapeId( htmlspecialchars( $spPage ) );
@@ -795,6 +804,15 @@ class CollaborationHubContent extends JsonContent {
 			);
 		}
 
+		$sectionButtons = '';
+		if ( $sectionLinksText !== '' ) {
+			$sectionButtons = Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-section-buttons' ],
+				$sectionLinksText
+			);
+		}
+
 		// Assemble header
 		// Open general section here since we have the id here
 		$html = Html::openElement(
@@ -805,21 +823,21 @@ class CollaborationHubContent extends JsonContent {
 			]
 		);
 		$html .= Html::rawElement(
-			'h2',
-			[],
-			Html::element(
-				'span',
-				[ 'class' => 'mw-headline' ],
-				$spPage
+			'div',
+			[
+				'class' => 'mw-ck-hub-section-header'
+			],
+			Html::rawElement(
+				'h2',
+				[],
+				$imageHtml .
+				Html::element(
+					'span',
+					[ 'class' => 'mw-headline' ],
+					$spPage
+				) . $sectionButtons
 			)
 		);
-		if ( $sectionLinksText !== '' ) {
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-section-buttons' ],
-				$sectionLinksText
-			);
-		}
 
 		OutputPage::setupOOUI();
 		return $html;
@@ -837,12 +855,13 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	protected function makeEditSectionLink( $link, $message, $icon ) {
 		return new OOUI\ButtonWidget( [
-			'classes' => [ 'mw-ck-hub-section-button' ],
+			'classes' => [ 'mw-ck-hub-section-button mw-editsection-like' ],
 			'label' => $message,
 			'href' => $link,
 			'framed' => false,
-			'icon' => $icon
-			] );
+			'icon' => $icon,
+			'flags' => [ 'progressive' ]
+		] );
 	}
 
 	/**

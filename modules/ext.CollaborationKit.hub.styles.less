@@ -2,11 +2,13 @@
 
 .mw-ck-hub-toc {
 	clear: both;
-	margin: 1em 0 2em;
+	margin: 1.5em auto 4.5em;
+	text-align: center;
 
 	ul {
-		padding: 0;
 		margin: 0;
+		border-bottom: solid 4px;
+		border-top: solid 4px;
 	}
 	li {
 		max-width: 7.5em;
@@ -32,8 +34,7 @@
 	}
 	.mw-ck-toc-label {
 		font-weight: bold;
-		margin: 0 0 1em;
-		border-bottom: 3px solid;
+		margin: auto;
 		width: 33%;
 	}
 	.mw-ck-icon {
@@ -41,50 +42,64 @@
 		width: 50px;
 	}
 }
-.mw-content-rtl .mw-ck-toc ul,
-.mw-content-ltr .mw-ck-toc ul {
-	margin: 0;
-	padding: 0;
+.mw-content-rtl .mw-ck-hub-toc ul,
+.mw-content-ltr .mw-ck-hub-toc ul {
+	margin: 0.5em 0 0;
+	padding: 0.5em 0;
 }
 
 // Mainpage hub layout (.mw-body included because vector has excessively specific rules)
 .mw-body .mw-ck-collaborationhub {
 	border-top: solid 7px;
-	padding-top: 1em;
+	padding-top: 1.25em;
 
 	.mw-ck-hub-section {
-		border: solid 5px;
-		border-style: solid none none;
-		padding: 1em 0 0.5em;
-		margin: 2.5em 0 1em;
+		margin: 0;
 		clear: left;
-
-		h2 {
-			display: inline;
-			margin: 0;
-			padding: 0;
-			border-style: 0;
-		}
-
-		.mw-ck-hub-section-main {
-			padding-top: 0.25em;
-		}
-	}
-	.mw-ck-hub-section-buttons {
-		display: inline;
-		margin-left: 2em;
-	}
-	.mw-ck-hub-section-button {
-		margin: -0.2em 1em 0 0;
 	}
 }
-.mw-ck-collaborationhub ul {
+
+// Section header styles and buttons
+.mw-ck-hub-section-buttons {
 	display: inline-block;
+	vertical-align: top;
+	padding-top: 0.5em;
 }
 
+.mw-ck-hub-announcements {
+	h3 .mw-ck-hub-section-button.oo-ui-buttonElement > .oo-ui-buttonElement-button {
+		font-family: sans-serif;
+		font-weight: normal;
+	}
+	.mw-ck-hub-section-button.oo-ui-buttonElement-frameless.oo-ui-labelElement.oo-ui-iconElement:first-child {
+		margin-left: 1em;
+	}
+}
+.mw-body {
+	.mw-ck-hub-section-header h2 {
+		padding-top: 1em;
+	}
+	h2 .mw-ck-hub-section-buttons .oo-ui-buttonElement > .oo-ui-buttonElement-button {
+		font-family: sans-serif;
+		font-weight: normal;
+	}
+}
+.mw-ck-hub-section-buttons {
+	margin: -0.6em 0 0 1em;
+}
+.mw-ck-section-image {
+	margin: -0.35em 0.5em -1em 0;
+
+	img {
+		overflow: hidden;
+		height: 30px;
+	}
+}
+
+// Page header
 .mw-ck-hub-image {
 	float: left;
-	padding: 0 2em 2em 0;
+	padding: 0 2.25em 2.25em 0;
 
 	.mw-ck-icon {
 		.grey();
@@ -96,17 +111,18 @@
 		border-radius: 3px;
 	}
 }
+
 .mw-body .mw-ck-hub-members {
 	.grey-box();
 
 	float: right;
-	margin: 0 0 2em 2em;
+	margin: 0 0 2.25em 2.25em;
 	max-width: 15em;
 	min-width: 10em;
 	width: 25%;
 
 	h3 {
-		margin: 0 0 0.5em;
+		margin: 0 0 1.125em;
 		padding: 0;
 		text-align: center;
 	}
@@ -123,19 +139,27 @@
 	}
 }
 .mw-ck-members-buttons {
-	margin-top: 1em;
+	margin-top: 1.125em;
 }
 .mw-ck-hub-intro {
 	font-size: 115%;
+	padding-bottom: 1.125em;
+}
+.mw-ck-hub-announcements {
+	padding-bottom: 2.25em;
 }
 .mw-ck-hub-footer {
 	border-top: 7px solid;
-	margin: 2.5em 0 1.5em;
+	margin-bottom: 1.125em;
 	border-bottom: 2px solid;
 }
 .mw-ck-hub-footer-actions {
 	margin-right: 8em;
 	text-align: center;
+}
+.mw-ck-section-image {
+	display: inline-block;
+	vertical-align: top;
 }
 
 // Themes
