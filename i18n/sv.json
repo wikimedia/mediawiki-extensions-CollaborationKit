@@ -5,6 +5,8 @@
 		]
 	},
 	"collaborationkit-createhub-exists": "En sida finns redan med angiven titel.",
+	"collaborationkit-createhub-confirm": "Ja, skriv över aktuellt sidinnehåll",
+	"collaborationkit-createhub-confirmheader": "Det finns redan en sida med denna titel. Om du bekräftar nedan kommer innehållet för sidan att skrivas över. Vill du fortsätta?",
 	"collaborationkit-iconlist-columnheader-icon": "Ikon",
 	"collaborationkit-iconlist-columnheader-iconname": "Ikonnamn",
 	"collaborationkit-list-delete-popup": "Sparades: $1 raderades från listan.",
