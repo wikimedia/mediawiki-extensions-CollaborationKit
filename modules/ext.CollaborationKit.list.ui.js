@@ -287,7 +287,7 @@
 				colId = LE.getColId( item );
 				deleteButton = new OO.ui.ButtonWidget( {
 					framed: false,
-					icon: 'remove',
+					icon: 'trash',
 					iconTitle: mw.msg( 'collaborationkit-list-delete' )
 				} );
 

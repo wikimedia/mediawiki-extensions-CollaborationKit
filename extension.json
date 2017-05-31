@@ -113,6 +113,7 @@
 			"scripts": "ext.CollaborationKit.iconbrowser.js",
 			"dependencies": [
 				"oojs-ui",
+				"oojs-ui.styles.icons-moderation",
 				"oojs-ui.styles.icons-movement",
 				"mediawiki.widgets",
 				"mediawiki.widgets.UserInputWidget",
