@@ -231,7 +231,7 @@
 
 				fileObj = dialog.content.getResults().getSelectedItem();
 				if ( fileObj === null ) {
-					return dialog.close();
+					return dialog.close().closed;
 				}
 				getThumbnail( fileObj.getData().title )
 					.done( function ( data ) {
