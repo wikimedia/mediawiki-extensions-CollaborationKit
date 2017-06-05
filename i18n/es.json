@@ -17,8 +17,8 @@
 	"collaborationkit-createhub-exists": "Ya existe una página con el título especificado.",
 	"collaborationkit-createhub-nopermission": "No tienes permiso para crear un Centro de Colaboración con este título",
 	"collaborationkit-createhub-editsummary": "Ha sido creado un nuevo Centro de Colaboración",
-	"collaborationkit-createhub-confirm": "Sí, reemplaza el contenido actual de la página",
-	"collaborationkit-createhub-confirmheader": "Ya hay una página con este título. Si confirmas abajo, el contenido de la página será sobrescrito. ¿Deseas continuar?",
+	"collaborationkit-createhub-confirm": "Sí, sobrescribir el contenido actual de la página",
+	"collaborationkit-createhub-confirmheader": "Ya hay una página con este título. Si lo confirmas más abajo, se sobrescribirá el contenido de la página. ¿Quieres continuar?",
 	"collaborationkit-createhubfeature-collaborationhub": "Centro de colaboración padre",
 	"collaborationkit-createhubfeature-featurename": "Nombre de la característica",
 	"collaborationkit-createhubfeature-icon": "Icono",
@@ -91,7 +91,7 @@
 	"collaborationkit-hub-edit-tojsonerror": "Error de conversión a JSON",
 	"collaborationkit-hub-toc-label": "Características del proyecto",
 	"collaborationkit-hub-addpage": "Añadir característica",
-	"collaborationkit-hub-manage": "Administrar Centro",
+	"collaborationkit-hub-manage": "Gestionar el centro",
 	"collaborationkit-hub-invalid": "Este contenido no cumple con los requisitos del esquema de contenido de CollaborationHub. Esto podría haber ocurrido como consecuencia de una actualización de software. El contenido se reproduce abajo.",
 	"collaborationkit-icon-launchbutton": "Explorar iconos",
 	"collaborationkit-icon-browser": "Explorador de iconos",
@@ -138,6 +138,6 @@
 	"collaborationkit-hubedit-footer-help": "Aparece debajo de las características incluidas. Ubicación recomendada para categorías, plantillas de navegación, etc.",
 	"collaborationkit-hubedit-content-help": "Una lista de páginas o subpáginas que incluir en el proyecto. Un nombre de página por renglón. Usa los títulos de página completos.",
 	"collaborationkit-listedit-description-placeholder": "Describe sobre qué o para qué es la lista.",
-	"collaborationkit-listedit-list-help": "La sintaxis personalizada se utiliza para la edición masiva. Esencialmente un elemento por línea, en la que las columnas diferentes se marcan con varios guiones. Véase [[Help:Extension:CollaborationKit]] para más información.",
+	"collaborationkit-listedit-list-help": "Se emplea una sintaxis personalizada para realizar ediciones en masa. En esencia: un elemento por renglón y columnas demarcadas por varios guiones. Consulta [[Help:Extension:CollaborationKit]] para obtener más información.",
 	"collaborationkit-createhubfeature-icon-help": "Elige uno de los iconos incluidos."
 }
