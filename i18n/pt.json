@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Fúlvio"
+			"Fúlvio",
+			"Hamilton Abreu"
 		]
 	},
 	"collaborationkit-desc": "Ferramentas para a construção de WikiProjetos e espaços de trabalho colaborativos na wiki",
@@ -117,7 +118,7 @@
 	"collaborationkit-brightgreen": "Verde-brilhante",
 	"collaborationkit-khaki": "Caqui",
 	"collaborationkit-black": "Preto",
-	"collaborationkit-column-active": "Membros activos",
+	"collaborationkit-column-active": "Membros ativos",
 	"collaborationkit-column-inactive": "Membros inactivos",
 	"collaborationkit-createhub-wrongnamespace": "Este nome de página não pode ser utilizado como um hub de colaboração. Os Hubs de Colaboração podem ser criados somente {{PLURAL:$1|no domínio $2|nos seguintes domínios: $2}}.",
 	"createcollaborationhub-text": "Está a criar um novo Hub de Colaboração, um espaço de trabalho para organizar um projecto. Uma vez criada esta página, será capaz de adicionar recursos e fazer outras edições.",
