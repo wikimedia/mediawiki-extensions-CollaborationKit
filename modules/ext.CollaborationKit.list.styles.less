@@ -1,4 +1,4 @@
-@import "ext.CollaborationKit.mixins.less";
+@import 'ext.CollaborationKit.mixins.less';
 
 /* Styles needed when transcluding list content */
 
@@ -38,13 +38,13 @@
 .mw-ck-multilist {
 	.flex-display;
 	.flex-wrap;
-	margin: 0 -.5em;
+	margin: 0 -0.5em;
 
 	.mw-ck-list-column {
 		.grey-box();
 		float: left; // IE9 workaround, maybe
 		.flex();
-		margin: .5em;
+		margin: 0.5em;
 		min-width: 20em; // Todo something smarter for mobile/genuinely narrow things?
 		max-width: 35em;
 		-webkit-flex-basis: 25em;
@@ -58,7 +58,7 @@
 		margin: 0;
 	}
 	.mw-ck-list-column-header {
-		padding: 1.25em 1.5em .35em;
+		padding: 1.25em 1.5em 0.35em;
 
 		// YOU ARE AN IDIOT AND YOU SUCK, SELF
 		// Can anyone else explain how this voodoo works? because now I can't figure it out
@@ -161,7 +161,6 @@
 /* Stuff below here could potentially be in a separate module since
  * its only used on direct page and not when transcluding */
 
-
 /* Separate so spinner can replace properly */
 .mw-ck-list-deletebutton {
 	margin-left: 2em;
@@ -201,11 +200,11 @@
 }
 
 .mw-ck-list-dragplaceholder {
-	border: black thin dashed;
+	border: #000 thin dashed;
 	width: 25%;
 }
 
 .mw-ck-list-title .jquery-confirmable-text,
 .mw-ck-list-title .mw-spinner {
-	padding-left: .5em;
+	padding-left: 0.5em;
 }

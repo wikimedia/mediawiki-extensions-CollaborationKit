@@ -1,14 +1,15 @@
 // I dunno what to name things.
 
-@import "ext.CollaborationKit.mixins.less";
+@import 'ext.CollaborationKit.mixins.less';
 
 .mw-ck-subpage-toc {
 	border-width: 3px;
 	border-style: solid none;
-	padding: .125em 0 .5em;
+	padding: 0.125em 0 0.5em;
 	margin: 2em 0;
 
-	a, a:visited {
+	a,
+	a:visited {
 		color: #446;
 
 		&.new {
@@ -31,9 +32,9 @@
 		margin: 0;
 		font-size: 90%;
 
-		li:not(:last-child):after {
+		li:not( :last-child ):after {
 			content: '|';
-			margin: 0 .5em;
+			margin: 0 0.5em;
 		}
 	}
 	li div,
@@ -45,7 +46,7 @@
 	margin-top: -1em;
 
 	span {
-		padding: .15em .5em .15em 0;
+		padding: 0.15em 0.5em 0.15em 0;
 		background: #fff; // TODO make this actually follow skin background
 		font-weight: bold;
 	}
@@ -64,7 +65,7 @@
 
 	&:after{
 		content: '»';
-		margin: 0 .5em;
+		margin: 0 0.5em;
 	}
 }
 .mw-ck-subpage-toc .mw-ck-file-image,
@@ -72,9 +73,8 @@
 	width: 16px;
 	height: 16px;
 	overflow: hidden;
-	margin: 0 .25em -3px 0;
+	margin: 0 0.25em -3px 0;
 }
-
 
 // Unnecessary as the ToC will link back anyway
 div span.subpages {
@@ -89,7 +89,6 @@ div span.subpages {
 .mw-ck-file-image p {
 	margin: 0 !important;
 }
-
 
 // Themes
 .mw-ck-theme-darkred {
