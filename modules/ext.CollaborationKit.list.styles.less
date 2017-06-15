@@ -3,7 +3,46 @@
 /* Styles needed when transcluding list content */
 
 .mw-ck-list-item {
-	margin-bottom: 0.5em;
+	overflow: hidden;
+	margin-bottom: 0.5625em;
+	position: relative;
+
+	.mw-ck-list-buttonrow {
+		display: none;
+	}
+
+	.mw-ck-list-container .mw-ck-list-notes p {
+		margin: 0.35em 0;
+	}
+}
+
+.mw-ck-list-item:after {
+	content: '';
+	background: linear-gradient( to bottom, transparent, #fff );
+	height: 50%;
+	width: 100%;
+	margin-left: 68px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.mw-ck-hub-members .mw-ck-list-item:after {
+	background: linear-gradient( to bottom, transparent, #f9f9f9 );
+}
+
+.mw-ck-list-item:hover {
+	height: auto !important;
+	overflow: visible;
+
+	.mw-ck-list-buttonrow {
+		display: block;
+	}
+}
+
+/* Removes the fadeout effect */
+.mw-ck-list-item:hover:after {
+	display: none;
 }
 
 .mw-ck-list-image {
@@ -20,10 +59,8 @@
 	background: #eee 50% 50%;
 }
 .mw-ck-list-container {
-	height: 64px;
 	padding-left: 10px;
 	display: table-cell;
-	vertical-align: middle;
 	line-height: 1.2;
 }
 .mw-ck-list-title {
@@ -33,7 +70,6 @@
 
 .mw-ck-list-notes {
 	font-size: 90%;
-	margin: 1em 0 2em;
 }
 
 /* Multilist stuff */
@@ -77,11 +113,6 @@
 /* Stuff below here could potentially be in a separate module since
  * its only used on direct page and not when transcluding */
 
-/* Separate so spinner can replace properly */
-.mw-ck-list-deletebutton {
-	margin-left: 2em;
-}
-
 .mw-ck-list:not(.mw-ck-dragging) .mw-ck-list-movebutton {
 	cursor: ns-resize;
 	cursor: -moz-grab;
@@ -102,8 +133,7 @@
 
 /* Unclear if this is a really bad idea, but 24px makes the icon too big */
 .mw-ck-list-button .oo-ui-iconElement-icon.oo-ui-iconElement-icon {
-	min-height: 22px;
-	height: 1em;
+	height: 22px;
 }
 
 .mw-ck-list-additem {
