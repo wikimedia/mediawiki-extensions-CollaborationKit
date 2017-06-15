@@ -26,12 +26,12 @@ class CollaborationKitImage {
 	 *  instead of HTML? Defaults to false.
 	 * @param string $options['label'] Label to put under image; used for ToC icons
 	 * @param string $options['fallback'] If the specified image is null or
-	 *  doesn't exist. Validoptions are none', a valid icon ID, or an arbitrary
+	 *  doesn't exist. Valid options are 'none', a valid icon ID, or an arbitrary
 	 *  string to use a seed. (Note: if you specify a label, then that will
 	 *  serve as the fallback.)
 	 * @param bool $options['optimizeForSquare'] Fetch an image such that it's
 	 *  ideal for shoving into a square frame. Default is false. Images with
-	 *  labels always get optimzed for squares.
+	 *  labels always get optimzied for squares.
 	 * @return string HTML elements or wikitext, depending on
 	 *  $options['renderAsWikitext']
 	 */
