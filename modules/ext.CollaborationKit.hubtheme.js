@@ -291,14 +291,14 @@
 
 		// Defining buttons
 		colourBrowserButton = new OO.ui.ButtonWidget( {
-			icon: 'search',
+			icon: 'edit',
 			framed: false,
 			classes: [ 'mw-ck-hubtheme-widget-inlinebutton' ]
 		} );
 		colourBrowserButton.on( 'click', openColourBrowser );
 
 		hubimageBrowserButton = new OO.ui.ButtonWidget( {
-			icon: 'search',
+			icon: 'edit',
 			framed: false,
 			classes: [ 'mw-ck-hubtheme-widget-inlinebutton' ]
 		} );

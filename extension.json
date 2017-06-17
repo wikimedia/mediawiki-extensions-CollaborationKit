@@ -183,6 +183,7 @@
 				"mediawiki.api.edit",
 				"oojs-ui",
 				"oojs-ui.styles.icons-movement",
+				"oojs-ui.styles.icons-editing-core",
 				"mediawiki.widgets",
 				"mediawiki.widgets.UserInputWidget",
 				"jquery.ui.sortable",

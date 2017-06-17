@@ -302,7 +302,7 @@
 				}
 
 				editButton = new OO.ui.ButtonWidget( {
-					label: 'edit',
+					icon: 'edit',
 					framed: false
 				} ).on( 'click', function () {
 					modifyExistingItem(
