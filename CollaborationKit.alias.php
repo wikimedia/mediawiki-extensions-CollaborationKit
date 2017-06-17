@@ -3,7 +3,6 @@
  * Aliases for special pages
  *
  */
-// @codingStandardsIgnoreFile
 
 $specialPageAliases = [];
 
