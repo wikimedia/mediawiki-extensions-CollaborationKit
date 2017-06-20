@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Xuacu"
+		]
+	},
+	"collaborationkit-desc": "Ferramientes pa construyir WikiProyectos y espacios de trabayu collaborativos en wikis",
+	"collaborationkiticons": "Direutoriu d'iconos de CollaborationKit",
+	"createcollaborationhub": "Crear un nuevu Centru de Collaboración",
+	"createhubfeature": "Crear una carauterística nueva d'un Centru de Collaboración",
+	"collaborationkit-createhub-title": "Títulu de la páxina",
+	"collaborationkit-createhub-invalidtitle": "El títulu especificáu nun ye válidu.",
+	"collaborationkit-createhub-exists": "Yá existe una páxina col títulu especificáu.",
+	"collaborationkit-createhub-nopermission": "Nun tienes permisu pa crear un Centru de Collaboración con esti títulu",
+	"collaborationkit-createhub-editsummary": "Creóse un nuevu Centru de Collaboración",
+	"collaborationkit-createhub-confirm": "Sí, sobrescribir el conteníu actual de la páxina",
+	"collaborationkit-createhub-confirmheader": "Yá hai una páxina con esti títulu. Si confirmes más abaxo, sobrescribiráse'l conteníu de la páxina. ¿Quies siguir?",
+	"collaborationkit-createhubfeature-collaborationhub": "Centru de Collaboración padre",
+	"collaborationkit-createhubfeature-featurename": "Nome de la carauterística",
+	"collaborationkit-createhubfeature-icon": "Iconu",
+	"collaborationkit-createhubfeature-contenttype": "¿Qué tipu de páxina ye esta?",
+	"collaborationkit-createhubfeature-invalidtitle": "Escoyisti un títulu de páxina inválidu.",
+	"collaborationkit-createhubfeature-exists": "Yá esiste una páxina col títulu especificáu.",
+	"collaborationkit-createhubfeature-nopermission": "Nun tienes permisu pa crear una carauterística con esti títulu.",
+	"collaborationkit-createhubfeature-hubdoesnotexist": "Nun esiste un Centru de Collaboración con esti títulu.",
+	"collaborationkit-createhubfeature-hubisnotahub": "La páxina especificada nun ye un Centru de Collaboración.",
+	"collaborationkit-createhubfeature-hubeditsummary": "*/ Añadiendo /* $1",
+	"collaborationkit-createhubfeature-invalidcontenttype": "Esti modelu de conteníu nun se permite pa les carauterístiques nesti momentu.",
+	"collaborationkit-createhubfeature-editsummary": "Creando una carauterística nueva",
+	"collaborationkit-createhubfeature-freetext": "Páxina wiki xenérica",
+	"collaborationkit-createhubfeature-articlelist": "Llista de páxines"
+}

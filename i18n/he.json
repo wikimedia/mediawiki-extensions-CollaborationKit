@@ -13,6 +13,8 @@
 	"collaborationkit-createhub-exists": "הדף כבר קיים עם הכותרת שצוינה.",
 	"collaborationkit-createhub-nopermission": "אין לך הרשאה ליצור מרכז שיתוף עם הכותרת הזאת",
 	"collaborationkit-createhub-editsummary": "נוצר מרכז שיתוף חדש",
+	"collaborationkit-createhub-confirm": "כן, לדרוס את התוכן הנוכחי של הדף",
+	"collaborationkit-createhub-confirmheader": "כבר יש דף עם הכותרת הזאת. אישור הפעולה להלן ידרוס את התוכן של הדף הזה. האם להמשיך?",
 	"collaborationkit-createhubfeature-collaborationhub": "מרכז שיתוף הורה",
 	"collaborationkit-createhubfeature-featurename": "שם המדור",
 	"collaborationkit-createhubfeature-icon": "סמל",
