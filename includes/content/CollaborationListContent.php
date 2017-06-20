@@ -1198,7 +1198,7 @@ class CollaborationListContent extends JsonContent {
 		$action = $context->getRequest()->getVal( 'action', 'view' );
 
 		// @todo Does not trigger on perma-link to current revision
-		//  not sure if that's a desired behaviour or not.
+		// not sure if that's a desired behaviour or not.
 		if ( $title->getContentModel() === __CLASS__
 			&& $action === 'view'
 			&& $title->getArticleID() !== 0

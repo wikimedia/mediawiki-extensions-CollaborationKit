@@ -36,7 +36,6 @@ class CollaborationKitImage {
 	 *  $options['renderAsWikitext']
 	 */
 	public static function makeImage( $image, $width, $options = [] ) {
-
 		$cannedIcons = self::getCannedIcons();
 
 		// Setting up options

@@ -891,7 +891,6 @@ class CollaborationHubContent extends JsonContent {
 				array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) )
 			)
 		) {
-
 			$parentTitle = $title->getBaseTitle();
 			while ( !$title->equals( $parentTitle ) ) {
 				$parentRev = Revision::newFromTitle( $parentTitle );

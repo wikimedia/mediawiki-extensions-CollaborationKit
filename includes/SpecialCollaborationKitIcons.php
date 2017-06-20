@@ -34,11 +34,11 @@ class SpecialCollaborationKitIcons extends IncludableSpecialPage {
 		$wikitext .= "{| class='wikitable'\n";
 		$wikitext .= "|-\n";
 		$wikitext .= '! ' .
-		             $this->msg( 'collaborationkit-iconlist-columnheader-icon' )->plain() .
-		             "\n";
+					 $this->msg( 'collaborationkit-iconlist-columnheader-icon' )->plain() .
+					 "\n";
 		$wikitext .= '! ' .
-		             $this->msg( 'collaborationkit-iconlist-columnheader-iconname' )->plain() .
-		             "\n";
+					 $this->msg( 'collaborationkit-iconlist-columnheader-iconname' )->plain() .
+					 "\n";
 		$wikitext .= "|-\n";
 
 		// Iterate through each icon and generate a row

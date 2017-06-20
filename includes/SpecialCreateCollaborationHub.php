@@ -127,8 +127,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 			'icon',
 			'colour',
 			'introduction' ]
-			as $fieldName )
-		{
+			as $fieldName ) {
 			if ( $this->getRequest()->getVal( $fieldName ) ) {
 				$fields[ $fieldName ][ 'default' ] = $this->getRequest()->getVal( $fieldName );
 			}

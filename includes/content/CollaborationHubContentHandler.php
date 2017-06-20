@@ -40,7 +40,6 @@ class CollaborationHubContentHandler extends TextContentHandler {
 			)
 			&& MWNamespace::hasSubpages( $namespace )
 		) {
-
 			return true;
 		}
 		return false;

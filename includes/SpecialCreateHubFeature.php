@@ -151,8 +151,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		// Create feature
 		$contentModel = $data[ 'contenttype' ];
 		if ( $contentModel != 'wikitext'
-			&& $contentModel != 'CollaborationListContent' )
-		{
+			&& $contentModel != 'CollaborationListContent' ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
 		}
 
