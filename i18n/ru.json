@@ -3,7 +3,8 @@
 		"authors": [
 			"Kareyac",
 			"Okras",
-			"Redredsonia"
+			"Redredsonia",
+			"Facenapalm"
 		]
 	},
 	"createcollaborationhub": "Создание нового центра сотрудничества",
@@ -33,6 +34,7 @@
 	"collaborationkit-hubedit-introduction": "Введение",
 	"collaborationkit-hubedit-footer": "Нижний колонтитул",
 	"collaborationkit-hubedit-content": "Возможности",
+	"collaborationkit-editjsontab": "Редактировать как JSON",
 	"collaborationkit-hub-members-signup": "Присоединиться",
 	"collaborationkit-hub-members-view": "Посмотреть полный список",
 	"collaborationkit-hub-missingpage-create": "Создать функцию",
