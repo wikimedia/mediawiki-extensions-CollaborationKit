@@ -4,6 +4,23 @@
 			"Felipe L. Ewald"
 		]
 	},
+	"collaborationkit-createhub-title": "Título da página",
+	"collaborationkit-createhub-invalidtitle": "O título especificado é inválido.",
+	"collaborationkit-createhub-exists": "Já existe uma página com o título especificado.",
+	"collaborationkit-createhubfeature-icon": "Ícone",
+	"collaborationkit-createhubfeature-articlelist": "Lista de páginas",
+	"collaborationkit-iconlist-columnheader-icon": "Ícone",
+	"collaborationkit-list-taglist": " \\",
+	"collaborationkit-list-delete": "Remover item",
+	"collaborationkit-list-newitem-label": "Adicionar à lista",
 	"collaborationkit-list-newitem-description": "Descrição (opcional)",
-	"collaborationkit-listedit-description": "Descrição"
+	"collaborationkit-listedit-description": "Descrição",
+	"collaborationkit-hub-members-signup": "Juntar-se",
+	"collaborationkit-hub-pagetitle-members": "Membros",
+	"collaborationkit-hub-subpage-view": "Ver página",
+	"collaborationkit-icon-select": "Selecionar",
+	"collaborationkit-colour-select": "Selecionar",
+	"collaborationkit-hubimage-select": "Selecionar",
+	"collaborationkit-red": "Vermelho",
+	"collaborationkit-blue": "Azul"
 }
