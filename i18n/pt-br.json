@@ -10,7 +10,7 @@
 	"collaborationkit-createhubfeature-icon": "Ícone",
 	"collaborationkit-createhubfeature-articlelist": "Lista de páginas",
 	"collaborationkit-iconlist-columnheader-icon": "Ícone",
-	"collaborationkit-list-taglist": " \\",
+	"collaborationkit-list-taglist": "'''{{PLURAL:$2|Etiquetado:|Etiquetas:}}''' $1",
 	"collaborationkit-list-delete": "Remover item",
 	"collaborationkit-list-newitem-label": "Adicionar à lista",
 	"collaborationkit-list-newitem-description": "Descrição (opcional)",
