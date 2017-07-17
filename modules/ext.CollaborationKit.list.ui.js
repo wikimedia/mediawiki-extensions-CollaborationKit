@@ -167,8 +167,7 @@
 			showImages: true,
 			validateTitle: false // want empty titles allowed.
 		} );
-		this.description = new OO.ui.TextInputWidget( {
-			multiline: true,
+		this.description = new OO.ui.MultilineTextInputWidget( {
 			label: mw.msg( 'collaborationkit-list-newitem-description' )
 		} );
 
