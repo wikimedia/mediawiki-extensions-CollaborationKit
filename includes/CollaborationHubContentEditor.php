@@ -167,7 +167,7 @@ class CollaborationHubContentEditor extends EditPage {
 			return;
 		}
 
-		$out = RequestContext::getMain()->getOutput();
+		$out = $this->getContext()->getOutput();
 
 		$partFields = $this->getFormFields( $parts );
 		// See setCollabkitTheme for how the setProperty works.

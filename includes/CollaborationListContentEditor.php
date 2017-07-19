@@ -41,7 +41,7 @@ class CollaborationListContentEditor extends EditPage {
 			parent::showContentForm();
 			return;
 		}
-		$out = RequestContext::getMain()->getOutput();
+		$out = $this->getContext()->getOutput();
 		$out->addHTML( Html::hidden( 'wpCollaborationKitOptions', $parts[1] ) );
 
 		if ( $parts[2] == '' ) {
