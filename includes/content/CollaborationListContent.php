@@ -415,7 +415,7 @@ class CollaborationListContent extends JsonContent {
 						$text .= '[[:' . $titleForItem->getPrefixedDBkey() . '|'
 							. wfEscapeWikiText( $titleText ) . ']]';
 					} else {
-						$text .=  wfEscapeWikiText( $item->title );
+						$text .= wfEscapeWikiText( $item->title );
 					}
 					$text .= "</div>\n";
 					$text .= '<div class="mw-ck-list-notes">' . "\n";
@@ -734,7 +734,7 @@ class CollaborationListContent extends JsonContent {
 
 			foreach ( $column->items as $item ) {
 				$out .= CollaborationHubContent::escapeForHumanEditable( $item->title );
-				if ( isset ( $item->notes ) ) {
+				if ( isset( $item->notes ) ) {
 					$out .= '|'
 					. CollaborationHubContent::escapeForHumanEditable( $item->notes );
 				} else {
@@ -824,7 +824,7 @@ class CollaborationListContent extends JsonContent {
 		$optionString = substr( $text, $split1 + $dividerLength, $optionLength );
 		$res['options'] = self::parseHumanOptions( $optionString );
 
-		if ( isset ( $res['options']->DISPLAYMODE ) ) {
+		if ( isset( $res['options']->DISPLAYMODE ) ) {
 			$res['displaymode'] = $res['options']->DISPLAYMODE;
 			unset( $res['options']->DISPLAYMODE );
 		} else {

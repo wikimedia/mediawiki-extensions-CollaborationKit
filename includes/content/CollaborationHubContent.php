@@ -968,7 +968,7 @@ class CollaborationHubContent extends JsonContent {
 		$out = '';
 		foreach ( $this->content as $item ) {
 			$out .= self::escapeForHumanEditable( $item['title'] );
-			if ( isset ( $item['image'] ) ) {
+			if ( isset( $item['image'] ) ) {
 				$out .= '|image='
 					. self::escapeForHumanEditable( $item['image'] );
 			}
@@ -1004,7 +1004,7 @@ class CollaborationHubContent extends JsonContent {
 		}
 		$text = strtr( $text, [
 			"\n" => '\n',
-			'\n'=> '\\\\n',
+			'\n' => '\\\\n',
 			'|' => '{{!}}'
 		] );
 		return $text;
@@ -1018,7 +1018,7 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public static function unescapeForHumanEditable( $text ) {
 		$text = strtr( $text, [
-			'\\\\n'=> "\\n",
+			'\\\\n' => "\\n",
 			'\n' => "\n",
 			'{{!}}' => '|'
 		] );
