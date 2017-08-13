@@ -16,6 +16,18 @@
 	}
 }
 
+// Set the textareas (SpecialCreateCollaborationHub, CollaborationHubContentEditor,
+// CollaborationListContentEditor) to monospace instead of oojs ui usual of inherit
+// (sans serif)
+// Technically this should not be here, and we should be applying editfont UPO
+// classes as per EditPage::buildTextboxAttribs. Unfortunately, the CSS in core
+// for that has some issues with ooui's nesting, and so doesn't entirely work. So
+// we'll just do this instead:
+.page-Special_CreateCollaborationHub .oo-ui-textInputWidget textarea,
+.mw-collabkit-modifiededitform .oo-ui-textInputWidget textarea {
+	font-family: monospace;
+}
+
 .mw-ck-hub-topform {
 	max-width: 50em;
 }
