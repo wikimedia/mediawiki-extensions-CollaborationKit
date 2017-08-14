@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98"
+		]
+	},
+	"collaborationkit-createhub-title": "Paginanaam",
+	"collaborationkit-createhub-invalidtitle": "De opgegeven paginanaam is ongeldig.",
+	"collaborationkit-createhub-exists": "Er bestaat al een pagina met de opgegeven naam.",
+	"collaborationkit-createhubfeature-icon": "Pictogram",
+	"collaborationkit-iconlist-columnheader-icon": "Pictogram",
+	"collaborationkit-iconlist-columnheader-iconname": "Pictogramnaam",
+	"collaborationkit-hub-pagetitle-members": "Leden",
+	"collaborationkit-hub-pagetitle-announcements": "Aankondiging",
+	"collaborationkit-icon-launchbutton": "Door pictogrammen bladeren",
+	"collaborationkit-darkred": "Donkerrood",
+	"collaborationkit-red": "Rood",
+	"collaborationkit-darkgrey": "Donkergrijs",
+	"collaborationkit-lightgrey": "Lichtgrijs",
+	"collaborationkit-skyblue": "Luchtblauw",
+	"collaborationkit-blue": "Blauw",
+	"collaborationkit-bluegrey": "Blauwgrijs",
+	"collaborationkit-darkblue": "Donkerblauw",
+	"collaborationkit-violet": "Violet",
+	"collaborationkit-purple": "Paars",
+	"collaborationkit-salmon": "Zalm",
+	"collaborationkit-orange": "Oranje",
+	"collaborationkit-yellow": "Geel",
+	"collaborationkit-gold": "Goud",
+	"collaborationkit-pastelyellow": "Pastelgeel",
+	"collaborationkit-forestgreen": "Bosgroen",
+	"collaborationkit-brightgreen": "Felgroen",
+	"collaborationkit-khaki": "Kaki",
+	"collaborationkit-black": "Zwart"
+}
