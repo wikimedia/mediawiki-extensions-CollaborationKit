@@ -27,7 +27,6 @@ module.exports = function ( grunt ) {
 			all: [
 				'*.json',
 				'**/*.json',
-				'.stylelintrc',
 				'!node_modules/**',
 				'!vendor/**'
 			]
@@ -35,7 +34,8 @@ module.exports = function ( grunt ) {
 		stylelint: {
 			all: [
 				'**/*.less',
-				'!node_modules/**'
+				'!node_modules/**',
+				'!vendor/**'
 			]
 		}
 	} );
