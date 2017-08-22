@@ -1,8 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"Matrafox"
+			"Matrafox",
+			"Strainu"
 		]
 	},
-	"collaborationkit-createhub-confirm": "Da, suprascrie conținutul paginii curente"
+	"collaborationkit-createhub-confirm": "Da, suprascrie conținutul curent al paginii"
 }
