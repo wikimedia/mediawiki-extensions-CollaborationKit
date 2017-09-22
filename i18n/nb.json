@@ -4,6 +4,16 @@
 			"Jon Harald Søby"
 		]
 	},
+	"collaborationkit-createhub-title": "Sidetittel",
+	"collaborationkit-createhub-invalidtitle": "Den gitte tittelen er ugyldig.",
+	"collaborationkit-createhub-exists": "En side finnes allerede med den gitte tittelen.",
+	"collaborationkit-createhubfeature-icon": "Ikon",
+	"collaborationkit-createhubfeature-contenttype": "Hva slags side er dette?",
+	"collaborationkit-createhubfeature-invalidtitle": "Du har valgt en ugyldig sidetittel.",
+	"collaborationkit-createhubfeature-exists": "En side finnes allerede med tittelen du oppga.",
+	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Legger til",
+	"collaborationkit-createhubfeature-freetext": "Generisk wikiside",
+	"collaborationkit-createhubfeature-articlelist": "Liste over sider",
 	"collaborationkit-iconlist-columnheader-icon": "Ikon",
 	"collaborationkit-iconlist-columnheader-iconname": "Ikonnavn",
 	"collaborationkit-list-isempty": "Denne lista har ingen kolonner eller elementer.",
