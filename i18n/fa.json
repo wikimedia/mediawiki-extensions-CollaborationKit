@@ -1,8 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Arash.pt"
+			"Arash.pt",
+			"Reza1615"
 		]
 	},
+	"collaborationkit-createhub-title": "عنوان صفحه",
+	"collaborationkit-createhubfeature-icon": "نماد",
+	"collaborationkit-createhubfeature-articlelist": "فهرست برگه‌ها",
+	"collaborationkit-iconlist-columnheader-icon": "نماد",
+	"collaborationkit-list-delete": "حذف مورد",
+	"collaborationkit-list-newitem-label": "افزودن به فهرست",
+	"collaborationkit-listedit-description": "توضیح",
+	"collaborationkit-hubedit-introduction": "مقدمه",
+	"collaborationkit-hubedit-content": "ویژگی‌ها",
+	"collaborationkit-hub-pagetitle-members": "اعضا",
+	"collaborationkit-hub-subpage-view": "مشاهدهٔ صفحه",
+	"collaborationkit-icon-select": "انتخاب",
+	"collaborationkit-colour-select": "انتخاب",
+	"collaborationkit-hubimage-select": "انتخاب",
 	"collaborationkit-createhub-title-placeholder": "پروژه جدید"
 }
