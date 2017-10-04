@@ -7,8 +7,10 @@
 }
 
 .mw-ck-list-image {
+	.grey();
 	float: left;
 	overflow: hidden;
+	padding: 1px;
 }
 .mw-ck-list-noimageplaceholder {
 	width: 64px;
@@ -41,7 +43,6 @@
 	margin: 0 -0.5em;
 
 	.mw-ck-list-column {
-		.grey-box();
 		float: left; // IE9 workaround, maybe
 		.flex();
 		margin: 0.5em;
@@ -59,9 +60,6 @@
 	}
 	.mw-ck-list-column-header {
 		padding: 1.25em 1.5em 0.35em;
-
-		// YOU ARE AN IDIOT AND YOU SUCK, SELF
-		// Can anyone else explain how this voodoo works? because now I can't figure it out
 		margin: -1.6em -1.6em 1em;
 		border-radius: 3px 3px 0 0;
 	}
@@ -69,88 +67,6 @@
 		margin-top: 0;
 		padding-top: 0;
 	}
-}
-.column-theme-header( #ddd );
-
-// Theme colours mixin and application
-
-.column-theme-header( @color ) {
-	.mw-ck-multilist {
-		.mw-ck-list-column {
-			border-color: fadeout( @color, 25% );
-		}
-		.mw-ck-list-column-header {
-			border: solid 1px @color;
-			border-bottom-width: 3px;
-			background: fadeout( @color, 75% );
-		}
-	}
-}
-.mw-ck-theme-darkred {
-	.column-theme-header( @darkred );
-}
-.mw-ck-theme-red {
-	.column-theme-header( @red );
-}
-.mw-ck-theme-darkgrey {
-	.column-theme-header( @darkgrey );
-}
-.mw-ck-theme-lightgrey {
-	.column-theme-header( @lightgrey );
-}
-.mw-ck-theme-skyblue {
-	.column-theme-header( @skyblue );
-}
-.mw-ck-theme-blue {
-	.column-theme-header( @blue );
-}
-.mw-ck-theme-bluegrey {
-	.column-theme-header( @bluegrey );
-}
-.mw-ck-theme-navyblue {
-	.column-theme-header( @navyblue );
-}
-.mw-ck-theme-darkblue {
-	.column-theme-header( @darkblue );
-}
-.mw-ck-theme-aquamarine {
-	.column-theme-header( @aquamarine );
-}
-.mw-ck-theme-violet {
-	.column-theme-header( @violet );
-}
-.mw-ck-theme-purple {
-	.column-theme-header( @purple );
-}
-.mw-ck-theme-mauve {
-	.column-theme-header( @mauve );
-}
-.mw-ck-theme-lightmauve {
-	.column-theme-header( @lightmauve );
-}
-.mw-ck-theme-salmon {
-	.column-theme-header( @salmon );
-}
-.mw-ck-theme-orange {
-	.column-theme-header( @orange );
-}
-.mw-ck-theme-yellow {
-	.column-theme-header( @yellow );
-}
-.mw-ck-theme-gold {
-	.column-theme-header( @gold );
-}
-.mw-ck-theme-pastelyellow {
-	.column-theme-header( @pastelyellow );
-}
-.mw-ck-theme-forestgreen {
-	.column-theme-header( @forestgreen );
-}
-.mw-ck-theme-brightgreen {
-	.column-theme-header( @brightgreen );
-}
-.mw-ck-theme-khaki {
-	.column-theme-header( @khaki );
 }
 
 /* @todo, should maybe replace styling from toccolours with this class */
@@ -200,8 +116,8 @@
 }
 
 .mw-ck-list-dragplaceholder {
-	border: #000 thin dashed;
-	width: 25%;
+	background: #eee;
+	width: 100%;
 }
 
 .mw-ck-list-title .jquery-confirmable-text,
