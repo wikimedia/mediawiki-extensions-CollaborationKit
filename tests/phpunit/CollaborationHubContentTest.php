@@ -26,7 +26,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 
 	/**
 	 * Helper function to shorten lines
-	 * @param $text string
+	 * @param string $text
 	 * @return CollaborationHubContent
 	 */
 	private function m( $text ) {

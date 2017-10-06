@@ -186,7 +186,7 @@ class CollaborationHubContentEditor extends EditPage {
 	 *
 	 * @param OutputPage $out
 	 * @param Skin $skin
-	 * @param array $bodyAttribs Attributes for the <body> element
+	 * @param array &$bodyAttribs Attributes for the <body> element
 	 */
 	public static function setCollabkitTheme( OutputPage $out, $skin,
 		&$bodyAttribs

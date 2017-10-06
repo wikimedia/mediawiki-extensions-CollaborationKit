@@ -79,7 +79,7 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * @param $text string
+	 * @param string $text
 	 */
 	function __construct( $text ) {
 		parent::__construct( $text, 'CollaborationHubContent' );
@@ -248,7 +248,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param int $revId
 	 * @param ParserOptions $options
 	 * @param bool $generateHtml
-	 * @param ParserOutput $output
+	 * @param ParserOutput &$output
 	 */
 	protected function fillParserOutput( Title $title, $revId,
 		ParserOptions $options, $generateHtml, ParserOutput &$output
@@ -495,8 +495,8 @@ class CollaborationHubContent extends JsonContent {
 
 	/**
 	 * Helper function for fillParserOutput
-	 * @param $title Title
-	 * @param $options ParserOptions
+	 * @param Title $title
+	 * @param ParserOptions $options
 	 * @return string
 	 */
 	protected function getParsedIntroduction( Title $title, ParserOptions $options ) {
@@ -880,7 +880,7 @@ class CollaborationHubContent extends JsonContent {
 	 * Generate an image based on what's in 'image', be it an icon or a file
 	 *
 	 * @param string $image Filename or icon name
-	 * @param $size int for non-icon images
+	 * @param int $size int for non-icon images
 	 * @return string HTML
 	 */
 	public function getParsedImage( $image, $size = 200 ) {

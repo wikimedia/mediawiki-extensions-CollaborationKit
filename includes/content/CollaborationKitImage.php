@@ -14,22 +14,22 @@ class CollaborationKitImage {
 	 * @param string|null $image The filename (no namespace prefix) or
 	 *  CollaborationKit icon identifier (or null to use fallback instead)
 	 * @param int $width The width of the image in pixels
-	 * @param array $options An array with optional parameters
-	 * @param array $options['classes'] Array of element classes to assign
-	 * @param Title|string|bool $options['link'] Internal link for the image;
+	 * @param array $options An array with optional parameters:
+	 * - array $options['classes'] Array of element classes to assign
+	 * - Title|string|bool $options['link'] Internal link for the image;
 	 *  default is true (i.e. link to its description page). Pass `false` for no
 	 *  link at all. Pass a string to link to a page in the manner of an
 	 *  internal wiki link.
-	 * @param string $options['colour'] The colour of the icon if using a canned icon
-	 * @param string $options['css'] In-line style parameters. Avoid if possible.
-	 * @param bool $options['renderAsWikitext'] Should the output be wikitext
+	 * - string $options['colour'] The colour of the icon if using a canned icon
+	 * - string $options['css'] In-line style parameters. Avoid if possible.
+	 * - bool $options['renderAsWikitext'] Should the output be wikitext
 	 *  instead of HTML? Defaults to false.
-	 * @param string $options['label'] Label to put under image; used for ToC icons
-	 * @param string $options['fallback'] If the specified image is null or
+	 * - string $options['label'] Label to put under image; used for ToC icons
+	 * - string $options['fallback'] If the specified image is null or
 	 *  doesn't exist. Valid options are 'none', a valid icon ID, or an arbitrary
 	 *  string to use a seed. (Note: if you specify a label, then that will
 	 *  serve as the fallback.)
-	 * @param bool $options['optimizeForSquare'] Fetch an image such that it's
+	 * - bool $options['optimizeForSquare'] Fetch an image such that it's
 	 *  ideal for shoving into a square frame. Default is false. Images with
 	 *  labels always get optimzied for squares.
 	 * @return string HTML elements or wikitext, depending on

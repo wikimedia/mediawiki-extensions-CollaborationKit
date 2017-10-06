@@ -85,7 +85,7 @@ class CollaborationListContentEditor extends EditPage {
 	/**
 	 * Takes contents of edit form and serializes it.
 	 *
-	 * @param WebRequest $request
+	 * @param WebRequest &$request
 	 * @return string
 	 */
 	protected function importContentFormData( &$request ) {

@@ -22,7 +22,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * @param $par string
+	 * @param string $par
 	 */
 	public function execute( $par ) {
 		if ( !$this->getUser()->isAllowed( 'createpage' ) ) {
@@ -152,7 +152,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 	/**
 	 * Build and return the associative array for the content source field.
-	 * @param $mapping array
+	 * @param array $mapping
 	 * @return array
 	 */
 	protected function getOptions( $mapping ) {
@@ -164,7 +164,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 	}
 
 	/**
-	 * @param $data array
+	 * @param array $data
 	 * @return Status
 	 */
 	public function onSubmit( array $data ) {
@@ -302,6 +302,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 
 	/**
 	 * Set the form format to ooui for consistency with the rest of the ck stuff
+	 * @return string
 	 */
 	protected function getDisplayFormat() {
 		return 'ooui';

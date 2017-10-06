@@ -209,7 +209,7 @@ class CollaborationListContent extends JsonContent {
 	 * @param int $revId Revision ID
 	 * @param ParserOptions $options
 	 * @param bool $generateHtml
-	 * @param ParserOutput $output
+	 * @param ParserOutput &$output
 	 */
 	protected function fillParserOutput( Title $title, $revId,
 		ParserOptions $options, $generateHtml, ParserOutput &$output
@@ -773,7 +773,7 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	 * @param $options String Human readable options
+	 * @param string $options Human readable options
 	 * @return object
 	 */
 	private static function parseHumanOptions( $options ) {
@@ -848,7 +848,7 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	 * @param $column
+	 * @param string $column
 	 * @return array
 	 * @throws MWContentSerializationException
 	 */
@@ -913,7 +913,7 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	 * @param $line
+	 * @param string $line
 	 * @return array
 	 * @throws MWContentSerializationException
 	 */
