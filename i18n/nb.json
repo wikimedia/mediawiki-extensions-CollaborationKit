@@ -77,5 +77,6 @@
 	"collaborationkit-black": "Svart",
 	"collaborationkit-column-active": "Aktive medlemmer",
 	"collaborationkit-column-inactive": "Inaktive medlemmer",
-	"collaborationkit-createhub-title-placeholder": "Nytt prosjekt"
+	"collaborationkit-createhub-title-placeholder": "Nytt prosjekt",
+	"collaborationkit-createhubfeature-icon-help": "Velg blant de inkluderte ikonene."
 }
