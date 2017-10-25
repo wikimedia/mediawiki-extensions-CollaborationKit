@@ -21,7 +21,9 @@
 	"collaborationkit-listedit-description": "Opis",
 	"collaborationkit-hubedit-introduction": "Wprowadzenie",
 	"collaborationkit-hubedit-footer": "Stopka",
+	"collaborationkit-hub-pagetitle-members": "Członkowie",
 	"collaborationkit-hub-pagetitle-announcements": "Ogłoszenia",
+	"collaborationkit-hub-subpage-view": "Zobacz stronę",
 	"collaborationkit-icon-select": "Wybierz",
 	"collaborationkit-colour-select": "Wybierz",
 	"collaborationkit-hubimage-select": "Wybierz",
@@ -35,5 +37,7 @@
 	"collaborationkit-yellow": "Żółty",
 	"collaborationkit-gold": "Złoty",
 	"collaborationkit-black": "Czarny",
+	"collaborationkit-column-active": "Aktywni członkowie",
+	"collaborationkit-column-inactive": "Nieaktywni członkowie",
 	"collaborationkit-createhub-title-placeholder": "Nowy projekt"
 }
