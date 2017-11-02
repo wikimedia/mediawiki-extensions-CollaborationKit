@@ -46,6 +46,7 @@
 	"collaborationkit-hub-pagetitle-members": "Medlemmer",
 	"collaborationkit-hub-pagetitle-announcements": "Kunngjøringer",
 	"collaborationkit-hub-subpage-view": "Vis siden",
+	"collaborationkit-hub-edit-apierror": "API-redigeringsfeil: $1",
 	"collaborationkit-hub-edit-tojsonerror": "Feil under konvertering til JSON",
 	"collaborationkit-icon-launchbutton": "Bla gjennom ikoner",
 	"collaborationkit-icon-select": "Velg",
