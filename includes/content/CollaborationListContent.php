@@ -372,8 +372,9 @@ class CollaborationListContent extends JsonContent {
 					} elseif ( $item->link !== false ) {
 						$titleForItem = Title::newFromText( $item->link );
 					}
+					$adjustedIconWidth = $iconWidth * 1.3;
 					$text .= Html::openElement( 'div', [
-						'style' => "min-height:{$iconWidth}px",
+						'style' => "height:{$adjustedIconWidth}px; min-height:{$adjustedIconWidth}px",
 						'class' => 'mw-ck-list-item',
 						'data-collabkit-item-title' => $item->title,
 						'data-collabkit-item-id' => $colId . '-' . $itemCounter,

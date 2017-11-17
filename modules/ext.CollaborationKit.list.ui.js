@@ -274,7 +274,8 @@
 		$list = $( '.mw-ck-list' );
 
 		$list.find( '.mw-ck-list-item' ).each( function () {
-				var deleteButton,
+				var buttonRow,
+					deleteButton,
 					moveButton,
 					editButton,
 					delWrapper,
@@ -336,10 +337,14 @@
 					.addClass( 'mw-ck-list-button' )
 					.append( editButton.$element );
 
-				item.find( '.mw-ck-list-title' )
-					.append( delWrapper )
+				buttonRow = $( '<div></div>' )
+					.addClass( 'mw-ck-list-buttonrow' )
 					.append( moveWrapper )
-					.append( editWrapper );
+					.append( editWrapper )
+					.append( delWrapper );
+
+				item.find( '.mw-ck-list-notes' )
+					.append( buttonRow );
 			} );
 
 		if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
