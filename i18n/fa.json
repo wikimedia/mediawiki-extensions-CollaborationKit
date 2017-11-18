@@ -13,9 +13,13 @@
 	"collaborationkit-iconlist-columnheader-icon": "نماد",
 	"collaborationkit-iconlist-columnheader-iconname": "نام نماد",
 	"collaborationkit-list-delete": "حذف مورد",
+	"collaborationkit-list-delete-popup-title": "آیتم حذف شد",
+	"collaborationkit-list-add": "آیتم جدید به فهرست اضافه کن",
 	"collaborationkit-list-add-self": "به پروژه ملحق شوید",
 	"collaborationkit-list-move-popup-title": "صفحه ذخیره شد",
 	"collaborationkit-list-newitem-label": "افزودن به فهرست",
+	"collaborationkit-list-newitem-page": "صفحه برای اضافه کردن",
+	"collaborationkit-list-newitem-user": "کاربر برای اضافه کردن",
 	"collaborationkit-listedit-description": "توضیح",
 	"collaborationkit-hubedit-introduction": "مقدمه",
 	"collaborationkit-hubedit-footer": "زیرصفحه",
@@ -36,6 +40,7 @@
 	"collaborationkit-bluegrey": "آبی خاکستری",
 	"collaborationkit-darkblue": "آبی تیره",
 	"collaborationkit-violet": "بنفش",
+	"collaborationkit-purple": "بنفش",
 	"collaborationkit-orange": "نارنجی",
 	"collaborationkit-yellow": "زرد",
 	"collaborationkit-gold": "طلایی",
@@ -45,5 +50,6 @@
 	"collaborationkit-black": "سیاه",
 	"collaborationkit-column-active": "اعضای فعال",
 	"collaborationkit-column-inactive": "اعضای غیرفعال",
-	"collaborationkit-createhub-title-placeholder": "پروژه جدید"
+	"collaborationkit-createhub-title-placeholder": "پروژه جدید",
+	"collaborationkit-hubedit-hubtheme": "تم هاب"
 }
