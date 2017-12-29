@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eitvys200"
+			"Eitvys200",
+			"Manvydasz"
 		]
 	},
 	"collaborationkiticons": "CollaborationKit ikonų katalogas",
@@ -46,7 +47,7 @@
 	"collaborationkit-hub-subpage-view": "Žiūrėti puslapį",
 	"collaborationkit-hub-edit-apierror": "API keitimo klaida: $1",
 	"collaborationkit-hub-edit-tojsonerror": "Klaida konvertuojant į JSON",
-	"collaborationkit-hub-toc-label": "Projekto turinys",
+	"collaborationkit-hub-toc-label": "Projekto ypatybės",
 	"collaborationkit-hub-manage": "Tvarkyti projektą",
 	"collaborationkit-icon-launchbutton": "Naršyti ikonas",
 	"collaborationkit-icon-browser": "Ikonų naršyklė",
@@ -76,7 +77,7 @@
 	"collaborationkit-black": "Juoda",
 	"collaborationkit-column-active": "Aktyvūs nariai",
 	"collaborationkit-column-inactive": "Neaktyvūs vartotojai",
-	"collaborationkit-createhub-title-placeholder": "Projektas:...",
+	"collaborationkit-createhub-title-placeholder": "Naujas projektas",
 	"collaborationkit-hubedit-image-help": "Paveikslėlis ar ikona šio projekto pristatymui",
 	"collaborationkit-hubedit-introduction-placeholder": "Čia pristatykite savo projektą! Pasakykite ką norite padaryti.",
 	"collaborationkit-listedit-description-placeholder": "Apibūdinkite apie ką yra sąrašas arba kam jis skirtas.",
