@@ -5,7 +5,7 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:CollaborationKit",
 	"descriptionmsg": "collaborationkit-desc",
 	"type": "other",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"requires": {
 		"MediaWiki": ">= 1.29",
 		"extensions": {
