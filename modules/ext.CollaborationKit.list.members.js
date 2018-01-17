@@ -120,7 +120,7 @@
 						new OO.ui.ButtonWidget( {
 							label: mw.msg( 'collaborationkit-list-add-self' ),
 							icon: 'add',
-							flags: [ 'constructive', 'primary' ]
+							flags: [ 'progressive', 'primary' ]
 						} ).on( 'click', addSelf )
 						.$element
 					)

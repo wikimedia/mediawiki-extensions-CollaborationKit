@@ -122,7 +122,7 @@
 			action: 'continue',
 			modes: 'edit',
 			label: mw.msg( 'collaborationkit-list-newitem-label' ),
-			flags: [ 'primary', 'constructive' ]
+			flags: [ 'primary', 'progressive' ]
 		},
 		{ modes: 'edit', label: mw.msg( 'cancel' ), flags: 'safe' }
 	];
@@ -419,7 +419,7 @@
 						new OO.ui.ButtonWidget( {
 							label: mw.msg( buttonMsg ),
 							icon: 'add',
-							flags: 'constructive'
+							flags: 'progressive'
 						} ).on( 'click', function ( event ) {
 							addItem( $addButton.closest( '.mw-ck-list-column' ).data( 'collabkit-column-id' ) );
 						} )
