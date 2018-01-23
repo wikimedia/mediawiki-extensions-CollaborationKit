@@ -2,6 +2,9 @@
 
 use Wikimedia\TestingAccessWrapper;
 
+/**
+ * @covers CollaborationKitImage
+ */
 class CollaborationKitImageTest extends MediaWikiTestCase {
 
 	private $str;

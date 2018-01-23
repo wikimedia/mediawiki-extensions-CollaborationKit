@@ -2,6 +2,9 @@
 
 use Wikimedia\TestingAccessWrapper;
 
+/**
+ * @covers CollaborationHubTOC
+ */
 class CollaborationHubTOCTest extends MediaWikiTestCase {
 
 	/**
