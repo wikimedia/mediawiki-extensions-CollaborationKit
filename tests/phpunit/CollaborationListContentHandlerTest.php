@@ -2,6 +2,9 @@
 
 use Wikimedia\TestingAccessWrapper;
 
+/**
+ * @covers CollaborationListContentHandler
+ */
 class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 
 	/**
