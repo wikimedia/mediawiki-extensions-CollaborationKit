@@ -11,5 +11,8 @@
 	"collaborationkit-iconlist-columnheader-icon": "圖示",
 	"collaborationkit-list-error-couldnotgetpage": "此頁面載入失敗。請重新整理此頁面並再試一次。",
 	"collaborationkit-listedit-description": "描述",
+	"collaborationkit-icon-select": "選擇",
+	"collaborationkit-colour-select": "選擇",
+	"collaborationkit-hubimage-select": "選擇",
 	"collaborationkit-createhub-title-placeholder": "新專案"
 }
