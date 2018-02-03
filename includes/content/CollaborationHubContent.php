@@ -849,8 +849,8 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param string $link Target URL
 	 * @param string $message Message to display
-	 * @param string $icon Icon to display alongside the message, based on OOjs
-	 *  UI definitions
+	 * @param string $icon Icon to display alongside the message, based on
+	 *  OOUI definitions
 	 * @return OOUI\ButtonWidget
 	 */
 	protected function makeEditSectionLink( $link, $message, $icon ) {
