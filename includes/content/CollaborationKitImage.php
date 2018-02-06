@@ -261,7 +261,7 @@ class CollaborationKitImage {
 	 */
 	public static function getCannedIcons() {
 		// Keep this synced with the icons listed in the module in extension.json
-		return $iconsPreset = [
+		return [
 			// Randomly selectable items
 			'book',
 			'circlestar',

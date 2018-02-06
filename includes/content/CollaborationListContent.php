@@ -264,7 +264,7 @@ class CollaborationListContent extends JsonContent {
 	 * @return array Options
 	 */
 	private function getFullRenderListOptions() {
-		return $listOptions = [
+		return [
 			'includeDesc' => true,
 			'maxItems' => false,
 			'defaultSort' => 'natural',
