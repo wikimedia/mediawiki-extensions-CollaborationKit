@@ -4,7 +4,8 @@
 			"Kareyac",
 			"Okras",
 			"Redredsonia",
-			"Facenapalm"
+			"Facenapalm",
+			"Putnik"
 		]
 	},
 	"createcollaborationhub": "Создание нового центра сотрудничества",
@@ -44,7 +45,7 @@
 	"collaborationkit-hub-subpage-view": "Просмотр страницы",
 	"collaborationkit-icon-select": "Выбрать",
 	"collaborationkit-colour-select": "Выбрать",
-	"collaborationkit-hubimage-browser": "Медиа браузер",
+	"collaborationkit-hubimage-browser": "Медиабраузер",
 	"collaborationkit-hubimage-select": "Выбрать",
 	"collaborationkit-subpage-toc-label": "Часть проекта:",
 	"collaborationkit-darkred": "Темно-красный",
