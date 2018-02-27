@@ -76,7 +76,7 @@
 		dialog = this;
 		if ( action ) {
 			return new OO.ui.Process( function () {
-				toAppend = dialog.radioSelect.getSelectedItem().getData();
+				toAppend = dialog.radioSelect.findSelectedItem().getData();
 
 				// Generate preview
 				$( '.iconPreview' )

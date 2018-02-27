@@ -104,7 +104,7 @@
 		if ( action ) {
 			return new OO.ui.Process( function () {
 				var toAppend;
-				toAppend = dialog.radioSelect.getSelectedItem().getData();
+				toAppend = dialog.radioSelect.findSelectedItem().getData();
 
 				// Generate preview
 				$( '.colourPreview .mw-ck-colourblock' )
@@ -229,7 +229,7 @@
 			return new OO.ui.Process( function () {
 				var fileObj, fileUrl, fileHeight, fileTitleObj;
 
-				fileObj = dialog.content.getResults().getSelectedItem();
+				fileObj = dialog.content.getResults().findSelectedItem();
 				if ( fileObj === null ) {
 					return dialog.close().closed;
 				}
