@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Yusuke1109"
+		]
+	},
+	"collaborationkit-desc": "WikiProjectsとWikiの共同作業空間を構築するためのツール",
+	"collaborationkit-createhub-title": "ページ名",
+	"collaborationkit-createhubfeature-icon": "アイコン"
+}
