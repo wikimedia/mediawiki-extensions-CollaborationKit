@@ -3,7 +3,8 @@
 		"authors": [
 			"Arash.pt",
 			"Reza1615",
-			"Ladsgroup"
+			"Ladsgroup",
+			"Arash"
 		]
 	},
 	"collaborationkit-desc": "ابزارهایی برای ساختن ویکی‌پروژه‌ها و محل‌های همکاری داخل ویکی",
@@ -16,6 +17,7 @@
 	"collaborationkit-createhub-nopermission": "شما توانایی ایجاد محل همکاری جدید با این عنوان را ندارید.",
 	"collaborationkit-createhub-editsummary": "یک هاب همکاری جدید ساخته شد",
 	"collaborationkit-createhub-confirm": "بله، محتوای صفحه را بازنویسی کن",
+	"collaborationkit-createhub-confirmheader": "صفحه‌ای با این عنوان وجود دارد. آیا تأیید می‌کنید که محتوای صفحهٔ موجود بازنویسی شود؟",
 	"collaborationkit-createhubfeature-featurename": "نام خصوصیت",
 	"collaborationkit-createhubfeature-icon": "نماد",
 	"collaborationkit-createhubfeature-contenttype": "چه نوع صفحه‌ای است؟",
