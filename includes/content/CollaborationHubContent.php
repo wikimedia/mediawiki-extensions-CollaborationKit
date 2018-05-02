@@ -677,7 +677,7 @@ class CollaborationHubContent extends JsonContent {
 					$output->addModuleStyles( $parsedWikitext->getModuleStyles() );
 				} else {
 					// Parse whatever (else) as whatever
-					$contentOutput = $spContent->getParserOutput( $spTitle, $spRev, $options );
+					$contentOutput = $spContent->getParserOutput( $spTitle, $spRev->getId(), $options );
 					$output->addModuleStyles( $contentOutput->getModuleStyles() );
 					$text = $contentOutput->getRawText();
 				}
