@@ -511,7 +511,7 @@ class CollaborationHubContent extends JsonContent {
 	 *
 	 * @param Title $title
 	 * @param ParserOptions $options
-	 * @param string $announcementsText Force-fed announcements HTML for testing purposes
+	 * @param string|null $announcementsText Force-fed announcements HTML for testing purposes
 	 * @return string
 	 */
 	protected function getParsedAnnouncements( Title $title, ParserOptions $options,

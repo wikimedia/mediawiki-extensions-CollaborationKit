@@ -46,7 +46,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 	 * Validation is intentionally not done at this step, as it is done later.
 	 *
 	 * @param string $text
-	 * @param string $format
+	 * @param string|null $format
 	 * @return CollaborationListContent
 	 * @throws MWContentSerializationException
 	 */
@@ -64,7 +64,7 @@ class CollaborationListContentHandler extends TextContentHandler {
 	 * Serializes the CollaborationListContent object.
 	 *
 	 * @param Content|CollaborationListContent $content
-	 * @param string $format
+	 * @param string|null $format
 	 * @return string
 	 */
 	public function serializeContent( Content $content, $format = null ) {
