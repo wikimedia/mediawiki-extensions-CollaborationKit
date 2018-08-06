@@ -905,10 +905,8 @@ class CollaborationHubContent extends JsonContent {
 
 		$namespace = $title->getNamespace();
 		if ( MWNamespace::hasSubpages( $namespace ) &&
-			in_array(
-				$namespace,
-				array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) )
-			)
+			isset( $wgCollaborationHubAllowedNamespaces[$namespace] ) &&
+			$wgCollaborationHubAllowedNamespaces[$namespace]
 		) {
 			$parentTitle = $title->getBaseTitle();
 			while ( !$title->equals( $parentTitle ) ) {

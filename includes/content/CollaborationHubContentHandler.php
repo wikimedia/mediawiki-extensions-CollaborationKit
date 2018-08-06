@@ -34,15 +34,9 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		global $wgCollaborationHubAllowedNamespaces;
 
 		$namespace = $title->getNamespace();
-		if ( in_array(
-			$namespace,
-			array_keys( array_filter( $wgCollaborationHubAllowedNamespaces ) )
-			)
-			&& MWNamespace::hasSubpages( $namespace )
-		) {
-			return true;
-		}
-		return false;
+		return isset( $wgCollaborationHubAllowedNamespaces[$namespace] ) &&
+			$wgCollaborationHubAllowedNamespaces[$namespace] &&
+			MWNamespace::hasSubpages( $namespace );
 	}
 
 	/**

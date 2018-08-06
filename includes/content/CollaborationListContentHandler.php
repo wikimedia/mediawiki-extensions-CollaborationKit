@@ -30,14 +30,10 @@ class CollaborationListContentHandler extends TextContentHandler {
 	 */
 	public function canBeUsedOn( Title $title ) {
 		global $wgCollaborationListAllowedNamespaces;
-		if ( in_array(
-			$title->getNamespace(),
-			array_keys( array_filter( $wgCollaborationListAllowedNamespaces ) )
-			)
-		) {
-			return true;
-		}
-		return false;
+
+		$namespace = $title->getNamespace();
+		return isset( $wgCollaborationListAllowedNamespaces[$namespace] ) &&
+			$wgCollaborationListAllowedNamespaces[$namespace];
 	}
 
 	/**
