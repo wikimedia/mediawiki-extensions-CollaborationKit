@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obsuser"
+			"Obsuser",
+			"BadDog"
 		]
 	},
 	"collaborationkiticons": "Директоријум икона CollaborationKit",
@@ -13,7 +14,7 @@
 	"collaborationkit-list-delete-popup": "Спремљено: Ставка $1 је обрисана са списка.",
 	"collaborationkit-list-error-saving": "Ваше измене на овом списку нису спремљене. Молимо да поново учитате страницу и покушате поново.",
 	"collaborationkit-list-move-popup": "Спремљено: Ставка $1 је прераспоређена.",
-	"collaborationkit-hub-missingpage-note": "Ова функција не постоји. Можете направити нову функцију коришћењем дугмета испод. Ако сте управо направили функцију и и даље видите ову поруку, покушајте да очистите кеш.",
+	"collaborationkit-hub-missingpage-note": "Ова функција не постоји. Можете да направите нову функцију коришћењем дугмета испод. Ако сте управо направили функцију и идаље видите ову поруку, покушајте да очистите кеш.",
 	"collaborationkit-hub-missingpage-purgecache": "Очисти кеш",
 	"collaborationkit-darkgrey": "Тамносива",
 	"collaborationkit-lightgrey": "Светлосива",
