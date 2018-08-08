@@ -114,7 +114,7 @@ class CollaborationHubTOC {
 				[],
 				wfMessage( 'collaborationkit-subpage-toc-label' )
 					->inContentLanguage()
-					->text()
+					->escaped()
 			)
 		);
 

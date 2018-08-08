@@ -88,10 +88,10 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				'options' => [
 					$this
 						->msg( 'collaborationkit-createhubfeature-freetext' )
-						->text() => 'wikitext',
+						->escaped() => 'wikitext',
 					$this
 						->msg( 'collaborationkit-createhubfeature-articlelist' )
-						->text() => 'CollaborationListContent'
+						->escaped() => 'CollaborationListContent'
 				]
 			]
 		];
