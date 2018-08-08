@@ -150,6 +150,7 @@ class CollaborationHubContentEditor extends EditPage {
 
 	/**
 	 * Renders and adds the editing form to the parser output.
+	 * @suppress SecurityCheck-XSS self::getFormFields returns safe html
 	 */
 	protected function showContentForm() {
 		if ( $this->contentFormat !== CollaborationHubContentHandler::FORMAT_WIKI ) {

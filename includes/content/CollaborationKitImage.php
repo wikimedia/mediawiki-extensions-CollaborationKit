@@ -111,6 +111,7 @@ class CollaborationKitImage {
 	 * @param string $label
 	 * @param string $squareAdjustmentAxis x or y
 	 * @return string
+	 * @suppress SecurityCheck-DoubleEscaped Return value depends on $renderAsWikitext
 	 */
 	protected static function makeImageFromFile( $imageObj, $width, $link,
 		$renderAsWikitext, $label, $squareAdjustmentAxis
