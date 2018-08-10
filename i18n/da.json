@@ -1,0 +1,31 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saederup92"
+		]
+	},
+	"collaborationkit-createhub-title": "Sidetitel",
+	"collaborationkit-listedit-description": "Beskrivelse",
+	"collaborationkit-hubedit-introduction": "Introduktion",
+	"collaborationkit-editjsontab": "Rediger som JSON",
+	"collaborationkit-hub-pagetitle-members": "Medlemmer",
+	"collaborationkit-icon-select": "Vælg",
+	"collaborationkit-colour-select": "Vælg",
+	"collaborationkit-hubimage-select": "Vælg",
+	"collaborationkit-darkred": "Mørkerød",
+	"collaborationkit-red": "Rød",
+	"collaborationkit-darkgrey": "Mørkegrå",
+	"collaborationkit-lightgrey": "Lysegrå",
+	"collaborationkit-skyblue": "Himmelblå",
+	"collaborationkit-blue": "Blå",
+	"collaborationkit-bluegrey": "Blågrå",
+	"collaborationkit-navyblue": "Marineblå",
+	"collaborationkit-darkblue": "Mørkeblå",
+	"collaborationkit-purple": "Lilla",
+	"collaborationkit-orange": "Orange",
+	"collaborationkit-yellow": "Gul",
+	"collaborationkit-black": "Sort",
+	"collaborationkit-column-active": "Aktive medlemmer",
+	"collaborationkit-column-inactive": "Inaktive medlemmer",
+	"collaborationkit-createhub-title-placeholder": "Nyt projekt"
+}
