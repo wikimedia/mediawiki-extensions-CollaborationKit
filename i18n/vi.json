@@ -12,7 +12,7 @@
 	"collaborationkit-createhubfeature-articlelist": "Danh sách các trang",
 	"collaborationkit-iconlist-columnheader-icon": "Hình tượng",
 	"collaborationkit-iconlist-columnheader-iconname": "Tên hình tượng",
-	"collaborationkit-list-taglist": "'''Thẻ''' $1",
+	"collaborationkit-list-taglist": "'''{{PLURAL:$2}}Thẻ:''' $1",
 	"collaborationkit-list-delete": "Loại bỏ mục",
 	"collaborationkit-list-add": "Thêm mục vào danh sách",
 	"collaborationkit-list-add-user": "Thêm người dùng vào danh sách",
