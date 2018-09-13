@@ -67,6 +67,7 @@
 	"collaborationkit-hub-toc-label": "قابلیت‌های پروژه",
 	"collaborationkit-hub-addpage": "افزودن قابلیت",
 	"collaborationkit-hub-manage": "مدیریت هاب",
+	"collaborationkit-icon-launchbutton": "دیدن نمادها",
 	"collaborationkit-icon-browser": "کشوی نمادها",
 	"collaborationkit-icon-select": "انتخاب",
 	"collaborationkit-colour-browser": "مرورگر رنگ‌ها",
@@ -99,5 +100,6 @@
 	"collaborationkit-column-active": "اعضای فعال",
 	"collaborationkit-column-inactive": "اعضای غیرفعال",
 	"collaborationkit-createhub-title-placeholder": "پروژه جدید",
-	"collaborationkit-hubedit-hubtheme": "تم هاب"
+	"collaborationkit-hubedit-hubtheme": "تم هاب",
+	"collaborationkit-listedit-description-placeholder": "توضیح دهید این فهرست برای چیست."
 }
