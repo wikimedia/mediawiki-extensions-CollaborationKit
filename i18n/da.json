@@ -5,6 +5,7 @@
 		]
 	},
 	"collaborationkit-createhub-title": "Sidetitel",
+	"collaborationkit-createhubfeature-articlelist": "Liste over sider",
 	"collaborationkit-listedit-description": "Beskrivelse",
 	"collaborationkit-hubedit-introduction": "Introduktion",
 	"collaborationkit-editjsontab": "Rediger som JSON",
@@ -12,6 +13,7 @@
 	"collaborationkit-icon-select": "Vælg",
 	"collaborationkit-colour-select": "Vælg",
 	"collaborationkit-hubimage-select": "Vælg",
+	"collaborationkit-subpage-toc-label": "Del af et projekt:",
 	"collaborationkit-darkred": "Mørkerød",
 	"collaborationkit-red": "Rød",
 	"collaborationkit-darkgrey": "Mørkegrå",

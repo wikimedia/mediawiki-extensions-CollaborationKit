@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"collaborationkit-createhub-title": "Titole d'a vôsce",
+	"collaborationkit-createhub-invalidtitle": "'U titole specificate non g'è valide.",
+	"collaborationkit-createhubfeature-icon": "Icone",
+	"collaborationkit-createhubfeature-contenttype": "Ce tipe de pàgene jè queste?",
+	"collaborationkit-createhubfeature-invalidtitle": "Tu è scacchiate 'nu titole de pàgene invalide.",
+	"collaborationkit-iconlist-columnheader-icon": "Icone",
+	"collaborationkit-iconlist-columnheader-iconname": "Nome de l'icone",
+	"collaborationkit-hubedit-content": "Dettaglie",
+	"collaborationkit-editjsontab": "Cange cumme a 'nu JSON",
+	"collaborationkit-icon-select": "Scacchie",
+	"collaborationkit-colour-select": "Scacchie",
+	"collaborationkit-hubimage-select": "Scacchie",
+	"collaborationkit-subpage-toc-label": "Stuèzze de 'nu proggette:",
+	"collaborationkit-darkred": "Russe scure",
+	"collaborationkit-red": "Russe"
+}
