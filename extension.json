@@ -180,7 +180,6 @@
 			"dependencies": [
 				"mediawiki.api",
 				"jquery.spinner",
-				"mediawiki.api.edit",
 				"oojs-ui",
 				"oojs-ui.styles.icons-movement",
 				"oojs-ui.styles.icons-editing-core",
