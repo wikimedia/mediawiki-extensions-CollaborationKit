@@ -179,7 +179,7 @@ JSON;
 		} catch ( ApiUsageException $e ) {
 			return Status::newFatal(
 				$context->msg( 'collaborationkit-hub-edit-apierror',
-				$e->getCodeString() ) );
+				$e->getMessageObject() ) );
 		}
 		return Status::newGood();
 	}

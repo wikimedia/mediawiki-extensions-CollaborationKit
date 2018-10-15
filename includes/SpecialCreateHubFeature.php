@@ -201,7 +201,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			return Status::newFatal(
 				$context->msg(
 					'collaborationkit-hub-edit-apierror',
-					$e->getCodeString()
+					$e->getMessageObject()
 				)
 			);
 		}
@@ -255,7 +255,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 				return Status::newFatal(
 					$context->msg(
 						'collaborationkit-hub-edit-apierror',
-						$e->getCodeString()
+						$e->getMessageObject()
 					)
 				);
 			}

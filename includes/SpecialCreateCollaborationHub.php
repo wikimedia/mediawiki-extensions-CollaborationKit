@@ -266,7 +266,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		} catch ( ApiUsageException $e ) {
 			return Status::newFatal(
 				$context->msg( 'collaborationkit-hub-edit-apierror',
-				$e->getCodeString() )
+				$e->getMessageObject() )
 			);
 		}
 
