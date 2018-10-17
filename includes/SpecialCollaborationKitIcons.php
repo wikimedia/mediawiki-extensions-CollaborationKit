@@ -57,6 +57,6 @@ class SpecialCollaborationKitIcons extends IncludableSpecialPage {
 		// End table
 		$wikitext .= '|}';
 
-		$output->addWikiText( $wikitext );
+		$output->addWikiTextAsInterface( $wikitext );
 	}
 }
