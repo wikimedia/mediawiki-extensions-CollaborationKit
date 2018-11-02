@@ -10,7 +10,7 @@
 
 class CollaborationListContentEditor extends EditPage {
 
-	function __construct( $page ) {
+	public function __construct( $page ) {
 		parent::__construct( $page );
 		// Make human readable the default format for editing, but still
 		// save as json. Can be overriden by url ?format=application/json param.

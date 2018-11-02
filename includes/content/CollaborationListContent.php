@@ -40,7 +40,7 @@ class CollaborationListContent extends JsonContent {
 	/** @var string Error message text */
 	protected $errortext;
 
-	function __construct( $text, $type = 'CollaborationListContent' ) {
+	public function __construct( $text, $type = 'CollaborationListContent' ) {
 		parent::__construct( $text, $type );
 	}
 

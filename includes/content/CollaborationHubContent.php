@@ -81,7 +81,7 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * @param string $text
 	 */
-	function __construct( $text ) {
+	public function __construct( $text ) {
 		parent::__construct( $text, 'CollaborationHubContent' );
 	}
 
