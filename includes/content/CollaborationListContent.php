@@ -296,7 +296,7 @@ class CollaborationListContent extends JsonContent {
 		if ( $includeDesc ) {
 			$text .= $this->getDescription() . "\n";
 		}
-		if ( count( $this->columns ) === 0 ) {
+		if ( $this->columns === null || count( $this->columns ) === 0 ) {
 			$text .= "\n{{mediawiki:collaborationkit-list-isempty}}\n";
 			return $text;
 		}
