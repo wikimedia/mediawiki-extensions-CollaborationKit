@@ -1,11 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saederup92"
+			"Saederup92",
+			"Kranix"
 		]
 	},
 	"collaborationkit-createhub-title": "Sidetitel",
+	"collaborationkit-createhubfeature-icon": "Ikon",
+	"collaborationkit-createhubfeature-contenttype": "Hvilken type side er dette?",
+	"collaborationkit-createhubfeature-invalidtitle": "Du har valgt en ugyldig sidetitel.",
 	"collaborationkit-createhubfeature-articlelist": "Liste over sider",
+	"collaborationkit-iconlist-columnheader-icon": "Ikon",
+	"collaborationkit-iconlist-columnheader-iconname": "Ikonnavn",
 	"collaborationkit-list-add-user": "Tilføj bruger til liste",
 	"collaborationkit-list-newitem-label": "Tilføj til liste",
 	"collaborationkit-list-newitem-description": "Beskrivelse (valgfri)",
