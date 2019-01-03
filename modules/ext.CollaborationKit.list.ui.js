@@ -288,7 +288,7 @@
 				deleteButton = new OO.ui.ButtonWidget( {
 					framed: false,
 					icon: 'trash',
-					iconTitle: mw.msg( 'collaborationkit-list-delete' )
+					title: mw.msg( 'collaborationkit-list-delete' )
 				} );
 
 				// Icon instead of button to avoid conflict with jquery.ui
@@ -297,7 +297,7 @@
 					moveButton = new OO.ui.IconWidget( {
 						framed: false,
 						icon: 'move',
-						iconTitle: mw.msg( 'collaborationkit-list-move' )
+						title: mw.msg( 'collaborationkit-list-move' )
 					} );
 				}
 
