@@ -205,7 +205,7 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 					'confirm' => 1
 				] )
 			);
-			return;
+			return Status::newGood();
 		}
 
 		// Create member list
