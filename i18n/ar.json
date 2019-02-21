@@ -4,7 +4,8 @@
 			"ASHmed",
 			"محمد أحمد عبد الفتاح",
 			"Aboulouei1",
-			"ديفيد"
+			"ديفيد",
+			"Meno25"
 		]
 	},
 	"collaborationkit-desc": "أدوات لبناء مشاريع ويكي ومساحات امل تعاونية في الويكي",
@@ -41,7 +42,7 @@
 	"collaborationkit-list-notlist": "[[$1]] ليست صفحة قائمة تعاون",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|تم وسم:}}''' $1",
 	"collaborationkit-list-toomanytags": "غير مسموح لك بتحديد أكثر من {{PLURAL:$1|وسم واحد|$1 وسم}}.",
-	"collaborationkit-list-delete": "إزالة بند",
+	"collaborationkit-list-delete": "إزالة عنصر",
 	"collaborationkit-list-delete-summary": "/* $1 */ حذف من القائمة.",
 	"collaborationkit-list-delete-popup": "تم الحفظ: تم حذف $1 من القائمة.",
 	"collaborationkit-list-delete-popup-title": "تم حذف البند",
