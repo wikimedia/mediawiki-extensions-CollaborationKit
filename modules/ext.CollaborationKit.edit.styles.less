@@ -2,15 +2,13 @@
 
 .ck-customeditor-borders( @default );
 
-.mw-collabkit-modifiededitform {
-	.oo-ui-fieldLayout.oo-ui-labelElement.oo-ui-fieldLayout-align-top > .oo-ui-fieldLayout-body > .oo-ui-fieldLayout-header,
-	.oo-ui-textInputWidget {
-		max-width: 100%;
-	}
+.oo-ui-fieldLayout.oo-ui-labelElement.oo-ui-fieldLayout-align-top > .oo-ui-fieldLayout-body > .oo-ui-fieldLayout-header,
+.oo-ui-textInputWidget,
+.mw-htmlform-field-HTMLTextAreaField .oo-ui-textInputWidget {
+	max-width: 100%;
 }
 
 .oo-ui-fieldLayout-header {
-	margin-bottom: 0.2em;
 	font-weight: bold;
 }
 
@@ -19,24 +17,20 @@
 	font-weight: normal;
 }
 
+// Slightly more consistent label heights
+.oo-ui-labelElement.oo-ui-labelElement-label,
+div.oo-ui-labelElement .oo-ui-labelElement-label {
+	line-height: 1.4;
+}
+
+// Make help icon(s) line up properly with reduced line height
+.mw-ck-hubtheme-widget-help {
+	margin-top: -0.5em;
+}
+
+// List items?
 .oo-ui-radioSelectInputWidget .oo-ui-fieldLayout .oo-ui-fieldLayout-body {
 	padding: 0;
-}
-
-// Set the textareas (SpecialCreateCollaborationHub, CollaborationHubContentEditor,
-// CollaborationListContentEditor) to monospace instead of OOUI usual of inherit
-// (sans serif)
-// Technically this should not be here, and we should be applying editfont UPO
-// classes as per EditPage::buildTextboxAttribs. Unfortunately, the CSS in core
-// for that has some issues with ooui's nesting, and so doesn't entirely work. So
-// we'll just do this instead:
-.page-Special_CreateCollaborationHub .oo-ui-textInputWidget textarea,
-.mw-collabkit-modifiededitform .oo-ui-textInputWidget textarea {
-	font-family: monospace;
-}
-
-.mw-ck-hub-topform {
-	max-width: 50em;
 }
 
 .ck-customeditor-borders( @color ) {
@@ -54,7 +48,6 @@
 }
 
 .mw-ck-namespace-input {
-	width: 35.5%;
 	display: inline-table !important;
 }
 
@@ -71,11 +64,17 @@
 	width: 64%;
 	display: inline-table !important;
 	padding-left: 0.25em;
-	margin-top: 0 !important;
+	padding-top: 0.15em;
 }
 
 .mw-ck-title-input .oo-ui-fieldLayout-body {
 	width: 100%;
+}
+
+// Make namespace and title line up on nojs specialcreatecollaborationhub (how, what, eh?)
+.client-nojs .mw-ck-title-input {
+	margin-left: 0.5em;
+	margin-top: -4.25em;
 }
 
 .mw-ck-theme-darkred {
