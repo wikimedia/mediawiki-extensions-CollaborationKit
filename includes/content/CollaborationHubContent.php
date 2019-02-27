@@ -1110,6 +1110,7 @@ class CollaborationHubContent extends JsonContent {
 	public static function onCustomEditor( Page $page, User $user ) {
 		if ( $page->getContentModel() === __CLASS__ ) {
 			$editor = new CollaborationHubContentEditor( $page );
+			$editor->setContextTitle( $page->getTitle() );
 			$editor->edit();
 			return false;
 		}
