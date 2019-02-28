@@ -1241,6 +1241,7 @@ class CollaborationListContent extends JsonContent {
 	public static function onCustomEditor( Page $page, User $user ) {
 		if ( $page->getContentModel() === __CLASS__ ) {
 			$editor = new CollaborationListContentEditor( $page );
+			$editor->setContextTitle( $page->getTitle() );
 			$editor->edit();
 			return false;
 		}
