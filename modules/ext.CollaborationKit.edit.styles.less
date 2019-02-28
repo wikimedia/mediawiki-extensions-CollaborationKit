@@ -9,12 +9,18 @@
 	}
 }
 
-.mw-htmlform-ooui-wrapper,
-.mw-collabkit-modifiededitform {
-	.oo-ui-fieldLayout-header label.oo-ui-labelElement-label,
-	label .oo-ui-fieldLayout-header .oo-ui-labelElement-label {
-		font-weight: bold;
-	}
+.oo-ui-fieldLayout-header {
+	margin-bottom: 0.2em;
+	font-weight: bold;
+}
+
+// Apparently the above applies to all labels, not just headers, so reset it for sub-elements?!
+.oo-ui-inputWidget .oo-ui-fieldLayout-header {
+	font-weight: normal;
+}
+
+.oo-ui-radioSelectInputWidget .oo-ui-fieldLayout .oo-ui-fieldLayout-body {
+	padding: 0;
 }
 
 // Set the textareas (SpecialCreateCollaborationHub, CollaborationHubContentEditor,
