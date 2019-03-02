@@ -483,7 +483,7 @@ class CollaborationListContent extends JsonContent {
 		}
 
 		// Step 2: No defined image / invalid defined image? Use PageImages if possible.
-		if ( $image === null && $title && class_exists( 'PageImages' ) ) {
+		if ( $image === null && $title && class_exists( PageImages::class ) ) {
 			$queryPageImages = PageImages::getPageImage( $title );
 			if ( $queryPageImages !== false ) {
 				$image = $queryPageImages->getName();
