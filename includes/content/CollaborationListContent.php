@@ -978,11 +978,10 @@ class CollaborationListContent extends JsonContent {
 	 *
 	 * @param Parser $parser
 	 * @param string $pageName
+	 * @param string ...$args
 	 * @return string|array HTML string or an array [ string, 'noparse' => false ]
 	 */
-	public static function transcludeHook( $parser, $pageName = '' ) {
-		$args = func_get_args();
-		$args = array_splice( $args, 2 );
+	public static function transcludeHook( $parser, $pageName = '', ...$args ) {
 		$options = [];
 		$title = Title::newFromText( $pageName );
 		$lang = $parser->getFunctionLang();
