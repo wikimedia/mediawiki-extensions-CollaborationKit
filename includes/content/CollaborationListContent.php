@@ -362,7 +362,7 @@ class CollaborationListContent extends JsonContent {
 						break;
 					}
 
-					$itemTags = isset( $item->tags ) ? $item->tags : [];
+					$itemTags = $item->tags ?? [];
 					if ( !$this->matchesTag( $options['tags'], $itemTags ) ) {
 						continue;
 					}

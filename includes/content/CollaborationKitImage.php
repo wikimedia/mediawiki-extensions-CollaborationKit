@@ -39,15 +39,13 @@ class CollaborationKitImage {
 		$cannedIcons = self::getCannedIcons();
 
 		// Setting up options
-		$classes = isset( $options['classes'] ) ? $options['classes'] : [];
-		$link = isset( $options['link'] ) ? $options['link'] : true;
-		$colour = isset( $options['colour'] ) ? $options['colour'] : '';
-		$css = isset( $options['css'] ) ? $options['css'] : '';
-		$renderAsWikitext = isset( $options['renderAsWikitext'] ) ?
-			$options['renderAsWikitext'] : false;
-		$optimizeForSquare = isset( $options['optimizeForSquare'] ) ?
-			$options['optimizeForSquare'] : false;
-		$label = isset( $options['label'] ) ? $options['label'] : '';
+		$classes = $options['classes'] ?? [];
+		$link = $options['link'] ?? true;
+		$colour = $options['colour'] ?? '';
+		$css = $options['css'] ?? '';
+		$renderAsWikitext = $options['renderAsWikitext'] ?? false;
+		$optimizeForSquare = $options['optimizeForSquare'] ?? false;
+		$label = $options['label'] ?? '';
 
 		if ( !isset( $options['fallback'] ) ) {
 			if ( isset( $options['label'] ) ) {

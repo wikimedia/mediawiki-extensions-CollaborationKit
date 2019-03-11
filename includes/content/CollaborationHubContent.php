@@ -136,14 +136,10 @@ class CollaborationHubContent extends JsonContent {
 					);
 				}
 			} else {
-				$this->displayName = isset( $data->display_name ) ?
-					$data->display_name : '';
-				$this->introduction = isset( $data->introduction ) ?
-					$data->introduction : '';
-				$this->footer = isset( $data->footer ) ?
-					$data->footer : '';
-				$this->image = isset( $data->image ) ?
-					$data->image : 'none';
+				$this->displayName = $data->display_name ?? '';
+				$this->introduction = $data->introduction ?? '';
+				$this->footer = $data->footer ?? '';
+				$this->image = $data->image ?? 'none';
 
 				// Set colour to default if empty or missing
 				if ( !isset( $data->colour ) || $data->colour == '' ) {
@@ -160,12 +156,9 @@ class CollaborationHubContent extends JsonContent {
 							break;
 						}
 						$item = [];
-						$item['title'] = isset( $itemObject->title ) ?
-							$itemObject->title : null;
-						$item['image'] = isset( $itemObject->image ) ?
-							$itemObject->image : null;
-						$item['displayTitle'] = isset( $itemObject->display_title ) ?
-							$itemObject->display_title : null;
+						$item['title'] = $itemObject->title ?? null;
+						$item['image'] = $itemObject->image ?? null;
+						$item['displayTitle'] = $itemObject->display_title ?? null;
 
 						$this->content[] = $item;
 					}
@@ -756,7 +749,7 @@ class CollaborationHubContent extends JsonContent {
 		}
 
 		// Get icon
-		$image = isset( $contentItem['image'] ) ? $contentItem['image'] : null;
+		$image = $contentItem['image'] ?? null;
 		$imageHtml = CollaborationKitImage::makeImage(
 			$image,
 			35,

@@ -66,7 +66,7 @@ class CollaborationHubTOC {
 			$linkTarget = Title::newFromText( '#'
 				. $this->getToCLinkID( $displayTitle )
 			);
-			$image = isset( $item['image'] ) ? $item['image'] : null;
+			$image = $item['image'] ?? null;
 
 			$link = CollaborationKitImage::makeImage(
 				$image,
