@@ -449,7 +449,7 @@ class CollaborationHubContent extends JsonContent {
 					]
 				);
 			} else {
-				// Some sort of error occured. Probably
+				// Some sort of error occurred. Probably
 				// a race condition.
 				// No i18n for this error message, since
 				// it should never happen.
