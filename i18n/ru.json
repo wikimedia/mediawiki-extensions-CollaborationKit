@@ -6,7 +6,8 @@
 			"Redredsonia",
 			"Facenapalm",
 			"Putnik",
-			"Vlad5250"
+			"Vlad5250",
+			"Diralik"
 		]
 	},
 	"collaborationkit-desc": "Инструменты для создания википроектов и рабочих пространств в пределах вики",
@@ -45,7 +46,7 @@
 	"collaborationkit-list-delete": "Удалить элемент",
 	"collaborationkit-list-delete-summary": "/* $1 */ Удаление из списка.",
 	"collaborationkit-list-delete-popup": "Сохранено: $1 было удалено из списка.",
-	"collaborationkit-list-delete-popup-title": "Элемент удален",
+	"collaborationkit-list-delete-popup-title": "Элемент удалён",
 	"collaborationkit-list-add": "Добавить новый элемент в список",
 	"collaborationkit-list-add-user": "Добавить пользователя в список",
 	"collaborationkit-list-add-self": "Присоединяйтесь к проекту",
