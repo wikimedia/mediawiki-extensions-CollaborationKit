@@ -31,6 +31,24 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		return FormatJson::encode( $arr, true, FormatJson::ALL_OK );
 	}
 
+	private function getMockTitle() {
+		return $this->getMockBuilder( Title::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
+	private function getMockUser() {
+		return $this->getMockBuilder( User::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
+	private function getMockParserOptions() {
+		return $this->getMockBuilder( ParserOptions::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
 	public function provideContentObjs() {
 		// TODO: Test more option settings
 
@@ -331,6 +349,58 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	 */
 	public function testMatchesTag( $tagSpecifier, $itemTags, $expected ) {
 		$actual = $this->content->matchesTag( $tagSpecifier, $itemTags );
-		$this->assertEquals( $expected, $actual );
+		static::assertEquals( $expected, $actual );
+	}
+
+	public function testDecodeInvalidJSON() {
+		$content = new CollaborationListContent( "NOT JSON" );
+		static::assertFalse( $content->isValid() );
+		// Force decode() call
+		static::assertNull( $content->getDescription() );
+	}
+
+	/**
+	 * @dataProvider provideContentObjs
+	 */
+	public function testTextNativeDataEquivalent( CollaborationListContent $content, $id ) {
+		if ( !method_exists( $content, "getNativeData" ) ) {
+			static::markTestSkipped( 'getNativeData() no longer present. Skipping comparison.' );
+		}
+
+		static::assertEquals( $content->getNativeData(), $content->getText(),
+			"Call to NativeData() does not match call to getText()" );
+	}
+
+	/**
+	 * @dataProvider provideContentObjs
+	 */
+	public function testConvertToJson( CollaborationListContent $content, $id ) {
+		$json = $content->convert( CONTENT_MODEL_JSON );
+
+		static::assertInstanceOf( JsonContent::class, $json, "Expected JsonContent" );
+		static::assertTrue( $json->IsValid(), "Expected valid content" );
+	}
+
+	/**
+	 * @dataProvider provideContentObjs
+	 */
+	public function testPreSaveTransform( CollaborationListContent $content, $id ) {
+		$output = $content->preSaveTransform( $this->getMockTitle(), $this->getMockUser(),
+			$this->getMockParserOptions() );
+
+		static::assertInstanceOf( CollaborationListContent::class, $output );
+		static::assertFalse( $content === $output,
+			"Method should have returned new object with formatted JSON" );
+	}
+
+	public function testPreSaveTransformInvalidJSON() {
+		$content = new CollaborationListContent( "NOT JSON" );
+
+		$output = $content->preSaveTransform( $this->getMockTitle(), $this->getMockUser(),
+			$this->getMockParserOptions() );
+
+		static::assertInstanceOf( CollaborationListContent::class, $output );
+		static::assertTrue( $content === $output,
+			"Method should have returned object itself due to invalid content" );
 	}
 }

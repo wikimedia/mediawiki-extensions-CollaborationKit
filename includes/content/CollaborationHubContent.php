@@ -126,7 +126,7 @@ class CollaborationHubContent extends JsonContent {
 				if ( !parent::isValid() ) {
 					// It's not even valid json
 					$this->errortext = htmlspecialchars(
-						$this->getNativeData()
+						$this->getText()
 					);
 				} else {
 					$this->errortext = FormatJson::encode(
@@ -941,7 +941,7 @@ class CollaborationHubContent extends JsonContent {
 			return ContentHandler::makeContent( $text, null, $toModel );
 		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
 			return ContentHandler::makeContent(
-				$this->getNativeData(),
+				$this->getText(),
 				null,
 				$toModel
 			);

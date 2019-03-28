@@ -287,4 +287,24 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		static::assertEquals( $expected[ $id ], $actual, $id );
 	}
 
+	/**
+	 * @dataProvider provideContentObjs
+	 */
+	public function testTextNativeDataEquivalent( CollaborationHubContent $content, $id ) {
+		if ( !method_exists( $content, "getNativeData" ) ) {
+			static::markTestSkipped( 'getNativeData() no longer present. Skipping comparison.' );
+		}
+		static::assertEquals( $content->getNativeData(),  $content->getText(),
+			"Call to NativeData() does not match call to getText()" );
+	}
+
+	/**
+	 * @dataProvider provideContentObjs
+	 */
+	public function testConvertToJson( CollaborationHubContent $content, $id ) {
+		$json = $content->convert( CONTENT_MODEL_JSON );
+
+		static::assertInstanceOf( JsonContent::class, $json );
+		static::assertTrue( $json->IsValid() );
+	}
 }
