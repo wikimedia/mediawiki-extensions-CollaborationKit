@@ -7,6 +7,8 @@
  * @file
  */
 
+use MediaWiki\MediaWikiServices;
+
 class CollaborationKitImage {
 	/**
 	 * Generate an image element from the wiki or the extension
@@ -117,7 +119,7 @@ class CollaborationKitImage {
 		// This assumes that colours cannot be assigned to images.
 		// This is currently true, but who knows what the future might hold!
 
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 
 		$imageTitle = $imageObj->getTitle();
 		$imageFullName = $imageTitle->getFullText();
@@ -167,7 +169,7 @@ class CollaborationKitImage {
 			}
 			return $wikitext;
 		} else {
-			$imageHtml = $wgParser->parse( $wikitext, $imageTitle,
+			$imageHtml = $parser->parse( $wikitext, $imageTitle,
 				new ParserOptions() )->getText();
 
 			if ( $label != '' ) {

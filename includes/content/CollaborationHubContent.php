@@ -12,6 +12,8 @@
  * @file
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @class CollaborationHubContent
  */
@@ -246,13 +248,13 @@ class CollaborationHubContent extends JsonContent {
 	protected function fillParserOutput( Title $title, $revId,
 		ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 		$this->decode();
 
 		OutputPage::setupOOUI();
 
 		// Dummy parse intro and footer to get categories and whatnot
-		$output = $wgParser->parse(
+		$output = $parser->parse(
 			$this->getIntroduction() . $this->getFooter(),
 			$title,
 			$options,
@@ -389,7 +391,7 @@ class CollaborationHubContent extends JsonContent {
 	protected function getMembersBlock( Title $title, ParserOptions $options,
 		ParserOutput $output, $membersContent = null
 	) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 
 		$html = '';
 
@@ -456,7 +458,7 @@ class CollaborationHubContent extends JsonContent {
 				$wikitext = '<span class="error">Cannot include member list</span>';
 			}
 
-			$html .= $wgParser
+			$html .= $parser
 				->parse( $wikitext, $membersTitle, $options )
 				->getText();
 
@@ -493,8 +495,8 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	protected function getParsedIntroduction( Title $title, ParserOptions $options ) {
-		global $wgParser;
-		$tempOutput = $wgParser->parse( $this->getIntroduction(), $title, $options );
+		$parser = MediaWikiServices::getInstance()->getParser();
+		$tempOutput = $parser->parse( $this->getIntroduction(), $title, $options );
 
 		return $tempOutput->getText();
 	}
@@ -553,8 +555,8 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	protected function getParsedFooter( Title $title, ParserOptions $options ) {
-		global $wgParser;
-		$tempOutput = $wgParser->parse( $this->getFooter(), $title, $options );
+		$parser = MediaWikiServices::getInstance()->getParser();
+		$tempOutput = $parser->parse( $this->getFooter(), $title, $options );
 
 		return $tempOutput->getText();
 	}
@@ -604,7 +606,7 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedContent( Title $title, ParserOptions $options,
 		ParserOutput $output
 	) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 
 		$lang = $options->getTargetLanguage();
 		if ( !$lang ) {
@@ -649,7 +651,7 @@ class CollaborationHubContent extends JsonContent {
 							'defaultSort' => 'random'
 						]
 					);
-					$text = $wgParser->parse( $wikitext, $title, $options )->getText();
+					$text = $parser->parse( $wikitext, $title, $options )->getText();
 				} elseif ( $spContentModel == 'wikitext' ) {
 					// to grab first section only
 					$spContent = $spContent->getSection( 0 );
@@ -658,14 +660,14 @@ class CollaborationHubContent extends JsonContent {
 					// ... parse, get text into $text
 					$rawText = $spContent->serialize();
 					// Get rid of all <noinclude>'s.
-					$wgParser->startExternalParse( $title, $options, Parser::OT_WIKI );
-					$frame = $wgParser->getPreprocessor()->newFrame()->newChild( [], $spTitle );
-					$node = $wgParser->preprocessToDom( $rawText, Parser::PTD_FOR_INCLUSION );
+					$parser->startExternalParse( $title, $options, Parser::OT_WIKI );
+					$frame = $parser->getPreprocessor()->newFrame()->newChild( [], $spTitle );
+					$node = $parser->preprocessToDom( $rawText, Parser::PTD_FOR_INCLUSION );
 					$processedText = $frame->expand(
 						$node,
 						PPFrame::RECOVER_ORIG & ( ~PPFrame::NO_IGNORE )
 					);
-					$parsedWikitext = $wgParser->parse( $processedText, $title, $options );
+					$parsedWikitext = $parser->parse( $processedText, $title, $options );
 					$text = $parsedWikitext->getText();
 					$output->addModuleStyles( $parsedWikitext->getModuleStyles() );
 				} else {
