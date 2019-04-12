@@ -213,6 +213,8 @@
 				"collaborationkit-list-newitem-page",
 				"collaborationkit-list-newitem-image",
 				"collaborationkit-list-newitem-description",
+				"collaborationkit-list-edititem-title",
+				"collaborationkit-list-edititem-label",
 				"cancel"
 			]
 		},

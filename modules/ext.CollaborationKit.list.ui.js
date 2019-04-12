@@ -100,6 +100,8 @@
 	 */
 	// There's probably an easier way to do this.
 	function NewItemDialog( config ) {
+		var buttonlabel = 'collaborationkit-list-newitem-label';
+
 		if ( config.itemTitle ) {
 			this.itemTitle = config.itemTitle;
 			this.itemDescription = config.itemDescription;
@@ -111,21 +113,30 @@
 		} else {
 			this.itemColId = 0;
 		}
+		if ( this.itemUid ) {
+			// Item already exists, we're actually editing it
+			NewItemDialog.static.title = mw.msg( 'collaborationkit-list-edititem-title' );
+			NewItemDialog.static.name = 'collabkit-edititemdialog';
+			buttonlabel = 'collaborationkit-list-edititem-label';
+		} else {
+			// Usual new item dance
+			NewItemDialog.static.title = mw.msg( 'collaborationkit-list-newitem-title' );
+			NewItemDialog.static.name = 'collabkit-newitemdialog';
+		}
+		NewItemDialog.static.actions = [
+			{
+				action: 'continue',
+				modes: 'edit',
+				label: mw.msg( buttonlabel ),
+				flags: [ 'primary', 'progressive' ]
+			},
+			{ modes: 'edit', label: mw.msg( 'cancel' ), flags: 'safe' }
+		];
+
 		NewItemDialog.parent.call( this, config );
 	}
 
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
-	NewItemDialog.static.title = mw.msg( 'collaborationkit-list-newitem-title' );
-	NewItemDialog.static.name = 'collabkit-newitemdialog';
-	NewItemDialog.static.actions = [
-		{
-			action: 'continue',
-			modes: 'edit',
-			label: mw.msg( 'collaborationkit-list-newitem-label' ),
-			flags: [ 'primary', 'progressive' ]
-		},
-		{ modes: 'edit', label: mw.msg( 'cancel' ), flags: 'safe' }
-	];
 
 	/**
 	 * @param {Object} itemInfo info from json

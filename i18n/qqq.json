@@ -67,6 +67,8 @@
 	"collaborationkit-list-newitem-user": "Label for page field on the new item dialog on membership lists. If not a membership list, collaborationkit-list-newitem-page is used instead.",
 	"collaborationkit-list-newitem-image": "Label for image field on new item dialog for CollaborationKit lists",
 	"collaborationkit-list-newitem-description": "Label for description field on new item dialog for CollaborationKit lists",
+	"collaborationkit-list-edititem-title": "Title for edit item dialog for CollaborationKit lists",
+	"collaborationkit-list-edititem-label": "Submit button label for edit item dialog for CollaborationKit lists",
 	"collaborationkit-listedit-description": "Header on edit page for the list description text box\n{{Identical|Description}}",
 	"collaborationkit-listedit-list": "Header on edit page for the main body of the list",
 	"collaborationkit-hubedit-displayname": "Field label for the display name field on the edit page for hubs",
