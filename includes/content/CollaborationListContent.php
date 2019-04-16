@@ -153,7 +153,7 @@ class CollaborationListContent extends JsonContent {
 		// WikiPage::doEditContent invokes PST before validation. As such,
 		// native data may be invalid (though PST result is discarded later in
 		// that case).
-		$text = $this->getNativeData();
+		$text = $this->getText();
 		// pst will hopefully not make json invalid. Def should not.
 		$pst = $wgParser->preSaveTransform( $text, $title, $user, $popts );
 		$pstContent = new static( $pst );
@@ -177,7 +177,7 @@ class CollaborationListContent extends JsonContent {
 			$this->displaymode = 'error';
 			if ( !parent::isValid() ) {
 				// It's not even valid json
-				$this->errortext = htmlspecialchars( $this->getNativeData() );
+				$this->errortext = htmlspecialchars( $this->getText() );
 			} else {
 				$this->errortext = FormatJson::encode(
 					$data,
@@ -536,7 +536,7 @@ class CollaborationListContent extends JsonContent {
 			return ContentHandler::makeContent( $text, null, $toModel );
 		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
 			return ContentHandler::makeContent(
-				$this->getNativeData(),
+				$this->getText(),
 				null,
 				$toModel
 			);
