@@ -15,6 +15,8 @@
  * @file
  */
 
+use MediaWiki\MediaWikiServices;
+
 class CollaborationListContent extends JsonContent {
 
 	const MAX_LIST_SIZE = 2000; // Maybe should be a config option.
@@ -149,13 +151,13 @@ class CollaborationListContent extends JsonContent {
 	 * @return CollaborationListContent
 	 */
 	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 		// WikiPage::doEditContent invokes PST before validation. As such,
 		// native data may be invalid (though PST result is discarded later in
 		// that case).
 		$text = $this->getText();
 		// pst will hopefully not make json invalid. Def should not.
-		$pst = $wgParser->preSaveTransform( $text, $title, $user, $popts );
+		$pst = $parser->preSaveTransform( $text, $title, $user, $popts );
 		$pstContent = new static( $pst );
 
 		if ( !$pstContent->isValid() ) {
@@ -215,7 +217,7 @@ class CollaborationListContent extends JsonContent {
 	protected function fillParserOutput( Title $title, $revId,
 		ParserOptions $options, $generateHtml, ParserOutput &$output
 	) {
-		global $wgParser;
+		$parser = MediaWikiServices::getInstance()->getParser();
 		$this->decode();
 
 		$lang = $options->getTargetLanguage();
@@ -233,7 +235,7 @@ class CollaborationListContent extends JsonContent {
 				"</div>\n<pre>" .
 				$this->errortext .
 				'</pre>';
-			$output = $wgParser->parse( $errorText, $title, $options, true, true,
+			$output = $parser->parse( $errorText, $title, $options, true, true,
 				$revId );
 			return;
 		}
@@ -244,7 +246,7 @@ class CollaborationListContent extends JsonContent {
 
 		// Preparing page contents
 		$text = $this->convertToWikitext( $lang, $listOptions );
-		$output = $wgParser->parse( $text, $title, $options, true, true, $revId );
+		$output = $parser->parse( $text, $title, $options, true, true, $revId );
 
 		// Special JS variable if this is a member list
 		if ( $this->displaymode == 'members' ) {
