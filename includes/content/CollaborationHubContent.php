@@ -253,7 +253,8 @@ class CollaborationHubContent extends JsonContent {
 
 		OutputPage::setupOOUI();
 
-		// Dummy parse intro and footer to get categories and whatnot
+		// Dummy parse intro and footer to get categories and page info for the actual
+		// content of *this* page, essentially setting up our real ParserOutput
 		$output = $parser->parse(
 			$this->getIntroduction() . $this->getFooter(),
 			$title,
@@ -262,6 +263,13 @@ class CollaborationHubContent extends JsonContent {
 			true,
 			$revId
 		);
+
+		// Change $options a bit for the rest of this
+		// We may or may not want limit reporting for every piece; we can put this back on
+		// later if it turns out we actually do (and only disable it for the header/footer,
+		// where it should already be included per the above, I think?)
+		$options->enableLimitReport( false );
+
 		$html = '';
 
 		// If error, then bypass all this and just show the offending JSON
@@ -323,12 +331,17 @@ class CollaborationHubContent extends JsonContent {
 
 			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
 
-			// get footer
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-footer' ],
-				$this->getParsedFooter( $title, $options )
-			);
+			// get main footer: bottom text under the content
+			$footerText = $this->getParsedFooter( $title, $options );
+			// only show if it's likely to contain anything visible
+			if ( strlen( trim( $footerText ) ) > 0 ) {
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-hub-footer' ],
+					$footerText
+				);
+			}
+
 			if ( !$options->getIsPreview() ) {
 				$html .= Html::rawElement(
 					'div',
@@ -458,9 +471,8 @@ class CollaborationHubContent extends JsonContent {
 				$wikitext = '<span class="error">Cannot include member list</span>';
 			}
 
-			$html .= $parser
-				->parse( $wikitext, $membersTitle, $options )
-				->getText();
+			$titleParse = $parser->parse( $wikitext, $membersTitle, $options );
+			$html .= $this->getTrimmedText( $titleParse );
 
 			$membersViewButton = new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-members-view' )
@@ -498,7 +510,7 @@ class CollaborationHubContent extends JsonContent {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$tempOutput = $parser->parse( $this->getIntroduction(), $title, $options );
 
-		return $tempOutput->getText();
+		return $this->getTrimmedText( $tempOutput );
 	}
 
 	/**
@@ -525,10 +537,10 @@ class CollaborationHubContent extends JsonContent {
 		if ( $announcementsTitle->exists() || $announcementsText !== null ) {
 			if ( $announcementsText === null ) {
 				$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
-				$announcementsText = $announcementsWikiPage
+				$announcementsOutput = $announcementsWikiPage
 					->getContent()
-					->getParserOutput( $announcementsTitle )
-					->getText();
+					->getParserOutput( $announcementsTitle );
+				$announcementsText = $this->getTrimmedText( $announcementsOutput );
 			}
 
 			$announcementsEditButton = $this->makeEditSectionLink(
@@ -558,7 +570,7 @@ class CollaborationHubContent extends JsonContent {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$tempOutput = $parser->parse( $this->getFooter(), $title, $options );
 
-		return $tempOutput->getText();
+		return $this->getTrimmedText( $tempOutput );
 	}
 
 	/**
@@ -651,7 +663,8 @@ class CollaborationHubContent extends JsonContent {
 							'defaultSort' => 'random'
 						]
 					);
-					$text = $parser->parse( $wikitext, $title, $options )->getText();
+					$text = $parser->parse( $wikitext, $title, $options );
+					$text = $this->getTrimmedText( $text );
 				} elseif ( $spContentModel == 'wikitext' ) {
 					// to grab first section only
 					$spContent = $spContent->getSection( 0 );
@@ -668,7 +681,7 @@ class CollaborationHubContent extends JsonContent {
 						PPFrame::RECOVER_ORIG & ( ~PPFrame::NO_IGNORE )
 					);
 					$parsedWikitext = $parser->parse( $processedText, $title, $options );
-					$text = $parsedWikitext->getText();
+					$text = $this->getTrimmedText( $parsedWikitext );
 					$output->addModuleStyles( $parsedWikitext->getModuleStyles() );
 				} else {
 					// Parse whatever (else) as whatever
@@ -1109,5 +1122,16 @@ class CollaborationHubContent extends JsonContent {
 			$editor->edit();
 			return false;
 		}
+	}
+
+	/**
+	 * Helper function to return only the specific text from a ParserOutput object
+	 * so we don't fill the page with unnecessary wrappers and stuff
+	 *
+	 * @param ParserOutput $tempOutput
+	 * @return string
+	 */
+	private function getTrimmedText( $tempOutput ) {
+		return $tempOutput->getText( [ 'unwrap' => true ] );
 	}
 }
