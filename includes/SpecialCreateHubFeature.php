@@ -121,6 +121,8 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 	public function onSubmit( array $data ) {
 		$collaborationHub = $data['collaborationhub'];
 		$hubTitleObject = Title::newFromText( $collaborationHub );
+		$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
+		$user = $this->getUser();
 
 		// This special page can only be used to create subpages of Collaboration
 		// Hubs. This checks if the parent page is one.
@@ -136,20 +138,24 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		$featureName = $data['featurename'];
 		$titleText = $collaborationHub . '/' . $featureName;
 		$title = Title::newFromText( $titleText );
+		$contentModel = $data['contenttype'];
+
 		if ( !$title ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-invalidtitle' );
 		} elseif ( $title->exists() ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-exists' );
 		} elseif (
-			!$title->userCan( 'edit' ) ||
-			!$title->userCan( 'create' ) ||
-			!$title->userCan( 'editcontentmodel' )
+			!$permissionManager->userCan( 'create', $user, $title ) ||
+			!$permissionManager->userCan( 'edit', $user, $title )
 		) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-nopermission' );
+		} elseif ( $contentModel == 'CollaborationListContent' &&
+			!$permissionManager->userCan( 'editcontentmodel', $user, $title )
+		) {
+			return Status::newFatal( 'collaborationkit-createhubfeature-nopermission-contentmodel' );
 		}
 
 		// Create feature
-		$contentModel = $data[ 'contenttype' ];
 		if ( $contentModel != 'wikitext'
 			&& $contentModel != 'CollaborationListContent' ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-invalidcontenttype' );
