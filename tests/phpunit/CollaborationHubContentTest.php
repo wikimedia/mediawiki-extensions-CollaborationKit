@@ -121,9 +121,9 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 */
 	public function testGetParsedIntroduction( CollaborationHubContent $content, $id ) {
 		$expected = [
-			"<div class=\"mw-parser-output\"><p><i>Test</i> content\n</p></div>",
-			'<div class="mw-parser-output"></div>',
-			'<div class="mw-parser-output"></div>',
+			"<p><i>Test</i> content\n</p>",
+			'',
+			'',
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedIntroduction( Title::newMainPage(), new ParserOptions );
@@ -135,9 +135,9 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 */
 	public function testGetParsedFooter( CollaborationHubContent $content, $id ) {
 		$expected = [
-			"<div class=\"mw-parser-output\"><p><b>Test</b> content footer\n</p></div>",
-			'<div class="mw-parser-output"></div>',
-			'<div class="mw-parser-output"></div>',
+			"<p><b>Test</b> content footer\n</p>",
+			'',
+			'',
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedFooter( Title::newMainPage(), new ParserOptions );
@@ -179,7 +179,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	public function testGetMembersBlock( CollaborationHubContent $content, $id ) {
 		$testMemberList = new CollaborationListContent( '{"columns":[{"items":[{"title":"User:X"}]}]}' );
 
-		$block = "<h3>Meet our members!</h3><div class=\"mw-parser-output\"><p><br />\n" . wfMessage( 'collaborationkit-list-isempty' ) . "\n</p></div><div class=\"mw-ck-members-buttons\"><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php/Main_Page/Members' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-members-view' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator'></span></a></span><span aria-disabled='false' class='mw-ck-members-join oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-flaggedElement-primary oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page/Members&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon oo-ui-image-invert'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-members-signup' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator oo-ui-image-invert'></span></a></span></div>";
+		$block = "<h3>Meet our members!</h3><p><br />\n" . wfMessage( 'collaborationkit-list-isempty' ) . "\n</p><div class=\"mw-ck-members-buttons\"><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php/Main_Page/Members' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-members-view' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator'></span></a></span><span aria-disabled='false' class='mw-ck-members-join oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-flaggedElement-primary oo-ui-flaggedElement-progressive oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php?title=Main_Page/Members&amp;action=edit' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon oo-ui-image-invert'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-members-signup' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator oo-ui-image-invert'></span></a></span></div>";
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getMembersBlock( Title::newMainPage(), new ParserOptions, new ParserOutput, $testMemberList );
