@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"collaborationkit-list-newitem-page": "Nom de la pàgina",
+	"collaborationkit-list-newitem-user": "Nom d’usuari",
+	"collaborationkit-list-edititem-title": "Edita l’element",
+	"collaborationkit-list-edititem-label": "Actualitza"
+}

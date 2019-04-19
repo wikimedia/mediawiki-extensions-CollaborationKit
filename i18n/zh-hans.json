@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"佛壁灯"
 		]
 	},
 	"collaborationkit-desc": "用于构建维基专题和wiki上协作工作区的工具",
@@ -58,10 +59,12 @@
 	"collaborationkit-list-move-popup-title": "保存的页面",
 	"collaborationkit-list-newitem-title": "添加项目至列表",
 	"collaborationkit-list-newitem-label": "添加至列表",
-	"collaborationkit-list-newitem-page": "要添加的页面",
-	"collaborationkit-list-newitem-user": "要添加的用户",
+	"collaborationkit-list-newitem-page": "页面名称",
+	"collaborationkit-list-newitem-user": "用户名",
 	"collaborationkit-list-newitem-image": "要使用的图片（可选）",
 	"collaborationkit-list-newitem-description": "描述（可选）",
+	"collaborationkit-list-edititem-title": "编辑项目",
+	"collaborationkit-list-edititem-label": "更新",
 	"collaborationkit-listedit-description": "描述",
 	"collaborationkit-listedit-list": "列举项目",
 	"collaborationkit-hubedit-displayname": "中心显示名称",

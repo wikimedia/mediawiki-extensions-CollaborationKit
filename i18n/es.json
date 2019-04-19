@@ -5,7 +5,8 @@
 			"Macofe",
 			"Fitoschido",
 			"Luzcaru",
-			"Themasterriot"
+			"Themasterriot",
+			"Ciencia Al Poder"
 		]
 	},
 	"collaborationkit-desc": "Herramientas para construir wikiproyectos y espacios colaborativos en wikis",
@@ -62,10 +63,12 @@
 	"collaborationkit-list-move-popup-title": "Página guardada",
 	"collaborationkit-list-newitem-title": "Añadir elemento a la lista",
 	"collaborationkit-list-newitem-label": "Añadir a la lista",
-	"collaborationkit-list-newitem-page": "Página que añadir",
-	"collaborationkit-list-newitem-user": "Usuario que añadir",
+	"collaborationkit-list-newitem-page": "Nombre de página",
+	"collaborationkit-list-newitem-user": "Nombre de usuario",
 	"collaborationkit-list-newitem-image": "Imagen que utilizar (opcional)",
 	"collaborationkit-list-newitem-description": "Descripción (opcional)",
+	"collaborationkit-list-edititem-title": "Editar elemento",
+	"collaborationkit-list-edititem-label": "Actualizar",
 	"collaborationkit-listedit-description": "Descripción",
 	"collaborationkit-listedit-list": "Elementos de la lista",
 	"collaborationkit-hubedit-displayname": "Nombre para mostrar del Centro",
@@ -82,7 +85,7 @@
 	"collaborationkit-hub-members-view": "Ver la lista completa",
 	"collaborationkit-hub-missingpage-note": "Esta característica no existe. Puedes crear una usando el botón de abajo. Si recién creaste la característica y aún sigues viendo este mensaje, intenta purgar la caché.",
 	"collaborationkit-hub-missingpage-create": "Crear característica",
-	"collaborationkit-hub-missingpage-purgecache": "Vaciar antememoria",
+	"collaborationkit-hub-missingpage-purgecache": "Vaciar caché",
 	"collaborationkit-hub-pagetitle-members": "Miembros",
 	"collaborationkit-hub-pagetitle-announcements": "Anuncios",
 	"collaborationkit-hub-subpage-view": "Ver página",

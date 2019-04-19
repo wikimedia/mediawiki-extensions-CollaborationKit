@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Felipe L. Ewald"
+			"Felipe L. Ewald",
+			"Eduardo Addad de Oliveira"
 		]
 	},
 	"collaborationkit-desc": "Ferramentas para construção de WikiProjects e espaços de trabalho colaborativos on-wiki",
@@ -58,10 +59,12 @@
 	"collaborationkit-list-move-popup-title": "Páginas Salvas",
 	"collaborationkit-list-newitem-title": "Adicionar item na lista",
 	"collaborationkit-list-newitem-label": "Adicionar à lista",
-	"collaborationkit-list-newitem-page": "Página para adicionar",
-	"collaborationkit-list-newitem-user": "Usuário para adicionar",
+	"collaborationkit-list-newitem-page": "Nome da página",
+	"collaborationkit-list-newitem-user": "Nome de usuário",
 	"collaborationkit-list-newitem-image": "Imagem a ser usada (opcional)",
 	"collaborationkit-list-newitem-description": "Descrição (opcional)",
+	"collaborationkit-list-edititem-title": "Editar elemento",
+	"collaborationkit-list-edititem-label": "Atualizar",
 	"collaborationkit-listedit-description": "Descrição",
 	"collaborationkit-listedit-list": "Listar itens",
 	"collaborationkit-hubedit-displayname": "Nome de exibição do hub",

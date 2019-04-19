@@ -1,8 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mirzali"
+			"Mirzali",
+			"Orbot707"
 		]
 	},
+	"collaborationkit-list-newitem-page": "Nameyê pele",
+	"collaborationkit-list-newitem-user": "Nameyê karberi",
+	"collaborationkit-list-edititem-title": "Obceyi bıvurne",
+	"collaborationkit-list-edititem-label": "Rocane kerê",
 	"collaborationkit-listedit-description": "Şınasnayış"
 }
