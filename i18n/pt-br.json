@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Felipe L. Ewald",
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Leonardo.guimaraes"
 		]
 	},
 	"collaborationkit-desc": "Ferramentas para construção de WikiProjects e espaços de trabalho colaborativos on-wiki",
@@ -63,7 +64,7 @@
 	"collaborationkit-list-newitem-user": "Nome de usuário",
 	"collaborationkit-list-newitem-image": "Imagem a ser usada (opcional)",
 	"collaborationkit-list-newitem-description": "Descrição (opcional)",
-	"collaborationkit-list-edititem-title": "Editar elemento",
+	"collaborationkit-list-edititem-title": "Editar item",
 	"collaborationkit-list-edititem-label": "Atualizar",
 	"collaborationkit-listedit-description": "Descrição",
 	"collaborationkit-listedit-list": "Listar itens",

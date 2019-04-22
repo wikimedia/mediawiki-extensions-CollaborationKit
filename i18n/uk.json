@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion"
+			"Piramidion",
+			"Vlad5250"
 		]
 	},
 	"collaborationkit-desc": "Інструменти для створення вікіпроектів та робочих просторів для співпраці в межах вікі",
@@ -58,10 +59,11 @@
 	"collaborationkit-list-move-popup-title": "Сторінку збережено",
 	"collaborationkit-list-newitem-title": "Додати елемент до списку",
 	"collaborationkit-list-newitem-label": "Додати до списку",
-	"collaborationkit-list-newitem-page": "Сторінка, яку слід додати",
-	"collaborationkit-list-newitem-user": "Користувач, якого слід додати",
+	"collaborationkit-list-newitem-page": "Назва сторінки",
+	"collaborationkit-list-newitem-user": "Ім'я користувача",
 	"collaborationkit-list-newitem-image": "Зображення, яке слід використати (необов'язково)",
 	"collaborationkit-list-newitem-description": "Опис (необов'язково)",
+	"collaborationkit-list-edititem-label": "Оновити",
 	"collaborationkit-listedit-description": "Опис",
 	"collaborationkit-listedit-list": "Елементи списку",
 	"collaborationkit-hubedit-displayname": "Назва центру, яку буде показано",

@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kareyac"
+			"Kareyac",
+			"Narek"
 		]
 	},
 	"collaborationkit-createhubfeature-articlelist": "Էջերի ցանկ",
 	"collaborationkit-list-isempty": "Այդ ցանկը չի սյուներ կամ տարրերից",
 	"collaborationkit-list-emptycolumn": "Այս ցանկը չունի տարրեր",
 	"collaborationkit-list-delete": "Հեռացնել տարրը",
+	"collaborationkit-list-edititem-label": "Թարմացնել",
 	"collaborationkit-listedit-description": "Նկարագրություն",
 	"collaborationkit-hub-members-signup": "Միանալ",
 	"collaborationkit-hub-members-view": "Դիտել ամբողջ ցանկը",
