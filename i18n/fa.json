@@ -5,7 +5,8 @@
 			"Reza1615",
 			"Ladsgroup",
 			"Arash",
-			"Iriman"
+			"Iriman",
+			"Amirsara"
 		]
 	},
 	"collaborationkit-desc": "ابزارهایی برای ساختن ویکی‌پروژه‌ها و محل‌های همکاری داخل ویکی",
@@ -44,8 +45,8 @@
 	"collaborationkit-list-move-popup-title": "صفحه ذخیره شد",
 	"collaborationkit-list-newitem-title": "افزودن آیتم به فهرست",
 	"collaborationkit-list-newitem-label": "افزودن به فهرست",
-	"collaborationkit-list-newitem-page": "صفحه برای اضافه کردن",
-	"collaborationkit-list-newitem-user": "کاربر برای اضافه کردن",
+	"collaborationkit-list-newitem-page": "نام صفحه",
+	"collaborationkit-list-newitem-user": "نام کاربری",
 	"collaborationkit-list-newitem-image": "تصویر برای استفاده (اختیاری)",
 	"collaborationkit-list-newitem-description": "توضیحات (اختیاری)",
 	"collaborationkit-listedit-description": "توضیح",

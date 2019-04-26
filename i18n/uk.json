@@ -63,6 +63,7 @@
 	"collaborationkit-list-newitem-user": "Ім'я користувача",
 	"collaborationkit-list-newitem-image": "Зображення, яке слід використати (необов'язково)",
 	"collaborationkit-list-newitem-description": "Опис (необов'язково)",
+	"collaborationkit-list-edititem-title": "Редагувати об'єкт",
 	"collaborationkit-list-edititem-label": "Оновити",
 	"collaborationkit-listedit-description": "Опис",
 	"collaborationkit-listedit-list": "Елементи списку",
