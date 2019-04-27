@@ -89,6 +89,9 @@
 		],
 		"BeforePageDisplay": [
 			"CollaborationListContent::onBeforePageDisplay"
+		],
+		"ParserOutputPostCacheTransform": [
+			"CollaborationHubContentHandler::onParserOutputPostCacheTransform"
 		]
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",

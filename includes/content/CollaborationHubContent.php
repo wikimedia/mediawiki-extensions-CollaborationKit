@@ -406,8 +406,6 @@ class CollaborationHubContent extends JsonContent {
 	) {
 		$services = MediaWikiServices::getInstance();
 		$parser = $services->getParser();
-		$user = RequestContext::getMain()->getUser();
-		$permissionManager = $services->getPermissionManager();
 
 		$html = '';
 
@@ -477,33 +475,27 @@ class CollaborationHubContent extends JsonContent {
 			$titleParse = $parser->parse( $wikitext, $membersTitle, $options );
 			$html .= $this->getTrimmedText( $titleParse );
 
-			$membersViewButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-members-view' )
-					->inContentLanguage()
-					->text(),
-				'href' => $membersTitle->getLinkURL()
-			] );
+			$membersViewButton = $this->makeActionButton(
+				$membersTitle,
+				'collaborationkit-hub-members-view',
+				[ 'framed' => true ]
+			);
 
-			if ( $permissionManager->userCan( 'edit', $user, $membersTitle ) ) {
-				$membersJoinButton = new OOUI\ButtonWidget( [
-					'label' => wfMessage( 'collaborationkit-hub-members-signup' )
-						->inContentLanguage()
-						->text(),
-					// Going through editor is non-JS fallback
-					'href' => $membersTitle->getEditURL(),
+			$membersJoinButton = $this->makeActionButton(
+				$membersTitle,
+				'collaborationkit-hub-members-signup',
+				[
+					'action' => 'edit',
+					'framed' => true,
 					'flags' => [ 'primary', 'progressive' ],
 					'classes' => [ 'mw-ck-members-join' ]
-				] );
-
-				$membersJoinButton = $membersJoinButton->toString();
-			} else {
-				$membersJoinButton = '';
-			}
+				]
+			);
 
 			$html .= Html::rawElement(
 				'div',
 				[ 'class' => 'mw-ck-members-buttons' ],
-				$membersViewButton->toString() . $membersJoinButton
+				$membersViewButton . $membersJoinButton
 			);
 		}
 
@@ -534,10 +526,6 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedAnnouncements( Title $title, ParserOptions $options,
 		$announcementsText = null
 	) {
-		$services = MediaWikiServices::getInstance();
-		$permissionManager = $services->getPermissionManager();
-		$user = RequestContext::getMain()->getUser();
-
 		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )
 			->inContentLanguage()
 			->text();
@@ -557,15 +545,15 @@ class CollaborationHubContent extends JsonContent {
 				$announcementsText = $this->getTrimmedText( $announcementsOutput );
 			}
 
-			if ( $permissionManager->userCan( 'edit', $user, $announcementsTitle ) ) {
-				$announcementsEditButton = $this->makeEditSectionLink(
-					$announcementsTitle->getEditURL(),
-					wfMessage( 'edit' )->inContentLanguage()->text(),
-					'edit'
-				);
-			} else {
-				$announcementsEditButton = '';
-			}
+			$announcementsEditButton = $this->makeActionButton(
+				$announcementsTitle,
+				'edit',
+				[
+					'icon' => 'edit',
+					'action' => 'edit',
+					'classes' => [ 'mw-ck-hub-section-button mw-editsection-like' ]
+				]
+			);
 
 			$announcementsHeader = Html::rawElement(
 				'h3',
@@ -598,32 +586,33 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	protected function getSecondFooter( Title $title ) {
-		$user = RequestContext::getMain()->getUser();
-		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
-
 		$html = '';
 
-		if ( $permissionManager->userCan( 'edit', $user, $title ) ) {
-			$html .= new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-manage' )
-					->inContentLanguage()
-					->text(),
-				'href' => $title->getLocalURL( [ 'action' => 'edit' ] ),
-				'flags' => [ 'progressive' ],
-				'icon' => 'edit'
-			] );
+		$html .= $this->makeActionButton(
+			$title,
+			'collaborationkit-hub-manage',
+			[
+				'icon' => 'edit',
+				'framed' => true,
+				'action' => 'edit'
+			]
+		);
 
-			// TODO make sure they have create permission, too
-			$html .= new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-addpage' )
-					->inContentLanguage()
-					->text(),
-				'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
-					->getFullURL( [ 'collaborationhub' => $title->getFullText() ] ),
-				'flags' => [ 'progressive' ],
-				'icon' => 'add'
-			] );
-		}
+		// use stupid dummy subpage to make sure they probably have create permissions
+		$dummysubpage = 'SUPERSECRETDUMMYSUBPAGEISUREHOPEDOESNTACTUALLYEXIST!';
+		$html .= $this->makeActionButton(
+			Title::newFromText( $title->getFullText() . '/' . $dummysubpage ),
+			'collaborationkit-hub-addpage',
+			[
+				'icon' => 'add',
+				'framed' => true,
+				'action' => 'create',
+				'title' => $title->getFullText(),
+				'scarylink' => SpecialPage::getTitleFor( 'CreateHubFeature' )->getFullURL(
+					[ 'collaborationhub' => $title->getFullText() ]
+				)
+			]
+		);
 
 		return $html;
 	}
@@ -639,10 +628,7 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedContent( Title $title, ParserOptions $options,
 		ParserOutput $output
 	) {
-		$services = MediaWikiServices::getInstance();
-		$parser = $services->getParser();
-		$user = RequestContext::getMain()->getUser();
-		$permissionManager = $services->getPermissionManager();
+		$parser = MediaWikiServices::getInstance()->getParser();
 
 		$lang = $options->getTargetLanguage();
 		if ( !$lang ) {
@@ -728,43 +714,34 @@ class CollaborationHubContent extends JsonContent {
 				);
 			} else {
 				// DO CONTENT FOR NOT YET MADE PAGE
-				if ( $permissionManager->userCan( 'create', $user, $spTitle ) ) {
-					$html .= Html::rawElement(
-						'p',
-						[ 'class' => 'mw-ck-hub-missingfeature-note' ],
-						wfMessage( 'collaborationkit-hub-missingpage-note' )
-							->inContentLanguage()
-							->parse()
-					);
 
-					$html .= new OOUI\ButtonWidget( [
-						'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )
-							->inContentLanguage()
-							->text(),
-						'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
+				// lol we use a different message depending on whether they
+				// even can create it, so we can't even parse that here
+				$html .= Html::rawElement(
+					'p',
+					[ 'class' => 'mw-ck-hub-missingfeature-note' ],
+					'<ext:ck:missingfeature-note target="' . htmlspecialchars( $spTitle->getFullText() ) . '"/>'
+				);
+
+				$html .= $this->makeActionButton(
+					$spTitle,
+					'collaborationkit-hub-missingpage-create',
+					[
+						'action' => 'create',
+						'framed' => true,
+						'scarylink' => SpecialPage::getTitleFor( 'CreateHubFeature' )
 							->getFullURL( [
 								'collaborationhub' => $title->getFullText(),
 								'feature' => $spTitle->getSubpageText()
-							] ),
-						'flags' => [ 'progressive' ]
-					] );
-				} else {
-					// Different message; they can't actually create it
-					$html .= Html::rawElement(
-						'p',
-						[ 'class' => 'mw-ck-hub-missingfeature-note' ],
-						wfMessage( 'collaborationkit-hub-missingpage-protected-note' )
-							->inContentLanguage()
-							->parse()
-					);
-				}
+							] )
+					]
+				);
 
-				$html .= new OOUI\ButtonWidget( [
-					'label' => wfMessage( 'collaborationkit-hub-missingpage-purgecache' )
-						->inContentLanguage()
-						->text(),
-					'href' => $title->getFullURL( [ 'action' => 'purge' ] )
-				] );
+				$html .= $this->makeActionButton(
+					$title,
+					'collaborationkit-hub-missingpage-purgecache',
+					[ 'action' => 'purge', 'framed' => true ]
+				);
 
 				// register as template for stuff
 				$output->addTemplate( $spTitle, $spTitle->getArticleID(), null );
@@ -790,8 +767,6 @@ class CollaborationHubContent extends JsonContent {
 		$spTitle = Title::newFromText( $contentItem['title'] );
 		$spTitle = $this->redirectProof( $spTitle );
 		$spRev = Revision::newFromTitle( $spTitle );
-		$user = RequestContext::getMain()->getUser();
-		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 
 		// Get display name
 		if ( isset( $contentItem['displayTitle'] ) ) {
@@ -827,27 +802,22 @@ class CollaborationHubContent extends JsonContent {
 		$sectionLinks = [];
 		$sectionLinksText = '';
 		if ( isset( $spRev ) ) {
-			$sectionLinks['viewLink'] = [];
-			$sectionLinks['viewLink']['title'] = $spTitle->getLinkURL();
-			$sectionLinks['viewLink']['msg'] = wfMessage( 'collaborationkit-hub-subpage-view' )
-				->inContentLanguage()
-				->text();
-			$sectionLinks['viewLink']['icon'] = 'search';
+			// view
+			$sectionLinksText .= $this->makeActionButton(
+				$spTitle,
+				'collaborationkit-hub-subpage-view',
+				[ 'classes' => [ 'mw-ck-hub-section-button mw-editsection-like' ] ]
+			);
 
-			if ( $permissionManager->userCan( 'edit', $user, $spTitle ) ) {
-				$sectionLinks['editLink'] = [];
-				$sectionLinks['editLink']['title'] = $spTitle->getEditURL();
-				$sectionLinks['editLink']['msg'] = wfMessage( 'edit' )
-					->inContentLanguage()
-					->text();
-				$sectionLinks['editLink']['icon'] = 'edit';
-			}
-		}
-		foreach ( $sectionLinks as $sectionLink ) {
-			$sectionLinksText .= $this->makeEditSectionLink(
-				$sectionLink['title'],
-				$sectionLink['msg'],
-				$sectionLink['icon']
+			// edit
+			$sectionLinksText .= $this->makeActionButton(
+				$spTitle,
+				'edit',
+				[
+					'icon' => 'edit',
+					'action' => 'edit',
+					'classes' => [ 'mw-ck-hub-section-button mw-editsection-like' ]
+				]
 			);
 		}
 
@@ -891,24 +861,92 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * Helper function for fillParserOutput for making editsection links in
-	 *  headers
+	 * Helper function for fillParserOutput for making various action links
+	 * (editsection links, purge cache buttons, whatever)
 	 *
-	 * @param string $link Target URL
+	 * @param string $title Target page
 	 * @param string $message Message to display
-	 * @param string $icon Icon to display alongside the message, based on
-	 *  OOUI definitions
-	 * @return OOUI\ButtonWidget
+	 * @param array $setOptions of a bunch of options, mostly to forward to the OOUI button
+	 * (see defaults below)
+	 * @return string either an OOUI\ButtonWidget effectively tostringed, or a ck:editsection marker
+	 * which will get replaced with an OOUI\ButtonWidget later in
+	 * CollaborationHubContentHandler::onParserOutputPostCacheTransform
 	 */
-	protected function makeEditSectionLink( $link, $message, $icon ) {
-		return new OOUI\ButtonWidget( [
-			'classes' => [ 'mw-ck-hub-section-button mw-editsection-like' ],
-			'label' => $message,
-			'href' => $link,
-			'framed' => false,
-			'icon' => $icon,
-			'flags' => [ 'progressive' ]
-		] );
+	protected function makeActionButton( $title, $message, $setOptions = [] ) {
+		// Set options and fill in defaults
+		$options = $setOptions + [
+			'title' => $title->getFullText(),
+			'action' => 'view',
+			'framed' => false, // whether to display it as a *button* or not
+			'icon' => null,
+			'flags' => [],
+			'classes' => [],
+			'scarylink' => false // for weird create links, because I give up
+		];
+
+		if ( !$options['framed'] ) {
+			// If it's not displaying as a button (framed), we'll want it to be
+			// link-coloured regardless so it's clear it's interactable (a link)
+			$options['flags'][] = 'progressive';
+		}
+
+		$html = '';
+
+		if ( $options['action'] == 'create' || $options['action'] == 'edit' ) {
+			// can't cache this here, gotta generate a marker to handle later
+
+			if ( $options['action'] == 'create' ) {
+				// I'm not sure how to deal with this, so scary link time
+				$link = $options['scarylink'];
+			} else {
+				// whoohoo straight edit! I know what to do!
+				$link = $title->getEditURL();
+			}
+
+			$html .= '<ext:ck:editmarker page="' . htmlspecialchars( $options['title'] ) . '"'
+				. 'target="' . htmlspecialchars( $title->getFullText() ) . '"'
+				. 'message="' . htmlspecialchars( $message ) . '"'
+				. 'link="' . $link . '"'
+				. 'classes="' . implode( ' ', $options['classes'] ) . '"';
+
+			// Forward some other random options...
+			if ( $options['icon'] !== null ) {
+				$html .= 'icon="' . htmlspecialchars( $options['icon'] ) . '"';
+			} else {
+				$html .= 'icon="0"';
+			}
+
+			$html .= $options['framed'] ? 'framed="1"' : 'framed="0"';
+
+			if ( in_array( 'primary', $options['flags'] ) ) {
+				$html .= 'primary="1"';
+			} else {
+				$html .= 'primary="0"';
+			}
+
+			$html .= '/>';
+		} else {
+			// we can go ahead and just cache it here!
+			if ( $options['action'] == 'purge' ) {
+				// is it possible they may not have this permission? I DON'T CARE!
+				$link = $title->getFullURL( [ 'action' => 'purge' ] );
+			} else {
+				// only other thing we'll cache is 'view', currently,
+				// so no need to even bother checking at this point
+				$link = $title->getLinkURL();
+			}
+
+			$html .= new OOUI\ButtonWidget( [
+				'label' => wfMessage( $message )->inContentLanguage()->text(),
+				'href' => $link,
+				'framed' => $options['framed'],
+				'icon' => $options['icon'],
+				'flags' => $options['flags'],
+				'classes' => $options['classes']
+			] );
+		}
+
+		return $html;
 	}
 
 	/**
