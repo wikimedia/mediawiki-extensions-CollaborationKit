@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"Railfail536"
 		]
 	},
 	"collaborationkit-createhub-title": "Tytuł strony",
@@ -30,7 +31,10 @@
 	"collaborationkit-list-error-saving": "Twoje zmiany na liście nie zostały zapisane. Odśwież stronę i spróbuj ponownie.",
 	"collaborationkit-list-newitem-title": "Dodaj element do listy",
 	"collaborationkit-list-newitem-label": "Dodaj do listy",
+	"collaborationkit-list-newitem-page": "Nazwa strony",
+	"collaborationkit-list-newitem-user": "Nazwa użytkownika",
 	"collaborationkit-list-newitem-description": "Opis (opcjonalnie)",
+	"collaborationkit-list-edititem-label": "Aktualizuj",
 	"collaborationkit-listedit-description": "Opis",
 	"collaborationkit-hubedit-introduction": "Wprowadzenie",
 	"collaborationkit-hubedit-footer": "Stopka",
