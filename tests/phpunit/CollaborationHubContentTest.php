@@ -87,7 +87,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'',
 		];
 		$actual = $content->getIntroduction();
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -100,7 +100,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'',
 		];
 		$actual = $content->getFooter();
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -108,12 +108,12 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 */
 	public function testContent( CollaborationHubContent $content, $id ) {
 		$expected = [
-			[ [ "title" => "Project:Wow", "image" => "cool.png", "displayTitle" => 'Wow!' ] ],
+			[ [ 'title' => 'Project:Wow', 'image' => 'cool.png', 'displayTitle' => 'Wow!' ] ],
 			[],
 			[],
 		];
 		$actual = $content->getContent();
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -127,7 +127,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedIntroduction( Title::newMainPage(), new ParserOptions );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedFooter( Title::newMainPage(), new ParserOptions );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -150,13 +150,13 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	public function testGetParsedContent( CollaborationHubContent $content, $id ) {
 		global $wgServer, $wgMetaNamespace;
 		$expected = [
-			"<div class=\"mw-ck-hub-section\" id=\"Wow.21\"><div class=\"mw-ck-hub-section-header\"><h2><div class=\"mw-ck-section-image\" style=\"\"><a href=\"/wiki/index.php/Wow\"><div class=\"mw-ck-icon mw-ck-icon-heart\" style=\"width: 35px; height: 35px;\"></div></a></div><span class=\"mw-headline\">Wow!</span></h2></div><p class=\"mw-ck-hub-missingfeature-note\"><ext:ck:missingfeature-note target=\"$wgMetaNamespace:Wow\"/></p><ext:ck:editmarker page=\"$wgMetaNamespace:Wow\"target=\"$wgMetaNamespace:Wow\"message=\"collaborationkit-hub-missingpage-create\"link=\"$wgServer/wiki/index.php?title=Special:CreateHubFeature&collaborationhub=Main+Page&feature=Wow\"classes=\"\"icon=\"0\"framed=\"1\"primary=\"0\"/><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='$wgServer/wiki/index.php?title=Main_Page&amp;action=purge' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-missingpage-purgecache' ) . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator'></span></a></span></div>",
+			"<div class=\"mw-ck-hub-section\" id=\"Wow.21\"><div class=\"mw-ck-hub-section-header\"><h2><div class=\"mw-ck-section-image\" style=\"\"><a href=\"/wiki/index.php/Wow\"><div class=\"mw-ck-icon mw-ck-icon-heart\" style=\"width: 35px; height: 35px;\"></div></a></div><span class=\"mw-headline\">Wow!</span></h2></div><p class=\"mw-ck-hub-missingfeature-note\"><ext:ck:missingfeature-note target=\"$wgMetaNamespace:Wow\"/></p><ext:ck:editmarker page=\"$wgMetaNamespace:Wow\"target=\"$wgMetaNamespace:Wow\"message=\"collaborationkit-hub-missingpage-create\"link=\"$wgServer/wiki/index.php?title=Special:CreateHubFeature&collaborationhub=Main+Page&feature=Wow\"classes=\"\"icon=\"0\"framed=\"1\"primary=\"0\"/><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='$wgServer/wiki/index.php?title=Main_Page&amp;action=purge' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon'></span><span class='oo-ui-labelElement-label'>" . wfMessage( 'collaborationkit-hub-missingpage-purgecache' )->text() . "</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator'></span></a></span></div>",
 			'',
 			''
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedContent( Title::newMainPage(), new ParserOptions, new ParserOutput );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -170,7 +170,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getHubClasses();
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -180,29 +180,29 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		$testMemberList = new CollaborationListContent( '{"columns":[{"items":[{"title":"User:X"}]}]}' );
 
 		$block = "<h3>Meet our members!</h3><p><br />\n" .
-			wfMessage( 'collaborationkit-list-isempty' ) .
+			wfMessage( 'collaborationkit-list-isempty' )->text() .
 			"\n</p><div class=\"mw-ck-members-buttons\"><span aria-disabled='false' class='oo-ui-widget oo-ui-widget-enabled oo-ui-buttonElement oo-ui-buttonElement-framed oo-ui-labelElement oo-ui-buttonWidget'><a role='button' tabindex='0' aria-disabled='false' href='/wiki/index.php/Main_Page/Members' rel='nofollow' class='oo-ui-buttonElement-button'><span class='oo-ui-iconElement-icon oo-ui-iconElement-noIcon'></span><span class='oo-ui-labelElement-label'>" .
-			wfMessage( 'collaborationkit-hub-members-view' ) .
+			wfMessage( 'collaborationkit-hub-members-view' )->text() .
 			"</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator'></span></a></span><ext:ck:editmarker page=\"Main Page/Members\"target=\"Main Page/Members\"message=\"collaborationkit-hub-members-signup\"link=\"/wiki/index.php?title=Main_Page/Members&action=edit\"classes=\"mw-ck-members-join\"icon=\"0\"framed=\"1\"primary=\"1\"/></div>";
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getMembersBlock( Title::newMainPage(), new ParserOptions, new ParserOutput, $testMemberList );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
 	 * @dataProvider provideContentObjs
 	 */
 	public function testGetParsedAnnouncements( CollaborationHubContent $content, $id ) {
-		$testAnnouncement = "* The cafeteria is out of empanadas. We apologize for the inconvenience.";
+		$testAnnouncement = '* The cafeteria is out of empanadas. We apologize for the inconvenience.';
 
-		$block = "<h3>" . wfMessage( 'collaborationkit-hub-pagetitle-announcements' ) .
+		$block = '<h3>' . wfMessage( 'collaborationkit-hub-pagetitle-announcements' )->text() .
 			'<ext:ck:editmarker page="Main Page/Announcements"target="Main Page/Announcements"message="edit"link="/wiki/index.php?title=Main_Page/Announcements&action=edit"classes="mw-ck-hub-section-button mw-editsection-like"icon="edit"framed="0"primary="0"/>' .
-			"</h3>* The cafeteria is out of empanadas. We apologize for the inconvenience.";
+			'</h3>* The cafeteria is out of empanadas. We apologize for the inconvenience.';
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getParsedAnnouncements( Title::newMainPage(), new ParserOptions, $testAnnouncement );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -214,14 +214,17 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->getSecondFooter( Title::newMainPage() );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
 	 * @dataProvider provideContentObjs
 	 */
 	public function testMakeHeader1( CollaborationHubContent $content, $id ) {
-		$testContentArray = [ "title" => "Amazing Worklist", "image" => "pageribbon" ];
+		$testContentArray = [
+			'title' => 'Amazing Worklist',
+			'image' => 'pageribbon'
+		];
 		$expected = [
 			'<div class="mw-ck-hub-section" id="Amazing_Worklist"><div class="mw-ck-hub-section-header"><h2><div class="mw-ck-section-image" style=""><a href="/wiki/index.php/Amazing_Worklist"><div class="mw-ck-icon mw-ck-icon-pageribbon" style="width: 35px; height: 35px;"></div></a></div><span class="mw-headline">Amazing Worklist</span></h2></div>',
 			'<div class="mw-ck-hub-section" id="Amazing_Worklist1"><div class="mw-ck-hub-section-header"><h2><div class="mw-ck-section-image" style=""><a href="/wiki/index.php/Amazing_Worklist"><div class="mw-ck-icon mw-ck-icon-pageribbon" style="width: 35px; height: 35px;"></div></a></div><span class="mw-headline">Amazing Worklist</span></h2></div>',
@@ -229,14 +232,18 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->makeHeader( Title::newMainPage(), $testContentArray );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
 	 * @dataProvider provideContentObjs
 	 */
 	public function testMakeHeader2( CollaborationHubContent $content, $id ) {
-		$testContentArray = [ "title" => "Gonzo Worklist", "image" => "pageribbon", "displayTitle" => "You Best Believe It" ];
+		$testContentArray = [
+			'title' => 'Gonzo Worklist',
+			'image' => 'pageribbon',
+			'displayTitle' => 'You Best Believe It'
+		];
 		$expected = [
 			'<div class="mw-ck-hub-section" id="You_Best_Believe_It"><div class="mw-ck-hub-section-header"><h2><div class="mw-ck-section-image" style=""><a href="/wiki/index.php/Gonzo_Worklist"><div class="mw-ck-icon mw-ck-icon-pageribbon" style="width: 35px; height: 35px;"></div></a></div><span class="mw-headline">You Best Believe It</span></h2></div>',
 			'<div class="mw-ck-hub-section" id="You_Best_Believe_It1"><div class="mw-ck-hub-section-header"><h2><div class="mw-ck-section-image" style=""><a href="/wiki/index.php/Gonzo_Worklist"><div class="mw-ck-icon mw-ck-icon-pageribbon" style="width: 35px; height: 35px;"></div></a></div><span class="mw-headline">You Best Believe It</span></h2></div>',
@@ -244,7 +251,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->makeHeader( Title::newMainPage(), $testContentArray );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -259,7 +266,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToHumanEditable();
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -290,18 +297,18 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = FormatJson::encode( $wc->convertFromHumanEditable( $testCases[ $id ] ), true, FormatJson::ALL_OK );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
 	 * @dataProvider provideContentObjs
 	 */
 	public function testTextNativeDataEquivalent( CollaborationHubContent $content, $id ) {
-		if ( !method_exists( $content, "getNativeData" ) ) {
+		if ( !method_exists( $content, 'getNativeData' ) ) {
 			static::markTestSkipped( 'getNativeData() no longer present. Skipping comparison.' );
 		}
 		static::assertEquals( $content->getNativeData(),  $content->getText(),
-			"Call to NativeData() does not match call to getText()" );
+			'Call to NativeData() does not match call to getText()' );
 	}
 
 	/**

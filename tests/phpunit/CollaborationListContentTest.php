@@ -178,7 +178,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToWikitext( Language::factory( 'en' ), [ 'includeDesc' => true, 'maxItems' => false, 'defaultSort' => 'natural' ] );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -196,7 +196,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToWikitext( Language::factory( 'en' ), [ 'includeDesc' => false, 'maxItems' => 1, 'defaultSort' => 'natural', 'iconWidth' => 32 ] );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -215,7 +215,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertToHumanEditable();
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	/**
@@ -306,7 +306,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 		$wc = TestingAccessWrapper::newFromObject( $content );
 		$actual = $wc->convertFromHumanEditable( $testCases[ $id ] );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 	public function provideMatchesTag() {
@@ -353,7 +353,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	}
 
 	public function testDecodeInvalidJSON() {
-		$content = new CollaborationListContent( "NOT JSON" );
+		$content = new CollaborationListContent( 'NOT JSON' );
 		static::assertFalse( $content->isValid() );
 		// Force decode() call
 		static::assertNull( $content->getDescription() );
@@ -363,12 +363,12 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	 * @dataProvider provideContentObjs
 	 */
 	public function testTextNativeDataEquivalent( CollaborationListContent $content, $id ) {
-		if ( !method_exists( $content, "getNativeData" ) ) {
+		if ( !method_exists( $content, 'getNativeData' ) ) {
 			static::markTestSkipped( 'getNativeData() no longer present. Skipping comparison.' );
 		}
 
 		static::assertEquals( $content->getNativeData(), $content->getText(),
-			"Call to NativeData() does not match call to getText()" );
+			'Call to NativeData() does not match call to getText()' );
 	}
 
 	/**
@@ -377,8 +377,8 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 	public function testConvertToJson( CollaborationListContent $content, $id ) {
 		$json = $content->convert( CONTENT_MODEL_JSON );
 
-		static::assertInstanceOf( JsonContent::class, $json, "Expected JsonContent" );
-		static::assertTrue( $json->IsValid(), "Expected valid content" );
+		static::assertInstanceOf( JsonContent::class, $json, 'Expected JsonContent' );
+		static::assertTrue( $json->IsValid(), 'Expected valid content' );
 	}
 
 	/**
@@ -390,17 +390,17 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 		static::assertInstanceOf( CollaborationListContent::class, $output );
 		static::assertFalse( $content === $output,
-			"Method should have returned new object with formatted JSON" );
+			'Method should have returned new object with formatted JSON' );
 	}
 
 	public function testPreSaveTransformInvalidJSON() {
-		$content = new CollaborationListContent( "NOT JSON" );
+		$content = new CollaborationListContent( 'NOT JSON' );
 
 		$output = $content->preSaveTransform( $this->getMockTitle(), $this->getMockUser(),
 			$this->getMockParserOptions() );
 
 		static::assertInstanceOf( CollaborationListContent::class, $output );
 		static::assertTrue( $content === $output,
-			"Method should have returned object itself due to invalid content" );
+			'Method should have returned object itself due to invalid content' );
 	}
 }

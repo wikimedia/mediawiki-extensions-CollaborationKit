@@ -62,7 +62,7 @@ class CollaborationKitImageTest extends MediaWikiTestCase {
 		];
 
 		$actual = CollaborationKitImage::makeImage( $testImage, 76, $testConfig );
-		static::assertEquals( $expected[ $id ], $actual, $id );
+		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
 }

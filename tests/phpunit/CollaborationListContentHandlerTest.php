@@ -25,8 +25,8 @@ class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 	}
 
 	public function testMakeMemberList() {
-		$user = "User:Willy on Wheels";
-		$description = "lol";
+		$user = 'User:Willy on Wheels';
+		$description = 'lol';
 		$members = CollaborationListContentHandler::makeMemberList( $user, $description );
 		static::assertTrue( $members->isValid() );
 	}
