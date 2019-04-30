@@ -1199,6 +1199,7 @@ class CollaborationListContent extends JsonContent {
 		$user = $context->getUser();
 		$output = $context->getOutput();
 		$action = $context->getRequest()->getVal( 'action', 'view' );
+		$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
 
 		// @todo Does not trigger on perma-link to current revision
 		// not sure if that's a desired behaviour or not.
@@ -1206,7 +1207,7 @@ class CollaborationListContent extends JsonContent {
 			&& $action === 'view'
 			&& $title->getArticleID() !== 0
 			&& $article->getOldID() === 0 /* current rev */
-			&& $title->userCan( 'edit', $user, 'quick' )
+			&& $permissionManager->userCan( 'edit', $user, $title )
 		) {
 			$output->addJsConfigVars( 'wgEnableCollaborationKitListEdit', true );
 

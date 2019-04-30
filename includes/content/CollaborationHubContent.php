@@ -404,7 +404,10 @@ class CollaborationHubContent extends JsonContent {
 	protected function getMembersBlock( Title $title, ParserOptions $options,
 		ParserOutput $output, $membersContent = null
 	) {
-		$parser = MediaWikiServices::getInstance()->getParser();
+		$services = MediaWikiServices::getInstance();
+		$parser = $services->getParser();
+		$user = RequestContext::getMain()->getUser();
+		$permissionManager = $services->getPermissionManager();
 
 		$html = '';
 
@@ -480,20 +483,27 @@ class CollaborationHubContent extends JsonContent {
 					->text(),
 				'href' => $membersTitle->getLinkURL()
 			] );
-			$membersJoinButton = new OOUI\ButtonWidget( [
-				'label' => wfMessage( 'collaborationkit-hub-members-signup' )
-					->inContentLanguage()
-					->text(),
-				// Going through editor is non-JS fallback
-				'href' => $membersTitle->getEditURL(),
-				'flags' => [ 'primary', 'progressive' ],
-				'classes' => [ 'mw-ck-members-join' ]
-			] );
+
+			if ( $permissionManager->userCan( 'edit', $user, $membersTitle ) ) {
+				$membersJoinButton = new OOUI\ButtonWidget( [
+					'label' => wfMessage( 'collaborationkit-hub-members-signup' )
+						->inContentLanguage()
+						->text(),
+					// Going through editor is non-JS fallback
+					'href' => $membersTitle->getEditURL(),
+					'flags' => [ 'primary', 'progressive' ],
+					'classes' => [ 'mw-ck-members-join' ]
+				] );
+
+				$membersJoinButton = $membersJoinButton->toString();
+			} else {
+				$membersJoinButton = '';
+			}
 
 			$html .= Html::rawElement(
 				'div',
 				[ 'class' => 'mw-ck-members-buttons' ],
-				$membersViewButton->toString() . $membersJoinButton->toString()
+				$membersViewButton->toString() . $membersJoinButton
 			);
 		}
 
@@ -524,6 +534,10 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedAnnouncements( Title $title, ParserOptions $options,
 		$announcementsText = null
 	) {
+		$services = MediaWikiServices::getInstance();
+		$permissionManager = $services->getPermissionManager();
+		$user = RequestContext::getMain()->getUser();
+
 		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )
 			->inContentLanguage()
 			->text();
@@ -543,11 +557,15 @@ class CollaborationHubContent extends JsonContent {
 				$announcementsText = $this->getTrimmedText( $announcementsOutput );
 			}
 
-			$announcementsEditButton = $this->makeEditSectionLink(
-				$announcementsTitle->getEditURL(),
-				wfMessage( 'edit' )->inContentLanguage()->text(),
-				'edit'
-			);
+			if ( $permissionManager->userCan( 'edit', $user, $announcementsTitle ) ) {
+				$announcementsEditButton = $this->makeEditSectionLink(
+					$announcementsTitle->getEditURL(),
+					wfMessage( 'edit' )->inContentLanguage()->text(),
+					'edit'
+				);
+			} else {
+				$announcementsEditButton = '';
+			}
 
 			$announcementsHeader = Html::rawElement(
 				'h3',
@@ -580,9 +598,12 @@ class CollaborationHubContent extends JsonContent {
 	 * @return string
 	 */
 	protected function getSecondFooter( Title $title ) {
+		$user = RequestContext::getMain()->getUser();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+
 		$html = '';
 
-		if ( $title->userCan( 'edit' ) ) {
+		if ( $permissionManager->userCan( 'edit', $user, $title ) ) {
 			$html .= new OOUI\ButtonWidget( [
 				'label' => wfMessage( 'collaborationkit-hub-manage' )
 					->inContentLanguage()
@@ -618,7 +639,10 @@ class CollaborationHubContent extends JsonContent {
 	protected function getParsedContent( Title $title, ParserOptions $options,
 		ParserOutput $output
 	) {
-		$parser = MediaWikiServices::getInstance()->getParser();
+		$services = MediaWikiServices::getInstance();
+		$parser = $services->getParser();
+		$user = RequestContext::getMain()->getUser();
+		$permissionManager = $services->getPermissionManager();
 
 		$lang = $options->getTargetLanguage();
 		if ( !$lang ) {
@@ -704,25 +728,36 @@ class CollaborationHubContent extends JsonContent {
 				);
 			} else {
 				// DO CONTENT FOR NOT YET MADE PAGE
-				$html .= Html::rawElement(
-					'p',
-					[ 'class' => 'mw-ck-hub-missingfeature-note' ],
-					wfMessage( 'collaborationkit-hub-missingpage-note' )
-						->inContentLanguage()
-						->parse()
-				);
+				if ( $permissionManager->userCan( 'create', $user, $spTitle ) ) {
+					$html .= Html::rawElement(
+						'p',
+						[ 'class' => 'mw-ck-hub-missingfeature-note' ],
+						wfMessage( 'collaborationkit-hub-missingpage-note' )
+							->inContentLanguage()
+							->parse()
+					);
 
-				$html .= new OOUI\ButtonWidget( [
-					'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )
-						->inContentLanguage()
-						->text(),
-					'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
-						->getFullURL( [
-							'collaborationhub' => $title->getFullText(),
-							'feature' => $spTitle->getSubpageText()
-						] ),
-					'flags' => [ 'progressive' ]
-				] );
+					$html .= new OOUI\ButtonWidget( [
+						'label' => wfMessage( 'collaborationkit-hub-missingpage-create' )
+							->inContentLanguage()
+							->text(),
+						'href' => SpecialPage::getTitleFor( 'CreateHubFeature' )
+							->getFullURL( [
+								'collaborationhub' => $title->getFullText(),
+								'feature' => $spTitle->getSubpageText()
+							] ),
+						'flags' => [ 'progressive' ]
+					] );
+				} else {
+					// Different message; they can't actually create it
+					$html .= Html::rawElement(
+						'p',
+						[ 'class' => 'mw-ck-hub-missingfeature-note' ],
+						wfMessage( 'collaborationkit-hub-missingpage-protected-note' )
+							->inContentLanguage()
+							->parse()
+					);
+				}
 
 				$html .= new OOUI\ButtonWidget( [
 					'label' => wfMessage( 'collaborationkit-hub-missingpage-purgecache' )
@@ -755,6 +790,8 @@ class CollaborationHubContent extends JsonContent {
 		$spTitle = Title::newFromText( $contentItem['title'] );
 		$spTitle = $this->redirectProof( $spTitle );
 		$spRev = Revision::newFromTitle( $spTitle );
+		$user = RequestContext::getMain()->getUser();
+		$permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 
 		// Get display name
 		if ( isset( $contentItem['displayTitle'] ) ) {
@@ -797,12 +834,14 @@ class CollaborationHubContent extends JsonContent {
 				->text();
 			$sectionLinks['viewLink']['icon'] = 'search';
 
-			$sectionLinks['editLink'] = [];
-			$sectionLinks['editLink']['title'] = $spTitle->getEditURL();
-			$sectionLinks['editLink']['msg'] = wfMessage( 'edit' )
-				->inContentLanguage()
-				->text();
-			$sectionLinks['editLink']['icon'] = 'edit';
+			if ( $permissionManager->userCan( 'edit', $user, $spTitle ) ) {
+				$sectionLinks['editLink'] = [];
+				$sectionLinks['editLink']['title'] = $spTitle->getEditURL();
+				$sectionLinks['editLink']['msg'] = wfMessage( 'edit' )
+					->inContentLanguage()
+					->text();
+				$sectionLinks['editLink']['icon'] = 'edit';
+			}
 		}
 		foreach ( $sectionLinks as $sectionLink ) {
 			$sectionLinksText .= $this->makeEditSectionLink(

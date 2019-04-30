@@ -176,13 +176,14 @@ class SpecialCreateCollaborationHub extends FormSpecialPage {
 		}
 
 		$user = $this->getUser();
+		$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
 		// TODO: Consider changing to getUserPermissionsErrors for
 		// better error message. Possibly as a first step in constructor
 		// as the non-title specific error.
 		if (
-			!$title->userCan( 'edit', $user ) ||
-			!$title->userCan( 'create', $user ) ||
-			!$title->userCan( 'editcontentmodel', $user )
+			!$permissionManager->userCan( 'editcontentmodel', $user, $title ) ||
+			!$permissionManager->userCan( 'create', $user, $title ) ||
+			!$permissionManager->userCan( 'edit', $user, $title )
 		) {
 			return Status::newFatal( 'collaborationkit-createhub-nopermission' );
 		}
