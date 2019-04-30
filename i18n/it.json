@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
-			"Margherita.mignanelli"
+			"Margherita.mignanelli",
+			"Ghebbro"
 		]
 	},
 	"collaborationkit-createhub-title": "Titolo della pagina",
@@ -10,6 +11,7 @@
 	"collaborationkit-createhub-exists": "Esiste già una pagina con il titolo indicato.",
 	"collaborationkit-createhubfeature-icon": "Icona",
 	"collaborationkit-createhubfeature-contenttype": "Che tipo di pagina è questa?",
+	"collaborationkit-createhubfeature-nopermission-contentmodel": "Non hai i permessi per creare una configurazione con questo modello di contenuto.",
 	"collaborationkit-createhubfeature-articlelist": "Elenco di pagine",
 	"collaborationkit-iconlist-columnheader-icon": "Icona",
 	"collaborationkit-iconlist-columnheader-iconname": "Nome icona",
@@ -41,6 +43,7 @@
 	"collaborationkit-hub-announcements-initial": "E' stato impostato un nuovo centro di collaborazione!",
 	"collaborationkit-hub-members-view": "Visualizza elenco completo",
 	"collaborationkit-hub-missingpage-note": "Questa configurazione non esiste. Puoi creare una nuova configurazione usando il tasto qui sotto. Se hai appena creato una configurazione e stai ancora vedendo questo messaggio, pulisci la cache.",
+	"collaborationkit-hub-missingpage-protected-note": "Questa configurazione probabilmente non esiste, e ne è impedita la creazione. Oppure potresti provare a ripulire la cache.",
 	"collaborationkit-hub-pagetitle-members": "Membri",
 	"collaborationkit-hub-toc-label": "Caratteristiche del progetto",
 	"collaborationkit-hub-manage": "Centro di gestione",

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"佛壁灯"
+			"佛壁灯",
+			"A Chinese Wikipedian"
 		]
 	},
 	"collaborationkit-desc": "用于构建维基专题和wiki上协作工作区的工具",
@@ -24,6 +25,7 @@
 	"collaborationkit-createhubfeature-exists": "已存在您指定标题的页面。",
 	"collaborationkit-createhubfeature-nopermission": "您没有权限使用此标题创建功能。",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "不存在此标题的协作中心。",
+	"collaborationkit-createhubfeature-nopermission-contentmodel": "您没有用此内容模型创建功能的权限。",
 	"collaborationkit-createhubfeature-hubisnotahub": "您指定的页面不是协作中心。",
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ 正在添加",
 	"collaborationkit-createhubfeature-invalidcontenttype": "此内容模型目前不允许作为功能。",
@@ -80,6 +82,7 @@
 	"collaborationkit-hub-members-signup": "加入",
 	"collaborationkit-hub-members-view": "查看完整列表",
 	"collaborationkit-hub-missingpage-note": "此功能不存在。您可以使用下面的按钮创建新的功能。如果您刚刚创建了功能，而您仍然看到这条消息的话，请尝试刷新缓存。",
+	"collaborationkit-hub-missingpage-protected-note": "特征很可能不存在并且已被白纸保护。您也可以尝试清除缓存。",
 	"collaborationkit-hub-missingpage-create": "创建功能",
 	"collaborationkit-hub-missingpage-purgecache": "刷新缓存",
 	"collaborationkit-hub-pagetitle-members": "成员",
