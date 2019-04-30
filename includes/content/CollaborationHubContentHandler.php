@@ -183,4 +183,100 @@ JSON;
 		}
 		return Status::newGood();
 	}
+
+	/**
+	 * Post-parse out our button markers for uncachable permissions-dependent actions and stuff
+	 *
+	 * @param ParserOutput $parserOutput
+	 * @param string &$text The text being transformed, before core transformations are done
+	 * @param array &$options The options array being used for the transformation.
+	 */
+	public static function onParserOutputPostCacheTransform( $parserOutput, &$text, &$options ) {
+		// TODO: You know, maybe not blindly do this on every getText ever...
+
+		// This is a tad dumb, but if it doesn't follow this format exactly it didn't come
+		// from here anyway. Or we broke it. Either or.
+		$regex = '#<ext:ck:editmarker page="(.*?)"target="(.*?)"message="(.*?)"link="(.*?)"'
+			. 'classes="(.*?)"icon="(.*?)"framed="(.*?)"primary="(.*?)"'
+			. '(.*?)/>#s';
+		$text = preg_replace_callback(
+			$regex,
+			function ( $m ) {
+				$user = RequestContext::getMain()->getUser();
+				$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
+
+				$currentPage = Title::newFromText( htmlspecialchars_decode( $m[1] ) );
+				$targetPage = Title::newFromText( htmlspecialchars_decode( $m[2] ) );
+
+				if ( $permissionManager->userCan( 'edit', $user, $targetPage ) ) {
+					$message = htmlspecialchars_decode( $m[3] );
+
+					// more checks for various combinations of pages we need to
+					// edit/create
+					// in particular we need to be able to both create a new
+					// subpage AND edit currentpage to flat-out add a new
+					// feature...
+					if ( !$targetPage->exists() && (
+						!$permissionManager->userCan( 'create', $user, $targetPage ) || (
+							$message === 'collaborationkit-hub-addpage' &&
+							!$permissionManager->userCan( 'edit', $user, $currentPage )
+						)
+					) ) {
+						return '';
+					}
+
+					$link = $m[4];
+					$classes = $m[5];
+
+					$icon = null;
+					if ( $m[6] !== '0' ) {
+						$icon = htmlspecialchars_decode( $m[6] );
+					}
+
+					$framed = false;
+					if ( $m[7] === '1' ) {
+						$framed = true;
+					}
+
+					$flags = [ 'progressive' ];
+					if ( $m[8] === '1' ) {
+						$flags[] = 'primary';
+					}
+
+					return new OOUI\ButtonWidget( [
+						'label' => wfMessage( $message )->inContentLanguage()->text(),
+						'href' => $link,
+						'framed' => $framed,
+						'icon' => $icon,
+						'flags' => $flags,
+						'classes' => [ $classes ]
+					] );
+				}
+
+				return '';
+			},
+			$text
+		);
+
+		// missing page message
+		$text = preg_replace_callback(
+			'#<ext:ck:missingfeature-note target="(.*?)"(.*?)/>#s',
+			function ( $m ) {
+				$user = RequestContext::getMain()->getUser();
+				$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
+				$targetPage = Title::newFromText( htmlspecialchars_decode( $m[1] ) );
+
+				if ( $permissionManager->userCan( 'create', $user, $targetPage ) ) {
+					return wfMessage( 'collaborationkit-hub-missingpage-note' )
+						->inContentLanguage()
+						->parse();
+				} else {
+					return wfMessage( 'collaborationkit-hub-missingpage-protected-note' )
+						->inContentLanguage()
+						->parse();
+				}
+			},
+			$text
+		);
+	}
 }
