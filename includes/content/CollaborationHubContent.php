@@ -864,7 +864,7 @@ class CollaborationHubContent extends JsonContent {
 	 * Helper function for fillParserOutput for making various action links
 	 * (editsection links, purge cache buttons, whatever)
 	 *
-	 * @param string $title Target page
+	 * @param Title $title Target page
 	 * @param string $message Message to display
 	 * @param array $setOptions of a bunch of options, mostly to forward to the OOUI button
 	 * (see defaults below)
