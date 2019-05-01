@@ -66,6 +66,7 @@ class CollaborationHubTOC {
 			$linkTarget = Title::newFromText( '#'
 				. $this->getToCLinkID( $displayTitle )
 			);
+			/** @phan-suppress-next-line PhanTypeArraySuspicious */
 			$image = $item['image'] ?? null;
 
 			$link = CollaborationKitImage::makeImage(
@@ -145,8 +146,7 @@ class CollaborationHubTOC {
 			} else {
 				$itemDisplayTitle = $itemTitle->getSubpageText();
 			}
-			$itemImage = isset( $item['image'] ) ?
-				$item['image'] : $itemDisplayTitle;
+			$itemImage = $item['image'] ?? $itemDisplayTitle;
 
 			$itemLink = CollaborationKitImage::makeImage(
 				$itemImage,
