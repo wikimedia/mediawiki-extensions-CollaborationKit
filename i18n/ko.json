@@ -59,6 +59,7 @@
 	"collaborationkit-hub-members-signup": "가입하기",
 	"collaborationkit-hub-members-view": "전체 목록 보기",
 	"collaborationkit-hub-missingpage-note": "이 기능은 존재하지 않습니다. 아래의 버튼을 사용하여 새로운 기능을 만들 수 있습니다. 이 기능을 방금 만들었는데도 이 메시지가 나타난 경우 캐시를 새로 고쳐 보십시오.",
+	"collaborationkit-hub-missingpage-protected-note": "이 기능은 존재하지 않을 가능성이 있어 생성이 보호되어 있습니다. 캐시를 새로 고쳐보십시오.",
 	"collaborationkit-hub-missingpage-create": "기능 만들기",
 	"collaborationkit-hub-missingpage-purgecache": "캐시 새로 고침",
 	"collaborationkit-hub-pagetitle-members": "구성원",
