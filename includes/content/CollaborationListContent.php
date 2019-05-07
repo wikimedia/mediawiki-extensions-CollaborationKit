@@ -377,7 +377,6 @@ class CollaborationListContent extends JsonContent {
 					}
 					$adjustedIconWidth = $iconWidth * 1.3;
 					$text .= Html::openElement( 'div', [
-						'style' => "height:{$adjustedIconWidth}px; min-height:{$adjustedIconWidth}px",
 						'class' => 'mw-ck-list-item',
 						'data-collabkit-item-title' => $item->title,
 						'data-collabkit-item-id' => $colId . '-' . $itemCounter,
@@ -462,11 +461,11 @@ class CollaborationListContent extends JsonContent {
 	 * @param string $definedImage The filename given in the list item
 	 * @param string $displayMode Type of list (members or otherwise)
 	 * @param Title $title Title object of the list item
-	 * @param int $size The width of the icon image. Default is 64px;
+	 * @param int $size The width of the icon image. Default is 32px;
 	 * @return string HTML
 	 */
 	protected static function generateImage( $definedImage, $displayMode, $title,
-		$size = 64
+		$size = 32
 	) {
 		$size = (int)$size;  // Just in case
 		$image = null;
@@ -570,7 +569,7 @@ class CollaborationListContent extends JsonContent {
 			'mode' => 'normal',
 			'columns' => [],
 			'showColumnHeaders' => true,
-			'iconWidth' => 64
+			'iconWidth' => 32
 		];
 	}
 

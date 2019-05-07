@@ -16,35 +16,6 @@
 	}
 }
 
-.mw-ck-list-item:after {
-	content: '';
-	background: linear-gradient( to bottom, transparent, #fff );
-	height: 50%;
-	width: 100%;
-	margin-left: 68px;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-}
-
-.mw-ck-hub-members .mw-ck-list-item:after {
-	background: linear-gradient( to bottom, transparent, #f9f9f9 );
-}
-
-.mw-ck-list-item:hover {
-	height: auto !important;
-	overflow: visible;
-
-	.mw-ck-list-buttonrow {
-		display: block;
-	}
-}
-
-/* Removes the fadeout effect */
-.mw-ck-list-item:hover:after {
-	display: none;
-}
-
 .mw-ck-list-image {
 	.grey();
 	float: left;
@@ -61,7 +32,7 @@
 }
 
 .mw-ck-list-container {
-	padding-left: 10px;
+	padding: 5px 10px 0.5em;
 	display: table-cell;
 	line-height: 1.2;
 }
