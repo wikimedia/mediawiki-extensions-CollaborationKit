@@ -1,25 +1,56 @@
 @import 'ext.CollaborationKit.mixins.less';
 
-.mw-ck-hub-topform {
-	display: flex;
-	width: 100%;
-	max-width: 50em;
-}
-
 .mw-ck-hubtheme-widget {
 	float: left;
 	display: inline-table;
 	padding-right: 2em;
+
+	.oo-ui-fieldLayout-header {
+		margin-bottom: 0.25em;
+	}
 }
 
-.mw-collabkit-modifiededitform {
-	.mw-ck-hubtheme-widget .oo-ui-fieldLayout-header {
-		padding-bottom: 0.3125em;
+.mw-collabkit-modifiededitform .mw-ck-hubtheme-widget {
+	margin-bottom: 0.75em;
+}
+
+.ck-createcollaborationhub-block {
+	clear: both;
+}
+
+// editform
+.mw-htmlform-field-HTMLTextField {
+	float: left;
+}
+
+// specialcreate
+.ck-createcollaborationhub-setup {
+	.oo-ui-fieldsetLayout-group {
+		clear: none;
+		float: left;
+		width: 80%;
+	}
+
+	.mw-widget-complexTitleInputWidget .mw-widget-namespaceInputWidget {
+		max-width: 13em;
+	}
+
+	.mw-widget-complexTitleInputWidget .mw-widget-titleInputWidget {
+		max-width: 25em;
+	}
+
+	.mw-ck-display-input .oo-ui-textInputWidget {
+		max-width: 38.5em;
+	}
+
+	.oo-ui-inline-help {
+		max-width: 41.5em;
 	}
 }
 
 .mw-ck-hubtheme-widget-help {
 	float: right;
+	margin-top: -0.5em;
 }
 
 .mw-ck-hubtheme-widget-inlinebutton {
@@ -35,19 +66,24 @@
 	border-bottom: 0;
 	border-radius: 0 2px 2px 0;
 
-	a span {
-		// wtf?
-		width: 35px !important;
-		height: 35px !important;
-		left: 0 !important;
-	}
-
 	&:hover,
 	&:active {
 		border: solid 1px #72777d;
 		border-right: 0;
 		border-bottom: 0;
 		opacity: 0.9;
+	}
+
+	&.oo-ui-buttonElement-frameless.oo-ui-iconElement > .oo-ui-buttonElement-button > .oo-ui-iconElement-icon {
+		left: 0;
+	}
+
+	&.oo-ui-buttonElement-frameless.oo-ui-iconElement > a.oo-ui-buttonElement-button,
+	span.oo-ui-iconElement-icon {
+		padding: 0;
+		width: 32px;
+		height: 32px;
+		left: 0;
 	}
 }
 
@@ -80,10 +116,6 @@
 	border: solid 1px #a2a9b1;
 	border-radius: 3px;
 	position: relative;
-}
-
-.mw-ck-hub-name {
-	flex-grow: 1;
 }
 
 .mw-ck-colourblock-container {

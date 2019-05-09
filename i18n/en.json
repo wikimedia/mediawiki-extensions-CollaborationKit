@@ -10,6 +10,7 @@
 	"collaborationkiticons": "CollaborationKit icon directory",
 	"createcollaborationhub": "Create new Collaboration Hub",
 	"createhubfeature": "Create a new Collaboration Hub feature",
+	"collaborationkit-createhub-submit": "Create Hub",
 	"collaborationkit-createhub-title": "Page title",
 	"collaborationkit-createhub-invalidtitle": "The specified title is invalid.",
 	"collaborationkit-createhub-exists": "A page already exists with the specified title.",

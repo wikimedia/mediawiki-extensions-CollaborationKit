@@ -54,10 +54,10 @@ class CollaborationHubContent extends JsonContent {
 	 */
 	public static function getThemeColours() {
 		return [
+			'lightgrey',
+			'darkgrey',
 			'darkred',
 			'red',
-			'darkgrey',
-			'lightgrey',
 			'skyblue',
 			'blue',
 			'bluegrey',
