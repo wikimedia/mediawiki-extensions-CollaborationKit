@@ -40,8 +40,10 @@ class CollaborationHubContentEditor extends EditPage {
 	 * @return string html
 	 */
 	protected function getFormFields( $parts ) {
-		$fields = [
-			'display_name' => [
+		$fields = [ [], [] ];
+
+		$fields[0] = [
+			'displayname' => [
 				'type' => 'text',
 				'cssclass' => 'mw-ck-display-input',
 				'label-message' => 'collaborationkit-hubedit-displayname',
@@ -79,7 +81,7 @@ class CollaborationHubContentEditor extends EditPage {
 		} else {
 			$selectedColour = $parts[4];
 		}
-		$fields['colour'] = [
+		$fields[0]['colour'] = [
 			'type' => 'select',
 			'cssclass' => 'mw-ck-colour-input',
 			'name' => 'wpCollabHubColour',
@@ -91,7 +93,7 @@ class CollaborationHubContentEditor extends EditPage {
 
 		$this->colour = $selectedColour;
 
-		$fields['introduction'] = [
+		$fields[1]['introduction'] = [
 			'type' => 'textarea',
 			'cssclass' => 'mw-ck-introduction-input',
 			'label-message' => 'collaborationkit-hubedit-introduction',
@@ -107,7 +109,7 @@ class CollaborationHubContentEditor extends EditPage {
 		} else {
 			$includedContent = $parts[5];
 		}
-		$fields['content'] = [
+		$fields[1]['content'] = [
 			'type' => 'textarea',
 			'cssclass' => 'mw-ck-content-input',
 			'label-message' => 'collaborationkit-hubedit-content',
@@ -118,7 +120,7 @@ class CollaborationHubContentEditor extends EditPage {
 			'id' => 'wpCollabHubContent'
 		];
 
-		$fields['footer'] = [
+		$fields[1]['footer'] = [
 			'type' => 'textarea',
 			'cssclass' => 'mw-ck-footer-input',
 			'label-message' => 'collaborationkit-hubedit-footer',
@@ -129,9 +131,11 @@ class CollaborationHubContentEditor extends EditPage {
 			'id' => 'wpCollabHubFooter'
 		];
 
-		$dummyForm = HTMLForm::factory( 'ooui', $fields, $this->getContext() );
+		$dummyForm1 = HTMLForm::factory( 'ooui', $fields[0], $this->getContext() );
+		$dummyForm2 = HTMLForm::factory( 'ooui', $fields[1], $this->getContext() );
 
-		return $dummyForm->prepareForm()->getBody();
+		return [ $dummyForm1->prepareForm()->getBody(),
+			$dummyForm2->prepareForm()->getBody() ];
 	}
 
 	/**
@@ -176,8 +180,18 @@ class CollaborationHubContentEditor extends EditPage {
 		$out->addHTML( Html::rawElement(
 			'div',
 			[ 'class' => 'mw-collabkit-modifiededitform' ],
-			$partFields
-		) );
+				Html::rawElement(
+					'div',
+					[ 'class' => 'ck-createcollaborationhub-setup' ],
+					$partFields[0]
+				) .
+				Html::rawElement(
+					'div',
+					[ 'class' => 'ck-createcollaborationhub-block' ],
+					$partFields[1]
+				)
+			)
+		);
 	}
 
 	/**

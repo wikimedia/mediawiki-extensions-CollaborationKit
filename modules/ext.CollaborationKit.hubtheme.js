@@ -199,11 +199,11 @@
 		if ( mw.config.get( 'wgTitle' ) !== undefined ) {
 			defaultSearchTerm = mw.config.get( 'wgTitle' );
 		}
-		wpTitle = $( 'input[name=wptitle]' ).val();
+		wpTitle = $( 'input[name=titletext]' ).val();
 		if ( wpTitle !== '' && wpTitle !== undefined ) {
 			defaultSearchTerm = wpTitle;
 		}
-		wpDisplay = $( 'input[name=wpdisplay_name]' ).val();
+		wpDisplay = $( 'input[name=displayname]' ).val();
 		if ( wpDisplay !== '' && wpDisplay !== undefined ) {
 			defaultSearchTerm = wpDisplay;
 		}
@@ -323,7 +323,6 @@
 		$( '.mw-ck-hub-image-input' ).css( 'display', 'none' );
 
 		// Setting up
-		$( '.mw-htmlform-ooui-header' ).append( '<div class="mw-ck-hub-topform"></div>' );
 		$( '.mw-collabkit-modifiededitform' ).prepend( '<div class="mw-ck-hub-topform"></div>' );
 
 		hubthemeWidget = $( '<div class="mw-ck-hubtheme-widget"></div>' )
@@ -351,14 +350,8 @@
 				)
 			);
 
-		$( '.mw-ck-hub-topform' ).append( hubthemeWidget );
-		$( '.mw-ck-hub-topform' ).append( '<div class="mw-ck-hub-name"></div>' );
-		$( '.mw-htmlform-field-HTMLSelectField.mw-ck-namespace-input' )
-			.attr( 'class', 'mw-htmlform-field-HTMLSelectField mw-ck-namespace-input-js' )
-			.append( $( '.mw-htmlform-field-HTMLTextField.mw-ck-title-input' ) );
-		$( '.mw-ck-hub-name' )
-			.append( $( '.mw-htmlform-field-HTMLSelectField.mw-ck-namespace-input-js' ) )
-			.append( $( '.mw-htmlform-field-HTMLTextField.mw-ck-display-input' ) );
+		$( '.mw-ck-hub-topform' ).prepend( hubthemeWidget );
+
 	};
 
 	$( setupPage );

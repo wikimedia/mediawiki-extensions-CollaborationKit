@@ -112,6 +112,9 @@
 		"ext.CollaborationKit.createhubfeature.styles": {
 			"styles": "ext.CollaborationKit.createhubfeature.styles.less"
 		},
+		"ext.CollaborationKit.createhub.styles": {
+			"styles": "ext.CollaborationKit.createhub.styles.less"
+		},
 		"ext.CollaborationKit.iconbrowser": {
 			"scripts": "ext.CollaborationKit.iconbrowser.js",
 			"dependencies": [

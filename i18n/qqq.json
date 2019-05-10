@@ -14,6 +14,7 @@
 	"collaborationkiticons": "Header for Special:CollaborationKitIcons",
 	"createcollaborationhub": "Header for Special:CreateCollaborationHub",
 	"createhubfeature": "Header for Special:CreateHubFeature. Hubs are the WikiProject pages as a whole, and \"features\" are the sections inside them.",
+	"collaborationkit-createhub-submit": "Label for submit button on Special:CreateCollaborationHub",
 	"collaborationkit-createhub-title": "Label for target page title input on Special:CreateCollaborationHub\n{{Identical|Page title}}",
 	"collaborationkit-createhub-invalidtitle": "Error message for an invalid title",
 	"collaborationkit-createhub-exists": "Error message for attempting to create a page that already exists",
