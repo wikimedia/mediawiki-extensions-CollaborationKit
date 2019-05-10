@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Piramidion",
-			"Vlad5250"
+			"Vlad5250",
+			"Ата"
 		]
 	},
 	"collaborationkit-desc": "Інструменти для створення вікіпроектів та робочих просторів для співпраці в межах вікі",
@@ -24,6 +25,7 @@
 	"collaborationkit-createhubfeature-exists": "Сторінка із вказаною Вами назвою вже існує.",
 	"collaborationkit-createhubfeature-nopermission": "У Вас немає дозволу на створення функції з цією назвою.",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "Немає центру співпраці з такою назвою.",
+	"collaborationkit-createhubfeature-nopermission-contentmodel": "У вас немає дозволу на створення функції з такою моделлю вмісту.",
 	"collaborationkit-createhubfeature-hubisnotahub": "Вказана Вами сторінка не є центром співпраці.",
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Додавання",
 	"collaborationkit-createhubfeature-invalidcontenttype": "Використання цієї контентної моделі для функцій наразі недоступне.",
@@ -80,6 +82,7 @@
 	"collaborationkit-hub-members-signup": "Приєднатись",
 	"collaborationkit-hub-members-view": "Переглянути повний список",
 	"collaborationkit-hub-missingpage-note": "Ця функція не існує. Можете створити нову функцію за допомогою кнопки нижче. Якщо Ви щойно створили функцію і все ще бачите це повідомлення, спробуйте очистити кеш.",
+	"collaborationkit-hub-missingpage-protected-note": "Ця функція, імовірно, не існує, і була захищена від створення. Або ж ви можете спробувати очистити кеш.",
 	"collaborationkit-hub-missingpage-create": "Створити функцію",
 	"collaborationkit-hub-missingpage-purgecache": "Очистити кеш",
 	"collaborationkit-hub-pagetitle-members": "Учасники",
