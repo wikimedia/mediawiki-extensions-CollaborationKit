@@ -147,11 +147,11 @@ class CollaborationKitImage {
 
 				$fullHeight = $imageObj->getHeight();
 				$fullWidth = $imageObj->getWidth();
+				$squareWrapperCss = '';
 
 				if ( $squareAdjustmentAxis == 'y' ) {
 					$adjustedWidth = ( $fullWidth * $width ) / $fullHeight;
 					$offset = ceil( -1 * ( ( $adjustedWidth ) - $width ) / 2 );
-					$squareWrapperCss = "margin-left:{$offset}px";
 				} elseif ( $squareAdjustmentAxis == 'x' ) {
 					$adjustedHeight = ( $fullHeight * $width ) / $fullWidth;
 					$offset = ceil( -1 * ( ( $adjustedHeight ) - $width ) / 2 );

@@ -507,7 +507,7 @@ class CollaborationListContent extends JsonContent {
 			$size,
 			[
 				'css' => "width:{$size}px; height:{$size}px;",
-				'classes' => [ 'mw-ck-list-image' ],
+				'classes' => [ 'mw-ck-list-image', 'thumbinner' ],
 				'colour' => $iconColour,
 				'link' => $linkOrNot,
 				'renderAsWikitext' => true,
