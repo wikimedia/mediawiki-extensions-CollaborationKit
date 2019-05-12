@@ -12,6 +12,7 @@
 	"collaborationkiticons": "دليل أيقونة CollaborationKit",
 	"createcollaborationhub": "إنشاء محور تعاون جديد",
 	"createhubfeature": "قم بإنشاء ميزة Coubal Hub جديدة",
+	"collaborationkit-createhub-submit": "إنشاء محور",
 	"collaborationkit-createhub-title": "عنوان الصفحة",
 	"collaborationkit-createhub-invalidtitle": "العنوان المحدد غير صالح.",
 	"collaborationkit-createhub-exists": "توجد صفحة بالفعل بالعنوان المحدد.",

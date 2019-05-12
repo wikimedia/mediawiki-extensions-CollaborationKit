@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"GR",
-			"Nikosgranturismogt"
+			"Nikosgranturismogt",
+			"Geraki"
 		]
 	},
 	"collaborationkit-createhub-title": "Τίτλος σελίδας",
@@ -32,8 +33,8 @@
 	"collaborationkit-list-move-popup-title": "Η σελίδα αποθηκεύτηκε",
 	"collaborationkit-list-newitem-title": "Προσθήκη στοιχείου στη λίστα",
 	"collaborationkit-list-newitem-label": "Προσθήκη στον κατάλογο",
-	"collaborationkit-list-newitem-page": "Σελίδα για προσθήκη",
-	"collaborationkit-list-newitem-user": "Χρήστης για προσθήκη",
+	"collaborationkit-list-newitem-page": "Όνομα σελίδας",
+	"collaborationkit-list-newitem-user": "Όνομα χρήστη",
 	"collaborationkit-list-newitem-image": "Εικόνα για χρήση (προαιρετική)",
 	"collaborationkit-list-newitem-description": "Περιγραφή (προαιρετική)",
 	"collaborationkit-listedit-description": "Περιγραφή",

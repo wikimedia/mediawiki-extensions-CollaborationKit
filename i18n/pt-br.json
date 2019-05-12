@@ -10,6 +10,7 @@
 	"collaborationkiticons": "Diretório de ícones CollaborationKit",
 	"createcollaborationhub": "Criar novo Centro de Colaboração",
 	"createhubfeature": "Crie um novo recurso do Centro de colaboração",
+	"collaborationkit-createhub-submit": "Criar Hub",
 	"collaborationkit-createhub-title": "Título da página",
 	"collaborationkit-createhub-invalidtitle": "O título especificado é inválido.",
 	"collaborationkit-createhub-exists": "Já existe uma página com o título especificado.",

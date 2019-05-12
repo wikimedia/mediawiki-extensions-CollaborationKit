@@ -3,13 +3,15 @@
 		"authors": [
 			"Gomoko",
 			"Wladek92",
-			"Aboulouei1"
+			"Aboulouei1",
+			"Epok"
 		]
 	},
 	"collaborationkit-desc": "Outils pour la construction de projets Wiki et d'espaces de travail collaboratifs wiki.",
 	"collaborationkiticons": "Répertoire de l’icône CollaborationKit",
 	"createcollaborationhub": "Créer un nouveau hub de collaboration",
 	"createhubfeature": "Créer une nouvelle fonctionnalité de Centre de Collaboration",
+	"collaborationkit-createhub-submit": "Créer le hub",
 	"collaborationkit-createhub-title": "Titre de la page",
 	"collaborationkit-createhub-invalidtitle": "Le titre spécifié est invalide.",
 	"collaborationkit-createhub-exists": "Une page portant le titre spécifié existe déjà.",

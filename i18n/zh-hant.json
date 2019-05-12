@@ -11,6 +11,7 @@
 	"collaborationkiticons": "CollaborationKit 圖標目錄",
 	"createcollaborationhub": "建立新的協作中心",
 	"createhubfeature": "建立新的協作中心功能",
+	"collaborationkit-createhub-submit": "建立中心",
 	"collaborationkit-createhub-title": "頁面標題",
 	"collaborationkit-createhub-invalidtitle": "指定的標題無效。",
 	"collaborationkit-createhub-exists": "指定標題的頁面已存在。",

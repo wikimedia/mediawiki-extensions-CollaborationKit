@@ -3,9 +3,11 @@
 		"authors": [
 			"Beta16",
 			"Margherita.mignanelli",
-			"Ghebbro"
+			"Ghebbro",
+			"Marcok"
 		]
 	},
+	"collaborationkit-createhub-submit": "Crea Hub",
 	"collaborationkit-createhub-title": "Titolo della pagina",
 	"collaborationkit-createhub-invalidtitle": "Il titolo specificato non è valido.",
 	"collaborationkit-createhub-exists": "Esiste già una pagina con il titolo indicato.",

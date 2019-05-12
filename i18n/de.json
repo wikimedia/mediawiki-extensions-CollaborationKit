@@ -8,6 +8,7 @@
 	"collaborationkiticons": "CollaborationKit-Symbolverzeichnis",
 	"createcollaborationhub": "Neuen Kollaborationsknoten erstellen",
 	"createhubfeature": "Eine neue Kollaborationsknoten-Funktion erstellen",
+	"collaborationkit-createhub-submit": "Hub erstellen",
 	"collaborationkit-createhub-title": "Seitentitel",
 	"collaborationkit-createhub-invalidtitle": "Der angegebene Titel ist ungültig.",
 	"collaborationkit-createhub-exists": "Eine Seite ist bereits mit dem angegebenen Titel vorhanden.",
