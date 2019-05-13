@@ -190,9 +190,14 @@ JSON;
 	 * @param ParserOutput $parserOutput
 	 * @param string &$text The text being transformed, before core transformations are done
 	 * @param array &$options The options array being used for the transformation.
+	 *
+	 * @return bool
 	 */
 	public static function onParserOutputPostCacheTransform( $parserOutput, &$text, &$options ) {
-		// TODO: You know, maybe not blindly do this on every getText ever...
+		// Maybe not blindly do this on every getText ever
+		if ( !$parserOutput->getExtensionData( 'ck-editmarkers' ) ) {
+			return true;
+		}
 
 		// This is a tad dumb, but if it doesn't follow this format exactly it didn't come
 		// from here anyway. Or we broke it. Either or.

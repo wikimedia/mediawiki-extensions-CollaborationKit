@@ -264,6 +264,10 @@ class CollaborationHubContent extends JsonContent {
 			$revId
 		);
 
+		// Let's just assume we'll probably need this...
+		// (tells our ParserOutputPostCacheTransform hook to look for post-cache buttons etc)
+		$output->setExtensionData( 'ck-editmarkers', true );
+
 		// Change $options a bit for the rest of this
 		// We may or may not want limit reporting for every piece; we can put this back on
 		// later if it turns out we actually do (and only disable it for the header/footer,
