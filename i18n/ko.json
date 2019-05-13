@@ -6,6 +6,7 @@
 		]
 	},
 	"collaborationkiticons": "CollaborationKit 아이콘 디렉터리",
+	"collaborationkit-createhub-submit": "허브 만들기",
 	"collaborationkit-createhub-title": "페이지 제목",
 	"collaborationkit-createhub-invalidtitle": "지정된 제목이 올바르지 않습니다.",
 	"collaborationkit-createhub-exists": "이미 지정한 제목의 문서가 존재합니다.",
