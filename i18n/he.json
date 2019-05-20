@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"Erelon"
 		]
 	},
 	"collaborationkit-desc": "כלים לבניית מיזמי ויקי ומרחבי עבודה על ויקי",
@@ -62,6 +63,7 @@
 	"collaborationkit-list-newitem-user": "איזה משתמש להוסיף",
 	"collaborationkit-list-newitem-image": "באיזו תמונה להשתמש (לא חובה)",
 	"collaborationkit-list-newitem-description": "תיאור (לא חובה)",
+	"collaborationkit-list-edititem-label": "עדכון",
 	"collaborationkit-listedit-description": "תיאור",
 	"collaborationkit-listedit-list": "רשימת פריטים",
 	"collaborationkit-hubedit-displayname": "שם המרכז לתצוגה",
