@@ -10,6 +10,7 @@
 	"collaborationkiticons": "Каталог іконок CollaborationKit",
 	"createcollaborationhub": "Створити новий центр співпраці",
 	"createhubfeature": "Створити нову функцію центру співпраці",
+	"collaborationkit-createhub-submit": "Створити габ",
 	"collaborationkit-createhub-title": "Назва сторінки",
 	"collaborationkit-createhub-invalidtitle": "Вказана назва недійсна.",
 	"collaborationkit-createhub-exists": "Сторінка з такою назвою вже існує.",
