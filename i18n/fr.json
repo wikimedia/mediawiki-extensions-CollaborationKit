@@ -38,7 +38,7 @@
 	"collaborationkit-iconlist-columnheader-icon": "Icône",
 	"collaborationkit-iconlist-columnheader-iconname": "Nom de l’icône",
 	"collaborationkit-list-isempty": "Cette liste n'a ni colonnes ni éléments.",
-	"collaborationkit-list-emptycolumn": "Cette colonne n'a aucun élément.",
+	"collaborationkit-list-emptycolumn": "Cette colonne ne contient aucun élément.",
 	"collaborationkit-list-invalid": "Ce contenu ne répond pas aux exigences du schéma CollaborationListContent. Cela peut être la conséquence d’une mise à jour logicielle. Le contenu est reproduit ci-dessous.",
 	"collaborationkit-list-notlist": "[[$1]] n’est pas une page de Liste de collaboration",
 	"collaborationkit-list-taglist": "<strong>{{PLURAL:$2|Etiqueté:|Etiquettes:}}</strong> $1",
