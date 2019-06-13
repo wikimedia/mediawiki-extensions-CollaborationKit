@@ -1,15 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Mjälten"
 		]
 	},
+	"collaborationkit-createhub-title": "Sidtitel",
 	"collaborationkit-createhub-exists": "En sida finns redan med angiven titel.",
 	"collaborationkit-createhub-confirm": "Ja, skriv över aktuellt sidinnehåll",
 	"collaborationkit-createhub-confirmheader": "Det finns redan en sida med denna titel. Om du bekräftar nedan kommer innehållet för sidan att skrivas över. Vill du fortsätta?",
+	"collaborationkit-createhubfeature-icon": "Ikon",
+	"collaborationkit-createhubfeature-articlelist": "Lista över sidor",
 	"collaborationkit-iconlist-columnheader-icon": "Ikon",
 	"collaborationkit-iconlist-columnheader-iconname": "Ikonnamn",
 	"collaborationkit-list-delete-popup": "Sparades: $1 raderades från listan.",
+	"collaborationkit-list-add-self": "Bli med i projektet",
 	"collaborationkit-list-error-editconflict": "En redigeringskonflikt uppstod och din ändring sparades inte. Uppdatera sidan och försök igen.",
 	"collaborationkit-list-error-couldnotgetpage": "Sidan misslyckades att läsas in. Uppdatera sidan och försök igen.",
 	"collaborationkit-list-error-generic": "Ett fel uppstod. Uppdatera sidan och försök igen.",
@@ -18,10 +23,18 @@
 	"collaborationkit-list-newitem-user": "Användarnamn",
 	"collaborationkit-list-edititem-title": "Redigera objekt",
 	"collaborationkit-list-edititem-label": "Uppdatera",
+	"collaborationkit-listedit-list": "Listelement",
+	"collaborationkit-hubedit-introduction": "Introduktion",
+	"collaborationkit-hubedit-footer": "Sidfot",
 	"collaborationkit-hub-missingpage-purgecache": "Rensa cachen",
 	"collaborationkit-darkgrey": "Mörkgrå",
 	"collaborationkit-lightgrey": "Ljusgrå",
 	"collaborationkit-bluegrey": "Blågrå",
+	"collaborationkit-orange": "Orange",
+	"collaborationkit-yellow": "Gul",
+	"collaborationkit-gold": "Guld",
+	"collaborationkit-pastelyellow": "Pastellgul",
+	"collaborationkit-forestgreen": "Skogsgrön",
 	"collaborationkit-createhub-title-placeholder": "Nytt projekt",
 	"collaborationkit-createhubfeature-icon-help": "Välj från de inkluderade ikonerna."
 }
