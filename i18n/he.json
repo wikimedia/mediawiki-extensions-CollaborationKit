@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Erelon"
+			"Erelon",
+			"Steeve815"
 		]
 	},
 	"collaborationkit-desc": "כלים לבניית מיזמי ויקי ומרחבי עבודה על ויקי",
@@ -59,10 +60,11 @@
 	"collaborationkit-list-move-popup-title": "הדף נשמר",
 	"collaborationkit-list-newitem-title": "הוספת פריט לרשימה",
 	"collaborationkit-list-newitem-label": "הוספה לרשימה",
-	"collaborationkit-list-newitem-page": "איזה דף להוסיף",
-	"collaborationkit-list-newitem-user": "איזה משתמש להוסיף",
+	"collaborationkit-list-newitem-page": "שם הדף",
+	"collaborationkit-list-newitem-user": "שם המשתמש",
 	"collaborationkit-list-newitem-image": "באיזו תמונה להשתמש (לא חובה)",
 	"collaborationkit-list-newitem-description": "תיאור (לא חובה)",
+	"collaborationkit-list-edititem-title": "עריכת פריט",
 	"collaborationkit-list-edititem-label": "עדכון",
 	"collaborationkit-listedit-description": "תיאור",
 	"collaborationkit-listedit-list": "רשימת פריטים",
