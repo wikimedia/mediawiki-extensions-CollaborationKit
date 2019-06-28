@@ -32,9 +32,9 @@
 		"CollaborationListContent": "includes/content/CollaborationListContent.php",
 		"CollaborationListContentHandler": "includes/content/CollaborationListContentHandler.php",
 		"CollaborationListContentEditor": "includes/CollaborationListContentEditor.php",
-		"SpecialCreateCollaborationHub": "includes/SpecialCreateCollaborationHub.php",
-		"SpecialCreateHubFeature": "includes/SpecialCreateHubFeature.php",
-		"SpecialCollaborationKitIcons": "includes/SpecialCollaborationKitIcons.php",
+		"SpecialCreateCollaborationHub": "includes/specials/SpecialCreateCollaborationHub.php",
+		"SpecialCreateHubFeature": "includes/specials/SpecialCreateHubFeature.php",
+		"SpecialCollaborationKitIcons": "includes/specials/SpecialCollaborationKitIcons.php",
 		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php"
 	},
 	"ContentHandlers": {
