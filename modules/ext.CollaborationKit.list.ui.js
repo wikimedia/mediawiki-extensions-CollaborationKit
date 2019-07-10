@@ -164,8 +164,7 @@
 		} else {
 			this.titleWidget = new mw.widgets.TitleInputWidget( {
 				label: mw.msg( 'collaborationkit-list-newitem-page' ),
-				validateTitle: false, // we want people to be able to put anything.
-				showRedlink: true
+				validateTitle: false // we want people to be able to put anything
 				// Maybe should also showDescriptions and showImages
 			} );
 			if ( this.itemTitle ) {
