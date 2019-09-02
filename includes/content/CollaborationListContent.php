@@ -528,12 +528,11 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public function convert( $toModel, $lossy = '' ) {
 		if ( $toModel === CONTENT_MODEL_WIKITEXT && $lossy === 'lossy' ) {
-			global $wgContLang;
-			// using wgContLang is kind of icky. Maybe we should transclude
-			// from MediaWiki namespace, or give up on not splitting the
-			// parser cache and just use {{int:... (?)
+			$contLang = MediaWikiServices::getInstance()->getContentLanguage();
+			// Maybe we should transclude from MediaWiki namespace, or give
+			// up on not splitting the parser cache and just use {{int:... (?)
 			$renderOpts = $this->getFullRenderListOptions();
-			$text = $this->convertToWikitext( $wgContLang, $renderOpts );
+			$text = $this->convertToWikitext( $contLang, $renderOpts );
 			return ContentHandler::makeContent( $text, null, $toModel );
 		} elseif ( $toModel === CONTENT_MODEL_JSON ) {
 			return ContentHandler::makeContent(
