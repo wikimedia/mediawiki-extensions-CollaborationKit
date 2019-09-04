@@ -85,7 +85,7 @@
 	"collaborationkit-hub-members-view": "Ver la lista completa",
 	"collaborationkit-hub-missingpage-note": "Esta característica no existe. Puedes crear una usando el botón de abajo. Si recién creaste la característica y aún sigues viendo este mensaje, intenta purgar la caché.",
 	"collaborationkit-hub-missingpage-create": "Crear característica",
-	"collaborationkit-hub-missingpage-purgecache": "Vaciar caché",
+	"collaborationkit-hub-missingpage-purgecache": "Vaciar antememoria",
 	"collaborationkit-hub-pagetitle-members": "Miembros",
 	"collaborationkit-hub-pagetitle-announcements": "Anuncios",
 	"collaborationkit-hub-subpage-view": "Ver página",
