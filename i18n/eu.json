@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Subi",
-			"Mikel Ibaiba"
+			"Mikel Ibaiba",
+			"An13sa"
 		]
 	},
 	"collaborationkit-createhub-title": "Orriaren izenburua",
@@ -23,8 +24,8 @@
 	"collaborationkit-list-move-popup-title": "Orria gorde da",
 	"collaborationkit-list-newitem-title": "Elementua zerrendara gehitu",
 	"collaborationkit-list-newitem-label": "Zerrendaratu",
-	"collaborationkit-list-newitem-page": "Gehitzeko orria",
-	"collaborationkit-list-newitem-user": "Gehitzeko erabiltzailea",
+	"collaborationkit-list-newitem-page": "Orriaren izena",
+	"collaborationkit-list-newitem-user": "Lankide izena",
 	"collaborationkit-listedit-description": "Deskribapena",
 	"collaborationkit-hubedit-content": "Nabarmendutakoak",
 	"collaborationkit-editjsontab": "JSON bezala aldatu",
