@@ -264,6 +264,8 @@ class CollaborationHubContent extends JsonContent {
 			$revId
 		);
 
+		$output->addTrackingCategory( 'collaborationkit-hub-tracker', $title );
+
 		// Let's just assume we'll probably need this...
 		// (tells our ParserOutputPostCacheTransform hook to look for post-cache buttons etc)
 		$output->setExtensionData( 'ck-editmarkers', true );

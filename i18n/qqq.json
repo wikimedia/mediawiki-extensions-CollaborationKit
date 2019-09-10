@@ -146,5 +146,7 @@
 	"collaborationkit-hubedit-content-help": "Help text for main edit input on custom Hub editor",
 	"collaborationkit-listedit-description-placeholder": "Placeholder text for description input on custom List editor",
 	"collaborationkit-listedit-list-help": "Help text for main edit input on custom List editor",
-	"collaborationkit-createhubfeature-icon-help": "Help text for icon selection on Special:CreateHubFeature"
+	"collaborationkit-createhubfeature-icon-help": "Help text for icon selection on Special:CreateHubFeature",
+	"collaborationkit-hub-tracker": "Tracking category for CollaborationKit Hub pages",
+	"collaborationkit-list-tracker": "Tracking category for CollaborationKit List pages"
 }
