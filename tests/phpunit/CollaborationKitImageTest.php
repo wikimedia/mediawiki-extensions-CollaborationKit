@@ -18,11 +18,11 @@ class CollaborationKitImageTest extends MediaWikiTestCase {
 	public function provideTestConfigs() {
 		return [
 			[ 'key', [ 'renderAsWikitext' => true, 'classes' => [ 'test1', 'test2' ] ], 0 ],
-			[ 'key', [ 'renderAsWikitext' => true, 'colour' => 'khaki' ], 1 ],
+			[ 'key', [ 'renderAsWikitext' => true, 'colour' => 'violet' ], 1 ],
 			[ 'key', [ 'renderAsWikitext' => true, 'css' => 'display:none' ], 2 ],
 			[ 'key', [ 'renderAsWikitext' => false, 'classes' => [ 'test1', 'test2' ] ], 3 ],
 			[ 'key', [ 'renderAsWikitext' => false, 'link' => 'Delightful' ], 4 ],
-			[ 'key', [ 'renderAsWikitext' => false, 'colour' => 'khaki' ], 5 ],
+			[ 'key', [ 'renderAsWikitext' => false, 'colour' => 'violet' ], 5 ],
 			[ 'key', [ 'renderAsWikitext' => false, 'css' => 'display:none' ], 6 ],
 			[ 'key', [ 'renderAsWikitext' => false, 'label' => 'WikiWiki' ], 7 ],
 			[ 'Example.svg', [ 'testImage' => 'File:Example.svg', 'renderAsWikitext' => true, 'classes' => [ 'test1', 'test2' ] ], 8 ],
@@ -44,11 +44,11 @@ class CollaborationKitImageTest extends MediaWikiTestCase {
 
 		$expected = [
 			'<div class="test1 test2" style=""><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div></div>',
-			'<div style=""><div class="mw-ck-icon mw-ck-icon-key-khaki" style="width: 76px; height: 76px;"></div></div>',
+			'<div style=""><div class="mw-ck-icon mw-ck-icon-key-violet" style="width: 76px; height: 76px;"></div></div>',
 			'<div style="display:none;"><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div></div>',
 			'<div class="test1 test2" style=""><a href="#"><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div></a></div>',
 			'<div style=""><a href="/wiki/index.php/Delightful"><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div></a></div>',
-			'<div style=""><a href="#"><div class="mw-ck-icon mw-ck-icon-key-khaki" style="width: 76px; height: 76px;"></div></a></div>',
+			'<div style=""><a href="#"><div class="mw-ck-icon mw-ck-icon-key-violet" style="width: 76px; height: 76px;"></div></a></div>',
 			'<div style="display:none;"><a href="#"><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div></a></div>',
 			'<div style=""><a href="#"><div class="mw-ck-icon mw-ck-icon-key" style="width: 76px; height: 76px;"></div><span class="mw-ck-toc-item-label">WikiWiki</span></a></div>',
 			'<div class="test1 test2" style="">[[File:Example.svg|76px]]</div>',

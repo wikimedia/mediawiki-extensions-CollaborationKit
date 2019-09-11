@@ -47,7 +47,7 @@ class CollaborationHubContent extends JsonContent {
 	protected $errortext;
 
 	/**
-	 * 23 preset colours; actual colour values are set in the extension.json and
+	 * 10 preset colours; actual colour values are set in the extension.json and
 	 * less modules
 	 *
 	 * @return array
@@ -55,28 +55,15 @@ class CollaborationHubContent extends JsonContent {
 	public static function getThemeColours() {
 		return [
 			'lightgrey',
-			'darkgrey',
-			'darkred',
 			'red',
 			'skyblue',
-			'blue',
 			'bluegrey',
-			'navyblue',
-			'darkblue',
 			'aquamarine',
 			'violet',
-			'purple',
-			'mauve',
-			'lightmauve',
 			'salmon',
-			'orange',
 			'yellow',
 			'gold',
-			'pastelyellow',
-			'forestgreen',
 			'brightgreen',
-			'khaki',
-			'black'
 		];
 	}
 

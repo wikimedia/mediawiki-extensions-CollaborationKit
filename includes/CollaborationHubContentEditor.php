@@ -64,14 +64,10 @@ class CollaborationHubContentEditor extends EditPage {
 		];
 
 		// Colour messages:
-		// collaborationkit-darkred, collaborationkit-red, collaborationkit-darkgrey,
-		// collaborationkit-lightgrey, collaborationkit-skyblue, collaborationkit-blue,
-		// collaborationkit-bluegrey, collaborationkit-navyblue, collaborationkit-darkblue,
-		// collaborationkit-aquamarine, collaborationkit-violet, collaborationkit-purple,
-		// collaborationkit-mauve, collaborationkit-lightmauve, collaborationkit-salmon,
-		// collaborationkit-orange, collaborationkit-yellow, collaborationkit-gold,
-		// collaborationkit-pastelyellow, collaborationkit-forestgreen,
-		// collaborationkit-brightgreen, collaborationkit-khaki, collaborationkit-black
+		// collaborationkit-red, collaborationkit-lightgrey, collaborationkit-skyblue,
+		// collaborationkit-bluegrey, collaborationkit-aquamarine, collaborationkit-violet,
+		// collaborationkit-salmon, collaborationkit-yellow, collaborationkit-gold,
+		// collaborationkit-brightgreen
 		$colours = [];
 		foreach ( CollaborationHubContent::getThemeColours() as $colour ) {
 			$colours['collaborationkit-' . $colour] = $colour;
