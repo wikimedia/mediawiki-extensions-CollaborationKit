@@ -104,10 +104,11 @@ class CollaborationHubTOC {
 		$image = $content->getImage();
 
 		$html = Html::openElement( 'div', [ 'class' => "mw-ck-theme-$colour" ] );
-		$html .= Html::openElement( 'div', [ 'class' => "mw-ck-subpage-toc" ] );
+		$html .= Html::openElement( 'div', [ 'class' => [ 'mw-ck-subpage-toc', 'toc' ] ] );
 
 		// ToC label
-		$html .= Html::rawElement(
+
+		$label = Html::rawElement(
 			'div',
 			[ 'class' => 'mw-ck-toc-label' ],
 			Html::rawElement(
@@ -120,20 +121,17 @@ class CollaborationHubTOC {
 		);
 
 		// hubpage
-
 		$name = $content->getDisplayName() == '' ?
 			$title->getText() : $content->getDisplayName();
-		$link = CollaborationKitImage::makeImage(
-			$image,
-			16,
-			[ 'link' => $title, 'label' => $name ]
-		);
-
-		$html .= Html::rawElement(
+		$linkRenderer = MediaWiki\MediaWikiServices::getInstance()->getLinkRenderer();
+		$link = $linkRenderer->makeLink( $title, $name );
+		$hubPage = Html::rawElement(
 			'div',
 			[ 'class' => 'mw-ck-toc-subpage-hub' ],
 			$link
 		);
+
+		$html .= Html::rawElement( 'div', [ 'class' => 'mw-ck-toc-header' ], $label . $hubPage );
 
 		// Contents
 		$html .= Html::openElement( 'ul', [ 'class' => 'mw-ck-toc-contents' ] );

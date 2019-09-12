@@ -308,7 +308,7 @@ class CollaborationHubContent extends JsonContent {
 			if ( count( $this->getContent() ) > 0 ) {
 				$html .= Html::rawElement(
 					'div',
-					[ 'class' => 'mw-ck-hub-toc' ],
+					[ 'class' => [ 'mw-ck-hub-toc', 'toc' ] ],
 					$this->getTableOfContents( $title, $options )
 				);
 			}

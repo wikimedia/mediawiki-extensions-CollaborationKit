@@ -45,30 +45,19 @@
 	}
 }
 
-.mw-ck-toc-label {
-	margin-top: -1em;
-
-	span {
-		padding: 0.15em 0.5em 0.15em 0;
-		background: #fff; // TODO make this actually follow skin background
-		font-weight: bold;
-	}
-}
-
-.mw-ck-toc-label span,
-.mw-ck-subpage-toc .mw-ck-file-image,
-.mw-ck-subpage-toc li div.mw-ck-icon,
-.mw-ck-toc-subpage-hub div,
-.mw-ck-toc-subpage-hub {
-	display: inline-block;
-}
-
-.mw-ck-toc-subpage-hub {
+.mw-ck-toc-header {
 	font-weight: bold;
 
+	div {
+		display: inline-block;
+		margin-right: 0.5em;
+	}
+
 	&:after {
-		content: '»';
-		margin: 0 0.5em;
+		content: '';
+		display: block;
+		margin: 0 0 0.5em;
+		border-bottom: solid 3px;
 	}
 }
 
