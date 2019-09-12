@@ -62,5 +62,7 @@
 	"collaborationkit-khaki": "Cache",
 	"collaborationkit-black": "Gnure",
 	"collaborationkit-column-active": "Membre attive",
-	"collaborationkit-column-inactive": "Membre inattive"
+	"collaborationkit-column-inactive": "Membre inattive",
+	"collaborationkit-hub-tracker": "Hub de CollaborationKit",
+	"collaborationkit-list-tracker": "Elenghe de CollaborationKit"
 }
