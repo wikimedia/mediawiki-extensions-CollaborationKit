@@ -142,5 +142,7 @@
 	"collaborationkit-hubedit-content-help": "Uma lista de páginas ou subpáginas para incluir no projeto. Um nome de página por linha. Use os títulos de página completa.",
 	"collaborationkit-listedit-description-placeholder": "Descreva sobre ou para o que é a lista.",
 	"collaborationkit-listedit-list-help": "A sintaxe personalizada é usada para edição em massa. Essencialmente, um item por linha, com diferentes colunas marcadas por vários hifens. Veja [[Help:Extension:CollaborationKit]] para obter mais informações.",
-	"collaborationkit-createhubfeature-icon-help": "Por favor, escolha dos ícones incluídos."
+	"collaborationkit-createhubfeature-icon-help": "Por favor, escolha dos ícones incluídos.",
+	"collaborationkit-hub-tracker": "Hubs de colaboração",
+	"collaborationkit-list-tracker": "Listas de colaboração"
 }

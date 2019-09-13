@@ -3,14 +3,15 @@
 		"authors": [
 			"Piramidion",
 			"Vlad5250",
-			"Ата"
+			"Ата",
+			"Movses"
 		]
 	},
 	"collaborationkit-desc": "Інструменти для створення вікіпроектів та робочих просторів для співпраці в межах вікі",
 	"collaborationkiticons": "Каталог іконок CollaborationKit",
 	"createcollaborationhub": "Створити новий центр співпраці",
 	"createhubfeature": "Створити нову функцію центру співпраці",
-	"collaborationkit-createhub-submit": "Створити габ",
+	"collaborationkit-createhub-submit": "Створити центр співпраці",
 	"collaborationkit-createhub-title": "Назва сторінки",
 	"collaborationkit-createhub-invalidtitle": "Вказана назва недійсна.",
 	"collaborationkit-createhub-exists": "Сторінка з такою назвою вже існує.",
@@ -142,5 +143,7 @@
 	"collaborationkit-hubedit-content-help": "Список сторінок чи підсторінок, які слід включити в проект. одна назва сторінки на рядок. Використовуйте повні назви сторінок.",
 	"collaborationkit-listedit-description-placeholder": "Опишіть, про що чи для чого цей список.",
 	"collaborationkit-listedit-list-help": "Користувацький синтаксис використовується для масових редагувань. Загалом, один елемент на рядок, різні стовпці позначені декількома дефісами. Див. [[Help:Extension:CollaborationKit]], щоб дізнатися більше.",
-	"collaborationkit-createhubfeature-icon-help": "Будь ласка, виберіть одну з включених іконок."
+	"collaborationkit-createhubfeature-icon-help": "Будь ласка, виберіть одну з включених іконок.",
+	"collaborationkit-hub-tracker": "Центри співпраці CollaborationKit",
+	"collaborationkit-list-tracker": "Списки CollaborationKit"
 }
