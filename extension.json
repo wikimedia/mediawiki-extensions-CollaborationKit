@@ -21,6 +21,10 @@
 		"CollaborationKitAlias": "CollaborationKit.alias.php",
 		"CollaborationKitMagic": "CollaborationKit.i18n.magic.php"
 	},
+	"TrackingCategories": [
+		"collaborationkit-hub-tracker",
+		"collaborationkit-list-tracker"
+	],
 	"AutoloadClasses": {
 		"CollaborationKitHooks": "includes/CollaborationKitHooks.php",
 		"CollaborationHubContent": "includes/content/CollaborationHubContent.php",
