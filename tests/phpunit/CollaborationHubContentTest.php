@@ -19,7 +19,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		] );
 		$content = new CollaborationHubContent(
 			'{ "introduction": "Test content", "display_name": "foo",'
-			. '"footer": "More test content", "colour": "khaki", "content": ['
+			. '"footer": "More test content", "colour": "violet", "content": ['
 			. '{ "title": "Project:Wow", "image": "cool.png", "display_title": "Wow!" }'
 			. '] }'
 		);
@@ -40,7 +40,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 		return [
 			[ $this->m(
 				'{ "introduction": "\'\'Test\'\' content", "display_name": "foo",'
-				. '"footer": "\'\'\'Test\'\'\' content footer", "colour": "khaki", "content": ['
+				. '"footer": "\'\'\'Test\'\'\' content footer", "colour": "violet", "content": ['
 				. '{ "title": "Project:Wow", "image": "cool.png", "display_title": "Wow!" }'
 				. '] }'
 			), 0 ],
@@ -164,7 +164,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	 */
 	public function testGetHubClasses( CollaborationHubContent $content, $id ) {
 		$expected = [
-			[ 'mw-ck-collaborationhub', 'mw-ck-list-square', 'mw-ck-theme-khaki' ],
+			[ 'mw-ck-collaborationhub', 'mw-ck-list-square', 'mw-ck-theme-violet' ],
 			[ 'mw-ck-collaborationhub', 'mw-ck-list-square', 'mw-ck-theme-lightgrey' ],
 			[ 'mw-ck-collaborationhub', 'mw-ck-list-square', 'mw-ck-theme-lightgrey' ]
 		];
@@ -260,7 +260,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	public function testConvertToHumanEditable( CollaborationHubContent $content, $id ) {
 		$spl = CollaborationKitSerialization::SERIALIZATION_SPLIT;
 		$expected = [
-			"foo" . $spl . "''Test'' content" . $spl . "'''Test''' content footer" . $spl . "none" . $spl . "khaki" . $spl . "Project:Wow|image=cool.png|display_title=Wow!\n",
+			"foo" . $spl . "''Test'' content" . $spl . "'''Test''' content footer" . $spl . "none" . $spl . "violet" . $spl . "Project:Wow|image=cool.png|display_title=Wow!\n",
 			$spl . $spl . $spl . "none" . $spl . "lightgrey" . $spl,
 			$spl . $spl . $spl . "none" . $spl . "lightgrey" . $spl
 		];
@@ -280,7 +280,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 				'introduction' => "''Test'' content",
 				'footer' => "'''Test''' content footer",
 				'image' => 'none',
-				'colour' => 'khaki',
+				'colour' => 'violet',
 				'content' => [ [
 					'title' => 'Project:Wow',
 					'image' => 'cool.png',
@@ -291,7 +291,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			FormatJson::encode( [ 'display_name' => '', 'introduction' => '', 'footer' => '', 'image' => 'none', 'colour' => 'lightgrey', 'content' => [] ], true, FormatJson::ALL_OK )
 		];
 		$testCases = [
-			"foo" . $spl . "''Test'' content" . $spl . "'''Test''' content footer" . $spl . "none" . $spl . "khaki" . $spl . "Project:Wow|image=cool.png|display_title=Wow!",
+			"foo" . $spl . "''Test'' content" . $spl . "'''Test''' content footer" . $spl . "none" . $spl . "violet" . $spl . "Project:Wow|image=cool.png|display_title=Wow!",
 			$spl . $spl . $spl . "none" . $spl . "lightgrey" . $spl,
 			$spl . $spl . $spl . "none" . $spl . "lightgrey" . $spl
 		];
