@@ -28,11 +28,11 @@
 
 .ck-customeditor-borders( @color ) {
 	.mw-collabkit-modifiededitform {
-		padding: 1.5em 1em;
-		border: 1px solid @color;
-		border-top-width: 3px;
-		border-bottom-width: 4px;
-		background-color: fadeout( @color, 95% );
+		padding: 1em 1em 1.5em 1em;
+		border: solid;
+		border-color: fadeout( @color, 15% ) #ccc fadeout( @color, 45% );
+		border-width: 4px 1px 3px;
+		background-color: #fafafa;
 	}
 }
 
