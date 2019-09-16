@@ -22,17 +22,11 @@
 	"collaborationkit-icon-select": "Seç",
 	"collaborationkit-colour-browser": "Renk tarayıcısı",
 	"collaborationkit-hubimage-browser": "Medya tarayıcısı",
-	"collaborationkit-darkred": "Koyu kırmızı",
 	"collaborationkit-red": "Kırmızı",
-	"collaborationkit-darkgrey": "Koyu gri",
 	"collaborationkit-lightgrey": "Açık gri",
 	"collaborationkit-skyblue": "Gök mavisi",
-	"collaborationkit-blue": "Mavi",
-	"collaborationkit-darkblue": "Koyu mavi",
-	"collaborationkit-purple": "Mor",
 	"collaborationkit-yellow": "Sarı",
 	"collaborationkit-gold": "Altın",
-	"collaborationkit-black": "Siyah",
 	"collaborationkit-column-active": "Aktif üyeler",
 	"collaborationkit-column-inactive": "Aktif olmayan üyeler"
 }

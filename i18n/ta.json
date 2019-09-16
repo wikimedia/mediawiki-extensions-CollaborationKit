@@ -14,16 +14,9 @@
 	"collaborationkit-icon-select": "தேர்க",
 	"collaborationkit-colour-select": "தேர்க",
 	"collaborationkit-hubimage-select": "தேர்க",
-	"collaborationkit-darkred": "கருஞ்சிவப்பு",
 	"collaborationkit-red": "சிவப்பு",
-	"collaborationkit-darkgrey": "அடர் சாம்பல் நிறம்",
 	"collaborationkit-lightgrey": "வெளிர் சாம்பல் நிறம்",
 	"collaborationkit-skyblue": "வான் நீலம்",
-	"collaborationkit-blue": "நீலம்",
-	"collaborationkit-navyblue": "கடல் நீலம்",
-	"collaborationkit-darkblue": "கருநீலம்",
 	"collaborationkit-yellow": "மஞ்சள்",
-	"collaborationkit-gold": "தங்கம்",
-	"collaborationkit-forestgreen": "வனப் பச்சை",
-	"collaborationkit-black": "கருப்பு"
+	"collaborationkit-gold": "தங்கம்"
 }
