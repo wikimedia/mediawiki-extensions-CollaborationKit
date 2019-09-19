@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sfic"
+			"Sfic",
+			"Nilesh shukla"
 		]
 	},
 	"collaborationkit-lightgrey": "हल्का भूरा",
 	"collaborationkit-bluegrey": "नीला भूरा",
-	"collaborationkit-createhub-title-placeholder": "नई परियोजना"
+	"collaborationkit-createhub-title-placeholder": "नई परियोजना",
+	"collaborationkit-hub-tracker": "सहयोगकिट केन्द्र",
+	"collaborationkit-list-tracker": "सहयोगकिट सूचियाँ"
 }
