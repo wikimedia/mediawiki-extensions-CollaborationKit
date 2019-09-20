@@ -130,5 +130,7 @@
 	"collaborationkit-hubedit-content-help": "包含在專題的頁面或子頁面清單。每行一個頁面名稱，使用完整頁面標題。",
 	"collaborationkit-listedit-description-placeholder": "描述清單有關的內容或作用。",
 	"collaborationkit-listedit-list-help": "用來大量編輯的自訂語法。基本上是每行一個項目，以多個連字號來標記不同欄位。請參考 [[Help:Extension:CollaborationKit]] 來取得更多資訊。",
-	"collaborationkit-createhubfeature-icon-help": "請從已包含的圖標挑選。"
+	"collaborationkit-createhubfeature-icon-help": "請從已包含的圖標挑選。",
+	"collaborationkit-hub-tracker": "CollaborationKit 中心",
+	"collaborationkit-list-tracker": "CollaborationKit 清單"
 }
