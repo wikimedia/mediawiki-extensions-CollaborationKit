@@ -6,9 +6,6 @@ $cfg = require __DIR__ . '/../vendor/mediawiki/mediawiki-phan-config/src/config.
 $cfg['suppress_issue_types'][] = 'PhanUndeclaredMethod';
 $cfg['suppress_issue_types'][] = 'PhanUndeclaredVariable';
 
-// T191666
-$cfg['suppress_issue_types'][] = 'PhanParamTooMany';
-
 $cfg['directory_list'] = array_merge(
 	$cfg['directory_list'],
 	[
