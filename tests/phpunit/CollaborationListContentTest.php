@@ -9,7 +9,7 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 	private $content;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 		$content = new CollaborationListContent(
 			'{"description": "", "displaymode": "normal", "options": { "mode": "normal" }, "columns": [ { "items": [ { "title": "Wow" } ] } ] }'

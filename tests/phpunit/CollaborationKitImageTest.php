@@ -9,7 +9,7 @@ class CollaborationKitImageTest extends MediaWikiTestCase {
 
 	private $str;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 		$content = new CollaborationKitImage();
 		$this->str = TestingAccessWrapper::newFromObject( $content );

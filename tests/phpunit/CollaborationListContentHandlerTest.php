@@ -12,7 +12,7 @@ class CollaborationListContentHandlerTest extends MediaWikiTestCase {
 	 */
 	private $handler;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$handler = new CollaborationListContentHandler;
