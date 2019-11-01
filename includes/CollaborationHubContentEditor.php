@@ -37,7 +37,7 @@ class CollaborationHubContentEditor extends EditPage {
 	 * Prepares form fields.
 	 *
 	 * @param array $parts
-	 * @return string html
+	 * @return string[] html
 	 */
 	protected function getFormFields( $parts ) {
 		$fields = [ [], [] ];

@@ -54,9 +54,11 @@ class CollaborationHubTOC {
 		$html .= Html::openElement( 'ul' );
 
 		foreach ( $content as $item ) {
+			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 			if ( $item['title'] == '' ) {
 				continue;
 			}
+			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 			$title = Title::newFromText( $item['title'] );
 			if ( isset( $item['displayTitle'] ) ) {
 				$displayTitle = $item['displayTitle'];
@@ -66,7 +68,6 @@ class CollaborationHubTOC {
 			$linkTarget = Title::newFromText( '#'
 				. $this->getToCLinkID( $displayTitle )
 			);
-			/** @phan-suppress-next-line PhanTypeArraySuspicious */
 			$image = $item['image'] ?? null;
 
 			$link = CollaborationKitImage::makeImage(

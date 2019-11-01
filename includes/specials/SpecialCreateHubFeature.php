@@ -225,6 +225,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 
 		// Don't actually update the hub if the hub includes the feature.
 		$found = false;
+		// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 		foreach ( $hubContent['content'] as $c ) {
 			if ( $c['title'] === $titleText ) {
 				$found = true;

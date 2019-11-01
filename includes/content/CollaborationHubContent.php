@@ -1062,6 +1062,7 @@ class CollaborationHubContent extends JsonContent {
 
 		$out = '';
 		foreach ( $this->content as $item ) {
+			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 			$out .= self::escapeForHumanEditable( $item['title'] );
 			if ( isset( $item['image'] ) ) {
 				$out .= '|image='

@@ -78,8 +78,10 @@ class CollaborationListContent extends JsonContent {
 			EventLogging::schemaValidate( $jsonAsArray, $listSchema );
 			// FIXME: The schema should be enforcing data type requirements, but
 			// it isn't. Again, this is probably EventLogging.
+			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 			$numberOfColumns = count( $jsonAsArray['columns'] );
 			for ( $i = 0; $i < $numberOfColumns; $i++ ) {
+				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 				if ( !is_array( $jsonAsArray['columns'][$i] ) ) {
 					return false;
 				} else {
@@ -282,6 +284,7 @@ class CollaborationListContent extends JsonContent {
 	 * @param Language $lang The (content) language to render the page in.
 	 * @param array $options Options to override the default transclude options
 	 * @return string The wikitext
+	 * @suppress PhanSuspiciousValueComparisonInLoop, PhanSuspiciousValueComparison
 	 */
 	public function convertToWikitext( Language $lang, $options = [] ) {
 		$this->decode();
