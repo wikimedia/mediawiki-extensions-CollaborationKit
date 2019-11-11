@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Eitvys200",
-			"Manvydasz"
+			"Manvydasz",
+			"Tomasdd"
 		]
 	},
 	"collaborationkiticons": "CollaborationKit ikonų katalogas",
@@ -31,8 +32,8 @@
 	"collaborationkit-list-move-popup-title": "Puslapis Išsaugotas",
 	"collaborationkit-list-newitem-title": "Pridėti elementą į sąrašą",
 	"collaborationkit-list-newitem-label": "Pridėti į sąrašą",
-	"collaborationkit-list-newitem-page": "Puslapis pridėjimui",
-	"collaborationkit-list-newitem-user": "Vartotojas pridėjimui",
+	"collaborationkit-list-newitem-page": "Puslapio pavadinimas",
+	"collaborationkit-list-newitem-user": "Naudotojo vardas",
 	"collaborationkit-list-newitem-image": "Naudoti paveikslėlį (neprivaloma)",
 	"collaborationkit-list-newitem-description": "Aprašymas (neprivalomas)",
 	"collaborationkit-listedit-description": "Aprašymas",
