@@ -10,6 +10,7 @@
 	"collaborationkiticons": "תיקיית סמלים של CollaborationKit",
 	"createcollaborationhub": "יצירת מרכז שיתוף חדש",
 	"createhubfeature": "יצירת מדור חדש במרכז שיתוף",
+	"collaborationkit-createhub-submit": "יצירת מרכז שיתוף",
 	"collaborationkit-createhub-title": "כותרת דף",
 	"collaborationkit-createhub-invalidtitle": "הכותרת שניתנה אינה תקינה.",
 	"collaborationkit-createhub-exists": "הדף כבר קיים עם הכותרת שצוינה.",
@@ -25,6 +26,7 @@
 	"collaborationkit-createhubfeature-exists": "כבר קיים דף בכותרת שציינת.",
 	"collaborationkit-createhubfeature-nopermission": "אין לך הרשאה ליצור מדור עם הכותרת הזאת.",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "לא קיים מרכז שיתוף בכותרת הזאת.",
+	"collaborationkit-createhubfeature-nopermission-contentmodel": "אין לך הרשאה ליצור מדור עם מודל התוכן הזה.",
 	"collaborationkit-createhubfeature-hubisnotahub": "הדף שציינת אינו מרכז שיתוף.",
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ הוספה",
 	"collaborationkit-createhubfeature-invalidcontenttype": "מודל התוכן הזה אינו מאופשר למדורים כעת.",
@@ -81,6 +83,7 @@
 	"collaborationkit-hub-members-signup": "{{GENDER:|הצטרף|הצטרפי}}",
 	"collaborationkit-hub-members-view": "הצגת רשימה מלא",
 	"collaborationkit-hub-missingpage-note": "המאפיין הזב אינו קיים. אפשר ליצור מאפיין חדש באמצעות הכפתור למטה. אם זה עתה יצרת את המאפיין הזה {{GENDER:|ואתה|ואת}} עדיין רואה את ההודעה הזאת, {{GENDER:|נסה|נסי}} לנקות את המטמון.",
+	"collaborationkit-hub-missingpage-protected-note": "המדור הזה כנראה לא קיים, והוא מוגן מפני עריכה. או שאפשר לנסות לנקות את המטמון.",
 	"collaborationkit-hub-missingpage-create": "יצירת מאפיין",
 	"collaborationkit-hub-missingpage-purgecache": "ניקוי המטמון",
 	"collaborationkit-hub-pagetitle-members": "חברים",
@@ -126,5 +129,7 @@
 	"collaborationkit-hubedit-content-help": "רשימה של דפים או דפי־משנה שייכללו במיזם. דף אחד לשורה. נא להשתמש בשם הדף המלא.",
 	"collaborationkit-listedit-description-placeholder": "{{GENDER:|תאר|תארי}} על מה או בשביל מה הרשימה הזאת.",
 	"collaborationkit-listedit-list-help": "תחביר מיוחד משמש לעריכה מרובה. בפשטות, פריט אחד בכל שורה, עם עמודות שונות שמסומנות במספר מקפים לועזיים. ר' [[Help:Extension:CollaborationKit]] למידע נוסף.",
-	"collaborationkit-createhubfeature-icon-help": "נא לבחור מתוך הסמלים הכלולים."
+	"collaborationkit-createhubfeature-icon-help": "נא לבחור מתוך הסמלים הכלולים.",
+	"collaborationkit-hub-tracker": "מרכזים של CollaborationKit",
+	"collaborationkit-list-tracker": "רשימות של CollaborationKit"
 }
