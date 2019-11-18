@@ -17,7 +17,7 @@
 	"collaborationkit-createhub-nopermission": "이 제목으로 콜라보레이션 허브를 생성할 권한이 없습니다.",
 	"collaborationkit-createhub-editsummary": "새 콜라보레이션 허브 생성",
 	"collaborationkit-createhub-confirm": "예, 현재 문서의 내용을 덮어씁니다",
-	"collaborationkit-createhub-confirmheader": "이 제목으로 된 문서가 이미 있습니다. 아래에 대해 수긍하면 문서의 내용을 덮어쓰게 됩니다. 계속 진행하시겠습니까?",
+	"collaborationkit-createhub-confirmheader": "이 제목으로 된 문서가 이미 있습니다. 아래에 대해 동의한다면 문서의 내용을 덮어쓰게 됩니다. 계속 진행하시겠습니까?",
 	"collaborationkit-createhubfeature-collaborationhub": "소속 콜라보레이션 허브",
 	"collaborationkit-createhubfeature-featurename": "피처 이름",
 	"collaborationkit-createhubfeature-icon": "아이콘",
