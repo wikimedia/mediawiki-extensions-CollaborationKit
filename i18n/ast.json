@@ -127,5 +127,7 @@
 	"collaborationkit-hubedit-content-help": "Una llista de páxines o subpáxines qu'incluyir nel proyectu. Un nome de páxina por llinia. Usa los títulos de páxina completos.",
 	"collaborationkit-listedit-description-placeholder": "Describe sobre qué o pa qué ye la llista.",
 	"collaborationkit-listedit-list-help": "La sintaxis personalizada emplégase pa realizar ediciones en masa. N'esencia: un elementu por llinia, coles distintes columnes marcaes con dellos guiones. Consulta [[Help:Extension:CollaborationKit]] pa más información.",
-	"collaborationkit-createhubfeature-icon-help": "Escueyi unu de los iconos incluyíos."
+	"collaborationkit-createhubfeature-icon-help": "Escueyi unu de los iconos incluyíos.",
+	"collaborationkit-hub-tracker": "Hubs de CollaborationKit",
+	"collaborationkit-list-tracker": "Llistes de CollaborationKit"
 }
