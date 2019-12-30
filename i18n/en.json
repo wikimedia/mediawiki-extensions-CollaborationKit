@@ -128,7 +128,7 @@
 	"collaborationkit-hubedit-footer-help": "Appears beneath the included features. Recommended location for categories, navigation templates, etc.",
 	"collaborationkit-hubedit-content-help": "A list of pages or subpages to include in the project. One page name per line. Use the full page titles.",
 	"collaborationkit-listedit-description-placeholder": "Describe what the list is about or for.",
-	"collaborationkit-listedit-list-help": "Custom syntax is used for bulk editing. Essentially, one item for line, with different columns marked by several hyphens. See [[Help:Extension:CollaborationKit]] for more information.",
+	"collaborationkit-listedit-list-help": "Custom syntax is used for bulk editing. Essentially, one item for line, with different columns marked by several hyphens. Visit the [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|help page]] for more information.",
 	"collaborationkit-createhubfeature-icon-help": "Please choose from the included icons.",
 	"collaborationkit-hub-tracker": "CollaborationKit Hubs",
 	"collaborationkit-list-tracker": "CollaborationKit Lists"
