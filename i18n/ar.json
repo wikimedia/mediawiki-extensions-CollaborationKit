@@ -130,7 +130,7 @@
 	"collaborationkit-hubedit-footer-help": "يظهر تحت الميزات المضمنة، الموقع الموصى به للتصنيفات وقوالب التصفح وما إلى ذلك",
 	"collaborationkit-hubedit-content-help": "قائمة بالصفحات أو الصفحات الفرعية لتضمينها في المشروع، اسم صفحة واحد لكل سطر، استخدم عناوين الصفحات الكاملة.",
 	"collaborationkit-listedit-description-placeholder": "صف ما تدور حوله القائمة أو أُنشِئت لأجله.",
-	"collaborationkit-listedit-list-help": "يتم استخدام بناء الجملة المخصص للتحرير المجمع، بشكل أساسي، عنصر واحد للخط، مع أعمدة مختلفة معلمة بواسطة عدة واصلات، انظر [[Help:Extension:CollaborationKit]] لمزيد من المعلومات.",
+	"collaborationkit-listedit-list-help": "يتم استخدام بناء الجملة المخصص للتحرير المجمع، بشكل أساسي، عنصر واحد للخط، مع أعمدة مختلفة معلمة بواسطة عدة واصلات، قم بزيارة [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|صفحة المساعدة]] لمزيد من المعلومات.",
 	"collaborationkit-createhubfeature-icon-help": "يُرجَى الاختيار من الرموز المضمنة.",
 	"collaborationkit-hub-tracker": "محاور مجموعة التعاون",
 	"collaborationkit-list-tracker": "قوائم مجموعة التعاون"

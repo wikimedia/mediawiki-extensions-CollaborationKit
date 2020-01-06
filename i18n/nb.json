@@ -126,7 +126,7 @@
 	"collaborationkit-hubedit-footer-help": "Vises under de inkluderte funksjonene. Anbefalt sted å putte kategorier, navigasjonsmaler osv.",
 	"collaborationkit-hubedit-content-help": "En liste over sider eller undersider som skal inkluderes i prosjektet. Ett sidenavn per linje. Bruk fullstendige sidetitler.",
 	"collaborationkit-listedit-description-placeholder": "Beskriv hva listen handler om.",
-	"collaborationkit-listedit-list-help": "Egendefinert syntaks brukes for masseredigering. Hovedsakelig ett element per linje, med forskjellige kolonner markert med flere bindestreker. Se [[Help:Extension:CollaborationKit]] for mer informasjon.",
+	"collaborationkit-listedit-list-help": "Egendefinert syntaks brukes for masseredigering. Hovedsakelig ett element per linje, med forskjellige kolonner markert med flere bindestreker. Se [[mw:Special:MyLanguage/Help:Extension:CollaborationKit]] for mer informasjon.",
 	"collaborationkit-createhubfeature-icon-help": "Velg blant de inkluderte ikonene.",
 	"collaborationkit-hub-tracker": "Sentraler i CollaborationKit",
 	"collaborationkit-list-tracker": "Lister i CollaborationKit"

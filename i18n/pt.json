@@ -127,7 +127,7 @@
 	"collaborationkit-hubedit-footer-help": "Aparece abaixo das características incluídas. Local recomendado para categorias, predefinições de navegação, etc.",
 	"collaborationkit-hubedit-content-help": "Uma lista de páginas ou subpáginas para incluir no projeto. Um nome de página por linha.  Use os títulos completos das páginas.",
 	"collaborationkit-listedit-description-placeholder": "Descreva o que é ou para que é a lista.",
-	"collaborationkit-listedit-list-help": "A sintaxe personalizada é utilizada para edição em massa. Essencialmente, um elemento por linha, com diferentes colunas marcadas por vários hífenes. Consulte [[Help:Extension:CollaborationKit]] para mais informação.",
+	"collaborationkit-listedit-list-help": "A sintaxe personalizada é utilizada para edição em massa. Essencialmente, um elemento por linha, com diferentes colunas marcadas por vários hífenes. Visite a [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|página de ajuda]] para mais informação.",
 	"collaborationkit-createhubfeature-icon-help": "Selecione um dos ícones incluídos, por favor.",
 	"collaborationkit-hub-tracker": "Centros CollaborationKit",
 	"collaborationkit-list-tracker": "Listas CollaborationKit"

@@ -128,7 +128,7 @@
 	"collaborationkit-hubedit-footer-help": "מופיע מתחת למאפיינים הכלולים. מיקום מומלץ לקטגוריות, תבניות ניווט, וכו'.",
 	"collaborationkit-hubedit-content-help": "רשימה של דפים או דפי־משנה שייכללו במיזם. דף אחד לשורה. נא להשתמש בשם הדף המלא.",
 	"collaborationkit-listedit-description-placeholder": "{{GENDER:|תאר|תארי}} על מה או בשביל מה הרשימה הזאת.",
-	"collaborationkit-listedit-list-help": "תחביר מיוחד משמש לעריכה מרובה. בפשטות, פריט אחד בכל שורה, עם עמודות שונות שמסומנות במספר מקפים לועזיים. ר' [[Help:Extension:CollaborationKit]] למידע נוסף.",
+	"collaborationkit-listedit-list-help": "תחביר מיוחד משמש לעריכה מרובה. בפשטות, פריט אחד בכל שורה, עם עמודות שונות שמסומנות במספר מקפים לועזיים. בקרו ב[[mw:Special:MyLanguage/Help:Extension:CollaborationKit|דף העזרה]] למידע נוסף.",
 	"collaborationkit-createhubfeature-icon-help": "נא לבחור מתוך הסמלים הכלולים.",
 	"collaborationkit-hub-tracker": "מרכזים של CollaborationKit",
 	"collaborationkit-list-tracker": "רשימות של CollaborationKit"

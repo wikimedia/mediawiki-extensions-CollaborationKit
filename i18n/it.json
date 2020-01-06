@@ -4,7 +4,8 @@
 			"Beta16",
 			"Margherita.mignanelli",
 			"Ghebbro",
-			"Marcok"
+			"Marcok",
+			"Dansita"
 		]
 	},
 	"collaborationkit-createhub-submit": "Crea Hub",
@@ -65,5 +66,5 @@
 	"collaborationkit-column-inactive": "Membri inattivi",
 	"collaborationkit-createhub-title-help": "Dove creare il fulcro della collaborazione",
 	"collaborationkit-createhub-title-placeholder": "Nuovo progetto",
-	"collaborationkit-listedit-list-help": "La sintassi personalizzata viene usata per la modifica di massa. In sostanza, un elemento per riga, con diverse colonne segnata da vari trattini. Vedi [[Help:Extension:CollaborationKit]] per ulteriori informazioni."
+	"collaborationkit-listedit-list-help": "La sintassi personalizzata viene usata per la modifica di massa. In sostanza un elemento per riga con diverse colonne segnata da vari trattini. Visita [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|la pagina di aiuto]] per maggiori informazioni."
 }

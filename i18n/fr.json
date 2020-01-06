@@ -5,7 +5,8 @@
 			"Wladek92",
 			"Aboulouei1",
 			"Epok",
-			"Thibaut120094"
+			"Thibaut120094",
+			"Pamputt"
 		]
 	},
 	"collaborationkit-desc": "Outils pour la construction de projets Wiki et d'espaces de travail collaboratifs wiki.",
@@ -130,7 +131,7 @@
 	"collaborationkit-hubedit-footer-help": "Apparaît sous les fonctionnalités inclues. Emplacement recommandé pour les catégories, les modèles de navigation, etc.",
 	"collaborationkit-hubedit-content-help": "Une liste de pages ou de sous-pages à inclure dans le projet. Un nom de page par ligne. Utiliser les titres complets des pages.",
 	"collaborationkit-listedit-description-placeholder": "Décrire à propos de quoi ou pour quoi est la liste.",
-	"collaborationkit-listedit-list-help": "La syntaxe personnalisée est utilisée pour la modification en masse. Schématiquement, un élément par ligne, avec différentes colonnes marquées par plusieurs tirets. Voir [[Help:Extension:CollaborationKit]] pour plus d’information.",
+	"collaborationkit-listedit-list-help": "La syntaxe personnalisée est utilisée pour la modification en masse. Schématiquement, un élément par ligne, avec différentes colonnes marquées par plusieurs tirets. Visiter la [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|page d'aide]] pour plus d’information.",
 	"collaborationkit-createhubfeature-icon-help": "Veuillez choisir parmi les icônes incluses.",
 	"collaborationkit-hub-tracker": "Centres CollaborationKit",
 	"collaborationkit-list-tracker": "Listes CollaborationKit"
