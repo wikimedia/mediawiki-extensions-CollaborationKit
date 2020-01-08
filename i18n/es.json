@@ -6,7 +6,8 @@
 			"Fitoschido",
 			"Luzcaru",
 			"Themasterriot",
-			"Ciencia Al Poder"
+			"Ciencia Al Poder",
+			"DannyS712"
 		]
 	},
 	"collaborationkit-desc": "Herramientas para construir wikiproyectos y espacios colaborativos en wikis",
@@ -128,6 +129,6 @@
 	"collaborationkit-hubedit-footer-help": "Aparece debajo de las características incluidas. Ubicación recomendada para categorías, plantillas de navegación, etc.",
 	"collaborationkit-hubedit-content-help": "Una lista de páginas o subpáginas que incluir en el proyecto. Un nombre de página por renglón. Usa los títulos de página completos.",
 	"collaborationkit-listedit-description-placeholder": "Describe sobre qué o para qué es la lista.",
-	"collaborationkit-listedit-list-help": "Se emplea una sintaxis personalizada para realizar ediciones en masa. En esencia: un elemento por renglón y columnas demarcadas por varios guiones. Consulta [[Help:Extension:CollaborationKit]] para obtener más información.",
+	"collaborationkit-listedit-list-help": "Se emplea una sintaxis personalizada para realizar ediciones en masa. En esencia: un elemento por renglón y columnas demarcadas por varios guiones. Consulta [[:mw:Special:MyLanguage/Help:Extension:CollaborationKit|la página de ayuda]] para obtener más información.",
 	"collaborationkit-createhubfeature-icon-help": "Elige uno de los iconos incluidos."
 }

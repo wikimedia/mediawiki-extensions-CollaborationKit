@@ -1,14 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sayginer"
+			"Sayginer",
+			"BaRaN6161 TURK"
 		]
 	},
 	"createhubfeature": "Yeni bir İş Birliği Merkezi bölümü oluştur",
 	"collaborationkit-createhub-title": "Sayfa başlığı",
 	"collaborationkit-createhub-nopermission": "Bu başlıkla bir İş Birliği Merkezi oluşturma izniniz yok",
 	"collaborationkit-createhubfeature-exists": "Belirttiğiniz başlıklı sayfa zaten mevcut.",
-	"collaborationkit-list-emptycolumn": "Bu listede hiçbir öge yok.",
+	"collaborationkit-list-emptycolumn": "Bu sütunda hiç öğe yok.",
 	"collaborationkit-list-add-user": "Listeye kullanıcı ekle",
 	"collaborationkit-list-add-self": "Projeye katıl",
 	"collaborationkit-list-newitem-label": "Listeye ekle",
