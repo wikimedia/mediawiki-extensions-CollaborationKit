@@ -782,7 +782,7 @@ class CollaborationHubContent extends JsonContent {
 
 		// Generate an id for the section for anchors
 		// Make sure this matches the ToC anchor generation
-		$spPageLink = Sanitizer::escapeId( htmlspecialchars( $spPage ) );
+		$spPageLink = Sanitizer::escapeIdForLink( htmlspecialchars( $spPage ) );
 		$spPageLink2 = $spPageLink;
 		$spPageLinkCounter = 1;
 		while ( in_array( $spPageLink2, $tocLinks ) ) {

@@ -18,7 +18,7 @@ class CollaborationHubTOC {
 	 * @return string
 	 */
 	public function getToCLinkID( $header ) {
-		$link = Sanitizer::escapeId( htmlspecialchars( $header ) );
+		$link = Sanitizer::escapeIdForLink( htmlspecialchars( $header ) );
 		$link2 = $link;
 		$linkCounter = 1;
 		while ( in_array( $link2, $this->tocLinks ) ) {
