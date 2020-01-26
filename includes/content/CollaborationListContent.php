@@ -103,7 +103,7 @@ class CollaborationListContent extends JsonContent {
 	 * Validates a list configuration option against the schema.
 	 *
 	 * @param string $name The name of the parameter
-	 * @param mixed $value The value of the parameter
+	 * @param mixed &$value The value of the parameter
 	 * @return bool Whether the configuration option is valid.
 	 */
 	private static function validateOption( $name, &$value ) {
@@ -621,7 +621,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Sort an array pseudo-randomly using an affine transform
 	 *
-	 * @param array $items Stuff to sort (sorted in-place)
+	 * @param array &$items Stuff to sort (sorted in-place)
 	 * @return array
 	 */
 	private function sortRandomly( &$items ) {
