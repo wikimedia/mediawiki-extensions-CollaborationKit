@@ -8,7 +8,7 @@
  */
 
 class SpecialCreateCollaborationHub extends SpecialPage {
-	/** @var string */
+	/** @var int */
 	protected $titleNs;
 
 	/** @var string */

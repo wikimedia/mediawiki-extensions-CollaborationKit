@@ -28,7 +28,7 @@ class CollaborationHubContent extends JsonContent {
 	/** @var string */
 	protected $introduction;
 
-	/** @var array pages included in the hub */
+	/** @var array|null pages included in the hub */
 	protected $content;
 
 	/** @var string */
@@ -737,6 +737,7 @@ class CollaborationHubContent extends JsonContent {
 				);
 
 				// register as template for stuff
+				// @phan-suppress-next-line PhanTypeMismatchArgument
 				$output->addTemplate( $spTitle, $spTitle->getArticleID(), null );
 			}
 
@@ -1062,7 +1063,6 @@ class CollaborationHubContent extends JsonContent {
 
 		$out = '';
 		foreach ( $this->content as $item ) {
-			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
 			$out .= self::escapeForHumanEditable( $item['title'] );
 			if ( isset( $item['image'] ) ) {
 				$out .= '|image='

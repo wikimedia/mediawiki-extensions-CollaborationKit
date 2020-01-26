@@ -463,9 +463,9 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Invokes CollaborationKitImage::makeImage with fallback criteria
 	 *
-	 * @param string $definedImage The filename given in the list item
+	 * @param string|null $definedImage The filename given in the list item
 	 * @param string $displayMode Type of list (members or otherwise)
-	 * @param Title $title Title object of the list item
+	 * @param Title|null $title Title object of the list item
 	 * @param int $size The width of the icon image. Default is 32px;
 	 * @return string HTML
 	 */

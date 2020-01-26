@@ -109,7 +109,7 @@ class CollaborationKitImage {
 	 * @param string $link
 	 * @param bool $renderAsWikitext
 	 * @param string $label
-	 * @param string $squareAdjustmentAxis x or y
+	 * @param string|null $squareAdjustmentAxis x or y
 	 * @return string
 	 * @suppress SecurityCheck-DoubleEscaped Return value depends on $renderAsWikitext
 	 */
