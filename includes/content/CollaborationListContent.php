@@ -284,7 +284,6 @@ class CollaborationListContent extends JsonContent {
 	 * @param Language $lang The (content) language to render the page in.
 	 * @param array $options Options to override the default transclude options
 	 * @return string The wikitext
-	 * @suppress PhanSuspiciousValueComparisonInLoop, PhanSuspiciousValueComparison
 	 */
 	public function convertToWikitext( Language $lang, $options = [] ) {
 		$this->decode();
