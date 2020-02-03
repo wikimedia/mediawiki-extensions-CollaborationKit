@@ -83,7 +83,7 @@
 					mw.msg( 'collaborationkit-list-delete-popup', title ),
 					{
 						tag: 'collabkit',
-						title:  mw.msg( 'collaborationkit-list-delete-popup-title' ),
+						title: mw.msg( 'collaborationkit-list-delete-popup-title' ),
 						type: 'info'
 					}
 				);
@@ -187,8 +187,8 @@
 				resColumns[ i ] = res.content.columns[ i ].items;
 			}
 
-			moveFrom = oldPosition.split( '-' );  // 0 = column; 1 = item
-			moveTo = newPosition.split( '-' );  // 0 = column; 1 = item
+			moveFrom = oldPosition.split( '-' ); // 0 = column; 1 = item
+			moveTo = newPosition.split( '-' ); // 0 = column; 1 = item
 
 			movingItem = resColumns[ moveFrom[ 0 ] ][ moveFrom[ 1 ] ];
 			resColumns[ moveFrom[ 0 ] ].splice( moveFrom[ 1 ], 1 );

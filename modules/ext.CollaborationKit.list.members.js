@@ -40,12 +40,11 @@
 					var newMemberList = data.query.pages[ destinationPage ].revisions[ 0 ][ '*' ];
 					newMemberList = JSON.parse( newMemberList ).columns[ 0 ].items;
 					for ( i = 0; i < newMemberList.length; i++ ) {
-						if ( newMemberList[ i ].title == escapedText ) {
+						if ( newMemberList[ i ].title === escapedText ) {
 							$( '.mw-ck-members-join' ).css( 'display', 'none' );
 						}
 					}
-				}
-			);
+				} );
 		}
 	};
 
@@ -110,7 +109,7 @@
 		}
 
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) &&
-			!curUserIsInList() && !mw.user.isAnon()  // Workflow assumes existence of username
+			!curUserIsInList() && !mw.user.isAnon() // Workflow assumes existence of username
 		) {
 			list = $( '.mw-ck-list' );
 			list.before(
@@ -122,7 +121,7 @@
 							icon: 'add',
 							flags: [ 'progressive', 'primary' ]
 						} ).on( 'click', addSelf )
-						.$element
+							.$element
 					)
 			);
 		}

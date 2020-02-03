@@ -1,0 +1,21 @@
+{
+	"root": true,
+	"extends": [
+		"wikimedia/client"
+	],
+	"globals": {
+		"mw": false,
+		"mediaWiki": false,
+		"jQuery": false,
+		"OO": false
+	},
+	"rules": {
+		"valid-jsdoc": "off",
+		"wrap-iife": "off",
+		"new-cap": "off",
+		"no-use-before-define": "off",
+		"no-unused-vars": "off",
+		"no-undef": "off",
+		"no-alert": "off"
+	}
+}
