@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Soued031"
 		]
 	},
 	"collaborationkit-createhub-title": "Titel vun der Säit",
@@ -24,8 +25,8 @@
 	"collaborationkit-list-add-user": "Benotzer op d'Lëscht dobäisetzen",
 	"collaborationkit-list-add-self": "Beim Projet matmaachen",
 	"collaborationkit-list-alreadyadded": "Dir sidd scho Member vun dësem Projet.",
-	"collaborationkit-list-error-editconflict": "Et gouf en Ännerungskonflikt an Är Ännerung gouf net gespäichert. Aktualiséiert w.e.g. d'Säit a probéiert nach eng Kéier.",
-	"collaborationkit-list-error-saving": "Är Ännerunge vun der Lëscht goufen net gespäichert. Aktualiséiert d'Säit a probéiert w.e.g. nach eng Kéier.",
+	"collaborationkit-list-error-editconflict": "Et gouf en Ännerungskonflikt an Är Ännerung gouf net gespäichert. Aktualiséiert wgl. d'Säit a probéiert nach eng Kéier.",
+	"collaborationkit-list-error-saving": "Är Ännerunge vun der Lëscht goufen net gespäichert. Aktualiséiert d'Säit a probéiert wgl. nach eng Kéier.",
 	"collaborationkit-list-move-popup": "Gespäichert: $1 gouf nei zortéiert.",
 	"collaborationkit-list-move-popup-title": "Säit gespäichert",
 	"collaborationkit-list-newitem-title": "Element op d'Lëscht dobäisetzen",
