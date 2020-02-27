@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"हिमाल सुबेदी"
+		]
+	},
+	"collaborationkit-createhub-title": "पृष्ठ शीर्षक",
+	"collaborationkit-createhubfeature-icon": "प्रतिमा",
+	"collaborationkit-createhubfeature-articlelist": "पृष्ठहरूको सूची",
+	"collaborationkit-iconlist-columnheader-icon": "प्रतिमा",
+	"collaborationkit-iconlist-columnheader-iconname": "प्रतिमाकाे नाम",
+	"collaborationkit-list-newitem-page": "पृष्ठ नाम",
+	"collaborationkit-list-newitem-user": "प्रयोगकर्ता नाम",
+	"collaborationkit-list-newitem-description": "विवरण (वैकल्पिक)",
+	"collaborationkit-list-edititem-label": "अद्यावधिक गर्नुहोस्",
+	"collaborationkit-listedit-description": "विवरण",
+	"collaborationkit-hubedit-introduction": "परिचय",
+	"collaborationkit-hubedit-content": "विशेषताहरू"
+}
