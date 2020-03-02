@@ -129,7 +129,7 @@
 	"collaborationkit-hubedit-footer-help": "З'являється під включеними функціями. Рекомендоване місце розташування категорій, навігаційних шаблонів тощо.",
 	"collaborationkit-hubedit-content-help": "Список сторінок чи підсторінок, які слід включити в проект. одна назва сторінки на рядок. Використовуйте повні назви сторінок.",
 	"collaborationkit-listedit-description-placeholder": "Опишіть, про що чи для чого цей список.",
-	"collaborationkit-listedit-list-help": "Користувацький синтаксис використовується для масових редагувань. Загалом, один елемент на рядок, різні стовпці позначені декількома дефісами. Див. [[Help:Extension:CollaborationKit]], щоб дізнатися більше.",
+	"collaborationkit-listedit-list-help": "Користувацький синтаксис використовується для масових редагувань. Загалом, один елемент на рядок, різні стовпці позначені декількома дефісами. Відвідайте [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|сторінку довідки]], щоб дізнатися більше.",
 	"collaborationkit-createhubfeature-icon-help": "Будь ласка, виберіть одну з включених іконок.",
 	"collaborationkit-hub-tracker": "Центри співпраці CollaborationKit",
 	"collaborationkit-list-tracker": "Списки CollaborationKit"
