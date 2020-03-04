@@ -1,5 +1,8 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
+
 /**
  * Helper class to generate table of contents for CollaborationHubContent.
  *
@@ -96,9 +99,11 @@ class CollaborationHubTOC {
 		// We assume $title is sane. This is supposed to be called with a $title
 		// gotten from CollaborationHubContent::getParentHub, which already
 		// checks if it is.
-		$rev = Revision::newFromTitle( $title );
+		$rev = MediaWikiServices::getInstance()
+			->getRevisionLookup()
+			->getRevisionByTitle( $title );
 		/** @var CollaborationHubContent $content */
-		$content = $rev->getContent();
+		$content = $rev->getContent( SlotRecord::MAIN );
 		$colour = $content->getThemeColour();
 		$image = $content->getImage();
 

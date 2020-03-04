@@ -13,6 +13,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
 
 /**
  * @class CollaborationHubContent
@@ -433,13 +434,11 @@ class CollaborationHubContent extends JsonContent {
 			);
 
 			if ( $membersContent === null ) {
-				$membersRevision = Revision::newFromTitle(
-					$membersTitle,
-					0,
-					Revision::READ_LATEST
-				);
+				$membersRevision = MediaWikiServices::getInstance()
+					->getRevisionLookup()
+					->getRevisionByTitle( $membersTitle, 0, IDBAccessObject::READ_LATEST );
 				if ( $membersRevision ) {
-					$membersContent = $membersRevision->getContent();
+					$membersContent = $membersRevision->getContent( SlotRecord::MAIN );
 				}
 			}
 			if ( $membersContent && $membersContent instanceof CollaborationListContent ) {
@@ -635,7 +634,9 @@ class CollaborationHubContent extends JsonContent {
 				continue;
 			}
 			$spTitle = $this->redirectProof( Title::newFromText( $item['title'] ) );
-			$spRev = Revision::newFromTitle( $spTitle );
+			$spRev = MediaWikiServices::getInstance()
+				->getRevisionLookup()
+				->getRevisionByTitle( $spTitle );
 
 			// open element and do header
 			$html .= $this->makeHeader( $title, $item );
@@ -643,8 +644,8 @@ class CollaborationHubContent extends JsonContent {
 			if ( isset( $spRev ) ) {
 				// DO CONTENT FROM PAGE
 				/** @var CollaborationHubContent $spContent */
-				$spContent = $spRev->getContent();
-				$spContentModel = $spRev->getContentModel();
+				$spContent = $spRev->getContent( SlotRecord::MAIN );
+				$spContentModel = $spRev->getSlot( SlotRecord::MAIN )->getModel();
 
 				if ( $spContentModel == 'CollaborationHubContent' ) {
 					// this is dumb, but we'll just rebuild the intro here for now
@@ -760,7 +761,9 @@ class CollaborationHubContent extends JsonContent {
 
 		$spTitle = Title::newFromText( $contentItem['title'] );
 		$spTitle = $this->redirectProof( $spTitle );
-		$spRev = Revision::newFromTitle( $spTitle );
+		$spRev = MediaWikiServices::getInstance()
+			->getRevisionLookup()
+			->getRevisionByTitle( $spTitle );
 
 		// Get display name
 		if ( isset( $contentItem['displayTitle'] ) ) {
@@ -989,7 +992,9 @@ class CollaborationHubContent extends JsonContent {
 		) {
 			$parentTitle = $title->getBaseTitle();
 			while ( !$title->equals( $parentTitle ) ) {
-				$parentRev = Revision::newFromTitle( $parentTitle );
+				$parentRev = MediaWikiServices::getInstance()
+					->getRevisionLookup()
+					->getRevisionByTitle( $parentTitle );
 				if ( $parentTitle->getContentModel() == 'CollaborationHubContent'
 					&& isset( $parentRev )
 				) {
