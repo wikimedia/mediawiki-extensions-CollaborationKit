@@ -126,7 +126,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'',
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->getParsedIntroduction( Title::newMainPage(), new ParserOptions );
+		$actual = $wc->getParsedIntroduction( Title::newMainPage(), ParserOptions::newFromAnon() );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
@@ -140,7 +140,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'',
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->getParsedFooter( Title::newMainPage(), new ParserOptions );
+		$actual = $wc->getParsedFooter( Title::newMainPage(), ParserOptions::newFromAnon() );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
@@ -155,7 +155,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			''
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->getParsedContent( Title::newMainPage(), new ParserOptions, new ParserOutput );
+		$actual = $wc->getParsedContent( Title::newMainPage(), ParserOptions::newFromAnon(), new ParserOutput );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
@@ -186,7 +186,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			"</span><span class='oo-ui-indicatorElement-indicator oo-ui-indicatorElement-noIndicator'></span></a></span><ext:ck:editmarker page=\"Main Page/Members\"target=\"Main Page/Members\"message=\"collaborationkit-hub-members-signup\"link=\"/wiki/index.php?title=Main_Page/Members&action=edit\"classes=\"mw-ck-members-join\"icon=\"0\"framed=\"1\"primary=\"1\"/></div>";
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->getMembersBlock( Title::newMainPage(), new ParserOptions, new ParserOutput, $testMemberList );
+		$actual = $wc->getMembersBlock( Title::newMainPage(), ParserOptions::newFromAnon(), new ParserOutput, $testMemberList );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
@@ -201,7 +201,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 			'</h3>* The cafeteria is out of empanadas. We apologize for the inconvenience.';
 		$expected = [ $block, $block, $block ];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->getParsedAnnouncements( Title::newMainPage(), new ParserOptions, $testAnnouncement );
+		$actual = $wc->getParsedAnnouncements( Title::newMainPage(), ParserOptions::newFromAnon(), $testAnnouncement );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
