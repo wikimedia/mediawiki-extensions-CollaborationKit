@@ -3,7 +3,8 @@
 		"authors": [
 			"Ykhwong",
 			"Ellif",
-			"렌즈"
+			"렌즈",
+			"Revi"
 		]
 	},
 	"collaborationkit-desc": "위키프로젝트와 협력 공간을 위키에 만들 수 있는 툴.",
@@ -53,7 +54,7 @@
 	"collaborationkit-list-error-editconflict": "편집 충돌이 있었기 때문에 당신의 변경사항은 저장되지 않았습니다. 페이지를 새로 고친 다음 다시 시도하십시오.",
 	"collaborationkit-list-error-couldnotgetpage": "페이지 로드에 실패했습니다. 페이지를 새로 고친 다음 다시 시도하십시오.",
 	"collaborationkit-list-error-generic": "오류가 있었습니다. 페이지를 새로 고친 다음 다시 시도하십시오.",
-	"collaborationkit-list-error-saving": "목록에 대해 당신의 편집이 저장되지 않았습니다. 문서를 새로 고친 다음 다시 시도하십시오.",
+	"collaborationkit-list-error-saving": "목록 편집이 저장되지 않았습니다. 문서를 새로 고친 다음 다시 시도하십시오.",
 	"collaborationkit-list-move": "이 항목 재정렬",
 	"collaborationkit-list-move-summary": "/* $1 */ 항목 [[$1]] 재정렬",
 	"collaborationkit-list-move-popup": "저장했습니다: $1 항목이 재정렬되었습니다.",
