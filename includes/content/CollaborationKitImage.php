@@ -58,7 +58,7 @@ class CollaborationKitImage {
 		}
 
 		// If image doesn't exist or is an icon, this will return false.
-		$imageObj = wfFindFile( $image );
+		$imageObj = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $image );
 
 		// Use fallback icon or random icon if stated image doesn't exist
 		if ( $image === null

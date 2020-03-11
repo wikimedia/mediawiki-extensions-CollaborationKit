@@ -480,7 +480,7 @@ class CollaborationListContent extends JsonContent {
 		if ( $definedImage !== null && is_string( $definedImage ) ) {
 			$imageTitle = Title::newFromText( $definedImage, NS_FILE );
 			if ( $imageTitle ) {
-				$imageObj = wfFindFile( $imageTitle );
+				$imageObj = MediaWikiServices::getInstance()->getRepoGroup()->findFile( $imageTitle );
 				if ( $imageObj ) {
 					$image = $imageObj->getName();
 				}
