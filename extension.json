@@ -63,40 +63,20 @@
 		"CreateHubFeature": "SpecialCreateHubFeature"
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": [
-			"CollaborationKitHooks::onSkinTemplateNavigation"
-		],
-		"ParserFirstCallInit": [
-			"CollaborationKitHooks::onParserFirstCallInit"
-		],
-		"CodeEditorGetPageLanguage": [
-			"CollaborationKitHooks::onCodeEditorGetPageLanguage"
-		],
-		"ArticleViewHeader": [
-			"CollaborationListContent::onArticleViewHeader"
-		],
+		"SkinTemplateNavigation": "CollaborationKitHooks::onSkinTemplateNavigation",
+		"ParserFirstCallInit": "CollaborationKitHooks::onParserFirstCallInit",
+		"CodeEditorGetPageLanguage": "CollaborationKitHooks::onCodeEditorGetPageLanguage",
+		"ArticleViewHeader": "CollaborationListContent::onArticleViewHeader",
 		"CustomEditor": [
 			"CollaborationListContent::onCustomEditor",
 			"CollaborationHubContent::onCustomEditor"
 		],
-		"OutputPageBeforeHTML": [
-			"CollaborationKitHooks::onOutputPageBeforeHTML"
-		],
-		"GetDoubleUnderscoreIDs": [
-			"CollaborationKitHooks::onGetDoubleUnderscoreIDs"
-		],
-		"OutputPageParserOutput": [
-			"CollaborationKitHooks::onOutputPageParserOutput"
-		],
-		"OutputPageBodyAttributes": [
-			"CollaborationHubContentEditor::setCollabkitTheme"
-		],
-		"BeforePageDisplay": [
-			"CollaborationListContent::onBeforePageDisplay"
-		],
-		"ParserOutputPostCacheTransform": [
-			"CollaborationHubContentHandler::onParserOutputPostCacheTransform"
-		]
+		"OutputPageBeforeHTML": "CollaborationKitHooks::onOutputPageBeforeHTML",
+		"GetDoubleUnderscoreIDs": "CollaborationKitHooks::onGetDoubleUnderscoreIDs",
+		"OutputPageParserOutput": "CollaborationKitHooks::onOutputPageParserOutput",
+		"OutputPageBodyAttributes": "CollaborationHubContentEditor::setCollabkitTheme",
+		"BeforePageDisplay": "CollaborationListContent::onBeforePageDisplay",
+		"ParserOutputPostCacheTransform": "CollaborationHubContentHandler::onParserOutputPostCacheTransform"
 	},
 	"@fixme": "Does having ext.CollaborationKit.list.styles as a dependency double load from addModuleStyles?",
 	"@todo FIXME": "Should this actually load oojs-ui-core, or something else",
