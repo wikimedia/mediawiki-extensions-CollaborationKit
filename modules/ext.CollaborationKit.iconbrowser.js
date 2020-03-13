@@ -30,7 +30,7 @@
 	 * to initialize widgets, and to set up event handlers.
 	 */
 	ProcessDialog.prototype.initialize = function () {
-		var iconList, radioChoices, divElm, i;
+		var iconList, radioChoices, $divElm, i;
 
 		ProcessDialog.super.prototype.initialize.apply( this, arguments );
 
@@ -40,7 +40,7 @@
 
 		radioChoices = [];
 		for ( i = 0; i < iconList.length; i++ ) {
-			divElm = $( '<div></div>' )
+			$divElm = $( '<div></div>' )
 				.addClass( 'mw-ck-iconbrowser-iconcontainer' )
 				.append( $( '<div></div>' )
 					.addClass( 'mw-ck-icon-' + iconList[ i ] )
@@ -48,7 +48,7 @@
 				);
 
 			radioChoices.push( new OO.ui.RadioOptionWidget( {
-				label: divElm,
+				label: $divElm,
 				data: iconList[ i ]
 			} ) );
 		}
@@ -124,7 +124,7 @@
 	};
 
 	setupPage = function () {
-		var iconBrowserButton, mwCkIconInput;
+		var iconBrowserButton, $mwCkIconInput;
 		iconBrowserButton = new OO.ui.ButtonWidget();
 		iconBrowserButton.setLabel( mw.msg( 'collaborationkit-icon-launchbutton' ) );
 		iconBrowserButton.on( 'click', openItUp );
@@ -134,12 +134,12 @@
 			.append( '<div class="iconPreview mw-ck-icon-circlestar"></div>' )
 			.append( iconBrowserButton.$element );
 
-		mwCkIconInput = $( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' );
-		$( 'fieldset' ).append( mwCkIconInput );
+		$mwCkIconInput = $( '.mw-htmlform-field-HTMLComboboxField.mw-ck-icon-input' );
+		$( 'fieldset' ).append( $mwCkIconInput );
 
 		// Adding classes to trigger special styles
 		$( '.oo-ui-fieldsetLayout-group' ).addClass( 'mw-ck-iconbrowser-enabled' );
-		mwCkIconInput.addClass( 'mw-ck-iconbrowser-enabled' );
+		$mwCkIconInput.addClass( 'mw-ck-iconbrowser-enabled' );
 		$( '.mw-ck-icon-input .oo-ui-buttonElement' ).addClass( 'mw-ck-iconbrowser-enabled' );
 
 	};

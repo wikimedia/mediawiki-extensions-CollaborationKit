@@ -287,7 +287,7 @@
 	 * Initial setup function run when DOM loaded.
 	 */
 	setupPage = function () {
-		var curColour, colourBrowserButton, currentImageFilename, hubthemeWidget, hubimageBrowserButton, hubImageInput;
+		var curColour, colourBrowserButton, currentImageFilename, $hubthemeWidget, hubimageBrowserButton, hubImageInput;
 
 		// Defining buttons
 		colourBrowserButton = new OO.ui.ButtonWidget( {
@@ -325,7 +325,7 @@
 		// Setting up
 		$( '.mw-collabkit-modifiededitform' ).prepend( '<div class="mw-ck-hub-topform"></div>' );
 
-		hubthemeWidget = $( '<div class="mw-ck-hubtheme-widget"></div>' )
+		$hubthemeWidget = $( '<div class="mw-ck-hubtheme-widget"></div>' )
 			.append( $( '<div class="oo-ui-fieldLayout-header"></div>' )
 				.append( new OO.ui.LabelWidget( {
 					label: mw.msg( 'collaborationkit-hubedit-hubtheme' )
@@ -350,7 +350,7 @@
 				)
 			);
 
-		$( '.mw-ck-hub-topform' ).prepend( hubthemeWidget );
+		$( '.mw-ck-hub-topform' ).prepend( $hubthemeWidget );
 
 	};
 

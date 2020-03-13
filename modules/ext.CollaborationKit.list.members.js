@@ -89,7 +89,7 @@
 	};
 
 	$( function () {
-		var memberListPage, memberListUrl, list;
+		var memberListPage, memberListUrl, $list;
 		// Workflow assumes existence of username, so we filter against it
 		// However, since !curUserIsInList, the button will still render. It will just use no-JS
 		// behavior instead.
@@ -111,8 +111,8 @@
 		if ( mw.config.get( 'wgCollaborationKitIsMemberList' ) &&
 			!curUserIsInList() && !mw.user.isAnon() // Workflow assumes existence of username
 		) {
-			list = $( '.mw-ck-list' );
-			list.before(
+			$list = $( '.mw-ck-list' );
+			$list.before(
 				$( '<div></div>' )
 					.addClass( 'mw-ck-list-addself' )
 					.append(
