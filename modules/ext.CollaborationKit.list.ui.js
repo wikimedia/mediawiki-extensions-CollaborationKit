@@ -284,17 +284,17 @@
 		$list = $( '.mw-ck-list' );
 
 		$list.find( '.mw-ck-list-item' ).each( function () {
-			var buttonRow,
+			var $buttonRow,
 				deleteButton,
 				moveButton,
 				editButton,
-				delWrapper,
-				moveWrapper,
-				editWrapper,
+				$delWrapper,
+				$moveWrapper,
+				$editWrapper,
 				colId,
-				item = $( this );
+				$item = $( this );
 
-			colId = LE.getColId( item );
+			colId = LE.getColId( $item );
 			deleteButton = new OO.ui.ButtonWidget( {
 				framed: false,
 				icon: 'trash',
@@ -316,15 +316,15 @@
 				framed: false
 			} ).on( 'click', function () {
 				modifyExistingItem(
-					item.data( 'collabkit-item-title' ),
-					item.data( 'collabkit-item-uid' )
+					$item.data( 'collabkit-item-title' ),
+					$item.data( 'collabkit-item-uid' )
 				);
 			} );
 
 			// FIXME, the <a> might make an extra target when tabbing
 			// through the document (Maybe also messing up screen readers).
 			// not sure. Its used so that jquery.confirmable makes a link.
-			delWrapper = $( '<a></a>' )
+			$delWrapper = $( '<a></a>' )
 				.attr( 'href', '#' )
 				.click( function ( e ) { e.preventDefault(); } )
 				.addClass( 'mw-ck-list-deletebutton' )
@@ -332,30 +332,30 @@
 				.append( deleteButton.$element )
 				.confirmable( {
 					handler: function () {
-						LE.deleteItem( item );
+						LE.deleteItem( $item );
 					}
 				} );
 
 			if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
-				moveWrapper = $( '<div></div>' )
+				$moveWrapper = $( '<div></div>' )
 					.addClass( 'mw-ck-list-movebutton' )
 					.addClass( 'mw-ck-list-button' )
 					.append( moveButton.$element );
 			}
 
-			editWrapper = $( '<div></div>' )
+			$editWrapper = $( '<div></div>' )
 				.addClass( 'mw-ck-list-editbutton' )
 				.addClass( 'mw-ck-list-button' )
 				.append( editButton.$element );
 
-			buttonRow = $( '<div></div>' )
+			$buttonRow = $( '<div></div>' )
 				.addClass( 'mw-ck-list-buttonrow' )
-				.append( moveWrapper )
-				.append( editWrapper )
-				.append( delWrapper );
+				.append( $moveWrapper )
+				.append( $editWrapper )
+				.append( $delWrapper );
 
-			item.find( '.mw-ck-list-notes' )
-				.append( buttonRow );
+			$item.find( '.mw-ck-list-notes' )
+				.append( $buttonRow );
 		} );
 
 		if ( !mw.config.get( 'wgCollaborationKitIsMemberList' ) ) {
