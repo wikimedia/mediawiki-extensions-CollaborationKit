@@ -1,5 +1,8 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\SlotRecord;
+
 /**
  * Hooks to modify the default behavior of MediaWiki.
  *
@@ -125,7 +128,10 @@ class CollaborationKitHooks {
 		}
 
 		/** @var CollaborationHubContent $revisionContent */
-		$revisionContent = Revision::newFromTitle( $parentHub )->getContent();
+		$revisionContent = MediaWikiServices::getInstance()
+			->getRevisionLookup()
+			->getRevisionByTitle( $parentHub )
+			->getContent( SlotRecord::MAIN );
 		if ( count( $revisionContent->getContent() ) > 0 ) {
 			$toc = new CollaborationHubTOC();
 			$out->prependHTML( $toc->renderSubpageToC( $parentHub ) );
