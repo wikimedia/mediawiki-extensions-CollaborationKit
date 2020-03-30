@@ -126,7 +126,7 @@
 	"collaborationkit-hubedit-footer-help": "Стои под вклучените можности. Препорачано место за категории, навигациони предлошки и тн.",
 	"collaborationkit-hubedit-content-help": "Список на страници и потстраници што ги вклучувате во проектот. Секоја во нов ред. Користете полно име на страниците.",
 	"collaborationkit-listedit-description-placeholder": "Опишете на што се однесува списокот.",
-	"collaborationkit-listedit-list-help": "Прилагодена синтакса за масовно уредување. Накратко, една ставка за ред, разни столбови означени со неколку цртички. Повеќе ќе дознаете на [[Help:Extension:CollaborationKit|Помош:Соработен прибор]].",
+	"collaborationkit-listedit-list-help": "Прилагодена синтакса за масовно уредување. Накратко, една ставка за ред, разни столбови означени со неколку цртички. Погледајте ја [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|помошната страница]] за повеќе информации.",
 	"collaborationkit-createhubfeature-icon-help": "Изберете некоја од приложените икони.",
 	"collaborationkit-hub-tracker": "Центри со Соработен прибор",
 	"collaborationkit-list-tracker": "Списоци на Соработен прибор"
