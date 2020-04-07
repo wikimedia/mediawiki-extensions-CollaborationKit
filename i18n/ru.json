@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kareyac",
-			"Okras",
-			"Redredsonia",
-			"Facenapalm",
-			"Putnik",
-			"Vlad5250",
 			"Diralik",
+			"Facenapalm",
+			"Kareyac",
+			"Katunchik",
 			"Movses",
-			"Katunchik"
+			"Okras",
+			"Putnik",
+			"Redredsonia",
+			"Vlad5250"
 		]
 	},
 	"collaborationkit-desc": "Инструменты для создания википроектов и рабочих пространств в пределах вики",

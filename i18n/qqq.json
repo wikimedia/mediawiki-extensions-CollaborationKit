@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Isarra",
-			"Harej",
-			"bawolff",
 			"Amire80",
+			"Harej",
+			"Isarra",
 			"Liuxinyu970226",
 			"Raymond",
-			"Robby"
+			"Robby",
+			"bawolff"
 		]
 	},
 	"collaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",

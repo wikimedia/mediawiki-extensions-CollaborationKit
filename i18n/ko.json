@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong",
 			"Ellif",
-			"렌즈",
-			"Revi"
+			"Revi",
+			"Ykhwong",
+			"렌즈"
 		]
 	},
 	"collaborationkit-desc": "위키프로젝트와 협력 공간을 위키에 만들 수 있는 툴.",
