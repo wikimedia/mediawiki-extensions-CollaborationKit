@@ -4,6 +4,7 @@
 			"Amirsara",
 			"Arash",
 			"Arash.pt",
+			"FarsiNevis",
 			"Iriman",
 			"Ladsgroup",
 			"Reza1615"
@@ -49,6 +50,7 @@
 	"collaborationkit-list-newitem-user": "نام کاربری",
 	"collaborationkit-list-newitem-image": "تصویر برای استفاده (اختیاری)",
 	"collaborationkit-list-newitem-description": "توضیحات (اختیاری)",
+	"collaborationkit-list-edititem-label": "روزآمدسازی",
 	"collaborationkit-listedit-description": "توضیح",
 	"collaborationkit-listedit-list": "فهرست موارد",
 	"collaborationkit-hubedit-displayname": "نام هاب",
