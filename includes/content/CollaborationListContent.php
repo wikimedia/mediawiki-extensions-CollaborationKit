@@ -16,6 +16,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use PageImages\PageImages;
 
 class CollaborationListContent extends JsonContent {
 
