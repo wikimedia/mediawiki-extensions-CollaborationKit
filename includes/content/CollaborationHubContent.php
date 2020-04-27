@@ -1187,12 +1187,15 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Hook to use custom edit page for lists
 	 *
-	 * @param WikiPage|Article|ImagePage|CategoryPage|Page $page
-	 * @param User $user
-	 * @return bool
+	 * @param Article|Page $page
+	 * @param User $user (Not used)
+	 * @return bool|null
 	 */
 	public static function onCustomEditor( Page $page, User $user ) {
-		if ( $page->getContentModel() === __CLASS__ ) {
+		if (
+			$page instanceof Article
+			&& $page->getPage()->getContentModel() === __CLASS__
+		) {
 			$editor = new CollaborationHubContentEditor( $page );
 			$editor->setContextTitle( $page->getTitle() );
 			$editor->edit();
