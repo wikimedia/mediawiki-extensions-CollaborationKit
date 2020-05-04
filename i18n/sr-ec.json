@@ -77,6 +77,6 @@
 	"collaborationkit-createhub-title-placeholder": "Нови пројекат",
 	"collaborationkit-hubedit-hubtheme-help": "Визуелни идентитет хаба, укључујући слику за идентификацију и основну боју.",
 	"collaborationkit-hubedit-content-help": "Списак страница или подстраница за укључивање у пројекат. Једно име странице за један ред. Користити пуни назив странице.",
-	"collaborationkit-listedit-list-help": "Измењена синтакса се користи за већину уређивања. У коначници, једна ставка за линију, са различитим колонама означеним са неколико цртица. Погледајте [[Help:Extension:CollaborationKit|CollaborationKit]] за више информација.",
+	"collaborationkit-listedit-list-help": "Измењена синтакса се користи за већину уређивања. У коначници, једна ставка за линију, са различитим колонама означеним са неколико цртица. Погледајте [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|страницу помоћи]] за више информација.",
 	"collaborationkit-createhubfeature-icon-help": "Молимо одаберите од понуђених икона."
 }
