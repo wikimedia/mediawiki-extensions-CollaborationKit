@@ -1,7 +1,11 @@
 {
 	"name": "CollaborationKit",
 	"version": "0.4",
-	"author": [ "Kim Schoonover", "Brian Wolff", "James Hare" ],
+	"author": [
+		"Kim Schoonover",
+		"Brian Wolff",
+		"James Hare"
+	],
 	"url": "https://www.mediawiki.org/wiki/Extension:CollaborationKit",
 	"descriptionmsg": "collaborationkit-desc",
 	"type": "other",
@@ -47,14 +51,20 @@
 	},
 	"config": {
 		"CollaborationHubAllowedNamespaces": {
-			"_merge_strategy": "array_plus",
-			"2": true,
-			"4": true
+			"value": {
+				"_merge_strategy": "array_plus",
+				"2": true,
+				"4": true
+			},
+			"merge_strategy": "array_plus"
 		},
 		"CollaborationListAllowedNamespaces": {
-			"_merge_strategy": "array_plus",
-			"2": true,
-			"4": true
+			"value": {
+				"_merge_strategy": "array_plus",
+				"2": true,
+				"4": true
+			},
+			"merge_strategy": "array_plus"
 		}
 	},
 	"SpecialPages": {
@@ -211,16 +221,46 @@
 			"selectorWithVariant": ".mw-ck-theme-{variant}.mw-ck-list-{name} ul",
 			"class": "ResourceLoaderListStyleModule",
 			"variants": {
-				"red": { "color": "#b11", "global": true },
-				"lightgrey": { "color": "#ccc", "global": true },
-				"skyblue": { "color": "#3af", "global": true },
-				"bluegrey": { "color": "#abcdef", "global": true },
-				"aquamarine": { "color": "#4cc", "global": true },
-				"violet": { "color": "#b8d", "global": true },
-				"salmon": { "color": "#faa", "global": true },
-				"yellow": { "color": "#fc3", "global": true },
-				"gold": { "color": "#b91", "global": true },
-				"brightgreen": { "color": "#af5", "global": true }
+				"red": {
+					"color": "#b11",
+					"global": true
+				},
+				"lightgrey": {
+					"color": "#ccc",
+					"global": true
+				},
+				"skyblue": {
+					"color": "#3af",
+					"global": true
+				},
+				"bluegrey": {
+					"color": "#abcdef",
+					"global": true
+				},
+				"aquamarine": {
+					"color": "#4cc",
+					"global": true
+				},
+				"violet": {
+					"color": "#b8d",
+					"global": true
+				},
+				"salmon": {
+					"color": "#faa",
+					"global": true
+				},
+				"yellow": {
+					"color": "#fc3",
+					"global": true
+				},
+				"gold": {
+					"color": "#b91",
+					"global": true
+				},
+				"brightgreen": {
+					"color": "#af5",
+					"global": true
+				}
 			},
 			"images": {
 				"square": "images/blot.svg"
@@ -231,16 +271,46 @@
 			"selectorWithVariant": ".mw-ck-theme-{variant} .mw-ck-icon-{name}, .mw-ck-icon-{name}-{variant}",
 			"class": "ResourceLoaderImageModule",
 			"variants": {
-				"red": { "color": "#b11", "global": true },
-				"lightgrey": { "color": "#ccc", "global": true },
-				"skyblue": { "color": "#3af", "global": true },
-				"bluegrey": { "color": "#abcdef", "global": true },
-				"aquamarine": { "color": "#4cc", "global": true },
-				"violet": { "color": "#b8d", "global": true },
-				"salmon": { "color": "#faa", "global": true },
-				"yellow": { "color": "#fc3", "global": true },
-				"gold": { "color": "#b91", "global": true },
-				"brightgreen": { "color": "#af5", "global": true }
+				"red": {
+					"color": "#b11",
+					"global": true
+				},
+				"lightgrey": {
+					"color": "#ccc",
+					"global": true
+				},
+				"skyblue": {
+					"color": "#3af",
+					"global": true
+				},
+				"bluegrey": {
+					"color": "#abcdef",
+					"global": true
+				},
+				"aquamarine": {
+					"color": "#4cc",
+					"global": true
+				},
+				"violet": {
+					"color": "#b8d",
+					"global": true
+				},
+				"salmon": {
+					"color": "#faa",
+					"global": true
+				},
+				"yellow": {
+					"color": "#fc3",
+					"global": true
+				},
+				"gold": {
+					"color": "#b91",
+					"global": true
+				},
+				"brightgreen": {
+					"color": "#af5",
+					"global": true
+				}
 			},
 			"images": {
 				"addimage": "images/icons/addimage.svg",
@@ -307,5 +377,5 @@
 		"localBasePath": "modules",
 		"remoteExtPath": "CollaborationKit/modules"
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
