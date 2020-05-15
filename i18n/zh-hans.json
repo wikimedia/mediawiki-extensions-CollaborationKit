@@ -3,6 +3,7 @@
 		"authors": [
 			"A Chinese Wikipedian",
 			"Liuxinyu970226",
+			"VulpesVulpes825",
 			"佛壁灯"
 		]
 	},
@@ -10,6 +11,7 @@
 	"collaborationkiticons": "CollaborationKit图标目录",
 	"createcollaborationhub": "创建新的协作中心",
 	"createhubfeature": "创建新的协作中心功能",
+	"collaborationkit-createhub-submit": "建立中心",
 	"collaborationkit-createhub-title": "页面标题",
 	"collaborationkit-createhub-invalidtitle": "指定的标题无效。",
 	"collaborationkit-createhub-exists": "已存在指定标题的页面。",
