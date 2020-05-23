@@ -107,7 +107,7 @@ JSON;
 			'options' => [
 				'mode' => 'normal'
 			],
-			'description' => "$initialDescription"  // Do not take out these quote marks
+			'description' => $initialDescription
 		];
 		$newMemberListJson = FormatJson::encode(
 			$newMemberList,
@@ -178,7 +178,7 @@ JSON;
 		$username = $context->getUser()->getName();
 		$collabList = self::makeMemberList(
 			$username,
-			$context->msg( 'collaborationkit-hub-members-description' )
+			$context->msg( 'collaborationkit-hub-members-description' )->text()
 		);
 		// Ensure that a valid context is provided to the API in unit tests
 		$der = new DerivativeContext( $context );

@@ -352,6 +352,8 @@ class SpecialCreateCollaborationHub extends SpecialPage {
 			$title->getFullText()
 			. '/'
 			. $this->msg( 'collaborationkit-hub-pagetitle-members' )
+				->inContentLanguage()
+				->plain()
 		);
 		if ( !$memberListTitle ) {
 			return Status::newFatal( 'collaborationkit-createhub-invalidtitle' );

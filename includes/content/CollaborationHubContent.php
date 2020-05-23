@@ -270,7 +270,7 @@ class CollaborationHubContent extends JsonContent {
 
 		if ( $this->displaymode == 'error' ) {
 			$html = '<div class=errorbox>'
-			. wfMessage( 'collaborationkit-hub-invalid' )
+			. wfMessage( 'collaborationkit-hub-invalid' )->escaped()
 			. "</div>\n<pre>"
 			. $this->errortext
 			. '</pre>';
@@ -430,7 +430,7 @@ class CollaborationHubContent extends JsonContent {
 			$html .= Html::rawElement(
 				'h3',
 				[],
-				wfMessage( 'collaborationkit-hub-members-header' )
+				wfMessage( 'collaborationkit-hub-members-header' )->escaped()
 			);
 
 			if ( $membersContent === null ) {
