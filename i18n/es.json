@@ -7,6 +7,7 @@
 			"Fitoschido",
 			"Luzcaru",
 			"Macofe",
+			"MarcoAurelio",
 			"Themasterriot"
 		]
 	},
@@ -29,6 +30,7 @@
 	"collaborationkit-createhubfeature-exists": "Ya existe una página con el título especificado.",
 	"collaborationkit-createhubfeature-nopermission": "No tienes permiso para crear una característica con este título.",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "No existe un Centro de Colaboración con ese título.",
+	"collaborationkit-createhubfeature-nopermission-contentmodel": "No tienes permiso para crear una característica con este modelo de contenido.",
 	"collaborationkit-createhubfeature-hubisnotahub": "La página especificada no es un Centro de Colaboración.",
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Añadiendo",
 	"collaborationkit-createhubfeature-invalidcontenttype": "Este modelo de contenido actualmente no está permitido para las características.",
