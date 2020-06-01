@@ -134,6 +134,7 @@ class CollaborationKitHooks {
 			->getContent( SlotRecord::MAIN );
 		if ( count( $revisionContent->getContent() ) > 0 ) {
 			$toc = new CollaborationHubTOC();
+			// @phan-suppress-next-line SecurityCheck-XSS
 			$out->prependHTML( $toc->renderSubpageToC( $parentHub ) );
 
 			$colour = $revisionContent->getThemeColour();

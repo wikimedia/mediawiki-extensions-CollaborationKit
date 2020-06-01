@@ -215,7 +215,6 @@ class CollaborationListContent extends JsonContent {
 	 * @param ParserOptions $options
 	 * @param bool $generateHtml
 	 * @param ParserOutput &$output
-	 * @suppress SecurityCheck-DoubleEscaped Value returned by ParserOutput is over reference
 	 */
 	protected function fillParserOutput( Title $title, $revId,
 		ParserOptions $options, $generateHtml, ParserOutput &$output
