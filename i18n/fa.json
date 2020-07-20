@@ -5,6 +5,7 @@
 			"Arash",
 			"Arash.pt",
 			"FarsiNevis",
+			"Huji",
 			"Iriman",
 			"Ladsgroup",
 			"Reza1615"
@@ -29,7 +30,7 @@
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ افزودن",
 	"collaborationkit-createhubfeature-editsummary": "ایجاد قابلیت جدید",
 	"collaborationkit-createhubfeature-freetext": "صفحه عمومی ویکی",
-	"collaborationkit-createhubfeature-articlelist": "فهرست برگه‌ها",
+	"collaborationkit-createhubfeature-articlelist": "فهرست صفحه‌ها",
 	"collaborationkit-iconlist-columnheader-icon": "نماد",
 	"collaborationkit-iconlist-columnheader-iconname": "نام نماد",
 	"collaborationkit-list-delete": "حذف مورد",
