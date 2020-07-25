@@ -95,6 +95,7 @@
 	/**
 	 * In the event "Select" is pressed
 	 *
+	 * @param action
 	 */
 	ColourProcessDialog.prototype.getActionProcess = function ( action ) {
 		var dialog, oldColour;
@@ -220,6 +221,7 @@
 	/**
 	 * In the event "Select" is pressed
 	 *
+	 * @param action
 	 */
 	ImageProcessDialog.prototype.getActionProcess = function ( action ) {
 		var dialog, fileTitle;

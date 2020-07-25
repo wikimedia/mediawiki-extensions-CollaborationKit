@@ -69,6 +69,7 @@
 	/**
 	 * In the event "Select" is pressed
 	 *
+	 * @param action
 	 */
 	ProcessDialog.prototype.getActionProcess = function ( action ) {
 		var dialog, toAppend;
