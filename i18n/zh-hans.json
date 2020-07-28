@@ -4,7 +4,8 @@
 			"A Chinese Wikipedian",
 			"Liuxinyu970226",
 			"VulpesVulpes825",
-			"佛壁灯"
+			"佛壁灯",
+			"列维劳德"
 		]
 	},
 	"collaborationkit-desc": "用于构建维基专题和wiki上协作工作区的工具",
@@ -129,6 +130,6 @@
 	"collaborationkit-hubedit-footer-help": "出现在包含的功能下。推荐作为分类、导航模板等的位置。",
 	"collaborationkit-hubedit-content-help": "包含在专题中的页面或子页面列表。每行一个页面名。使用完整页面标题。",
 	"collaborationkit-listedit-description-placeholder": "描述列表有关或用于什么。",
-	"collaborationkit-listedit-list-help": "自定义语法用于大量编辑。本质上每行一个项目，并用多个连字符标记不同列。参见[[Help:Extension:CollaborationKit]]以获取更多信息。",
+	"collaborationkit-listedit-list-help": "自定义语法用于大量编辑。本质上每行一个项目，并用多个连字符标记不同列。前往[[mw:Special:MyLanguage/Help:Extension:CollaborationKit]]以获取更多信息。",
 	"collaborationkit-createhubfeature-icon-help": "请在包含的图标中选择。"
 }
