@@ -40,7 +40,7 @@
 	"collaborationkit-list-emptycolumn": "This column has no items in it.",
 	"collaborationkit-list-invalid": "This content does not meet the requirements of the CollaborationListContent schema. This may happen as a result of a software update. The content is reproduced below.",
 	"collaborationkit-list-notlist": "[[$1]] is not a Collaboration List page",
-	"collaborationkit-list-taglist": "'''{{PLURAL:$2|Tagged:|Tags:}}''' $1 ",
+	"collaborationkit-list-taglist": "'''{{PLURAL:$2|Tagged:|Tags:}}''' $1",
 	"collaborationkit-list-toomanytags": "You are not allowed to specify more than {{PLURAL:$1|one tag|$1 tags}}.",
 	"collaborationkit-list-delete": "Remove item",
 	"collaborationkit-list-delete-summary": "/* $1 */ Deleting from list.",
