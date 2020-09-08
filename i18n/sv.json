@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Mjälten",
+			"Pyscowicz",
 			"WikiPhoenix"
 		]
 	},
@@ -30,6 +31,7 @@
 	"collaborationkit-hub-members-signup": "Gå med",
 	"collaborationkit-hub-members-view": "Visa fullständig logg",
 	"collaborationkit-hub-missingpage-purgecache": "Rensa cachen",
+	"collaborationkit-hub-subpage-view": "Visa sida",
 	"collaborationkit-icon-launchbutton": "Bläddra ikoner",
 	"collaborationkit-icon-select": "Välj",
 	"collaborationkit-red": "Röd",
