@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Andriy.v",
 			"Movses",
 			"Piramidion",
 			"Vlad5250",
@@ -120,14 +121,14 @@
 	"collaborationkit-createhub-wrongnamespace": "Назва цієї сторінки не може використовуватись як назва центру співпраці. Центри співпраці можуть створюватись лише в {{PLURAL:$1|просторі назв $2|таких просторах назв: $2}}.",
 	"createcollaborationhub-text": "Ви створюєте новий центр співпраці — робочий простір для організування проекту. Після створення цієї сторінки Ви зможете додати функції та здійснити інші редагування.",
 	"collaborationkit-createhub-title-help": "Де слід створити центр співпраці",
-	"collaborationkit-createhub-title-placeholder": "Новий проект",
-	"collaborationkit-hubedit-displayname-help": "Використовується для посилання на проект на інших сторінках. Необхідно лише якщо ця назва відрізняється від назви сторінки.",
+	"collaborationkit-createhub-title-placeholder": "Новий проєкт",
+	"collaborationkit-hubedit-displayname-help": "Використовується для посилання на проєкт на інших сторінках. Необхідно лише якщо ця назва відрізняється від назви сторінки.",
 	"collaborationkit-hubedit-hubtheme": "Тема центру",
 	"collaborationkit-hubedit-hubtheme-help": "Візуальна ідентичність центру, включно з визначальним зображенням і головним кольором.",
-	"collaborationkit-hubedit-image-help": "Зображення або іконка, що репрезентує проект",
-	"collaborationkit-hubedit-introduction-placeholder": "Представте свій проект тут! Розкажіть нам, чим Ви хочете займатись.",
+	"collaborationkit-hubedit-image-help": "Зображення або іконка, що репрезентує проєкт",
+	"collaborationkit-hubedit-introduction-placeholder": "Представте свій проєкт тут! Розкажіть нам, чим Ви хочете займатись.",
 	"collaborationkit-hubedit-footer-help": "З'являється під включеними функціями. Рекомендоване місце розташування категорій, навігаційних шаблонів тощо.",
-	"collaborationkit-hubedit-content-help": "Список сторінок чи підсторінок, які слід включити в проект. одна назва сторінки на рядок. Використовуйте повні назви сторінок.",
+	"collaborationkit-hubedit-content-help": "Список сторінок чи підсторінок, які слід включити в проєкт. одна назва сторінки на рядок. Використовуйте повні назви сторінок.",
 	"collaborationkit-listedit-description-placeholder": "Опишіть, про що чи для чого цей список.",
 	"collaborationkit-listedit-list-help": "Користувацький синтаксис використовується для масових редагувань. Загалом, один елемент на рядок, різні стовпці позначені декількома дефісами. Відвідайте [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|сторінку довідки]], щоб дізнатися більше.",
 	"collaborationkit-createhubfeature-icon-help": "Будь ласка, виберіть одну з включених іконок.",
