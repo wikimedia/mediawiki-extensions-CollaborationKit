@@ -38,7 +38,7 @@ class CollaborationHubContent extends JsonContent {
 	/** @var string */
 	protected $themeColour;
 
-	/** @var $displaymode String How to display contents */
+	/** @var string How to display contents */
 	protected $displaymode;
 
 	/** @var bool Whether contents have been populated */

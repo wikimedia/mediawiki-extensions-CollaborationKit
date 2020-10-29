@@ -1,13 +1,12 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/client"
+		"wikimedia/client",
+		"wikimedia/mediawiki"
 	],
 	"globals": {
-		"mw": false,
 		"mediaWiki": false,
-		"jQuery": false,
-		"OO": false
+		"jQuery": false
 	},
 	"rules": {
 		"valid-jsdoc": "off",
@@ -16,6 +15,8 @@
 		"no-use-before-define": "off",
 		"no-unused-vars": "off",
 		"no-undef": "off",
-		"no-alert": "off"
+		"no-alert": "off",
+		"mediawiki/class-doc": "off",
+		"mediawiki/msg-doc": "off"
 	}
 }

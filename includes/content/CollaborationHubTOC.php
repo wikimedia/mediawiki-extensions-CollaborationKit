@@ -11,7 +11,7 @@ use MediaWiki\Revision\SlotRecord;
 
 class CollaborationHubTOC {
 
-	/** @var $tocLinks array ids/links for ToC items that have been used already */
+	/** @var array ids/links for ToC items that have been used already */
 	protected $tocLinks;
 
 	/**

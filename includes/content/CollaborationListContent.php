@@ -29,15 +29,15 @@ class CollaborationListContent extends JsonContent {
 	// Splitter denoting the beginning of the list itself within the column
 	const HUMAN_COLUMN_SPLIT2 = "\n---------------------\n";
 
-	/** @var $decoded boolean Have we decoded the data yet */
+	/** @var bool Have we decoded the data yet */
 	private $decoded = false;
-	/** @var $description String Descripton wikitext */
+	/** @var string Descripton wikitext */
 	protected $description;
-	/** @var $options StdClass Options for page */
+	/** @var StdClass Options for page */
 	protected $options;
 	/** @var $items array List of columns */
 	protected $columns;
-	/** @var $displaymode String The variety of list */
+	/** @var string The variety of list */
 	protected $displaymode;
 
 	/** @var string Error message text */
