@@ -3,7 +3,8 @@
 		"authors": [
 			"An13sa",
 			"Mikel Ibaiba",
-			"Subi"
+			"Subi",
+			"Xabier Armendaritz"
 		]
 	},
 	"collaborationkit-createhub-title": "Orriaren izenburua",
@@ -34,7 +35,7 @@
 	"collaborationkit-hub-missingpage-purgecache": "Katxea garbitu",
 	"collaborationkit-hub-pagetitle-members": "Kideak",
 	"collaborationkit-hub-pagetitle-announcements": "Iragarkiak",
-	"collaborationkit-hub-subpage-view": "Orrialdea ikusi",
+	"collaborationkit-hub-subpage-view": "Ikusi orria",
 	"collaborationkit-icon-select": "Hautatu",
 	"collaborationkit-colour-select": "Hautatu",
 	"collaborationkit-hubimage-select": "Hautatu",
