@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"ArenaL5",
 			"Banjo",
 			"Elisardojm",
 			"Fitoschido"
@@ -60,7 +61,7 @@
 	"collaborationkit-list-move-popup-title": "Páxina gardada",
 	"collaborationkit-list-newitem-title": "Engadir elemento á lista",
 	"collaborationkit-list-newitem-label": "Engadir á lista",
-	"collaborationkit-list-newitem-page": "Páxina a engadir",
+	"collaborationkit-list-newitem-page": "Nome da páxina",
 	"collaborationkit-list-newitem-user": "Usuario a engadir",
 	"collaborationkit-list-newitem-image": "Imaxe a usar (opcional)",
 	"collaborationkit-list-newitem-description": "Descrición (opcional)",
@@ -123,6 +124,6 @@
 	"collaborationkit-hubedit-footer-help": "Aparece debaixo dos recursos incluídos. Situación recomendada para categorías, modelos de navegación, etc.",
 	"collaborationkit-hubedit-content-help": "Unha lista de páxinas ou subpáxinas a incluír no proxecto. Unha páxina por liña. Use o título completo da páxina.",
 	"collaborationkit-listedit-description-placeholder": "Describa sobre que ou para que é a lista.",
-	"collaborationkit-listedit-list-help": "Emprégase unha sintaxe personalizada para realizar edicións en masa. Esquemáticamente: un elemento por liña con diferentes columnas marcadas por varios guións. Consulte [[Help:Extension:CollaborationKit]] para obter máis información.",
+	"collaborationkit-listedit-list-help": "Emprégase unha sintaxe personalizada para realizar edicións en masa. Esquemáticamente: un elemento por liña con diferentes columnas marcadas por varios guións. Visite [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|a páxina de axuda]] para obter máis información.",
 	"collaborationkit-createhubfeature-icon-help": "Por favor, seleccione unha das iconas incluídas."
 }
