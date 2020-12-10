@@ -738,7 +738,7 @@ class CollaborationHubContent extends JsonContent {
 				);
 
 				// register as template for stuff
-				// @phan-suppress-next-line PhanTypeMismatchArgument
+				// @phan-suppress-next-line PhanTypeMismatchArgumentProbablyReal
 				$output->addTemplate( $spTitle, $spTitle->getArticleID(), null );
 			}
 
