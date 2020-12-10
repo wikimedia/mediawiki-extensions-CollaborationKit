@@ -165,6 +165,7 @@ class CollaborationHubTOC {
 
 		$html .= Html::closeElement( 'ul' );
 		$html .= Html::closeElement( 'div' );
+		// @phan-suppress-next-line PhanPluginDuplicateAdjacentStatement
 		$html .= Html::closeElement( 'div' );
 		return $html;
 	}

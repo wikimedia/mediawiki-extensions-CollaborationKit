@@ -287,7 +287,7 @@ class CollaborationListContent extends JsonContent {
 	 */
 	public function convertToWikitext( Language $lang, $options = [] ) {
 		$this->decode();
-		$options = $options + $this->getDefaultOptions();
+		$options += $this->getDefaultOptions();
 		$maxItems = $options['maxItems'];
 		$includeDesc = $options['includeDesc'];
 		$iconWidth = (int)$options['iconWidth'];
@@ -860,7 +860,7 @@ class CollaborationListContent extends JsonContent {
 	 */
 	private static function convertFromHumanEditableColumn( $column ) {
 		// Adding newline so that HUMAN_COLUMN_SPLIT2 correctly triggers
-		$column = $column . "\n";
+		$column .= "\n";
 
 		$columnItem = [ 'items' => [] ];
 
