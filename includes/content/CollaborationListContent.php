@@ -780,7 +780,7 @@ class CollaborationListContent extends JsonContent {
 
 	/**
 	 * @param string $options Human readable options
-	 * @return object
+	 * @return stdClass
 	 */
 	private static function parseHumanOptions( $options ) {
 		$finalList = [];
