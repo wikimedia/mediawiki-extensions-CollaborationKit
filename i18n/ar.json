@@ -4,6 +4,7 @@
 			"ASHmed",
 			"Aboulouei1",
 			"Meno25",
+			"Michel Bakni",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
 		]
@@ -87,7 +88,7 @@
 	"collaborationkit-hub-missingpage-note": "هذه الميزة غير موجودة، يمكنك إنشاء ميزة جديدة باستخدام الزر أدناه، إذا كنت قد أنشأت الميزة وما زلت ترى هذه الرسالة، فجرِّب إزالة ذاكرة التخزين المؤقت.",
 	"collaborationkit-hub-missingpage-protected-note": "من المحتمل أن تكون هذه الميزة غير موجودة، ومحمية من الإنشاء، أو يمكنك محاولة تطهير ذاكرة التخزين المؤقت.",
 	"collaborationkit-hub-missingpage-create": "إنشاء ميزة",
-	"collaborationkit-hub-missingpage-purgecache": "إفراغ الكاش",
+	"collaborationkit-hub-missingpage-purgecache": "محو الاختزان",
 	"collaborationkit-hub-pagetitle-members": "الأعضاء",
 	"collaborationkit-hub-pagetitle-announcements": "الإعلانات",
 	"collaborationkit-hub-subpage-view": "عرض الصفحة",
