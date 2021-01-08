@@ -170,7 +170,7 @@ class CollaborationKitImage {
 			return $wikitext;
 		} else {
 			$imageHtml = $parser->parse( $wikitext, $imageTitle,
-				new ParserOptions() )->getText();
+				ParserOptions::newFromAnon() )->getText();
 
 			if ( $label != '' ) {
 				$imageHtml = Html::rawElement(
