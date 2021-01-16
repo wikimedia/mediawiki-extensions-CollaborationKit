@@ -29,6 +29,10 @@ class SpecialCreateCollaborationHub extends SpecialPage {
 	/** @var bool */
 	protected $overwrite;
 
+	/**
+	 * @param string $name
+	 * @param string $right
+	 */
 	public function __construct( $name = 'CreateCollaborationHub',
 		$right = 'createpage'
 	) {

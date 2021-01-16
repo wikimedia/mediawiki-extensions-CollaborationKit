@@ -280,6 +280,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		// No-op: We have already redirected.
 	}
 
+	/** @inheritDoc */
 	protected function getDisplayFormat() {
 		return 'ooui';
 	}

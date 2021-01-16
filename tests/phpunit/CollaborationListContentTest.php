@@ -7,6 +7,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class CollaborationListContentTest extends MediaWikiTestCase {
 
+	/** @var CollaborationListContent */
 	private $content;
 
 	public function setUp() : void {
@@ -19,6 +20,8 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 	/**
 	 * Helper function to shorten lines
+	 * @param string $text
+	 * @return CollaborationHubContent
 	 */
 	private function m( $text ) {
 		return new CollaborationListContent( $text );
@@ -26,6 +29,8 @@ class CollaborationListContentTest extends MediaWikiTestCase {
 
 	/**
 	 * Helper function for test cases
+	 * @param mixed $arr
+	 * @return string
 	 */
 	private function stringify( $arr ) {
 		return FormatJson::encode( $arr, true, FormatJson::ALL_OK );

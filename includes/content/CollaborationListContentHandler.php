@@ -10,6 +10,10 @@
 class CollaborationListContentHandler extends TextContentHandler {
 	const FORMAT_WIKI = 'text/x-collabkit';
 
+	/**
+	 * @param string $modelId
+	 * @param string[] $formats
+	 */
 	public function __construct(
 		$modelId = 'CollaborationListContent',
 		$formats = [ CONTENT_FORMAT_JSON, CONTENT_FORMAT_TEXT, self::FORMAT_WIKI ]

@@ -7,6 +7,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class CollaborationHubContentTest extends MediaWikiTestCase {
 
+	/** @var CollaborationHubContent */
 	private $content;
 
 	public function setUp() : void {

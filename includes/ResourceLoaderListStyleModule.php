@@ -7,6 +7,7 @@
  */
 
 class ResourceLoaderListStyleModule extends ResourceLoaderImageModule {
+	/** @inheritDoc */
 	protected function getCssDeclarations( $primary, $fallback ) : array {
 		return [
 			"list-style-image: /* @embed */ url( $fallback ) \9;",

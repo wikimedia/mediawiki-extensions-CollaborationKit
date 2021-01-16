@@ -7,6 +7,7 @@ use Wikimedia\TestingAccessWrapper;
  */
 class CollaborationKitImageTest extends MediaWikiTestCase {
 
+	/** @var CollaborationKitImage */
 	private $str;
 
 	public function setUp() : void {
