@@ -4,5 +4,6 @@
 			"Eleassar"
 		]
 	},
-	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajanje"
+	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajanje",
+	"collaborationkit-listedit-description": "Opis"
 }
