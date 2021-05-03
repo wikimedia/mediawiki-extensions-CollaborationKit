@@ -638,7 +638,7 @@ class CollaborationListContent extends JsonContent {
 				// Make rand1 relatively prime to $totItems.
 				$rand1++;
 			}
-			uksort( $items, function ( $a, $b ) use( $rand1, $rand2, $totItems ) {
+			uksort( $items, static function ( $a, $b ) use( $rand1, $rand2, $totItems ) {
 				$a2 = ( $a * $rand1 + $rand2 ) % $totItems;
 				$b2 = ( $b * $rand1 + $rand2 ) % $totItems;
 				if ( $a2 === $b2 ) {

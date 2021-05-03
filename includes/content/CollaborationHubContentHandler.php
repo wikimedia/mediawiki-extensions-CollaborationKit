@@ -210,7 +210,7 @@ JSON;
 			. '(.*?)/>#s';
 		$text = preg_replace_callback(
 			$regex,
-			function ( $m ) {
+			static function ( $m ) {
 				$user = RequestContext::getMain()->getUser();
 				$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
 
@@ -270,7 +270,7 @@ JSON;
 		// missing page message
 		$text = preg_replace_callback(
 			'#<ext:ck:missingfeature-note target="(.*?)"(.*?)/>#s',
-			function ( $m ) {
+			static function ( $m ) {
 				$user = RequestContext::getMain()->getUser();
 				$permissionManager = MediaWiki\MediaWikiServices::getInstance()->getPermissionManager();
 				$targetPage = Title::newFromText( htmlspecialchars_decode( $m[1] ) );
