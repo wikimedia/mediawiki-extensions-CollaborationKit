@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Aboulouei1",
+			"Ajeje Brazorf",
 			"Epok",
 			"Gomoko",
 			"Pamputt",
@@ -26,7 +27,7 @@
 	"collaborationkit-createhubfeature-icon": "Icône",
 	"collaborationkit-createhubfeature-contenttype": "De quel type de page s'agit-il ?",
 	"collaborationkit-createhubfeature-invalidtitle": "Vous avez choisi un titre de page invalide.",
-	"collaborationkit-createhubfeature-exists": "Une page existe déja avec le titre que vous avez spécifié.",
+	"collaborationkit-createhubfeature-exists": "Une page existe déjà avec le titre que vous avez spécifié.",
 	"collaborationkit-createhubfeature-nopermission": "Vous n'avez pas l'autorisation de créer une fonctionalité avec ce titre.",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "Il n’existe pas de Centre de Collaboration avec ce titre.",
 	"collaborationkit-createhubfeature-nopermission-contentmodel": "Vous n’avez pas le droit de créer une fonctionnalité avec ce modèle de contenu.",
