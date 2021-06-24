@@ -225,12 +225,10 @@ JSON;
 					// in particular we need to be able to both create a new
 					// subpage AND edit currentpage to flat-out add a new
 					// feature...
-					if ( !$targetPage->exists() && (
-						!$permissionManager->userCan( 'create', $user, $targetPage ) || (
-							$message === 'collaborationkit-hub-addpage' &&
-							!$permissionManager->userCan( 'edit', $user, $currentPage )
-						)
-					) ) {
+					// create right check covered throught edit right check
+					if ( $message === 'collaborationkit-hub-addpage' &&
+						!$permissionManager->userCan( 'edit', $user, $currentPage )
+					) {
 						return '';
 					}
 

@@ -145,7 +145,6 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 		} elseif ( $title->exists() ) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-exists' );
 		} elseif (
-			!$permissionManager->userCan( 'create', $user, $title ) ||
 			!$permissionManager->userCan( 'edit', $user, $title )
 		) {
 			return Status::newFatal( 'collaborationkit-createhubfeature-nopermission' );

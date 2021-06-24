@@ -326,7 +326,6 @@ class SpecialCreateCollaborationHub extends SpecialPage {
 		// as the non-title specific error.
 		if (
 			!$permissionManager->userCan( 'editcontentmodel', $user, $title ) ||
-			!$permissionManager->userCan( 'create', $user, $title ) ||
 			!$permissionManager->userCan( 'edit', $user, $title )
 		) {
 			return Status::newFatal( 'collaborationkit-createhub-nopermission' );
