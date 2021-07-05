@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Les Meloures",
 			"Robby",
 			"Soued031"
 		]
@@ -22,14 +23,14 @@
 	"collaborationkit-list-delete-summary": "/* $1 */ Aus der Lëscht läschen.",
 	"collaborationkit-list-delete-popup": "Gespäichert: $1 gouf vun der Lëscht geläscht.",
 	"collaborationkit-list-delete-popup-title": "Element geläscht",
-	"collaborationkit-list-add-user": "Benotzer op d'Lëscht dobäisetzen",
+	"collaborationkit-list-add-user": "Benotzer op d'Lëscht derbäisetzen",
 	"collaborationkit-list-add-self": "Beim Projet matmaachen",
 	"collaborationkit-list-alreadyadded": "Dir sidd scho Member vun dësem Projet.",
 	"collaborationkit-list-error-editconflict": "Et gouf en Ännerungskonflikt an Är Ännerung gouf net gespäichert. Aktualiséiert wgl. d'Säit a probéiert nach eng Kéier.",
 	"collaborationkit-list-error-saving": "Är Ännerunge vun der Lëscht goufen net gespäichert. Aktualiséiert d'Säit a probéiert wgl. nach eng Kéier.",
 	"collaborationkit-list-move-popup": "Gespäichert: $1 gouf nei zortéiert.",
 	"collaborationkit-list-move-popup-title": "Säit gespäichert",
-	"collaborationkit-list-newitem-title": "Element op d'Lëscht dobäisetzen",
+	"collaborationkit-list-newitem-title": "Element op d'Lëscht derbäisetzen",
 	"collaborationkit-list-newitem-label": "Op d'Lëscht dobäisetzen",
 	"collaborationkit-list-newitem-page": "Numm vun der Säit",
 	"collaborationkit-list-newitem-user": "Benotzernumm",
