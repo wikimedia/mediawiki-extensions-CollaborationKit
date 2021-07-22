@@ -12,7 +12,7 @@ class CollaborationHubTOCTest extends MediaWikiTestCase {
 	 */
 	private $content;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		parent::setUp();
 		$content = new CollaborationHubTOC();
 		$this->content = TestingAccessWrapper::newFromObject( $content );

@@ -10,7 +10,7 @@ class CollaborationHubContentTest extends MediaWikiTestCase {
 	/** @var CollaborationHubContent */
 	private $content;
 
-	public function setUp() : void {
+	public function setUp(): void {
 		$this->setMwGlobals( [
 			'wgServer' => 'http://localhost',
 			'wgScriptPath' => '/wiki',
