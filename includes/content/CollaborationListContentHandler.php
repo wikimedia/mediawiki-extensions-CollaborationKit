@@ -1,4 +1,8 @@
 <?php
+
+use MediaWiki\Content\Transform\PreSaveTransformParams;
+use MediaWiki\MediaWikiServices;
+
 /**
  * Content handler for CollaborationListContent.
  *
@@ -164,6 +168,37 @@ JSON;
 	public function makeRedirectContent( Title $destination, $text = '' ) {
 		$handler = new WikitextContentHandler();
 		return $handler->makeRedirectContent( $destination, $text );
+	}
+
+	/**
+	 * Beautifies JSON and does subst: prior to save.
+	 *
+	 * @param Content $content
+	 * @param PreSaveTransformParams $pstParams
+	 * @return CollaborationListContent
+	 */
+	public function preSaveTransform( Content $content, PreSaveTransformParams $pstParams ): Content {
+		'@phan-var CollaborationListContent $content';
+		$parser = MediaWikiServices::getInstance()->getParser();
+		// WikiPage::doEditContent invokes PST before validation. As such,
+		// native data may be invalid (though PST result is discarded later in
+		// that case).
+		$text = $content->getText();
+		// pst will hopefully not make json invalid. Def should not.
+		$pst = $parser->preSaveTransform(
+			$text,
+			$pstParams->getPage(),
+			$pstParams->getUser(),
+			$pstParams->getParserOptions()
+		);
+
+		$pstContent = new CollaborationListContent( $pst );
+
+		if ( !$pstContent->isValid() ) {
+			return $content;
+		}
+
+		return new CollaborationListContent( $pstContent->beautifyJSON() );
 	}
 
 	/**

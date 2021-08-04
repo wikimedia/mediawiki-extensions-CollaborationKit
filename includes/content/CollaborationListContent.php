@@ -150,31 +150,6 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	 * Beautifies JSON and does subst: prior to save.
-	 *
-	 * @param Title $title
-	 * @param User $user
-	 * @param ParserOptions $popts
-	 * @return CollaborationListContent
-	 */
-	public function preSaveTransform( Title $title, User $user, ParserOptions $popts ) {
-		$parser = MediaWikiServices::getInstance()->getParser();
-		// WikiPage::doEditContent invokes PST before validation. As such,
-		// native data may be invalid (though PST result is discarded later in
-		// that case).
-		$text = $this->getText();
-		// pst will hopefully not make json invalid. Def should not.
-		$pst = $parser->preSaveTransform( $text, $title, $user, $popts );
-		$pstContent = new static( $pst );
-
-		if ( !$pstContent->isValid() ) {
-			return $this;
-		}
-
-		return new static( $pstContent->beautifyJSON() );
-	}
-
-	/**
 	 * Decode the JSON contents and populate protected variables.
 	 */
 	protected function decode() {

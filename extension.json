@@ -43,7 +43,8 @@
 		"SpecialCreateCollaborationHub": "includes/specials/SpecialCreateCollaborationHub.php",
 		"SpecialCreateHubFeature": "includes/specials/SpecialCreateHubFeature.php",
 		"SpecialCollaborationKitIcons": "includes/specials/SpecialCollaborationKitIcons.php",
-		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php"
+		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php",
+		"CollaborationListTrait": "tests/phpunit/trait/CollaborationListTrait.php"
 	},
 	"ContentHandlers": {
 		"CollaborationHubContent": "CollaborationHubContentHandler",
