@@ -5,7 +5,8 @@
 			"Dansita",
 			"Ghebbro",
 			"Marcok",
-			"Margherita.mignanelli"
+			"Margherita.mignanelli",
+			"Stefano"
 		]
 	},
 	"collaborationkit-createhub-submit": "Crea Hub",
@@ -22,6 +23,7 @@
 	"collaborationkit-list-notlist": "[[$1]] non è una pagina di elenco di collaborazione",
 	"collaborationkit-list-delete": "Rimuovi elemento",
 	"collaborationkit-list-delete-popup": "Salvato: $1 è stato cancellato dall'elenco.",
+	"collaborationkit-list-delete-popup-title": "Elemento eliminato",
 	"collaborationkit-list-add": "Aggiungi nuovo elemento all'elenco",
 	"collaborationkit-list-add-user": "Aggiungi utente all'elenco",
 	"collaborationkit-list-alreadyadded": "Sei già un membro di questo progetto.",
