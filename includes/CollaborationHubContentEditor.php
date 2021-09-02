@@ -225,8 +225,8 @@ class CollaborationHubContentEditor extends EditPage {
 		if ( $format !== CollaborationListContentHandler::FORMAT_WIKI ) {
 			return parent::importContentFormData( $request );
 		}
-		$displayname = trim( $request->getText( 'wpCollabHubDisplayName' ) );
-		if ( $displayname === null ) {
+		$displayname = trim( $request->getText( 'wpCollabHubDisplayName', '' ) );
+		if ( $displayname === '' ) {
 			// Only 1 textbox?
 			return parent::importContentFormData( $request );
 		}
