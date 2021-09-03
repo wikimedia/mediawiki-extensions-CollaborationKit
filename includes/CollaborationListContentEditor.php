@@ -97,8 +97,8 @@ class CollaborationListContentEditor extends EditPage {
 		if ( $format !== CollaborationListContentHandler::FORMAT_WIKI ) {
 			return parent::importContentFormData( $request );
 		}
-		$desc = trim( $request->getText( 'wpCollabListDescription' ) );
-		if ( $desc === null ) {
+		$desc = trim( $request->getText( 'wpCollabListDescription', '' ) );
+		if ( $desc === '' ) {
 			// Only 1 textbox?
 			return parent::importContentFormData( $request );
 		}
