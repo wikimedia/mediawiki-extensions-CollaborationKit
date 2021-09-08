@@ -25,7 +25,6 @@ class CollaborationListContentEditor extends EditPage {
 
 	/**
 	 * Prepares a modified edit form
-	 * @suppress SecurityCheck-XSS Use of HTMLForm is not detected correctly
 	 */
 	protected function showContentForm() {
 		if ( $this->contentFormat !== CollaborationListContentHandler::FORMAT_WIKI ) {

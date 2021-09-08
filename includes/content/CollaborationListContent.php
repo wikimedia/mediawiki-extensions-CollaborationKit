@@ -84,15 +84,12 @@ class CollaborationListContent extends JsonContent {
 			// FIXME: The schema should be enforcing data type requirements, but
 			// it isn't. Again, this is probably EventLogging.
 			// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
-			$numberOfColumns = count( $jsonAsArray['columns'] );
-			for ( $i = 0; $i < $numberOfColumns; $i++ ) {
-				// @phan-suppress-next-line PhanTypeArraySuspiciousNullable
-				if ( !is_array( $jsonAsArray['columns'][$i] ) ) {
+			foreach ( $jsonAsArray['columns'] as $column ) {
+				if ( !is_array( $column ) ) {
 					return false;
 				} else {
-					$numberOfItems = count( $jsonAsArray['columns'][$i]['items'] );
-					for ( $j = 0; $j < $numberOfItems; $j++ ) {
-						if ( !is_array( $jsonAsArray['columns'][$i]['items'][$j] ) ) {
+					foreach ( $column['items'] as $item ) {
+						if ( !is_array( $item ) ) {
 							return false;
 						}
 					}
