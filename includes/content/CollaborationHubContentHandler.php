@@ -9,6 +9,8 @@
  * @file
  */
 
+use MediaWiki\MediaWikiServices;
+
 class CollaborationHubContentHandler extends TextContentHandler {
 
 	const FORMAT_WIKI = 'text/x-collabkit';
@@ -38,9 +40,10 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		global $wgCollaborationHubAllowedNamespaces;
 
 		$namespace = $title->getNamespace();
+		$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
 		return isset( $wgCollaborationHubAllowedNamespaces[$namespace] ) &&
 			$wgCollaborationHubAllowedNamespaces[$namespace] &&
-			MWNamespace::hasSubpages( $namespace );
+			$namespaceInfo->hasSubpages( $namespace );
 	}
 
 	/**

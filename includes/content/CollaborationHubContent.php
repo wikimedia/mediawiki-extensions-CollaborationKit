@@ -986,7 +986,8 @@ class CollaborationHubContent extends JsonContent {
 		global $wgCollaborationHubAllowedNamespaces;
 
 		$namespace = $title->getNamespace();
-		if ( MWNamespace::hasSubpages( $namespace ) &&
+		$namespaceInfo = MediaWikiServices::getInstance()->getNamespaceInfo();
+		if ( $namespaceInfo->hasSubpages( $namespace ) &&
 			isset( $wgCollaborationHubAllowedNamespaces[$namespace] ) &&
 			$wgCollaborationHubAllowedNamespaces[$namespace]
 		) {
