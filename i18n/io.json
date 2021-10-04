@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
+			"JSantos",
 			"Joao Xavier"
 		]
 	},
+	"collaborationkit-hub-pagetitle-members": "Membri",
 	"collaborationkit-createhub-title-placeholder": "Nova projeto"
 }
