@@ -7,6 +7,7 @@
 			"FarsiNevis",
 			"Huji",
 			"Iriman",
+			"Jeeputer",
 			"Ladsgroup",
 			"Reza1615"
 		]
@@ -51,6 +52,7 @@
 	"collaborationkit-list-newitem-user": "نام کاربری",
 	"collaborationkit-list-newitem-image": "تصویر برای استفاده (اختیاری)",
 	"collaborationkit-list-newitem-description": "توضیحات (اختیاری)",
+	"collaborationkit-list-edititem-title": "ویرایش آیتم",
 	"collaborationkit-list-edititem-label": "روزآمدسازی",
 	"collaborationkit-listedit-description": "توضیح",
 	"collaborationkit-listedit-list": "فهرست موارد",
