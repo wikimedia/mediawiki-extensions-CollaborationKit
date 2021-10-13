@@ -226,7 +226,7 @@ class CollaborationListContent extends JsonContent {
 		$text = $this->convertToWikitext( $lang, $listOptions );
 		$output = $parser->parse( $text, $title, $options, true, true, $revId );
 
-		$output->addTrackingCategory( 'collaborationkit-list-tracker', $title );
+		$parser->addTrackingCategory( 'collaborationkit-list-tracker' );
 
 		// Special JS variable if this is a member list
 		if ( $this->displaymode == 'members' ) {

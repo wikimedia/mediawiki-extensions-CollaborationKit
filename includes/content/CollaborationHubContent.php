@@ -252,7 +252,7 @@ class CollaborationHubContent extends JsonContent {
 			$revId
 		);
 
-		$output->addTrackingCategory( 'collaborationkit-hub-tracker', $title );
+		$parser->addTrackingCategory( 'collaborationkit-hub-tracker' );
 
 		// Let's just assume we'll probably need this...
 		// (tells our ParserOutputPostCacheTransform hook to look for post-cache buttons etc)
