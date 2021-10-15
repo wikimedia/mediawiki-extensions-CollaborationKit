@@ -5,7 +5,7 @@ use Wikimedia\TestingAccessWrapper;
 /**
  * @covers CollaborationHubContent
  */
-class CollaborationHubContentTest extends MediaWikiTestCase {
+class CollaborationHubContentTest extends MediaWikiIntegrationTestCase {
 
 	/** @var CollaborationHubContent */
 	private $content;
