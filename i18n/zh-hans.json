@@ -4,6 +4,7 @@
 			"A Chinese Wikipedian",
 			"Liuxinyu970226",
 			"VulpesVulpes825",
+			"Xiplus",
 			"佛壁灯",
 			"列维劳德"
 		]
@@ -118,7 +119,7 @@
 	"collaborationkit-brightgreen": "翠绿色",
 	"collaborationkit-column-active": "活跃成员",
 	"collaborationkit-column-inactive": "不活跃成员",
-	"collaborationkit-createhub-wrongnamespace": "此页面名不能用作协作中心。协作中心只可以创建于{{PLURAL:$1|$2名字空间|以下名字空间：$2}}。",
+	"collaborationkit-createhub-wrongnamespace": "此页面名不能用作协作中心。协作中心只可以创建于{{PLURAL:$1|$2命名空间|以下命名空间：$2}}。",
 	"createcollaborationhub-text": "您正在创建一个新的中心，这是组织专题的工作区。一旦此页面被创建，您将可以添加功能，并作出其他编辑。",
 	"collaborationkit-createhub-title-help": "在哪里创建协作中心",
 	"collaborationkit-createhub-title-placeholder": "新专题",
