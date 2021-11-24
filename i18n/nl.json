@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Romaine"
 		]
 	},
 	"collaborationkit-createhub-title": "Paginanaam",
@@ -13,6 +14,7 @@
 	"collaborationkit-createhubfeature-articlelist": "Paginalijst",
 	"collaborationkit-iconlist-columnheader-icon": "Pictogram",
 	"collaborationkit-iconlist-columnheader-iconname": "Pictogramnaam",
+	"collaborationkit-list-delete": "Item verwijderen",
 	"collaborationkit-list-move-popup-title": "Pagina opgeslagen",
 	"collaborationkit-list-newitem-title": "Item aan de lijst toevoegen",
 	"collaborationkit-list-newitem-label": "Aan lijst toevoegen",
@@ -27,6 +29,7 @@
 	"collaborationkit-editjsontab": "Als JSON bewerken",
 	"collaborationkit-hub-members-header": "Ontmoet onze leden!",
 	"collaborationkit-hub-members-view": "Toon volledige lijst",
+	"collaborationkit-hub-missingpage-purgecache": "Cache opschonen",
 	"collaborationkit-hub-pagetitle-members": "Leden",
 	"collaborationkit-hub-pagetitle-announcements": "Aankondiging",
 	"collaborationkit-hub-subpage-view": "Pagina bekijken",

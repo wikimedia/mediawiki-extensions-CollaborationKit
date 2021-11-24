@@ -8,7 +8,8 @@
 			"Huji",
 			"Iriman",
 			"Ladsgroup",
-			"Reza1615"
+			"Reza1615",
+			"Jeeputer"
 		]
 	},
 	"collaborationkit-desc": "ابزارهایی برای ساختن ویکی‌پروژه‌ها و محل‌های همکاری داخل ویکی",
@@ -51,6 +52,7 @@
 	"collaborationkit-list-newitem-user": "نام کاربری",
 	"collaborationkit-list-newitem-image": "تصویر برای استفاده (اختیاری)",
 	"collaborationkit-list-newitem-description": "توضیحات (اختیاری)",
+	"collaborationkit-list-edititem-title": "ویرایش آیتم",
 	"collaborationkit-list-edititem-label": "روزآمدسازی",
 	"collaborationkit-listedit-description": "توضیح",
 	"collaborationkit-listedit-list": "فهرست موارد",
