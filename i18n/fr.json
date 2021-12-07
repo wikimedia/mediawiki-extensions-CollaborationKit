@@ -6,7 +6,8 @@
 			"Gomoko",
 			"Pamputt",
 			"Thibaut120094",
-			"Wladek92"
+			"Wladek92",
+			"Ajeje Brazorf"
 		]
 	},
 	"collaborationkit-desc": "Outils pour la construction de projets Wiki et d'espaces de travail collaboratifs wiki.",
@@ -26,7 +27,7 @@
 	"collaborationkit-createhubfeature-icon": "Icône",
 	"collaborationkit-createhubfeature-contenttype": "De quel type de page s'agit-il ?",
 	"collaborationkit-createhubfeature-invalidtitle": "Vous avez choisi un titre de page invalide.",
-	"collaborationkit-createhubfeature-exists": "Une page existe déja avec le titre que vous avez spécifié.",
+	"collaborationkit-createhubfeature-exists": "Une page existe déjà avec le titre que vous avez spécifié.",
 	"collaborationkit-createhubfeature-nopermission": "Vous n'avez pas l'autorisation de créer une fonctionalité avec ce titre.",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "Il n’existe pas de Centre de Collaboration avec ce titre.",
 	"collaborationkit-createhubfeature-nopermission-contentmodel": "Vous n’avez pas le droit de créer une fonctionnalité avec ce modèle de contenu.",

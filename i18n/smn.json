@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Muotâ"
 		]
 	},
 	"collaborationkit-createhub-title": "Siijđo nommâ",
-	"collaborationkit-hub-pagetitle-members": "Jesâneh"
+	"collaborationkit-hub-pagetitle-members": "Jesâneh",
+	"collaborationkit-column-active": "Aktiivliih jesâneh"
 }

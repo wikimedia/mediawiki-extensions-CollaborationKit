@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"NoiX180"
+			"NoiX180",
+			"Joseagush"
 		]
 	},
+	"collaborationkit-createhub-confirm": "Nggih, tumpuk daging cakepan sadurungnyane",
 	"collaborationkit-list-delete-popup": "Maraksa: $1 kausapin saking bacakannyané.",
 	"collaborationkit-list-move-popup-title": "Kaca Maraksa"
 }
