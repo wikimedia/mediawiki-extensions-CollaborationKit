@@ -9,7 +9,8 @@
 			"Okras",
 			"Putnik",
 			"Redredsonia",
-			"Vlad5250"
+			"Vlad5250",
+			"Megakott"
 		]
 	},
 	"collaborationkit-desc": "Инструменты для создания википроектов и рабочих пространств в пределах вики",
@@ -119,7 +120,7 @@
 	"collaborationkit-hubedit-footer-help": "Появляется под включенными функциями. Рекомендованное место для категорий, навигационных шаблонов и т. д.",
 	"collaborationkit-hubedit-content-help": "Список страниц и подстраниц, которые следует включить в проект. Каждая в новой строке. Используйте полные названия страниц.",
 	"collaborationkit-listedit-description-placeholder": "Опишите, о чём или для чего этот список.",
-	"collaborationkit-listedit-list-help": "Пользовательский синтаксис используется для массовых правок. Вообще, один элемент на строку, разные столбцы обозначены несколькими дефисами. См. [[Help:Extension:CollaborationKit]], чтобы узнать больше.",
+	"collaborationkit-listedit-list-help": "Пользовательский синтаксис используется для массовых правок. Вообще, один элемент на строку, разные столбцы обозначены несколькими дефисами. Посетите [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|страницу справки]], чтобы узнать больше.",
 	"collaborationkit-createhubfeature-icon-help": "Пожалуйста, выберите одну из включенных иконок.",
 	"collaborationkit-hub-tracker": "Хабы CollaborationKit",
 	"collaborationkit-list-tracker": "Списки CollaborationKit"

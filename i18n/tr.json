@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
-			"Sayginer"
+			"Sayginer",
+			"MuratTheTurkish"
 		]
 	},
-	"collaborationkit-desc": "VikiProjeler ve viki üzerinde ortak çalışma alanları oluşturma araçları",
+	"collaborationkit-desc": "Vikiproje ve viki üzerinde ortak çalışma alanları oluşturma araçları",
 	"collaborationkiticons": "CollaborationKit simge dizini",
 	"createcollaborationhub": "Yeni İşbirliği Merkezi oluşturun",
 	"createhubfeature": "Yeni bir İş Birliği Merkezi bölümü oluştur",
@@ -17,7 +18,7 @@
 	"collaborationkit-createhub-editsummary": "Yeni İşbirliği Merkezi oluşturuldu",
 	"collaborationkit-createhub-confirm": "Evet, geçerli sayfa içeriğinin üzerine yaz",
 	"collaborationkit-createhub-confirmheader": "Bu başlığa sahip bir sayfa zaten var. Aşağıda onaylarsanız, o sayfanın içeriğinin üzerine yazılır. Devam etmek ister misiniz?",
-	"collaborationkit-createhubfeature-collaborationhub": "Üst İşbirliği Merkezi",
+	"collaborationkit-createhubfeature-collaborationhub": "Ortak İşbirliği Merkezi",
 	"collaborationkit-createhubfeature-featurename": "Özellik adı",
 	"collaborationkit-createhubfeature-icon": "Simge",
 	"collaborationkit-createhubfeature-contenttype": "Bu ne tür bir sayfa?",
@@ -40,7 +41,7 @@
 	"collaborationkit-list-invalid": "Bu içerik CollaborationListContent şemasının gereksinimlerini karşılamıyor. Bu bir yazılım güncellemesinin bir sonucu olabilir. İçerik aşağıda çoğaltılmıştır.",
 	"collaborationkit-list-notlist": "[[$1]] bir İşbirliği Listesi sayfası değil",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|Etiketli:|Etiketler:}}''' $1",
-	"collaborationkit-list-toomanytags": "{{PLURAL:$1|bir etiket|$1 etiket}} taneden fazlasını belirtmenize izin verilmiyor.",
+	"collaborationkit-list-toomanytags": "{{PLURAL:$1|Bir etiketten|$1 etiketten}} fazlasını belirtmenize izin verilmiyor.",
 	"collaborationkit-list-delete": "Ögeyi kaldır",
 	"collaborationkit-list-delete-summary": "/* $1 */ Listeden siliniyor.",
 	"collaborationkit-list-delete-popup": "Kaydedildi: $1 listeden silindi.",
@@ -67,7 +68,7 @@
 	"collaborationkit-list-newitem-description": "Açıklama (isteğe bağlı)",
 	"collaborationkit-list-edititem-title": "Ögeyi düzenle",
 	"collaborationkit-list-edititem-label": "Güncelle",
-	"collaborationkit-listedit-description": "Tanım",
+	"collaborationkit-listedit-description": "Açıklama",
 	"collaborationkit-listedit-list": "Liste öğeleri",
 	"collaborationkit-hubedit-displayname": "Merkez görünen adı",
 	"collaborationkit-hubedit-introduction": "Giriş",

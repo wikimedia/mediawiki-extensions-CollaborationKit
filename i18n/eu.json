@@ -3,7 +3,8 @@
 		"authors": [
 			"An13sa",
 			"Mikel Ibaiba",
-			"Subi"
+			"Subi",
+			"Xabier Armendaritz"
 		]
 	},
 	"collaborationkit-createhub-title": "Orriaren izenburua",
@@ -28,13 +29,13 @@
 	"collaborationkit-list-newitem-user": "Lankide izena",
 	"collaborationkit-listedit-description": "Deskribapena",
 	"collaborationkit-hubedit-content": "Nabarmendutakoak",
-	"collaborationkit-editjsontab": "JSON bezala aldatu",
+	"collaborationkit-editjsontab": "Editatu JSON objektutzat",
 	"collaborationkit-hub-members-signup": "Bat egin",
 	"collaborationkit-hub-members-view": "Zerrenda osoa ikusi",
 	"collaborationkit-hub-missingpage-purgecache": "Katxea garbitu",
 	"collaborationkit-hub-pagetitle-members": "Kideak",
 	"collaborationkit-hub-pagetitle-announcements": "Iragarkiak",
-	"collaborationkit-hub-subpage-view": "Orrialdea ikusi",
+	"collaborationkit-hub-subpage-view": "Ikusi orria",
 	"collaborationkit-icon-select": "Hautatu",
 	"collaborationkit-colour-select": "Hautatu",
 	"collaborationkit-hubimage-select": "Hautatu",

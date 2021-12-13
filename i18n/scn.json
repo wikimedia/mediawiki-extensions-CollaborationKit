@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ajeje Brazorf"
+		]
+	},
+	"collaborationkit-createhub-title": "Tìtulu dâ pàggina",
+	"collaborationkit-createhubfeature-articlelist": "Elencu di pàggini",
+	"collaborationkit-iconlist-columnheader-icon": "Cona",
+	"collaborationkit-iconlist-columnheader-iconname": "Nomu dâ cona",
+	"collaborationkit-list-delete": "Leva elementu",
+	"collaborationkit-list-move-popup-title": "Pàggina sarvata",
+	"collaborationkit-list-newitem-page": "Nomu dâ pàggina",
+	"collaborationkit-list-newitem-user": "Nomu utenti",
+	"collaborationkit-listedit-description": "Discrizzioni",
+	"collaborationkit-hubedit-introduction": "Ntruduzzioni",
+	"collaborationkit-hub-pagetitle-members": "Mèmmiri",
+	"collaborationkit-hub-subpage-view": "Talìa la pàggina",
+	"collaborationkit-hub-edit-apierror": "Erruri dû canciamentu API: $1",
+	"collaborationkit-subpage-toc-label": "Parti d'un pruggettu:",
+	"collaborationkit-red": "Russu",
+	"collaborationkit-lightgrey": "Griggiu chiaru",
+	"collaborationkit-skyblue": "Blu celu",
+	"collaborationkit-bluegrey": "Blu griggiu",
+	"collaborationkit-violet": "Viola",
+	"collaborationkit-yellow": "Giàlinu",
+	"collaborationkit-gold": "Oru",
+	"collaborationkit-brightgreen": "Virdi brillanti",
+	"collaborationkit-column-active": "Mèmmiri attivi",
+	"collaborationkit-column-inactive": "Mèmmiri nun attivi",
+	"collaborationkit-createhub-title-placeholder": "Novu pruggettu"
+}

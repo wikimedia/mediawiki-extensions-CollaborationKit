@@ -5,7 +5,8 @@
 			"Aboulouei1",
 			"Meno25",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Michel Bakni"
 		]
 	},
 	"collaborationkit-desc": "أدوات لبناء مشاريع ويكي ومساحات امل تعاونية في الويكي",
@@ -48,7 +49,7 @@
 	"collaborationkit-list-delete-summary": "/* $1 */ حذف من القائمة.",
 	"collaborationkit-list-delete-popup": "تم الحفظ: تم حذف $1 من القائمة.",
 	"collaborationkit-list-delete-popup-title": "تم حذف العنصر",
-	"collaborationkit-list-add": "أضف بندًا جديدًا للقائمة",
+	"collaborationkit-list-add": "أضف بندا جديدا للقائمة",
 	"collaborationkit-list-add-user": "إضافة مستخدم إلى القائمة",
 	"collaborationkit-list-add-self": "انضم إلى المشروع",
 	"collaborationkit-list-add-summary": "/ * $1 * / إضافة إلى القائمة.",
@@ -87,7 +88,7 @@
 	"collaborationkit-hub-missingpage-note": "هذه الميزة غير موجودة، يمكنك إنشاء ميزة جديدة باستخدام الزر أدناه، إذا كنت قد أنشأت الميزة وما زلت ترى هذه الرسالة، فجرِّب إزالة ذاكرة التخزين المؤقت.",
 	"collaborationkit-hub-missingpage-protected-note": "من المحتمل أن تكون هذه الميزة غير موجودة، ومحمية من الإنشاء، أو يمكنك محاولة تطهير ذاكرة التخزين المؤقت.",
 	"collaborationkit-hub-missingpage-create": "إنشاء ميزة",
-	"collaborationkit-hub-missingpage-purgecache": "إفراغ الكاش",
+	"collaborationkit-hub-missingpage-purgecache": "محو الاختزان",
 	"collaborationkit-hub-pagetitle-members": "الأعضاء",
 	"collaborationkit-hub-pagetitle-announcements": "الإعلانات",
 	"collaborationkit-hub-subpage-view": "عرض الصفحة",
