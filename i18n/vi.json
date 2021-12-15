@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Nghiemtrongdai VN"
 		]
 	},
 	"collaborationkit-desc": "Công cụ để xây dựng dự án wiki và các không gian cộng tác trên wiki",
@@ -16,15 +17,15 @@
 	"collaborationkit-list-delete": "Loại bỏ mục",
 	"collaborationkit-list-add": "Thêm mục vào danh sách",
 	"collaborationkit-list-add-user": "Thêm người dùng vào danh sách",
-	"collaborationkit-list-add-self": "Gia nhập dự án",
+	"collaborationkit-list-add-self": "Tham gia dự án",
 	"collaborationkit-list-move": "Sắp xếp lại mục này",
 	"collaborationkit-list-move-summary": "/* $1 */ Sắp xếp lại mục [[$1]]",
 	"collaborationkit-list-move-popup": "Đã lưu: $1 được sắp xếp lại.",
 	"collaborationkit-list-move-popup-title": "Đã lưu trang",
 	"collaborationkit-list-newitem-title": "Thêm mục vào danh sách",
 	"collaborationkit-list-newitem-label": "Thêm vào danh sách",
-	"collaborationkit-list-newitem-page": "Trang để thêm",
-	"collaborationkit-list-newitem-user": "Người dùng để thêm",
+	"collaborationkit-list-newitem-page": "Tên trang",
+	"collaborationkit-list-newitem-user": "Tên người dùng",
 	"collaborationkit-list-newitem-image": "Hình ảnh để sử dụng (tùy chọn)",
 	"collaborationkit-list-newitem-description": "Miêu tả (tùy chọn)",
 	"collaborationkit-listedit-description": "Miêu tả",
