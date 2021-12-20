@@ -11,7 +11,7 @@
 	"createcollaborationhub": "יצירת מרכז שיתוף חדש",
 	"createhubfeature": "יצירת מדור חדש במרכז שיתוף",
 	"collaborationkit-createhub-submit": "יצירת מרכז שיתוף",
-	"collaborationkit-createhub-title": "כותרת דף",
+	"collaborationkit-createhub-title": "כותרת הדף",
 	"collaborationkit-createhub-invalidtitle": "הכותרת שניתנה אינה תקינה.",
 	"collaborationkit-createhub-exists": "הדף כבר קיים עם הכותרת שצוינה.",
 	"collaborationkit-createhub-nopermission": "אין לך הרשאה ליצור מרכז שיתוף עם הכותרת הזאת",
