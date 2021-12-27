@@ -7,7 +7,8 @@
 			"Liuxinyu970226",
 			"Raymond",
 			"Robby",
-			"bawolff"
+			"bawolff",
+			"Ajeje Brazorf"
 		]
 	},
 	"collaborationkit-desc": "{{desc|name=CollaborationKit|url=https://www.mediawiki.org/wiki/Extension:CollaborationKit}}",
@@ -116,7 +117,7 @@
 	"collaborationkit-violet": "Color label",
 	"collaborationkit-salmon": "Color label",
 	"collaborationkit-yellow": "Color label\n{{Identical|Yellow}}",
-	"collaborationkit-gold": "Color label",
+	"collaborationkit-gold": "Color label\n\n{{Identical|Gold}}",
 	"collaborationkit-brightgreen": "Color label",
 	"collaborationkit-column-active": "Column header for the list of active members of a collaboration hub project",
 	"collaborationkit-column-inactive": "Column header for the list of members of a project who are no longer active on wiki.",
