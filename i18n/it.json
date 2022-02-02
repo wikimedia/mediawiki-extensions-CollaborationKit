@@ -6,7 +6,8 @@
 			"Ghebbro",
 			"Marcok",
 			"Margherita.mignanelli",
-			"Stefano"
+			"Stefano",
+			"Ajeje Brazorf"
 		]
 	},
 	"collaborationkit-createhub-submit": "Crea Hub",
@@ -50,6 +51,7 @@
 	"collaborationkit-hub-missingpage-note": "Questa configurazione non esiste. Puoi creare una nuova configurazione usando il tasto qui sotto. Se hai appena creato una configurazione e stai ancora vedendo questo messaggio, pulisci la cache.",
 	"collaborationkit-hub-missingpage-protected-note": "Questa configurazione probabilmente non esiste, e ne è impedita la creazione. Oppure potresti provare a ripulire la cache.",
 	"collaborationkit-hub-pagetitle-members": "Membri",
+	"collaborationkit-hub-pagetitle-announcements": "Annunci",
 	"collaborationkit-hub-toc-label": "Caratteristiche del progetto",
 	"collaborationkit-hub-manage": "Centro di gestione",
 	"collaborationkit-icon-select": "Seleziona",
