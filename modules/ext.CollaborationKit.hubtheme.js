@@ -1,4 +1,7 @@
 /**
+ * @param $
+ * @param mw
+ * @param OO
  * @class ext.CollaborationKit.hubtheme
  */
 ( function ( $, mw, OO ) {
