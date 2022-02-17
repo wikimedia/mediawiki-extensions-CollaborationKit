@@ -183,7 +183,8 @@ class CollaborationKitHooks {
 			return;
 		}
 
-		if ( $pout->getPageProperty( 'nocollaborationhubtoc' ) !== false ) {
+		// T301915
+		if ( ( $pout->getPageProperty( 'nocollaborationhubtoc' ) ?? false ) !== false ) {
 			// TOC disabled, mark as done.
 			$out->setProperty( 'CollaborationHubSubpage', true );
 		} elseif ( $pout->getLimitReportData() ) {
