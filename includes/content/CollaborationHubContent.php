@@ -12,6 +12,7 @@
  * @file
  */
 
+use MediaWiki\Extension\EventLogging\EventLogging;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 
