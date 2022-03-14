@@ -9,7 +9,8 @@
 			"Ladsgroup",
 			"Reza1615",
 			"Huji",
-			"Jeeputer"
+			"Jeeputer",
+			"Beginneruser"
 		]
 	},
 	"collaborationkit-desc": "ابزارهایی برای ساختن ویکی‌پروژه‌ها و محل‌های همکاری داخل ویکی",
@@ -54,7 +55,7 @@
 	"collaborationkit-list-newitem-description": "توضیحات (اختیاری)",
 	"collaborationkit-list-edititem-title": "ویرایش آیتم",
 	"collaborationkit-list-edititem-label": "روزآمدسازی",
-	"collaborationkit-listedit-description": "توضیح",
+	"collaborationkit-listedit-description": "توضیحات",
 	"collaborationkit-listedit-list": "فهرست موارد",
 	"collaborationkit-hubedit-displayname": "نام هاب",
 	"collaborationkit-hubedit-introduction": "مقدمه",
