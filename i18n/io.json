@@ -6,7 +6,10 @@
 		]
 	},
 	"collaborationkit-createhub-title": "Titulo di pagino",
+	"collaborationkit-createhubfeature-icon": "Ikono",
+	"collaborationkit-iconlist-columnheader-icon": "Ikono",
 	"collaborationkit-listedit-description": "Deskriptado",
+	"collaborationkit-hubedit-introduction": "Prefaco",
 	"collaborationkit-hub-pagetitle-members": "Membri",
 	"collaborationkit-createhub-title-placeholder": "Nova projeto"
 }
