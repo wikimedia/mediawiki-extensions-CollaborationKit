@@ -7,6 +7,8 @@
  * @file
  */
 
+use MediaWiki\MediaWikiServices;
+
 class SpecialCreateHubFeature extends FormSpecialPage {
 
 	public function __construct() {
@@ -218,7 +220,7 @@ class SpecialCreateHubFeature extends FormSpecialPage {
 			$newFeature['image'] = $data[ 'icon' ];
 		}
 
-		$hubWikiPageObject = WikiPage::factory( $hubTitleObject );
+		$hubWikiPageObject = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $hubTitleObject );
 		$hubRawContent = $hubWikiPageObject->getContent();
 		$hubContent = json_decode( $hubRawContent->serialize(), true );
 

@@ -1032,7 +1032,7 @@ class CollaborationListContent extends JsonContent {
 			);
 		}
 
-		$wikipage = WikiPage::factory( $title );
+		$wikipage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 		$content = $wikipage->getContent();
 		if ( !$content instanceof CollaborationListContent ) {
 			// We already checked this, so this should not happen...

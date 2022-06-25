@@ -171,7 +171,7 @@ class CollaborationHubContent extends JsonContent {
 	public function redirectProof( Title $title ) {
 		if ( $title->isRedirect() ) {
 			$articleID = $title->getArticleID();
-			$wikipage = WikiPage::newFromID( $articleID );
+			$wikipage = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromID( $articleID );
 			return $wikipage->getRedirectTarget();
 		}
 		return $title;
@@ -531,7 +531,8 @@ class CollaborationHubContent extends JsonContent {
 
 		if ( $announcementsTitle->exists() || $announcementsText !== null ) {
 			if ( $announcementsText === null ) {
-				$announcementsWikiPage = WikiPage::factory( $announcementsTitle );
+				$announcementsWikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()
+					->newFromTitle( $announcementsTitle );
 				$announcementsOutput = $announcementsWikiPage
 					->getContent()
 					->getParserOutput( $announcementsTitle );
