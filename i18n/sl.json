@@ -6,5 +6,6 @@
 	},
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajanje",
 	"collaborationkit-listedit-description": "Opis",
-	"collaborationkit-hubedit-content": "Možnosti"
+	"collaborationkit-hubedit-content": "Možnosti",
+	"collaborationkit-hub-pagetitle-members": "Člani"
 }
