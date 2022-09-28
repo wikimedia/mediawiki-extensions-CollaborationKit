@@ -965,7 +965,7 @@ class CollaborationListContent extends JsonContent {
 	public static function transcludeHook( $parser, $pageName = '', ...$args ) {
 		$options = [];
 		$title = Title::newFromText( $pageName );
-		$lang = $parser->getFunctionLang();
+		$lang = $parser->getTargetLanguage();
 
 		if ( !$title || $title->getContentModel() !== __CLASS__ ) {
 			// This is interpreted as wikitext, so is safe.
