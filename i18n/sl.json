@@ -7,5 +7,6 @@
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajanje",
 	"collaborationkit-listedit-description": "Opis",
 	"collaborationkit-hubedit-content": "Možnosti",
-	"collaborationkit-hub-pagetitle-members": "Člani"
+	"collaborationkit-hub-pagetitle-members": "Člani",
+	"collaborationkit-createhub-title-placeholder": "Novi projekti"
 }
