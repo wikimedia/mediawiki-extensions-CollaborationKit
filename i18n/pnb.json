@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Abbas dhothar"
+			"Abbas dhothar",
+			"Bgo eiu"
 		]
 	},
 	"collaborationkit-createhub-title": "صفحہ عنوان",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|ٹیگ کیتا:|ٹیگز:}}''' $1",
 	"collaborationkit-listedit-description": "تفصیل",
+	"collaborationkit-hub-missingpage-purgecache": "کیش نوں ہٹاؤ",
 	"collaborationkit-createhub-title-placeholder": "نواں منصوبہ"
 }
