@@ -4,7 +4,8 @@
 			"Banjo",
 			"Elisardojm",
 			"Fitoschido",
-			"ArenaL5"
+			"ArenaL5",
+			"Toliño"
 		]
 	},
 	"collaborationkit-desc": "Ferramentas para crear Wikiproxectos e espazos wiki de traballo colaborativo",
@@ -62,7 +63,7 @@
 	"collaborationkit-list-newitem-title": "Engadir elemento á lista",
 	"collaborationkit-list-newitem-label": "Engadir á lista",
 	"collaborationkit-list-newitem-page": "Nome da páxina",
-	"collaborationkit-list-newitem-user": "Usuario a engadir",
+	"collaborationkit-list-newitem-user": "Nome de usuario",
 	"collaborationkit-list-newitem-image": "Imaxe a usar (opcional)",
 	"collaborationkit-list-newitem-description": "Descrición (opcional)",
 	"collaborationkit-listedit-description": "Descrición",
