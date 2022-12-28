@@ -5,9 +5,12 @@
 		]
 	},
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajanje",
+	"collaborationkit-list-add-self-summary": "/* $1 */ Pridružitev projektu.",
 	"collaborationkit-listedit-description": "Opis",
 	"collaborationkit-hubedit-content": "Možnosti",
 	"collaborationkit-hub-pagetitle-members": "Člani",
+	"collaborationkit-hub-subpage-view": "Ogled strani",
+	"collaborationkit-hub-toc-label": "Možnosti projekta",
 	"collaborationkit-icon-select": "Izberi",
 	"collaborationkit-colour-select": "Izberi",
 	"collaborationkit-hubimage-select": "Izberi",
