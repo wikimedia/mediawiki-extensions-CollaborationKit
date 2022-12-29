@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\MediaWikiServices;
 use Wikimedia\TestingAccessWrapper;
 
 /**
@@ -63,7 +64,8 @@ class CollaborationListContentTest extends MediaWikiIntegrationTestCase {
 				. "<div class=\"mw-ck-list-container\"><div class=\"mw-ck-list-title\">[[:Francis_Bacon|Francis Bacon]]</div>\n<div class=\"mw-ck-list-notes\">\n</div></div></div>\n\n</div>\n</div>"
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->convertToWikitext( Language::factory( 'en' ), [ 'includeDesc' => true, 'maxItems' => false, 'defaultSort' => 'natural' ] );
+		$lang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
+		$actual = $wc->convertToWikitext( $lang, [ 'includeDesc' => true, 'maxItems' => false, 'defaultSort' => 'natural' ] );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
@@ -81,7 +83,8 @@ class CollaborationListContentTest extends MediaWikiIntegrationTestCase {
 			"<collaborationkitloadliststyles/>__NOTOC__ __NOEDITSECTION__\n<div class=\"mw-ck-list mw-ck-multilist\">\n<div class=\"mw-ck-list-column\" data-collabkit-column-id=\"0\">\n<div class=\"mw-ck-list-column-header\">\n=== Super Column One ===\n<div class=\"mw-ck-list-notes\">Amazing Notes</div>\n</div>\n<div class=\"mw-ck-list-item\" data-collabkit-item-title=\"Billy\"><div class=\"mw-ck-list-image\" style=\"\">[[File:Samoyed.jpg|32px]]</div><div class=\"mw-ck-list-container\"><div class=\"mw-ck-list-title\">[[:Billy|Billy]]</div>\n<div class=\"mw-ck-list-notes\">\nIt is Billy!\n</div></div></div>\n\n</div><div class=\"mw-ck-list-column\" data-collabkit-column-id=\"1\">\n<div class=\"mw-ck-list-column-header\">\n</div>\n<div class=\"mw-ck-list-item\" data-collabkit-item-title=\"Francis Bacon\"><div class=\"mw-ck-list-image\" style=\"\">[[File:Short-haired calico.jpg|32px]]</div><div class=\"mw-ck-list-container\"><div class=\"mw-ck-list-title\">[[:Francis_Bacon|Francis Bacon]]</div>\n<div class=\"mw-ck-list-notes\">\n</div></div></div>\n\n</div>\n</div>"
 		];
 		$wc = TestingAccessWrapper::newFromObject( $content );
-		$actual = $wc->convertToWikitext( Language::factory( 'en' ), [ 'includeDesc' => false, 'maxItems' => 1, 'defaultSort' => 'natural', 'iconWidth' => 32 ] );
+		$lang = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' );
+		$actual = $wc->convertToWikitext( $lang, [ 'includeDesc' => false, 'maxItems' => 1, 'defaultSort' => 'natural', 'iconWidth' => 32 ] );
 		static::assertEquals( $expected[$id], $actual, $id );
 	}
 
