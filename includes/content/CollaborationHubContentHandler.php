@@ -128,7 +128,9 @@ JSON;
 	 * @return Content
 	 */
 	public function makeRedirectContent( Title $destination, $text = '' ) {
-		$handler = new WikitextContentHandler();
+		$handler = MediaWikiServices::getInstance()
+			->getContentHandlerFactory()
+			->getContentHandler( CONTENT_MODEL_WIKITEXT );
 		return $handler->makeRedirectContent( $destination, $text );
 	}
 
