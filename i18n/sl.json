@@ -4,8 +4,10 @@
 			"Eleassar"
 		]
 	},
+	"createcollaborationhub": "Ustvari novo središče za sodelovanje",
 	"collaborationkit-createhub-title": "Naslov strani",
 	"collaborationkit-createhub-exists": "Stran z navedenim naslovom že obstaja.",
+	"collaborationkit-createhub-editsummary": "ustvaritev novega središča za sodelovanje",
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ Dodajanje",
 	"collaborationkit-list-add": "Dodaj na seznam nov predmet",
 	"collaborationkit-list-add-user": "Dodaj uporabnika na seznam",
