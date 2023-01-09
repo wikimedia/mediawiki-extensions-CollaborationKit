@@ -21,9 +21,12 @@
 	"collaborationkit-hub-missingpage-purgecache": "Počisti predpomnilnik",
 	"collaborationkit-hub-pagetitle-members": "Člani",
 	"collaborationkit-hub-subpage-view": "Ogled strani",
+	"collaborationkit-hub-edit-apierror": "Napaka API-urejanja: $1",
+	"collaborationkit-hub-edit-tojsonerror": "Napaka pri pretvorbi v JSON",
 	"collaborationkit-hub-toc-label": "Možnosti projekta",
 	"collaborationkit-icon-select": "Izberi",
 	"collaborationkit-colour-select": "Izberi",
 	"collaborationkit-hubimage-select": "Izberi",
-	"collaborationkit-createhub-title-placeholder": "Novi projekti"
+	"collaborationkit-createhub-title-placeholder": "Novi projekti",
+	"collaborationkit-hubedit-content-help": "Seznam strani ali podstrani za vključitev v projekt. Eno ime strani na vrstico. Uporabite celotne naslove strani."
 }
