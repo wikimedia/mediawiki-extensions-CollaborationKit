@@ -94,5 +94,6 @@
 	"collaborationkit-column-inactive": "Neaktivni člani",
 	"collaborationkit-createhub-title-placeholder": "Novi projekti",
 	"collaborationkit-hubedit-hubtheme": "Tema središča",
-	"collaborationkit-hubedit-content-help": "Seznam strani ali podstrani za vključitev v projekt. Eno ime strani na vrstico. Uporabite celotne naslove strani."
+	"collaborationkit-hubedit-content-help": "Seznam strani ali podstrani za vključitev v projekt. Eno ime strani na vrstico. Uporabite celotne naslove strani.",
+	"collaborationkit-list-tracker": "Seznami CollaborationKit"
 }
