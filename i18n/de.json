@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Metalhead64"
+			"Metalhead64",
+			"Justman10000"
 		]
 	},
 	"collaborationkit-desc": "Werkzeuge zur Erstellung von WikiProjekten und kollaborativen Arbeitsräumen auf dem Wiki",
@@ -127,5 +128,7 @@
 	"collaborationkit-hubedit-content-help": "Liste der Seiten oder Unterseiten, die in das Projekt mit einbezogen werden sollen. Ein Seitenname pro Zeile. Verwende die vollständigen Seitentitel.",
 	"collaborationkit-listedit-description-placeholder": "Beschreibe, für was die Liste ist.",
 	"collaborationkit-listedit-list-help": "Die für die Massenbearbeitung verwendete benutzerdefinierte Syntax. Im Wesentlichen ein Objekt pro Zeile, mit unterschiedlichen Spalten, die durch mehrere Bindestriche markiert sind. Besuche die [[mw:Special:MyLanguage/Help:Extension:CollaborationKit|Hilfeseite]] für weitere Informationen.",
-	"collaborationkit-createhubfeature-icon-help": "Bitte wähle aus den enthaltenen Symbolen aus."
+	"collaborationkit-createhubfeature-icon-help": "Bitte wähle aus den enthaltenen Symbolen aus.",
+	"collaborationkit-hub-tracker": "CollaborationKit Hubs",
+	"collaborationkit-list-tracker": "CollaborationKit-Listen"
 }
