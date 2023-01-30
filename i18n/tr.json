@@ -3,7 +3,8 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Sayginer",
-			"MuratTheTurkish"
+			"MuratTheTurkish",
+			"Rapsar"
 		]
 	},
 	"collaborationkit-desc": "Vikiproje ve viki üzerinde ortak çalışma alanları oluşturma araçları",
@@ -76,7 +77,7 @@
 	"collaborationkit-hubedit-image": "Merkez resmi",
 	"collaborationkit-hubedit-colour": "Merkez tema rengi",
 	"collaborationkit-hubedit-content": "Özellikler",
-	"collaborationkit-editjsontab": "JSON olarak düzenle",
+	"collaborationkit-editjsontab": "JSON olarak değiştir",
 	"collaborationkit-hub-announcements-initial": "Yeni bir İşbirliği Merkezi kuruldu!",
 	"collaborationkit-hub-members-description": "Üyelerimiz aşağıda. Bir aydan uzun bir süredir düzenleme yapmamış olanlar etkin olmayan bölüme taşınır.",
 	"collaborationkit-hub-members-header": "Üyelerimizle tanış!",
