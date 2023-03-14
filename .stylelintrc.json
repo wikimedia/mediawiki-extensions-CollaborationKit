@@ -4,6 +4,7 @@
 		"declaration-block-no-shorthand-property-overrides": null,
 		"no-duplicate-selectors": null,
 		"no-descending-specificity": null,
-		"declaration-no-important": null
+		"declaration-no-important": null,
+		"selector-pseudo-element-colon-notation": null
 	}
 }
