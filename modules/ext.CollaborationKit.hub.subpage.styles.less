@@ -33,7 +33,7 @@
 		margin: 0;
 		font-size: 90%;
 
-		li:not( :last-child ):after {
+		li:not( :last-child )::after {
 			content: '|';
 			margin: 0 0.5em;
 		}
@@ -53,7 +53,7 @@
 		margin-right: 0.5em;
 	}
 
-	&:after {
+	&::after {
 		content: '';
 		display: block;
 		margin: 0 0 0.5em;
