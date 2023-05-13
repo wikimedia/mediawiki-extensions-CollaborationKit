@@ -74,7 +74,7 @@
 		"CreateHubFeature": "SpecialCreateHubFeature"
 	},
 	"Hooks": {
-		"SkinTemplateNavigation": "CollaborationKitHooks::onSkinTemplateNavigation",
+		"SkinTemplateNavigation::Universal": "CollaborationKitHooks::onSkinTemplateNavigation",
 		"ParserFirstCallInit": "CollaborationKitHooks::onParserFirstCallInit",
 		"CodeEditorGetPageLanguage": "CollaborationKitHooks::onCodeEditorGetPageLanguage",
 		"ArticleViewHeader": "CollaborationListContent::onArticleViewHeader",

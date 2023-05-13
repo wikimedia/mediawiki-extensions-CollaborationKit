@@ -21,7 +21,7 @@ class CollaborationKitHooks {
 	public static function onSkinTemplateNavigation( &$sktemplate, &$links ) {
 		$title = $sktemplate->getTitle();
 		$request = $sktemplate->getRequest();
-		if ( isset( $links['views']['edit'] ) ) {
+		if ( isset( $links['views']['edit'] ) && $title->canExist() ) {
 			if ( $title->hasContentModel( 'CollaborationListContent' )
 				|| $title->hasContentModel( 'CollaborationHubContent' )
 			) {
