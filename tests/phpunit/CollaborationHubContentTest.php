@@ -33,20 +33,20 @@ class CollaborationHubContentTest extends MediaWikiIntegrationTestCase {
 	 * @param string $text
 	 * @return CollaborationHubContent
 	 */
-	private function m( $text ) {
+	private static function m( $text ) {
 		return new CollaborationHubContent( $text );
 	}
 
-	public function provideContentObjs() {
+	public static function provideContentObjs() {
 		return [
-			[ $this->m(
+			[ self::m(
 				'{ "introduction": "\'\'Test\'\' content", "display_name": "foo",'
 				. '"footer": "\'\'\'Test\'\'\' content footer", "colour": "violet", "content": ['
 				. '{ "title": "Project:Wow", "image": "cool.png", "display_title": "Wow!" }'
 				. '] }'
 			), 0 ],
 			[ ( new CollaborationHubContentHandler )->makeEmptyContent(), 1 ],
-			[ $this->m( '{ "display_name": "", "content": [] }' ), 2 ]
+			[ self::m( '{ "display_name": "", "content": [] }' ), 2 ]
 		];
 	}
 
@@ -57,7 +57,7 @@ class CollaborationHubContentTest extends MediaWikiIntegrationTestCase {
 		static::assertTrue( $content->isValid(), $id );
 	}
 
-	public function provideInvalid() {
+	public static function provideInvalid() {
 		return [
 			[ '{ afdsfda }' ],
 			[ '{ "introduction": 1, "display_name": "", "content": "" }' ],

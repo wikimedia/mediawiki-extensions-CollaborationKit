@@ -16,7 +16,7 @@ class CollaborationKitImageTest extends MediaWikiIntegrationTestCase {
 		$this->str = TestingAccessWrapper::newFromObject( $content );
 	}
 
-	public function provideTestConfigs() {
+	public static function provideTestConfigs() {
 		return [
 			[ 'key', [ 'renderAsWikitext' => true, 'classes' => [ 'test1', 'test2' ] ], 0 ],
 			[ 'key', [ 'renderAsWikitext' => true, 'colour' => 'violet' ], 1 ],
