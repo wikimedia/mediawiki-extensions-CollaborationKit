@@ -4,6 +4,7 @@
 			"Kly",
 			"LNDDYL",
 			"Liuxinyu970226",
+			"Winston Sung",
 			"烈羽"
 		]
 	},
@@ -120,7 +121,7 @@
 	"collaborationkit-createhub-wrongnamespace": "此頁面名稱不能作為協作中心。協作中心僅可被建立在{{PLURAL:$1|$2名稱空間|以下名稱空間：$2}}。",
 	"createcollaborationhub-text": "您正在建立新的協作中心，一個用來組織專題的活動區。一旦此頁面創建後，您將可添加功能以及其它編輯。",
 	"collaborationkit-createhub-title-help": "在哪裡建立協作中心",
-	"collaborationkit-createhub-title-placeholder": "新專案",
+	"collaborationkit-createhub-title-placeholder": "新專題",
 	"collaborationkit-hubedit-displayname-help": "使用在其它頁面裡來參閱專題。僅在頁面標題不同時採用。",
 	"collaborationkit-hubedit-hubtheme": "中心主題",
 	"collaborationkit-hubedit-hubtheme-help": "中心的視覺化識別，包含識別用圖片以及主要色彩。",
