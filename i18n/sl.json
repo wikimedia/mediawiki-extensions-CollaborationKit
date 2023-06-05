@@ -55,7 +55,7 @@
 	"collaborationkit-list-error-saving": "Vaša urejanja seznama niso bila shranjena. Osvežite stran in poskusite znova.",
 	"collaborationkit-list-move": "Znova razvrstite ta predmet",
 	"collaborationkit-list-move-summary": "/* $1 */ Ponovno razvrščanje predmeta [[$1]]",
-	"collaborationkit-list-move-popup": "Shranjeno: $1 je bilo ponovno razvrščeno.",
+	"collaborationkit-list-move-popup": "Shranjeno: $1 je bilo prerazvrščeno.",
 	"collaborationkit-list-move-popup-title": "Stran shranjena",
 	"collaborationkit-list-newitem-title": "Dodaj predmet na seznam",
 	"collaborationkit-list-newitem-label": "Dodaj na seznam",

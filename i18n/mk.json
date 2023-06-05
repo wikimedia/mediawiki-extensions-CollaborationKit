@@ -50,7 +50,7 @@
 	"collaborationkit-list-add-summary": "/* $1 */ Додавање во список.",
 	"collaborationkit-list-add-self-summary": "/* $1 */ Стапување во проект.",
 	"collaborationkit-list-alreadyadded": "Веќе членувате во проектов.",
-	"collaborationkit-list-error-editconflict": "Се јави спротиставеност во уредувањата, па затоа вашите промени не се зачувани. Превчитајте ја страницата и обидете се повторно.",
+	"collaborationkit-list-error-editconflict": "Се јави спротивставеност во уредувањата, па затоа вашите промени не се зачувани. Превчитајте ја страницата и обидете се повторно.",
 	"collaborationkit-list-error-couldnotgetpage": "Страницата не можеше да се вчита. Превчитајте ја и обидете се повторно.",
 	"collaborationkit-list-error-generic": "Се јави кобна грешка. Превчитајте ја страницата и обидете се повторно.",
 	"collaborationkit-list-error-saving": "Вашите уредувања на списокот не се зачувани. Превчитајте ја страницата и обидете се повторно.",
