@@ -49,7 +49,7 @@
 	"collaborationkit-list-add": "הוספת פריט חדש לרשימה",
 	"collaborationkit-list-add-user": "הוספת משתמש לרשימה",
 	"collaborationkit-list-add-self": "הצטרפות למיזם",
-	"collaborationkit-list-add-summary": "/* $1 */ הוספת לרשימה.",
+	"collaborationkit-list-add-summary": "/* $1 */ הוספה לרשימה.",
 	"collaborationkit-list-add-self-summary": "/* $1 */ הצטרפות למיזם.",
 	"collaborationkit-list-alreadyadded": "כבר נרשמת למיזם הזה.",
 	"collaborationkit-list-error-editconflict": "הייתה התנגשות עריכה, והשינוי שלך לא נשמר. נא לרענן את הדף ולנסות שוב.",
