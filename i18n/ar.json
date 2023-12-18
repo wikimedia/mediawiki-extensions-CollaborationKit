@@ -6,6 +6,7 @@
 			"Meno25",
 			"Michel Bakni",
 			"ديفيد",
+			"علاء",
 			"محمد أحمد عبد الفتاح"
 		]
 	},
@@ -17,7 +18,7 @@
 	"collaborationkit-createhub-title": "عنوان الصفحة",
 	"collaborationkit-createhub-invalidtitle": "العنوان المحدد غير صالح.",
 	"collaborationkit-createhub-exists": "توجد صفحة بالفعل بالعنوان المحدد.",
-	"collaborationkit-createhub-nopermission": "ليست لديك صلاحية إنشاء محور تعاون مع هذا العنوان",
+	"collaborationkit-createhub-nopermission": "ليس لديك صلاحية إنشاء محور تعاون مع هذا العنوان",
 	"collaborationkit-createhub-editsummary": "تم إنشاء محور تعاون جديد",
 	"collaborationkit-createhub-confirm": "نعم، استبدل محتويات الصفحة الحالية",
 	"collaborationkit-createhub-confirmheader": "هناك بالفعل صفحة بهذا العنوان، إذا قمت بالتأكيد أدناه، فستتم الكتابة فوق محتويات هذه الصفحة، هل ترغب في المتابعة؟",
@@ -27,9 +28,9 @@
 	"collaborationkit-createhubfeature-contenttype": "ما نوع الصفحة هذا؟",
 	"collaborationkit-createhubfeature-invalidtitle": "لقد اخترت عنوان صفحة غير صالح.",
 	"collaborationkit-createhubfeature-exists": "هناك صفحة موجودة بالفعل بالعنوان الذي حددته.",
-	"collaborationkit-createhubfeature-nopermission": "ليست لديك صلاحية إنشاء ميزة بهذا العنوان.",
+	"collaborationkit-createhubfeature-nopermission": "ليس لديك صلاحية إنشاء ميزة بهذا العنوان.",
 	"collaborationkit-createhubfeature-hubdoesnotexist": "لا يوجد محور تعاون في هذا العنوان.",
-	"collaborationkit-createhubfeature-nopermission-contentmodel": "ليست لديك إذن صلاحية ميزة باستخدام نموذج المحتوى هذا.",
+	"collaborationkit-createhubfeature-nopermission-contentmodel": "ليس لديك إذن صلاحية ميزة باستخدام نموذج المحتوى هذا.",
 	"collaborationkit-createhubfeature-hubisnotahub": "الصفحة التي حددتها ليست محورا للتعاون.",
 	"collaborationkit-createhubfeature-hubeditsummary": "/* $1 */ إضافة",
 	"collaborationkit-createhubfeature-invalidcontenttype": "لا يُسمَح بنموذج المحتوى هذا في الوقت الحالي.",
