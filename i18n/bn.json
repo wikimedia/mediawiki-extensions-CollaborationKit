@@ -4,7 +4,8 @@
 			"Aftabuzzaman",
 			"Elias Ahmmad",
 			"আফতাবুজ্জামান",
-			"ফাহাদ কাজমী"
+			"ফাহাদ কাজমী",
+			"Aishik Rehman"
 		]
 	},
 	"createcollaborationhub": "নতুন সহযোগিতা হাব তৈরি করুন",
@@ -19,7 +20,7 @@
 	"collaborationkit-createhubfeature-articlelist": "পাতাসমূহের তালিকা",
 	"collaborationkit-iconlist-columnheader-icon": "আইকন",
 	"collaborationkit-iconlist-columnheader-iconname": "আইকনের নাম",
-	"collaborationkit-list-emptycolumn": "এই কলামে কোন আইটেম নেই।",
+	"collaborationkit-list-emptycolumn": "এই কলামে কোনো আইটেম নেই।",
 	"collaborationkit-list-taglist": "'''{{PLURAL:$2|ট্যাগকৃত:|ট্যাগ:}}''' $1",
 	"collaborationkit-list-delete": "আইটেম অপসারণ",
 	"collaborationkit-list-delete-summary": "/* $1 */ তালিকা থেকে অপসারণ হচ্ছে।",
