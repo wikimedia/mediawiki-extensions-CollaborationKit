@@ -11,7 +11,7 @@
 	"type": "other",
 	"license-name": "GPL-2.0-or-later",
 	"requires": {
-		"MediaWiki": ">= 1.38",
+		"MediaWiki": ">= 1.39",
 		"extensions": {
 			"EventLogging": "*"
 		}
@@ -270,7 +270,7 @@
 		"ext.CollaborationKit.icons": {
 			"selectorWithoutVariant": ".mw-ck-theme .mw-ck-icon-{name}, .mw-ck-icon-{name}",
 			"selectorWithVariant": ".mw-ck-theme-{variant} .mw-ck-icon-{name}, .mw-ck-icon-{name}-{variant}",
-			"class": "ResourceLoaderImageModule",
+			"class": "MediaWiki\\ResourceLoader\\ImageModule",
 			"variants": {
 				"red": {
 					"color": "#b11",

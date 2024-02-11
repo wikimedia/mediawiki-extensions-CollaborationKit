@@ -6,7 +6,9 @@
  * @file
  */
 
-class ResourceLoaderListStyleModule extends ResourceLoaderImageModule {
+use MediaWiki\ResourceLoader\ImageModule;
+
+class ResourceLoaderListStyleModule extends ImageModule {
 	/** @inheritDoc */
 	protected function getCssDeclarations( $primary, $fallback = null ): array {
 		return [

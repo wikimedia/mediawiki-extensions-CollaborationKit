@@ -5,6 +5,7 @@ use Wikimedia\TestingAccessWrapper;
 /**
  * @group Database
  * @covers CollaborationHubContent
+ * @group Database
  */
 class CollaborationHubContentTest extends MediaWikiIntegrationTestCase {
 
