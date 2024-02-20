@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sveinn í Felli"
+			"Sveinn í Felli",
+			"Stefán Örvar Sigmundsson"
 		]
 	},
 	"collaborationkit-createhub-title": "Titill síðu",
@@ -20,6 +21,7 @@
 	"collaborationkit-hubedit-footer": "Síðufótur",
 	"collaborationkit-hubedit-content": "Eiginleikar",
 	"collaborationkit-hub-members-signup": "Taka þátt",
+	"collaborationkit-hub-missingpage-create": "Búðu til eiginleika",
 	"collaborationkit-hub-pagetitle-members": "Meðlimir",
 	"collaborationkit-hub-subpage-view": "Skoða síðu",
 	"collaborationkit-hub-addpage": "Bæta við fitju",
