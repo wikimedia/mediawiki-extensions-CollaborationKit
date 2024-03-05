@@ -4,7 +4,8 @@
 			"Ellif",
 			"Revi",
 			"Ykhwong",
-			"렌즈"
+			"렌즈",
+			"Dr1t jg"
 		]
 	},
 	"collaborationkit-desc": "위키프로젝트와 협력 공간을 위키에 만들 수 있는 툴.",
@@ -39,7 +40,9 @@
 	"collaborationkit-iconlist-columnheader-iconname": "아이콘 이름",
 	"collaborationkit-list-isempty": "이 목록에 컬럼이나 항목이 없습니다.",
 	"collaborationkit-list-emptycolumn": "이 열에 항목이 없습니다.",
+	"collaborationkit-list-invalid": "이 내용은 협업목록콘텐츠 스키마의 요구사항에 미치지 못함. 이는 소프트웨어 업데이트로 일어날 수도 있음. 콘텐츠는 아래에 재생성됨.",
 	"collaborationkit-list-notlist": "[[$1]] 문서는 콜라보레이션 항목 문서가 아닙니다",
+	"collaborationkit-list-taglist": "'''{{PLURAL:$2|태그됨:|태그:}}''' $1",
 	"collaborationkit-list-toomanytags": "{{PLURAL:$1|한 개|$1개}} 이상의 태그 지정이 허용되지 않았습니다.",
 	"collaborationkit-list-delete": "항목 제거",
 	"collaborationkit-list-delete-summary": "/* $1 */ 목록에서 삭제.",
