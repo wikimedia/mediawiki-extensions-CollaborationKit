@@ -67,7 +67,7 @@
 	"collaborationkit-list-newitem-page": "頁面名稱",
 	"collaborationkit-list-newitem-user": "使用者名稱",
 	"collaborationkit-list-newitem-image": "要使用的圖片（可選）",
-	"collaborationkit-list-newitem-description": "描述（可選）",
+	"collaborationkit-list-newitem-description": "描述（非必填）",
 	"collaborationkit-list-edititem-title": "編輯項目",
 	"collaborationkit-list-edititem-label": "更新",
 	"collaborationkit-listedit-description": "描述",
