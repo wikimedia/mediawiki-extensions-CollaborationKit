@@ -10,7 +10,8 @@
 			"Iriman",
 			"Jeeputer",
 			"Ladsgroup",
-			"Reza1615"
+			"Reza1615",
+			"Ebraminio"
 		]
 	},
 	"collaborationkit-desc": "ابزارهایی برای ساختن ویکی‌پروژه‌ها و محل‌های همکاری داخل ویکی",
@@ -45,7 +46,7 @@
 	"collaborationkit-list-add-summary": "/* $1 */ افزودن به فهرست.",
 	"collaborationkit-list-add-self-summary": "/* $1 */ عضویت در پروژه",
 	"collaborationkit-list-alreadyadded": "شما قبلا عوض این پروژه هستید.",
-	"collaborationkit-list-error-generic": "خطایی اتفاق افتاد. لطفا رفرش کرده و دوباره تلاش کنید.",
+	"collaborationkit-list-error-generic": "خطایی اتفاق افتاد. لطفاً رفرش کرده و دوباره تلاش کنید.",
 	"collaborationkit-list-move-popup-title": "صفحه ذخیره شد",
 	"collaborationkit-list-newitem-title": "افزودن آیتم به فهرست",
 	"collaborationkit-list-newitem-label": "افزودن به فهرست",
