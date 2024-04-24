@@ -308,7 +308,7 @@ class CollaborationHubContentTest extends MediaWikiIntegrationTestCase {
 		if ( !method_exists( $content, 'getNativeData' ) ) {
 			static::markTestSkipped( 'getNativeData() no longer present. Skipping comparison.' );
 		}
-		static::assertEquals( $content->getNativeData(),  $content->getText(),
+		static::assertEquals( $content->getNativeData(), $content->getText(),
 			'Call to NativeData() does not match call to getText()' );
 	}
 

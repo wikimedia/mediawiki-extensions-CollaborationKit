@@ -861,7 +861,7 @@ class CollaborationListContent extends JsonContent {
 				if ( $part == 'column' ) {
 					continue;
 				}
-				list( $key, $value ) = explode( '=', $part );
+				[ $key, $value ] = explode( '=', $part );
 
 				switch ( $key ) {
 					case 'notes':
@@ -919,7 +919,7 @@ class CollaborationListContent extends JsonContent {
 			}
 			$parts = array_slice( $parts, 2 );
 			foreach ( $parts as $part ) {
-				list( $key, $value ) = explode( '=', $part );
+				[ $key, $value ] = explode( '=', $part );
 				switch ( $key ) {
 					case 'nolink':
 						$itemRes['link'] = false;
@@ -983,7 +983,7 @@ class CollaborationListContent extends JsonContent {
 			}
 			// If we need everything i18n-ized, this could be
 			// replaced with magic words.
-			list( $name, $value ) = explode( '=', $argument, 2 );
+			[ $name, $value ] = explode( '=', $argument, 2 );
 			if ( $name === 'tags' ) {
 				$tagList = explode( '+', $value );
 				if ( !isset( $options['tags'] ) ) {

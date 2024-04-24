@@ -329,7 +329,9 @@
 			// not sure. Its used so that jquery.confirmable makes a link.
 			$delWrapper = $( '<a></a>' )
 				.attr( 'href', '#' )
-				.click( function ( e ) { e.preventDefault(); } )
+				.click( function ( e ) {
+					e.preventDefault();
+				} )
 				.addClass( 'mw-ck-list-deletebutton' )
 				.addClass( 'mw-ck-list-button' )
 				.append( deleteButton.$element )

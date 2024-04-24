@@ -1170,7 +1170,7 @@ class CollaborationHubContent extends JsonContent {
 		if ( count( $parts ) > 1 ) {
 			$parts = array_slice( $parts, 1 );
 			foreach ( $parts as $part ) {
-				list( $key, $value ) = explode( '=', $part );
+				[ $key, $value ] = explode( '=', $part );
 				switch ( $key ) {
 					case 'image':
 					case 'display_title':

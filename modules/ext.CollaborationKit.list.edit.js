@@ -268,7 +268,9 @@
 
 			callback( res );
 		} ).fail(
-			function () { alert( mw.msg( 'collaborationkit-list-error-generic' ) ); }
+			function () {
+				alert( mw.msg( 'collaborationkit-list-error-generic' ) );
+			}
 		);
 	};
 
