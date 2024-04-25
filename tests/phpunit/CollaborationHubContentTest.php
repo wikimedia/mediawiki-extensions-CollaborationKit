@@ -3,6 +3,7 @@
 use Wikimedia\TestingAccessWrapper;
 
 /**
+ * @group Database
  * @covers CollaborationHubContent
  */
 class CollaborationHubContentTest extends MediaWikiIntegrationTestCase {
