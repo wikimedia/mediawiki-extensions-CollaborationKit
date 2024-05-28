@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A Chinese Wikipedian",
+			"LittlePaw365",
 			"Liuxinyu970226",
 			"VulpesVulpes825",
 			"Xiplus",
@@ -36,7 +37,7 @@
 	"collaborationkit-createhubfeature-editsummary": "创建新的功能",
 	"collaborationkit-createhubfeature-freetext": "生成wiki页面",
 	"collaborationkit-createhubfeature-articlelist": "页面列表",
-	"collaborationkit-iconlist-intro": "这些是可用于协作中心的预包装图标。表中的每个图标名都对应用于协作中心编辑界面的关键词，以便选择图标。",
+	"collaborationkit-iconlist-intro": "这些是可用于合作中心的预打包图标。表中每个图标名都对应于合作中心编辑界面使用的关键词，可用于选择图标。",
 	"collaborationkit-iconlist-columnheader-icon": "图标",
 	"collaborationkit-iconlist-columnheader-iconname": "图标名",
 	"collaborationkit-list-isempty": "该列表没有列或项目。",
