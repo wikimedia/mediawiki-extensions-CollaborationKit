@@ -4,9 +4,9 @@
 	var ProcessDialog, openItUp, setupPage;
 
 	/**
-	 * Subclass ProcessDialog.
+	 * @classdesc Subclass ProcessDialog.
 	 *
-	 * @class
+	 * @class ProcessDialog
 	 * @extends OO.ui.ProcessDialog
 	 *
 	 * @constructor
@@ -28,6 +28,9 @@
 	/**
 	 * Use the initialize() method to add content to the dialog's $body,
 	 * to initialize widgets, and to set up event handlers.
+	 *
+	 * @memberof ProcessDialog#
+	 * @method initialize
 	 */
 	ProcessDialog.prototype.initialize = function () {
 		var iconList, radioChoices, $divElm, i;
@@ -69,6 +72,8 @@
 	/**
 	 * In the event "Select" is pressed
 	 *
+	 * @memberof ProcessDialog#
+	 * @method getActionProcess
 	 * @param action
 	 */
 	ProcessDialog.prototype.getActionProcess = function ( action ) {
@@ -97,6 +102,8 @@
 	/**
 	 * Get dialog height.
 	 *
+	 * @memberof ProcessDialog#
+	 * @method getBodyHeight
 	 * @return {number} Dialog height
 	 */
 	ProcessDialog.prototype.getBodyHeight = function () {
@@ -105,6 +112,9 @@
 
 	/**
 	 * Create and append the window manager
+	 *
+	 * @memberof ProcessDialog#
+	 * @method openItUp
 	 */
 	openItUp = function () {
 		var processDialog, windowManager;

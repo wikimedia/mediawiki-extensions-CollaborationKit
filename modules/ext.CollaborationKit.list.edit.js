@@ -11,6 +11,7 @@
 	/**
 	 * Retrieves ID number of column
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {jQuery} $item
 	 * @return {number}
 	 */
@@ -28,6 +29,7 @@
 	/**
 	 * Renumbers the item IDs within a column following a re-ordering or a deletion
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {number} colId the column in which to re-number the items
 	 */
 	renumberElements = function ( colId ) {
@@ -40,6 +42,7 @@
 	/**
 	 * Deletes an item from the list
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {jQuery} $item
 	 */
 	deleteItem = function ( $item ) {
@@ -96,6 +99,7 @@
 	/**
 	 * Helper function to get ordered list of all items in list
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {jQuery} $elm The list of items
 	 * @return {Array} 2D array of all items in all columns.
 	 */
@@ -120,6 +124,7 @@
 	/**
 	 * If the order of the list changes, save back to page
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {jQuery} $item List item in question
 	 * @param {Array} newOrder 2-D list of all items in new order
 	 * @param {Array} originalOrder Original order of all items as 2-D list
@@ -220,6 +225,7 @@
 	/**
 	 * Retrieves JSON form of the list content
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {number} pageId
 	 * @param {Object} callback
 	 */
@@ -277,6 +283,7 @@
 	/**
 	 * Saves the JSON text to a CollaborationListContent page
 	 *
+	 * @memberof ext.CollaborationKit.list.edit#
 	 * @param {Object} params
 	 * @param {Object} callback
 	 */

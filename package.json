@@ -2,8 +2,7 @@
 	"name": "CollaborationKit",
 	"private": true,
 	"scripts": {
-		"doc": "jsduck",
-		"jsdoc": "jsdoc -c jsdoc.json",
+		"doc": "jsdoc -c jsdoc.json",
 		"test": "grunt test"
 	},
 	"devDependencies": {

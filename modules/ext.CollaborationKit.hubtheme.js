@@ -12,6 +12,7 @@
 	/**
 	 * Get a colour block for inserting into page
 	 *
+	 * @memberof ext.CollaborationKit.hubtheme#
 	 * @param {string} colorName Name of colour
 	 * @return {jQuery.Promise} Promise with API result
 	 */
@@ -25,6 +26,7 @@
 	/**
 	 * Get an image thumbnail with 150px width
 	 *
+	 * @memberof ext.CollaborationKit.hubtheme#
 	 * @param {string} filename
 	 * @return {jQuery} promise
 	 */
@@ -40,7 +42,7 @@
 	};
 
 	/**
-	 * Subclass ProcessDialog for selecting a colour.
+	 * @classdesc Subclass ProcessDialog for selecting a colour.
 	 *
 	 * @class ColourProcessDialog
 	 * @extends OO.ui.ProcessDialog
@@ -64,6 +66,9 @@
 	/**
 	 * Use the initialize() method to add content to the dialog's $body,
 	 * to initialize widgets, and to set up event handlers.
+	 *
+	 * @memberof ColourProcessDialog#
+	 * @method initialize
 	 */
 	ColourProcessDialog.prototype.initialize = function () {
 		var colourList, radioChoices, i;
@@ -99,6 +104,8 @@
 	 * In the event "Select" is pressed
 	 *
 	 * @param action
+	 * @memberof ColourProcessDialog#
+	 * @method getActionProcess
 	 */
 	ColourProcessDialog.prototype.getActionProcess = function ( action ) {
 		var dialog, oldColour;
@@ -137,6 +144,8 @@
 	/**
 	 * Get dialog height.
 	 *
+	 * @memberof ColourProcessDialog#
+	 * @method getBodyHeight
 	 * @return {number} Dialog height
 	 */
 	ColourProcessDialog.prototype.getBodyHeight = function () {
@@ -145,6 +154,9 @@
 
 	/**
 	 * Create and append the window manager.
+	 *
+	 * @memberof ColourProcessDialog#
+	 * @method openColourBrowser
 	 */
 	openColourBrowser = function () {
 		var processDialog, windowManager;
@@ -165,7 +177,7 @@
 	};
 
 	/**
-	 * Subclass ProcessDialog.
+	 * @classdesc Subclass ProcessDialog.
 	 *
 	 * @class ImageProcessDialog
 	 * @extends OO.ui.ProcessDialog
@@ -189,6 +201,9 @@
 	/**
 	 * Use the initialize() method to add content to the dialog's $body,
 	 * to initialize widgets, and to set up event handlers.
+	 *
+	 * @memberof ImageProcessDialog#
+	 * @method initialize
 	 */
 	ImageProcessDialog.prototype.initialize = function () {
 		var defaultSearchTerm, wpTitle, wpDisplay, wpCollabHub;
@@ -224,6 +239,8 @@
 	/**
 	 * In the event "Select" is pressed
 	 *
+	 * @memberof ImageProcessDialog#
+	 * @method getActionProcess
 	 * @param action
 	 */
 	ImageProcessDialog.prototype.getActionProcess = function ( action ) {
@@ -262,6 +279,10 @@
 
 	/**
 	 * Get dialog height.
+	 *
+	 * @memberof ImageProcessDialog#
+	 * @method getBodyHeight
+	 * @return {number} Dialog height
 	 */
 	ImageProcessDialog.prototype.getBodyHeight = function () {
 		return 600;
@@ -269,6 +290,9 @@
 
 	/**
 	 * Create and append the window manager.
+	 *
+	 * @memberof ImageProcessDialog#
+	 * @method openImageBrowser
 	 */
 	openImageBrowser = function () {
 		var windowManager, processDialog;
@@ -290,6 +314,9 @@
 
 	/**
 	 * Initial setup function run when DOM loaded.
+	 *
+	 * @memberof ImageProcessDialog#
+	 * @method setupPage
 	 */
 	setupPage = function () {
 		var curColour, colourBrowserButton, currentImageFilename, $hubthemeWidget, hubimageBrowserButton, hubImageInput;

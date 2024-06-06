@@ -14,6 +14,7 @@
 	/**
 	 * Finds item object based on a UID.
 	 *
+	 * @memberof ext.CollaborationKit.list.ui#
 	 * @param {number} uid The relevant unique ID
 	 * @param {Object} columns The columns object from the content object
 	 * @return {Object} An object with keys relevantItem, relevantColumn, relevantRow
@@ -42,6 +43,7 @@
 	/**
 	 * Adds a new item to a list
 	 *
+	 * @memberof ext.CollaborationKit.list.ui#
 	 * @param {number} colId The ID number of the column
 	 */
 	addItem = function ( colId ) {
@@ -51,6 +53,7 @@
 	/**
 	 * Opens a window to manage list item modification
 	 *
+	 * @memberof ext.CollaborationKit.list.ui#
 	 * @param {Object} itemToEdit Data concerning the item to edit/add. At
 	 *    minimum you need an itemColId attribute with the column ID.
 	 */
@@ -67,6 +70,7 @@
 	/**
 	 * Edit an existing item.
 	 *
+	 * @memberof ext.CollaborationKit.list.ui#
 	 * @param {string} itemName The title of the item in question
 	 * @param {string} uid Unique identifier based on order in native JSON representation
 	 */
@@ -96,6 +100,7 @@
 
 	/**
 	 * @class NewItemDialog
+	 * @classdesc Subclass ProcessDialog.
 	 * @extends OO.ui.ProcessDialog
 	 *
 	 * @constructor
@@ -142,6 +147,8 @@
 	OO.inheritClass( NewItemDialog, OO.ui.ProcessDialog );
 
 	/**
+	 * @memberof NewItemDialog#
+	 * @method initialize
 	 * @param {Object} itemInfo info from json
 	 */
 	NewItemDialog.prototype.initialize = function ( itemInfo ) {

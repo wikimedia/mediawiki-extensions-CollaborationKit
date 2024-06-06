@@ -14,6 +14,7 @@
 	/**
 	 * Find if the current user is already is in list.
 	 *
+	 * @memberof ext.CollaborationKit.list.members#
 	 * @param {number} destinationPage The Page ID of the list if not the current page.
 	 * @return {boolean}
 	 */
@@ -54,6 +55,7 @@
 	/**
 	 * One-click project-joining button
 	 *
+	 * @memberof ext.CollaborationKit.list.members#
 	 * @param {number} destinationPage Page ID of member list, if different from current page
 	 */
 	addSelf = function ( destinationPage ) {
