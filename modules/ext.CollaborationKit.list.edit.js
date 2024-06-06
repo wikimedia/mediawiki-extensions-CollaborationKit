@@ -1,6 +1,6 @@
 /**
- * @param $
- * @param mw
+ * @param {jQuery} $
+ * @param {mw} mw
  * @class ext.CollaborationKit.list.edit
  */
 ( function ( $, mw ) {

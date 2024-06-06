@@ -1,7 +1,7 @@
 /**
- * @param $
- * @param mw
- * @param OO
+ * @param {jQuery} $
+ * @param {mw} mw
+ * @param {OO} OO
  * @class ext.CollaborationKit.list.ui
  */
 ( function ( $, mw, OO ) {
