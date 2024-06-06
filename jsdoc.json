@@ -2,7 +2,7 @@
 	"opts": {
 		"destination": "docs/js",
 		"pedantic": true,
-		"readme": "",
+		"readme": "readme.md",
 		"recurse": true,
 		"template": "node_modules/jsdoc-wmf-theme"
 	},
