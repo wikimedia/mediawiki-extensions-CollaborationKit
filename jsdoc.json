@@ -1,0 +1,33 @@
+{
+	"opts": {
+		"destination": "docs/js",
+		"pedantic": true,
+		"readme": "",
+		"recurse": true,
+		"template": "node_modules/jsdoc-wmf-theme"
+	},
+	"plugins": [
+		"node_modules/jsdoc-wmf-theme/plugins/allow-dots-in-modules",
+		"plugins/markdown",
+		"node_modules/jsdoc-wmf-theme/plugins/summarize",
+		"node_modules/jsdoc-wmf-theme/plugins/betterlinks"
+	],
+	"source": {
+		"include": [ "modules" ],
+		"exclude": [ ]
+	},
+	"templates": {
+		"cleverLinks": true,
+		"default": {
+			"useLongnameInNav": true
+		},
+		"wmf": {
+			"maintitle": "CollaborationKit",
+			"repository": "https://gerrit.wikimedia.org/g/mediawiki/extensions/CollaborationKit",
+			"siteMap": {
+				"sections": true
+			},
+			"linkMap": {}
+		}
+	}
+}
