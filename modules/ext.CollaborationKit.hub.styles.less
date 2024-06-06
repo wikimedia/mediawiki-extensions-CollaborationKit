@@ -8,7 +8,7 @@
 	ul {
 		margin: 0;
 		border-top: solid 4px;
-		.flex-display;
+		display: flex;
 		flex-flow: row wrap;
 	}
 
@@ -17,7 +17,10 @@
 		text-align: center;
 		list-style: none;
 		float: left;
-		.flex(1, 0, 6em, 1);
+		justify-content: space-between;
+		width: 6em; // Fallback for flex-basis
+		flex: 1 0 6em;
+		order: 1;
 		margin: 0.5em 1.25em 2em 0;
 		word-wrap: break-word;
 	}

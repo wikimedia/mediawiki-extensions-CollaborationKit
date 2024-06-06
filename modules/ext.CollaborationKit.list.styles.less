@@ -54,20 +54,19 @@
 
 /* Multilist stuff */
 .mw-ck-multilist {
-	.flex-display;
-	.flex-wrap;
+	display: flex;
+	flex-wrap: wrap;
 	margin: 0 -0.5em;
 
 	.mw-ck-list-column {
 		float: left; // IE9 workaround, maybe
-		.flex();
+		justify-content: space-between;
+		width: 25em; // Fallback for flex-basis
+		flex: 1 1 25em;
+		order: 1;
 		margin: 0.5em;
 		min-width: 20em; // Todo something smarter for mobile/genuinely narrow things?
 		max-width: 35em;
-		-webkit-flex-basis: 25em;
-		-moz-flex-basis: 25em;
-		-ms-flex-basis: 25em;
-		flex-basis: 25em;
 		box-sizing: border-box;
 	}
 
