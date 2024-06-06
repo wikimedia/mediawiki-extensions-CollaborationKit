@@ -552,7 +552,7 @@ class CollaborationHubContent extends JsonContent {
 			$announcementsHeader = Html::rawElement(
 				'h3',
 				[],
-				$announcementsSubpageName . $announcementsEditButton
+				htmlspecialchars( $announcementsSubpageName ) . $announcementsEditButton
 			);
 
 			return $announcementsHeader . $announcementsText;

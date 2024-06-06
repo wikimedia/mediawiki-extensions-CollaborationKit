@@ -47,7 +47,7 @@ class CollaborationHubTOC {
 	 */
 	public function renderToC( $content ) {
 		$html = Html::openElement( 'div', [ 'class' => 'mw-ck-toc-container' ] );
-		$html .= Html::rawElement(
+		$html .= Html::element(
 			'div',
 			[ 'class' => 'mw-ck-toc-label' ],
 			wfMessage( 'collaborationkit-hub-toc-label' )
