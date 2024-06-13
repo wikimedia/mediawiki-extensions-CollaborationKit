@@ -9,7 +9,16 @@
  * @file
  */
 
+use MediaWiki\Content\TextContentHandler;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Context\RequestContext;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Request\DerivativeRequest;
+use MediaWiki\Status\Status;
+use MediaWiki\Title\Title;
 
 class CollaborationHubContentHandler extends TextContentHandler {
 

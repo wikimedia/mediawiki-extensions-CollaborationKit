@@ -15,8 +15,17 @@
  * @file
  */
 
+use MediaWiki\Content\JsonContent;
 use MediaWiki\Extension\EventLogging\EventLogging;
+use MediaWiki\Extension\EventLogging\Libs\JsonSchemaValidation\JsonSchemaException;
+use MediaWiki\Html\Html;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use PageImages\PageImages;
 
 class CollaborationListContent extends JsonContent {
@@ -36,7 +45,7 @@ class CollaborationListContent extends JsonContent {
 	protected $description;
 	/** @var StdClass Options for page */
 	protected $options;
-	/** @var $items array List of columns */
+	/** @var array List of columns */
 	protected $columns;
 	/** @var string The variety of list */
 	protected $displaymode;

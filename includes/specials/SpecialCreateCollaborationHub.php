@@ -7,6 +7,12 @@
  * @file
  */
 
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Request\DerivativeRequest;
+use MediaWiki\SpecialPage\SpecialPage;
+use MediaWiki\Status\Status;
+use MediaWiki\Title\Title;
+
 class SpecialCreateCollaborationHub extends SpecialPage {
 	/** @var int */
 	protected $titleNs;

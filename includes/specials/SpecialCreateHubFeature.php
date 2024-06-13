@@ -7,7 +7,12 @@
  * @file
  */
 
+use MediaWiki\Context\DerivativeContext;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\DerivativeRequest;
+use MediaWiki\SpecialPage\FormSpecialPage;
+use MediaWiki\Status\Status;
+use MediaWiki\Title\Title;
 
 class SpecialCreateHubFeature extends FormSpecialPage {
 
