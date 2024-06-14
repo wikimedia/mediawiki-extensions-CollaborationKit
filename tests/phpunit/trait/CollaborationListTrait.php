@@ -1,5 +1,7 @@
 <?php
 
+use MediaWiki\Json\FormatJson;
+
 trait CollaborationListTrait {
 
 	/**

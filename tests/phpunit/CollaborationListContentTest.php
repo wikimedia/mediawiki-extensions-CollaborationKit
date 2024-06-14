@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\Content\JsonContent;
 use MediaWiki\MediaWikiServices;
 use Wikimedia\TestingAccessWrapper;
 

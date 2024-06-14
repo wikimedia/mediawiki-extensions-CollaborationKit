@@ -1,7 +1,14 @@
 <?php
 
+use MediaWiki\Content\TextContentHandler;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\DerivativeRequest;
+use MediaWiki\Status\Status;
+use MediaWiki\Title\Title;
 
 /**
  * Content handler for CollaborationListContent.

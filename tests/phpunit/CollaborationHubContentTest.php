@@ -1,5 +1,9 @@
 <?php
 
+use MediaWiki\Content\JsonContent;
+use MediaWiki\Json\FormatJson;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Title\Title;
 use Wikimedia\TestingAccessWrapper;
 
 /**

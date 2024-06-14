@@ -7,6 +7,12 @@
  * @file
  */
 
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Html\Html;
+use MediaWiki\HTMLForm\HTMLForm;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Request\WebRequest;
+
 class CollaborationHubContentEditor extends EditPage {
 
 	/** @var string */

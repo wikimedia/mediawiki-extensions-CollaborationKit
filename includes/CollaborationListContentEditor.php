@@ -8,6 +8,11 @@
  * @file
  */
 
+use MediaWiki\EditPage\EditPage;
+use MediaWiki\Html\Html;
+use MediaWiki\HTMLForm\HTMLForm;
+use MediaWiki\Request\WebRequest;
+
 class CollaborationListContentEditor extends EditPage {
 
 	public function __construct( Article $page ) {

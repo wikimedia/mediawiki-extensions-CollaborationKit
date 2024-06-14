@@ -6,6 +6,8 @@
  * @file
  */
 
+use MediaWiki\SpecialPage\IncludableSpecialPage;
+
 class SpecialCollaborationKitIcons extends IncludableSpecialPage {
 
 	public function __construct() {
