@@ -9,16 +9,21 @@
  * @file
  */
 
+use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\TextContentHandler;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Html\Html;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\DerivativeRequest;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
+use OOUI\BlankTheme;
+use OOUI\Theme;
 
 class CollaborationHubContentHandler extends TextContentHandler {
 
@@ -39,6 +44,149 @@ class CollaborationHubContentHandler extends TextContentHandler {
 		// self::FORMAT_WIKI and the preferred format for db be
 		// CONTENT_FORMAT_JSON. Unclear if that's possible.
 		parent::__construct( $modelId, $formats );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function fillParserOutput(
+		Content $content,
+		ContentParseParams $cpoParams,
+		ParserOutput &$output
+	) {
+		'@phan-var CollaborationHubContent $content';
+		/** @var CollaborationHubContent $content */
+		$page = $cpoParams->getPage();
+		$titleFactory = MediaWikiServices::getInstance()->getTitleFactory();
+		$title = $titleFactory->newFromPageReference( $page );
+		$revId = $cpoParams->getRevId();
+		$options = $cpoParams->getParserOptions();
+
+		$parser = MediaWikiServices::getInstance()->getParser();
+		$content->decode();
+
+		OutputPage::setupOOUI();
+
+		// Dummy parse intro and footer to get categories and page info for the actual
+		// content of *this* page, essentially setting up our real ParserOutput
+		$output = $parser->parse(
+			$content->getIntroduction() . $content->getFooter(),
+			$title,
+			$options,
+			true,
+			true,
+			$revId
+		);
+
+		$parser->addTrackingCategory( 'collaborationkit-hub-tracker' );
+
+		// Let's just assume we'll probably need this...
+		// (tells our ParserOutputPostCacheTransform hook to look for post-cache buttons etc)
+		$output->setExtensionData( 'ck-editmarkers', true );
+
+		// Change $options a bit for the rest of this
+		// We may or may not want limit reporting for every piece; we can put this back on
+		// later if it turns out we actually do (and only disable it for the header/footer,
+		// where it should already be included per the above, I think?)
+		$options->enableLimitReport( false );
+
+		$html = '';
+
+		// If error, then bypass all this and just show the offending JSON
+
+		if ( $content->displaymode == 'error' ) {
+			$html = '<div class=errorbox>'
+			. wfMessage( 'collaborationkit-hub-invalid' )->escaped()
+			. "</div>\n<pre>"
+			. $content->errortext
+			. '</pre>';
+			$output->setText( $html );
+		} else {
+			// set up hub with theme stuff
+			$html .= Html::openElement(
+				'div',
+				[ 'class' => $content->getHubClasses() ]
+			);
+			// get page image
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-image' ],
+				$content->getParsedImage( $content->getImage(), 200 )
+			);
+			// get members list
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-members' ],
+				$content->getMembersBlock( $title, $options, $output )
+			);
+			// get parsed intro
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-intro' ],
+				$content->getParsedIntroduction( $title, $options )
+			);
+			// get announcements
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-announcements' ],
+				$content->getParsedAnnouncements( $title, $options )
+			);
+			// get table of contents
+			if ( count( $content->getContent() ) > 0 ) {
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => [ 'mw-ck-hub-toc', 'toc' ] ],
+					$content->getTableOfContents( $title, $options )
+				);
+			}
+
+			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
+
+			// get transcluded content
+			$html .= Html::rawElement(
+				'div',
+				[ 'class' => 'mw-ck-hub-content' ],
+				$content->getParsedContent( $title, $options, $output )
+			);
+
+			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
+
+			// get main footer: bottom text under the content
+			$footerText = $content->getParsedFooter( $title, $options );
+			// only show if it's likely to contain anything visible
+			if ( strlen( trim( $footerText ) ) > 0 ) {
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-hub-footer' ],
+					$footerText
+				);
+			}
+
+			if ( !$options->getIsPreview() ) {
+				$html .= Html::rawElement(
+					'div',
+					[ 'class' => 'mw-ck-hub-footer-actions' ],
+					$content->getSecondFooter( $title )
+				);
+			}
+
+			$html .= Html::closeElement( 'div' );
+
+			$output->setText( $html );
+
+			// Add some style stuff
+			$output->addModuleStyles( [
+				'ext.CollaborationKit.hub.styles',
+				'oojs-ui.styles.icons-editing-core',
+				'ext.CollaborationKit.icons',
+				'ext.CollaborationKit.blots',
+				'ext.CollaborationKit.list.styles'
+			] );
+			$output->addModules( [
+				'ext.CollaborationKit.list.members'
+			] );
+			$output->setEnableOOUI( true );
+		}
 	}
 
 	/**
@@ -216,6 +364,8 @@ JSON;
 		if ( !$parserOutput->getExtensionData( 'ck-editmarkers' ) ) {
 			return true;
 		}
+
+		Theme::setSingleton( new BlankTheme() );
 
 		// This is a tad dumb, but if it doesn't follow this format exactly it didn't come
 		// from here anyway. Or we broke it. Either or.

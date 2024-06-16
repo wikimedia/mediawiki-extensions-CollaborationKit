@@ -22,6 +22,7 @@ use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Parser\Sanitizer;
+use MediaWiki\Revision\RevisionAccessException;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Title\Title;
@@ -51,13 +52,13 @@ class CollaborationHubContent extends JsonContent {
 	protected $themeColour;
 
 	/** @var string How to display contents */
-	protected $displaymode;
+	public $displaymode;
 
 	/** @var bool Whether contents have been populated */
 	protected $decoded = false;
 
 	/** @var string Error message text */
-	protected $errortext;
+	public $errortext;
 
 	/**
 	 * 10 preset colours; actual colour values are set in the extension.json and
@@ -116,7 +117,7 @@ class CollaborationHubContent extends JsonContent {
 	/**
 	 * Decode the JSON contents and populate protected variables
 	 */
-	protected function decode() {
+	public function decode() {
 		if ( $this->decoded ) {
 			return;
 		}
@@ -237,151 +238,12 @@ class CollaborationHubContent extends JsonContent {
 	}
 
 	/**
-	 * Fill $output with information derived from the content.
-	 *
-	 * @param Title $title
-	 * @param int $revId
-	 * @param ParserOptions $options
-	 * @param bool $generateHtml
-	 * @param ParserOutput &$output
-	 */
-	protected function fillParserOutput( Title $title, $revId,
-		ParserOptions $options, $generateHtml, ParserOutput &$output
-	) {
-		$parser = MediaWikiServices::getInstance()->getParser();
-		$this->decode();
-
-		OutputPage::setupOOUI();
-
-		// Dummy parse intro and footer to get categories and page info for the actual
-		// content of *this* page, essentially setting up our real ParserOutput
-		$output = $parser->parse(
-			$this->getIntroduction() . $this->getFooter(),
-			$title,
-			$options,
-			true,
-			true,
-			$revId
-		);
-
-		$parser->addTrackingCategory( 'collaborationkit-hub-tracker' );
-
-		// Let's just assume we'll probably need this...
-		// (tells our ParserOutputPostCacheTransform hook to look for post-cache buttons etc)
-		$output->setExtensionData( 'ck-editmarkers', true );
-
-		// Change $options a bit for the rest of this
-		// We may or may not want limit reporting for every piece; we can put this back on
-		// later if it turns out we actually do (and only disable it for the header/footer,
-		// where it should already be included per the above, I think?)
-		$options->enableLimitReport( false );
-
-		$html = '';
-
-		// If error, then bypass all this and just show the offending JSON
-
-		if ( $this->displaymode == 'error' ) {
-			$html = '<div class=errorbox>'
-			. wfMessage( 'collaborationkit-hub-invalid' )->escaped()
-			. "</div>\n<pre>"
-			. $this->errortext
-			. '</pre>';
-			$output->setText( $html );
-		} else {
-			// set up hub with theme stuff
-			$html .= Html::openElement(
-				'div',
-				[ 'class' => $this->getHubClasses() ]
-			);
-			// get page image
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-image' ],
-				$this->getParsedImage( $this->getImage(), 200 )
-			);
-			// get members list
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-members' ],
-				$this->getMembersBlock( $title, $options, $output )
-			);
-			// get parsed intro
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-intro' ],
-				$this->getParsedIntroduction( $title, $options )
-			);
-			// get announcements
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-announcements' ],
-				$this->getParsedAnnouncements( $title, $options )
-			);
-			// get table of contents
-			if ( count( $this->getContent() ) > 0 ) {
-				$html .= Html::rawElement(
-					'div',
-					[ 'class' => [ 'mw-ck-hub-toc', 'toc' ] ],
-					$this->getTableOfContents( $title, $options )
-				);
-			}
-
-			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
-
-			// get transcluded content
-			$html .= Html::rawElement(
-				'div',
-				[ 'class' => 'mw-ck-hub-content' ],
-				$this->getParsedContent( $title, $options, $output )
-			);
-
-			$html .= Html::element( 'div', [ 'style' => 'clear:both' ] );
-
-			// get main footer: bottom text under the content
-			$footerText = $this->getParsedFooter( $title, $options );
-			// only show if it's likely to contain anything visible
-			if ( strlen( trim( $footerText ) ) > 0 ) {
-				$html .= Html::rawElement(
-					'div',
-					[ 'class' => 'mw-ck-hub-footer' ],
-					$footerText
-				);
-			}
-
-			if ( !$options->getIsPreview() ) {
-				$html .= Html::rawElement(
-					'div',
-					[ 'class' => 'mw-ck-hub-footer-actions' ],
-					$this->getSecondFooter( $title )
-				);
-			}
-
-			$html .= Html::closeElement( 'div' );
-
-			$output->setText( $html );
-
-			// Add some style stuff
-			$output->addModuleStyles( [
-				'ext.CollaborationKit.hub.styles',
-				'oojs-ui.styles.icons-editing-core',
-				'ext.CollaborationKit.icons',
-				'ext.CollaborationKit.blots',
-				'ext.CollaborationKit.list.styles'
-			] );
-			$output->addModules( [
-				'ext.CollaborationKit.list.members'
-			] );
-			$output->setEnableOOUI( true );
-		}
-	}
-
-	/**
 	 * Helper function for fillParserOutput to get all the css classes for the
 	 * page content
 	 *
 	 * @return array
 	 */
-	protected function getHubClasses() {
+	public function getHubClasses() {
 		$colour = $this->getThemeColour();
 
 		$classes = [
@@ -407,7 +269,7 @@ class CollaborationHubContent extends JsonContent {
 	 *  for testing purposes
 	 * @return string
 	 */
-	protected function getMembersBlock( Title $title, ParserOptions $options,
+	public function getMembersBlock( Title $title, ParserOptions $options,
 		ParserOutput $output, $membersContent = null
 	) {
 		$services = MediaWikiServices::getInstance();
@@ -512,7 +374,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOptions $options
 	 * @return string
 	 */
-	protected function getParsedIntroduction( Title $title, ParserOptions $options ) {
+	public function getParsedIntroduction( Title $title, ParserOptions $options ) {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$tempOutput = $parser->parse( $this->getIntroduction(), $title, $options );
 
@@ -527,7 +389,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param string|null $announcementsText Force-fed announcements HTML for testing purposes
 	 * @return string
 	 */
-	protected function getParsedAnnouncements( Title $title, ParserOptions $options,
+	public function getParsedAnnouncements( Title $title, ParserOptions $options,
 		$announcementsText = null
 	) {
 		$announcementsSubpageName = wfMessage( 'collaborationkit-hub-pagetitle-announcements' )
@@ -544,9 +406,9 @@ class CollaborationHubContent extends JsonContent {
 			if ( $announcementsText === null ) {
 				$announcementsWikiPage = MediaWikiServices::getInstance()->getWikiPageFactory()
 					->newFromTitle( $announcementsTitle );
-				$announcementsOutput = $announcementsWikiPage
-					->getContent()
-					->getParserOutput( $announcementsTitle );
+				$announcementsOutput = MediaWikiServices::getInstance()
+					->getContentRenderer()
+					->getParserOutput( $announcementsWikiPage->getContent(), $announcementsWikiPage );
 				$announcementsText = $this->getTrimmedText( $announcementsOutput );
 			}
 
@@ -577,7 +439,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOptions $options
 	 * @return string
 	 */
-	protected function getParsedFooter( Title $title, ParserOptions $options ) {
+	public function getParsedFooter( Title $title, ParserOptions $options ) {
 		$parser = MediaWikiServices::getInstance()->getParser();
 		$tempOutput = $parser->parse( $this->getFooter(), $title, $options );
 
@@ -590,7 +452,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param Title $title
 	 * @return string
 	 */
-	protected function getSecondFooter( Title $title ) {
+	public function getSecondFooter( Title $title ) {
 		$html = '';
 
 		$html .= $this->makeActionButton(
@@ -630,7 +492,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOutput $output
 	 * @return string
 	 */
-	protected function getParsedContent( Title $title, ParserOptions $options,
+	public function getParsedContent( Title $title, ParserOptions $options,
 		ParserOutput $output
 	) {
 		$parser = MediaWikiServices::getInstance()->getParser();
@@ -656,11 +518,19 @@ class CollaborationHubContent extends JsonContent {
 
 			if ( isset( $spRev ) ) {
 				// DO CONTENT FROM PAGE
-				/** @var CollaborationHubContent $spContent */
+				/** @var ?Content $spContent */
 				$spContent = $spRev->getContent( SlotRecord::MAIN );
 				$spContentModel = $spRev->getSlot( SlotRecord::MAIN )->getModel();
 
+				$isSuppressedOrCorrupt = $spContent === null;
+				if ( $isSuppressedOrCorrupt ) {
+					throw new RevisionAccessException( 'Revision is suppressed or corrupt.' );
+				}
+				'@phan-var Content $spContent';
+
 				if ( $spContentModel == 'CollaborationHubContent' ) {
+					/** @var CollaborationHubContent $spContent */
+
 					// this is dumb, but we'll just rebuild the intro here for now
 					$text = Html::rawElement(
 						'div',
@@ -669,8 +539,9 @@ class CollaborationHubContent extends JsonContent {
 					);
 					$text .= $spContent->getParsedIntroduction( $spTitle, $options );
 				} elseif ( $spContentModel == 'CollaborationListContent' ) {
-					// convert to wikitext with maxItems limit in place
 					/** @var CollaborationListContent $spContent */
+
+					// convert to wikitext with maxItems limit in place
 					$wikitext = $spContent->convertToWikitext(
 						$lang,
 						[
@@ -683,6 +554,8 @@ class CollaborationHubContent extends JsonContent {
 					$text = $parser->parse( $wikitext, $title, $options );
 					$text = $this->getTrimmedText( $text );
 				} elseif ( $spContentModel == 'wikitext' ) {
+					/** @var WikitextContent $spContent */
+
 					// to grab first section only
 					$spContent = $spContent->getSection( 0 );
 
@@ -702,7 +575,9 @@ class CollaborationHubContent extends JsonContent {
 					$output->addModuleStyles( $parsedWikitext->getModuleStyles() );
 				} else {
 					// Parse whatever (else) as whatever
-					$contentOutput = $spContent->getParserOutput( $spTitle, $spRev->getId(), $options );
+					$contentOutput = MediaWikiServices::getInstance()
+						->getContentRenderer()
+						->getParserOutput( $spContent, $spTitle, $spRev->getId(), $options );
 					$output->addModuleStyles( $contentOutput->getModuleStyles() );
 					$text = $contentOutput->getRawText();
 				}
@@ -966,7 +841,7 @@ class CollaborationHubContent extends JsonContent {
 	 * @param ParserOptions $options
 	 * @return string
 	 */
-	protected function getTableOfContents( Title $title, ParserOptions $options ) {
+	public function getTableOfContents( Title $title, ParserOptions $options ) {
 		$toc = new CollaborationHubTOC();
 		return $toc->renderToC( $this->content );
 	}
