@@ -46,7 +46,7 @@
 		"ResourceLoaderListStyleModule": "includes/ResourceLoaderListStyleModule.php"
 	},
 	"TestAutoloadClasses": {
-		"CollaborationListTrait": "tests/phpunit/trait/CollaborationListTrait.php"
+		"CollaborationListTrait": "tests/phpunit/CollaborationListTrait.php"
 	},
 	"ContentHandlers": {
 		"CollaborationHubContent": "CollaborationHubContentHandler",
