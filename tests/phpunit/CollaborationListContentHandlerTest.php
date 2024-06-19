@@ -6,6 +6,7 @@ use Wikimedia\TestingAccessWrapper;
 
 /**
  * @covers CollaborationListContentHandler
+ * @group Database
  */
 class CollaborationListContentHandlerTest extends MediaWikiIntegrationTestCase {
 	use CollaborationListTrait;
@@ -66,5 +67,49 @@ class CollaborationListContentHandlerTest extends MediaWikiIntegrationTestCase {
 		static::assertInstanceOf( CollaborationListContent::class, $output );
 		static::assertTrue( $content === $output,
 			'Method should have returned object itself due to invalid content' );
+	}
+
+	/**
+	 * @covers \CollaborationListContentHandler::fillParserOutput()
+	 */
+	public function testCollaborationListDoesntDisplayJson() {
+		// Create a project namespace called 'Wikipedia'
+		$this->overrideConfigValue( 'Sitename', 'Wikipedia' );
+
+		$title = $this->getServiceContainer()->getTitleFactory()->newFromText( 'Wikipedia:Hub/Members' );
+
+		$json = <<<EOL
+{
+    "columns": [
+        {
+            "items": [
+                {
+                    "title": "User:Admin",
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "options": {
+        "mode": "normal"
+    },
+    "displaymode": "members",
+    "description": "Our members are below. Those who have not edited in over a month are moved to the inactive section."
+}
+EOL;
+
+		$content = ContentHandler::makeContent(
+			$json,
+			$title,
+			'CollaborationListContent'
+		);
+
+		$contentRenderer = $this->getServiceContainer()->getContentRenderer();
+
+		$parserOutput = $contentRenderer->getParserOutput( $content, $title );
+
+		$html = $parserOutput->getText();
+
+		$this->assertStringContainsString( 'id="Active_members"', $html );
 	}
 }
