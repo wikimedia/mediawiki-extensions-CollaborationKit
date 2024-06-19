@@ -23,7 +23,6 @@ use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\Parser;
-use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 use PageImages\PageImages;
@@ -44,14 +43,14 @@ class CollaborationListContent extends JsonContent {
 	/** @var string Descripton wikitext */
 	protected $description;
 	/** @var StdClass Options for page */
-	protected $options;
+	public $options;
 	/** @var array List of columns */
 	protected $columns;
 	/** @var string The variety of list */
-	protected $displaymode;
+	public $displaymode;
 
 	/** @var string Error message text */
-	protected $errortext;
+	public $errortext;
 
 	/**
 	 * @param string $text
@@ -159,7 +158,7 @@ class CollaborationListContent extends JsonContent {
 	/**
 	 * Decode the JSON contents and populate protected variables.
 	 */
-	protected function decode() {
+	public function decode() {
 		if ( $this->decoded ) {
 			return;
 		}
@@ -194,60 +193,6 @@ class CollaborationListContent extends JsonContent {
 	}
 
 	/**
-	 * Fill $output with information derived from the content.
-	 *
-	 * @param Title $title
-	 * @param int $revId Revision ID
-	 * @param ParserOptions $options
-	 * @param bool $generateHtml
-	 * @param ParserOutput &$output
-	 */
-	protected function fillParserOutput( Title $title, $revId,
-		ParserOptions $options, $generateHtml, ParserOutput &$output
-	) {
-		$parser = MediaWikiServices::getInstance()->getParser();
-		$this->decode();
-
-		$lang = $options->getTargetLanguage();
-		if ( !$lang ) {
-			$lang = $title->getPageLanguage();
-		}
-
-		// If this is an error-type list (i.e. a schema-violating blob),
-		// just return the plain JSON.
-		if ( $this->displaymode == 'error' ) {
-			$errorText = '<div class=errorbox>' .
-				wfMessage( 'collaborationkit-list-invalid' )
-					->inLanguage( $lang )
-					->plain() .
-				"</div>\n<pre>" .
-				$this->errortext .
-				'</pre>';
-			$output = $parser->parse( $errorText, $title, $options, true, true,
-				$revId );
-			return;
-		}
-
-		$listOptions = $this->getFullRenderListOptions()
-			+ (array)$this->options
-			+ $this->getDefaultOptions();
-
-		// Preparing page contents
-		$text = $this->convertToWikitext( $lang, $listOptions );
-		$output = $parser->parse( $text, $title, $options, true, true, $revId );
-
-		$parser->addTrackingCategory( 'collaborationkit-list-tracker' );
-
-		// Special JS variable if this is a member list
-		if ( $this->displaymode == 'members' ) {
-			$isMemberList = true;
-		} else {
-			$isMemberList = false;
-		}
-		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $isMemberList );
-	}
-
-	/**
 	 * Get rendering options to use when directly viewing the list page
 	 *
 	 * These are used on direct page views, and plain wikitext
@@ -256,7 +201,7 @@ class CollaborationListContent extends JsonContent {
 	 * @todo FIXME These should maybe not be used during transclusion.
 	 * @return array Options
 	 */
-	private function getFullRenderListOptions() {
+	public function getFullRenderListOptions() {
 		return [
 			'includeDesc' => true,
 			'maxItems' => false,
