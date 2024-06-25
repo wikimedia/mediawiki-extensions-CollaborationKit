@@ -1,11 +1,13 @@
 <?php
 
+use MediaWiki\Content\Renderer\ContentParseParams;
 use MediaWiki\Content\TextContentHandler;
 use MediaWiki\Content\Transform\PreSaveTransformParams;
 use MediaWiki\Context\DerivativeContext;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Request\DerivativeRequest;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
@@ -35,6 +37,64 @@ class CollaborationListContentHandler extends TextContentHandler {
 		// self::FORMAT_WIKI and the preferred format for db be
 		// CONTENT_FORMAT_JSON. Unclear if that's possible.
 		parent::__construct( $modelId, $formats );
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	protected function fillParserOutput(
+		Content $content,
+		ContentParseParams $cpoParams,
+		ParserOutput &$output
+	) {
+		'@phan-var CollaborationListContent $content';
+		/** @var CollaborationListContent $content */
+		$page = $cpoParams->getPage();
+		$titleFactory = MediaWikiServices::getInstance()->getTitleFactory();
+		$title = $titleFactory->newFromPageReference( $page );
+		$revId = $cpoParams->getRevId();
+		$options = $cpoParams->getParserOptions();
+
+		$parser = MediaWikiServices::getInstance()->getParser();
+		$content->decode();
+
+		$lang = $options->getTargetLanguage();
+		if ( !$lang ) {
+			$lang = $title->getPageLanguage();
+		}
+
+		// If this is an error-type list (i.e. a schema-violating blob),
+		// just return the plain JSON.
+		if ( $content->displaymode == 'error' ) {
+			$errorText = '<div class=errorbox>' .
+				wfMessage( 'collaborationkit-list-invalid' )
+					->inLanguage( $lang )
+					->plain() .
+				"</div>\n<pre>" .
+				$content->errortext .
+				'</pre>';
+			$output = $parser->parse( $errorText, $title, $options, true, true,
+				$revId );
+			return;
+		}
+
+		$listOptions = $content->getFullRenderListOptions()
+			+ (array)$content->options
+			+ $content->getDefaultOptions();
+
+		// Preparing page contents
+		$text = $content->convertToWikitext( $lang, $listOptions );
+		$output = $parser->parse( $text, $title, $options, true, true, $revId );
+
+		$parser->addTrackingCategory( 'collaborationkit-list-tracker' );
+
+		// Special JS variable if this is a member list
+		if ( $content->displaymode == 'members' ) {
+			$isMemberList = true;
+		} else {
+			$isMemberList = false;
+		}
+		$output->addJsConfigVars( 'wgCollaborationKitIsMemberList', $isMemberList );
 	}
 
 	/**
@@ -188,6 +248,7 @@ JSON;
 	 */
 	public function preSaveTransform( Content $content, PreSaveTransformParams $pstParams ): Content {
 		'@phan-var CollaborationListContent $content';
+		/** @var CollaborationListContent $content */
 		$parser = MediaWikiServices::getInstance()->getParser();
 		// WikiPage::doEditContent invokes PST before validation. As such,
 		// native data may be invalid (though PST result is discarded later in
