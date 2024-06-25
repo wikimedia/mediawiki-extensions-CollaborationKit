@@ -1205,7 +1205,7 @@ class CollaborationListContent extends JsonContent {
 				'ext.CollaborationKit.list.ui',
 				'ext.CollaborationKit.list.members'
 			] );
-			$output->preventClickjacking();
+			$output->setPreventClickjacking( true );
 		}
 	}
 
