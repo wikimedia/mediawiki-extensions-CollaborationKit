@@ -1073,7 +1073,7 @@ class CollaborationListContent extends JsonContent {
 	private function filterActiveUsers( $userList ) {
 		if ( count( $userList ) > 0 ) {
 			$users = array_keys( $userList );
-			$dbr = wfGetDB( DB_REPLICA );
+			$dbr = MediaWikiServices::getInstance()->getDBLoadBalancer()->getConnection( DB_REPLICA );
 			$res = $dbr->select(
 				'querycachetwo',
 				'qcc_title',
